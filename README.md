@@ -3,6 +3,7 @@ COMP2012H group project - UST Students vs Assignments
 
 # Project details
 Project name: UST Students vs Assignments
+
 Project type: Tower Deference game
 
 # Project structure
