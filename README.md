@@ -23,7 +23,7 @@ to be confirmed
 # Start working
 1. **clone** this repo to your local machine (i.e. your PC)
 2.  create a new **branch** with **semantic** name (never use branch1, branchA, etc) in your local project
-3. work on your new local branch, make **commits** with **semantic names**
+3. work on your new local branch, make **commits** with **semantic** names
 4. **push** your new **branch** to this repo
 5. create a new **pull request** to dev branch
 6. done
