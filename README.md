@@ -13,6 +13,9 @@ Project type: Tower Defence game
 ├── docs/                   # Documentation files (we will do it on Hackmd tho)
 ├── src/                    # Source files
 │   ├── main/               # Source codes (.cpp .hpp .h etc)
+│   ├── enemy/              # enemy interface and implementations
+│   ├── tower/              # tower interface and implementations
+│   ├── utility/            # utilities
 ├── res/                    # Resource file (graphics, etc)
 ├── test/                   # Automated tests (may not have due to time limit)
 ├── LICENSE
