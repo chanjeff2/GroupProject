@@ -15,7 +15,8 @@ Project type: Tower Defence game
 │   ├── main/               # Source codes (.cpp .hpp .h etc)
 │   ├── enemy/              # enemy interface and implementations
 │   ├── tower/              # tower interface and implementations
-│   ├── utility/            # utilities
+│   ├── map/                # game map and cell
+│   ├── utility/            # utilities and game values
 ├── res/                    # Resource file (graphics, etc)
 ├── test/                   # Automated tests (may not have due to time limit)
 ├── LICENSE
