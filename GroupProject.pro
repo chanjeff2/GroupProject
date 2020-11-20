@@ -21,8 +21,11 @@ SOURCES += \
     src/tower/ITower.cpp \
 	src/tower/targetSelect/ITargetSelectionStrategy.cpp \
     src/utility/EnemyUtility.cpp \
+	src/utility/GPAManager.cpp \
 	src/utility/PathFindingUtility.cpp \
-	src/utility/TowerUtility.cpp
+	src/utility/ResourceManager.cpp \
+	src/utility/TowerUtility.cpp \
+	src/utility/WeekManager.cpp
 
 HEADERS += \
     src/enemy/FocusManager.h \
@@ -36,9 +39,12 @@ HEADERS += \
     src/tower/ITower.h \
 	src/tower/targetSelect/ITargetSelectionStrategy.h \
     src/utility/EnemyUtility.h \
+	src/utility/GPAManager.h \
     src/utility/GameValues.h \
 	src/utility/PathFindingUtility.h \
-	src/utility/TowerUtility.h
+	src/utility/ResourceManager.h \
+	src/utility/TowerUtility.h \
+	src/utility/WeekManager.h
 
 FORMS += \
     src/main/mainwindow.ui
