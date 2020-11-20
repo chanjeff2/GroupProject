@@ -27,6 +27,10 @@ const float MAX_GPA = 4.3;
 
 // resources
 const float REDEMPTION_RATIO = 0.5; // how much resource user get back after destroying tower
+const int STARTING_RESOURCE = 5;
+const int NUM_OF_RESOURCE_CAPACITY = 5;
+const int RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY] = {10, 20, 40, 80, 160}; // just random number
+const float RESOURCE_CAPACITY_RATIO_TO_UPGRADE = 0.6;
 
 // week (wave)
 const int WEEK_COOLDOWN = 3; // (in sec) cooldown before user can manually proceed to next week
