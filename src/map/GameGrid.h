@@ -21,85 +21,23 @@ class GameGrid
 	PathFindingUtility pathFindingUtility;
 
 public:
-	GameGrid() {
-		// init grid
-		for (int x = 0; x < NUM_OF_COL; ++x) {
-			for (int y = 0; y < NUM_OF_ROW; ++y) {
-				grid[x][y] = new Cell(x, y);
-			}
-		}
-	}
-	~GameGrid() {
-		// delete grid
-		// and also all positible pointer?
-		for (int x = 0; x < NUM_OF_COL; ++x) {
-			for (int y = 0; y < NUM_OF_ROW; ++y) {
-				delete grid[x][y]; // delete cells
-			}
-		}
-
-	}
+	GameGrid();
+	~GameGrid();
 
 	// getter
-	static const Cell *getCell(int x, int y) {
-		return grid[x][y];
-	}
+	static const Cell *getCell(int x, int y);
 
 	/* can place -> true
 	 * can't, i.e. cell contain tower/enemy/will block path -> false */
-	bool canPlaceTower(int x, int y) {
-		Cell *cell = grid[x][y];
-		set<IEnemy*> enemies = enemyUtility.enemies;
-
-		// Check if the cell is occupied with tower
-		if (cell->tower != NULL) {
-			return false;
-		}
-
-		// check if the cell is occupied with any enemy
-		for (auto enemy: enemies) {
-			if (enemy->getPathToTake()[0]->x == x && enemy->getPathToTake()[0]->y == y)
-				return false;
-		}
-
-		set<Cell*> newTowerPositions = towerUtility.positionOfTowers;
-		newTowerPositions.insert(cell);
-
-		// validate path
-		if (!validateTowerPlacement(newTowerPositions)) {
-			return false;
-		}
-
-		return true;
-	}
+	bool canPlaceTower(int x, int y);
 
 	/* success -> true
 	 * fail -> false */
-	bool placeTower(int x, int y, TowerType towerType) {
-		if (canPlaceTower(x, y)) {
-			Cell *cell = grid[x][y];
-			towerUtility.placeTower(towerType, cell);
-			return true;
-		}
-		return false;
-	}
+	bool placeTower(int x, int y, TowerType towerType);
 
 	/* successfully remove tower -> true
 	 * failed -> false */
-	bool removeTower(int x, int y, IEnemy *enemies) {
-		Cell *cell = grid[x][y];
-		// check if have tower
-		if (cell->tower == nullptr)
-			return false;
-
-		// remove
-		towerUtility.removeTower(cell);
-
-		// update path of enemies
-		updatePath(enemies, grid);
-
-		return true;
-	}
+	bool removeTower(int x, int y);
 };
 
 #endif // GAMEGRID_H
