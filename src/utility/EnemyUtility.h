@@ -12,38 +12,13 @@ class IEnemy;
 class EnemyUtility
 {
 public:
-	set<IEnemy*> enemies; // all enemies
+    set<IEnemy*> enemies; // all enemies
 
-		~EnemyUtility() {
-			for (IEnemy *enemy: enemies) {
-				delete enemy;
-			}
-		}
+        EnemyUtility();
+        ~EnemyUtility();
 
-		void generateEnemy(EnemyType enemyType) {
-			switch(enemyType) {
-//				case EnemyType::Foo:
-//					 enemies.insert(new Foo(position));
-//					 break;
-//				case EnemyType::Bar:
-//					 enemies.insert(new Bar(position));
-//					 break;
-//				...
-			}
-		}
-
-		void killEnemy(IEnemy* enemy) {
-			// find &enemy in ememies and remove
-			enemies.erase(enemy);
-
-			delete enemy;
-
-			// check if any remaining enemy
-			if (/*no more enemy remain*/true || /*no more enemy to spawn*/ true) {
-			// proceed to next week or end game
-//				prepareForNextWeek()
-			}
-		}
+        void generateEnemy(EnemyType enemyType);
+        void killEnemy(IEnemy* enemy);
 };
 
 #endif // ENEMYUTILITY_H
