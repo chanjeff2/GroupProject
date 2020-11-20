@@ -1,8 +1,10 @@
 #ifndef IENEMY_H
 #define IENEMY_H
 
-#include <vector>
+#include <deque>
 using namespace std;
+
+#include <QObject>
 
 #include "src/map/cell.h"
 #include "src/utility/GameValues.h"
@@ -10,7 +12,7 @@ using namespace std;
 #include "src/utility/EnemyUtility.h"
 #include "ModManager.h"
 
-class IEnemy {
+class IEnemy: public QObject {
 protected:
 	// data member
 	EnemyType enemyType; // identify type of enemies, starting from 100
@@ -19,12 +21,13 @@ protected:
 	int worth; // How much does the enemy worth
 	int armor; // Armor points
 	bool canSlow; // Immunity to slowness
-	Cell *currentPosition;
-	vector<Cell*> pathToTake; // linked list of cells follow the sequence of path to take to reach the end
+//	Cell *currentPosition;
+	deque<Cell*> pathToTake; // pathToTake[0] = currentPosition
 	int distanceFromEnd;
+	EnemyUtility *enemyUtility; // keep ref to EnemyUtility to perform destroy
 
 	// protected constructor to prevent direct instantiation
-	IEnemy();
+	IEnemy(EnemyUtility *enemyUtility);
 
 	// methods
 	void move();
@@ -41,6 +44,7 @@ public:
 	int getRawSpeed() const;
 	int getRawArmor() const;
 	bool getCanSlow() const;
+	const deque<Cell*> &getPathToTake() const;
 
 	// methods
 	void receiveDamage(int damage);

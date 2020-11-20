@@ -96,9 +96,9 @@ void FocusManager::requestAddAuraEffectIfNeed() {
 // for both attack and aura effect
 void FocusManager::requestUpdateFocus() {
 	for(ITower* tower: towersAttacking) {
-		tower->attackStrategy.checkFocusedEnemyInRange();
+		tower->attackStrategy->checkFocusedEnemyInRange();
 	}
 	for(ITower* tower: towersApplyingAura) {
-		tower->auraEffectStrategy.removeAuraEffectOfEnemyIfNeed();
+		tower->auraEffectStrategy->removeAuraEffectOfEnemyIfNeed();
 	}
 }

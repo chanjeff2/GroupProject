@@ -23,10 +23,10 @@ public:
 		void generateEnemy(EnemyType enemyType) {
 			switch(enemyType) {
 //				case EnemyType::Foo:
-//					 enemies.insert(new Foo(position));
+//					 enemies.insert(new Foo(this));
 //					 break;
 //				case EnemyType::Bar:
-//					 enemies.insert(new Bar(position));
+//					 enemies.insert(new Bar(this));
 //					 break;
 //				...
 			}

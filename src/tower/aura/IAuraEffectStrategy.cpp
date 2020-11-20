@@ -27,9 +27,9 @@ void IAuraEffectStrategy::removeAuraEffectOfEnemyIfNeed() {
 	// loop over all aura affected enemies
 	for(auto it = this->auraAffectedEnemies.begin(); it != this->auraAffectedEnemies.end(); /*don't add thing here*/) {
 		// if enemy is not in range/ died, clear foucs
-		if (enemiesInRange.find(it) == enemiesInRange.end()) {
-			it->focusManager.detachTowerAuraEffectObserver(this);
-			updateAuraEffect(it, false);
+		if (enemiesInRange.find(*it) == enemiesInRange.end()) {
+			(*it)->focusManager.detachTowerAuraEffectObserver(this->tower);
+			updateAuraEffect(*it, false);
 			it = this->auraAffectedEnemies.erase(it);
 		} else {
 			++it;
