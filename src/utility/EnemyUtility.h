@@ -14,11 +14,11 @@ class EnemyUtility
 public:
     set<IEnemy*> enemies; // all enemies
 
-        EnemyUtility();
-        ~EnemyUtility();
+    EnemyUtility();
+    ~EnemyUtility();
 
-        void generateEnemy(EnemyType enemyType);
-        void killEnemy(IEnemy* enemy);
+    void generateEnemy(EnemyType enemyType);
+    void killEnemy(IEnemy* enemy);
 };
 
 #endif // ENEMYUTILITY_H

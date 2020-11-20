@@ -20,7 +20,9 @@ SOURCES += \
 	src/tower/aura/IAuraEffectStrategy.cpp \
     src/tower/ITower.cpp \
 	src/tower/targetSelect/ITargetSelectionStrategy.cpp \
-    src/utility/EnemyUtility.cpp
+    src/utility/EnemyUtility.cpp \
+	src/utility/PathFindingUtility.cpp \
+	src/utility/TowerUtility.cpp
 
 HEADERS += \
     src/enemy/FocusManager.h \
@@ -34,7 +36,9 @@ HEADERS += \
     src/tower/ITower.h \
 	src/tower/targetSelect/ITargetSelectionStrategy.h \
     src/utility/EnemyUtility.h \
-    src/utility/GameValues.h
+    src/utility/GameValues.h \
+	src/utility/PathFindingUtility.h \
+	src/utility/TowerUtility.h
 
 FORMS += \
     src/main/mainwindow.ui

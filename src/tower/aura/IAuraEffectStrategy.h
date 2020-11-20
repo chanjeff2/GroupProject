@@ -18,7 +18,7 @@ protected:
 	set<IEnemy*> auraAffectedEnemies;
 
 	// methods
-	virtual void updateAuraEffect(IEnemy *enemy, bool isApply) = 0;
+	virtual void updateAuraEffect(IEnemy *enemy, bool isApply) = 0; // to be overrided
 
 	// constructor
 	IAuraEffectStrategy(ITower* tower);

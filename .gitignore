@@ -31,3 +31,6 @@
 *.out
 *.app
 *.pro.user
+*.autosave
+*.Debug
+*.Release
