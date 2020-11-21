@@ -1,3 +1,4 @@
+#include "src/utility/GameValues.h"
 #include "ModManager.h"
 #include "IEnemy.h"
 

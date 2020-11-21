@@ -4,11 +4,10 @@
 #include <set>
 using namespace std;
 
-#include "src/enemy/IEnemy.h"
-#include "src/tower/targetSelect/ITargetSelectionStrategy.h"
-
 // forward declaration
 class ITower;
+class IEnemy;
+class ITargetSelectionStrategy;
 
 class IAttackStrategy
 {

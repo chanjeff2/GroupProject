@@ -1,5 +1,8 @@
 #include "PathFindingUtility.h"
 #include "src/map/GameGrid.h"
+#include "src/map/cell.h"
+#include "src/utility/GameValues.h"
+#include "src/enemy/IEnemy.h"
 
 // constructor
 PathFindingUtility::PathFindingUtility(const set<Cell*> &positionOfTowers): entry(GameGrid::getCell(START[0], START[1])), deadline(GameGrid::getCell(END[0], END[1])) {

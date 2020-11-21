@@ -4,11 +4,10 @@
 #include <set>
 using namespace std;
 
-#include "GameValues.h"
-#include "src/map/cell.h"
-
 // forward declaration
 class ITower;
+class Cell;
+enum class TowerType;
 
 class TowerUtility
 {

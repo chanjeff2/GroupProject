@@ -4,10 +4,9 @@
 #include <set>
 using namespace std;
 
-#include "src/enemy/IEnemy.h"
-
 // forward declaration
 class ITower;
+class IEnemy;
 
 
 class IAuraEffectStrategy

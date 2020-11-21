@@ -4,10 +4,9 @@
 #include <set>
 using namespace std;
 
-#include "GameValues.h"
-
 // forward declaration
 class IEnemy;
+enum class EnemyType;
 
 class EnemyUtility
 {

@@ -1,5 +1,7 @@
 #include "TowerUtility.h"
 #include "src/tower/ITower.h"
+#include "GameValues.h"
+#include "src/map/cell.h"
 
 TowerUtility::TowerUtility() = default;
 TowerUtility::~TowerUtility() {

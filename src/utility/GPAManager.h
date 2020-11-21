@@ -1,11 +1,9 @@
 #ifndef GPAMANAGER_H
 #define GPAMANAGER_H
 
-#include "GameValues.h"
-
 class GPAManager
 {
-	float gpa = MAX_GPA; // score
+	float gpa; // score
 
 public:
 	GPAManager();

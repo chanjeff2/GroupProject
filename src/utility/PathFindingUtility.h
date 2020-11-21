@@ -5,9 +5,9 @@
 #include <set>
 using namespace std;
 
-#include "src/map/cell.h"
-#include "src/utility/GameValues.h"
-#include "src/enemy/IEnemy.h"
+// forward declaration
+class Cell;
+class IEnemy;
 
 class PathFindingUtility
 {

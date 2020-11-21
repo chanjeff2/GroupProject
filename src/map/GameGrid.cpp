@@ -1,4 +1,8 @@
 #include "GameGrid.h"
+#include "src/utility/GameValues.h"
+#include "src/tower/ITower.h"
+#include "src/enemy/IEnemy.h"
+#include "src/map/cell.h"
 
 GameGrid::GameGrid() {
 	// init grid

@@ -1,7 +1,8 @@
 #include "GPAManager.h"
+#include "GameValues.h"
 
 // constructor
-GPAManager::GPAManager() {}
+GPAManager::GPAManager(): gpa(MAX_GPA) {}
 
 // methods
 float GPAManager::getGPA() const {
