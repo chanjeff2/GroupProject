@@ -1,6 +1,7 @@
 #include "IEnemy.h"
 #include "src/utility/EnemyUtility.h"
-#include "FocusManager.h"
+#include "src/map/cell.h"
+#include "src/utility/GameValues.h"
 #include <QTimer>
 
 // constructor

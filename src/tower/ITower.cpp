@@ -1,4 +1,9 @@
 #include "ITower.h"
+#include "src/map/cell.h"
+#include "src/utility/GameValues.h"
+#include "src/enemy/IEnemy.h"
+#include "src/tower/attack/IAttackStrategy.h"
+#include "src/tower/aura/IAuraEffectStrategy.h"
 #include <cmath>
 
 // protected constructor -> prevent instantiation of ITower

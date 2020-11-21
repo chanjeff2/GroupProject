@@ -1,5 +1,7 @@
 #include "IAttackStrategy.h"
 #include "src/tower/ITower.h"
+#include "src/enemy/IEnemy.h"
+#include "src/tower/targetSelect/ITargetSelectionStrategy.h"
 
 // protected constructor
 IAttackStrategy::IAttackStrategy(ITower *tower): tower(tower) {}

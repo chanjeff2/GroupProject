@@ -4,9 +4,9 @@
 #include <map>
 using namespace std;
 
-#include "src/utility/GameValues.h"
 // forward declaration
 class IEnemy;
+enum class AuraType;
 
 class ModManager {
 public:

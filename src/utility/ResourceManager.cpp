@@ -1,6 +1,7 @@
 #include "ResourceManager.h"
+#include "GameValues.h"
 
-ResourceManager::ResourceManager() {
+ResourceManager::ResourceManager(): resource(STARTING_RESOURCE), resourceCapacityLevel(0) {
 }
 
 int ResourceManager::getResource() const {

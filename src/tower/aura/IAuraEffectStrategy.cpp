@@ -1,5 +1,6 @@
 #include "IAuraEffectStrategy.h"
 #include "src/tower/ITower.h"
+#include "src/enemy/IEnemy.h"
 
 // constructor
 IAuraEffectStrategy::IAuraEffectStrategy(ITower* tower) : tower(tower) {}

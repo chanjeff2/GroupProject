@@ -1,4 +1,5 @@
 #include "WeekManager.h"
+#include "GameValues.h"
 
 void WeekManager::goToNextWeek() {
 	// do nothing if week haven't cooldown

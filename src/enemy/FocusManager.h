@@ -4,21 +4,19 @@
 #include <set>
 using namespace std;
 
-#include "src/utility/GameValues.h"
-
 // forward declaration
 class IEnemy;
 class ITower;
-//enum class ModType;
+enum class AuraType;
 
 class FocusManager
 {
 	IEnemy *enemy;
 	set<ITower*> towersAttacking;
 	set<ITower*> towersApplyingAura;
-	int slowTowerInRange = 0;
-	int armorPiercingTowerInRange = 0;
-	int rageTowerInRange = 0;
+	int slowTowerInRange{0};
+	int armorPiercingTowerInRange{0};
+	int rageTowerInRange{0};
 
 public:
 	// constructor

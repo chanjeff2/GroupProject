@@ -6,11 +6,13 @@ using namespace std;
 
 #include <QObject>
 
-#include "src/map/cell.h"
-#include "src/utility/GameValues.h"
 #include "FocusManager.h"
-#include "src/utility/EnemyUtility.h"
 #include "ModManager.h"
+
+// forward declaration
+class Cell;
+enum class EnemyType;
+class EnemyUtility;
 
 class IEnemy: public QObject {
 protected:

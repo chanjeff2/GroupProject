@@ -1,4 +1,5 @@
 #include "EnemyUtility.h"
+#include "GameValues.h"
 #include "src/enemy/IEnemy.h"
 
 EnemyUtility::EnemyUtility() = default;

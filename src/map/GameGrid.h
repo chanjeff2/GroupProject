@@ -5,13 +5,11 @@
 #include <set>
 using namespace std;
 
-#include "src/utility/GameValues.h"
-#include "src/map/cell.h"
 #include "src/utility/TowerUtility.h"
 #include "src/utility/EnemyUtility.h"
 #include "src/utility/PathFindingUtility.h"
-#include "src/tower/ITower.h"
-#include "src/enemy/IEnemy.h"
+#include "src/utility/GameValues.h"
+
 
 class GameGrid
 {
