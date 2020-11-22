@@ -1,0 +1,64 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>res/enemies_images/COMPLab Bestiary.png</file>
+        <file>res/enemies_images/COMPLab Grid.png</file>
+        <file>res/enemies_images/COMPLab2 Bestiary.png</file>
+        <file>res/enemies_images/COMPLab2 Grid.png</file>
+        <file>res/enemies_images/Desmond Grid.png</file>
+        <file>res/enemies_images/DesmondEnraged Grid.png</file>
+        <file>res/enemies_images/ELPA Bestiary.png</file>
+        <file>res/enemies_images/ELPA Grid.png</file>
+        <file>res/enemies_images/ELPAListen Grid.png</file>
+        <file>res/enemies_images/ELPARead Grid.png</file>
+        <file>res/enemies_images/ELPASpeak Grid.png</file>
+        <file>res/enemies_images/ELPAVocab Grid.png</file>
+        <file>res/enemies_images/ELPAWrite Grid.png</file>
+        <file>res/enemies_images/Encrypted Bestiary.png</file>
+        <file>res/enemies_images/Encrypted Grid.png</file>
+        <file>res/enemies_images/Essay Bestiary.png</file>
+        <file>res/enemies_images/Essay Grid.png</file>
+        <file>res/enemies_images/FinalExam Bestiary.png</file>
+        <file>res/enemies_images/FinalExam Enraged Grid.png</file>
+        <file>res/enemies_images/FinalExam Grid.png</file>
+        <file>res/enemies_images/FYP Bestiary.png</file>
+        <file>res/enemies_images/FYP Grid.png</file>
+        <file>res/enemies_images/GpPrj Bestiary.png</file>
+        <file>res/enemies_images/GpPrj Grid.png</file>
+        <file>res/enemies_images/MathHW1 Bestiary.png</file>
+        <file>res/enemies_images/MathHW1 Grid.png</file>
+        <file>res/enemies_images/MathHW2 Bestiary.png</file>
+        <file>res/enemies_images/MathHW2 Grid.png</file>
+        <file>res/enemies_images/MathHW3 Bestiary.png</file>
+        <file>res/enemies_images/MathHW3 Grid.png</file>
+        <file>res/enemies_images/MathsExam Bestiary.png</file>
+        <file>res/enemies_images/MathsExam Grid.png</file>
+        <file>res/enemies_images/Midterm Bestiary.png</file>
+        <file>res/enemies_images/Midterm Grid.png</file>
+        <file>res/enemies_images/NormalHW Bestiary.png</file>
+        <file>res/enemies_images/NormalHW Grid.png</file>
+        <file>res/enemies_images/PA Bestiary.png</file>
+        <file>res/enemies_images/PA Grid.png</file>
+        <file>res/enemies_images/PopQuiz1 Bestiary.png</file>
+        <file>res/enemies_images/PopQuiz1 Grid.png</file>
+        <file>res/enemies_images/PopQuiz2 Bestiary.png</file>
+        <file>res/enemies_images/PopQuiz2 Grid.png</file>
+        <file>res/misc_images/GPA.png</file>
+        <file>res/misc_images/Resources.png</file>
+        <file>res/towers_images/ArtsStudent Grid.png</file>
+        <file>res/towers_images/ArtsStudent Purchase.png</file>
+        <file>res/towers_images/Calculator Grid.png</file>
+        <file>res/towers_images/Calculator Purchase.png</file>
+        <file>res/towers_images/Chegg Grid.png</file>
+        <file>res/towers_images/Chegg Purchase.png</file>
+        <file>res/towers_images/Ghostwriter Grid.png</file>
+        <file>res/towers_images/Ghostwriter Purchase.png</file>
+        <file>res/towers_images/Hackerman Grid.png</file>
+        <file>res/towers_images/Hackerman Purchase.png</file>
+        <file>res/towers_images/Nerd Grid.png</file>
+        <file>res/towers_images/Nerd Purchase.png</file>
+        <file>res/towers_images/RegularStudent Grid.png</file>
+        <file>res/towers_images/RegularStudent Purchase.png</file>
+        <file>res/towers_images/Wolfram Grid.png</file>
+        <file>res/towers_images/Wolfram Purchase.png</file>
+    </qresource>
+</RCC>
