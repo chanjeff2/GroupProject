@@ -6,6 +6,7 @@
 #include "src/utility/GPAManager.h"
 
 #include <QMainWindow>
+#include <QPushButton>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -13,11 +14,11 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	MainWindow(QWidget *parent = nullptr);
-	~MainWindow();
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
 
 private slots:
     // Basically all button click events
@@ -46,7 +47,9 @@ private slots:
 
 
 private:
-	Ui::MainWindow *ui;
+    Ui::MainWindow *ui;
+    QPushButton* CancelBuy;
+
     TowerType tower_selected {TowerType::None};
     ResourceManager resource_manager;
     GPAManager gpa_manager;
