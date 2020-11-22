@@ -58,3 +58,6 @@ DISTFILES += \
 	.gitignore \
 	LICENSE \
 	README.md
+
+RESOURCES += \
+    assets.qrc
