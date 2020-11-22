@@ -10,18 +10,614 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>UST Students vs. Assignemnts - Main Screen</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
-      <width>771</width>
-      <height>301</height>
+      <y>40</y>
+      <width>500</width>
+      <height>400</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BuyRegular">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>70</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>10 Resources</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../res/towers_images/RegularStudent Purchase.png</normaloff>../../res/towers_images/RegularStudent Purchase.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Label_BuyTower">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>50</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Purchase Towers</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BuyArts">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>130</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>15 Resources</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../res/towers_images/ArtsStudent Purchase.png</normaloff>../../res/towers_images/ArtsStudent Purchase.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BuyWolfram">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>190</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>30 Resources</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../res/towers_images/Wolfram Purchase.png</normaloff>../../res/towers_images/Wolfram Purchase.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BuyHacker">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>250</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>35 Resources</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../res/towers_images/Hackerman Purchase.png</normaloff>../../res/towers_images/Hackerman Purchase.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BuyCalc">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>310</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>40 Resources</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../res/towers_images/Calculator Purchase.png</normaloff>../../res/towers_images/Calculator Purchase.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BuyNerd">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>370</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>50 Resources</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../res/towers_images/Nerd Purchase.png</normaloff>../../res/towers_images/Nerd Purchase.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BuyGWriter">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>430</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>75 Resources</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../res/towers_images/Ghostwriter Purchase.png</normaloff>../../res/towers_images/Ghostwriter Purchase.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BuyChegg">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>490</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>250 Resources</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../res/towers_images/Chegg Purchase.png</normaloff>../../res/towers_images/Chegg Purchase.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Bestiary">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>5</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Bestiary</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="GPAIcon">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>10</y>
+      <width>34</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="GPA">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>10</y>
+      <width>22</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>4.3</string>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="GPA_Cap">
+    <property name="geometry">
+     <rect>
+      <x>716</x>
+      <y>10</y>
+      <width>26</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>/4.3</string>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="GPAGrade">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>10</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>(A+)</string>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ResourceSlash">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>10</y>
+      <width>5</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>/</string>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Resource">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>10</y>
+      <width>30</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>20</string>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ResourceIcon">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>13</y>
+      <width>25</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/Resources.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ResourceCap">
+    <property name="geometry">
+     <rect>
+      <x>597</x>
+      <y>10</y>
+      <width>30</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>30</string>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ResourceUpg">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>40</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Upgrade</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="Week">
+    <property name="geometry">
+     <rect>
+      <x>186</x>
+      <y>10</y>
+      <width>211</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="minimum">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <number>14</number>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="textVisible">
+     <bool>false</bool>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="invertedAppearance">
+     <bool>false</bool>
+    </property>
+    <property name="format">
+     <string/>
+    </property>
+   </widget>
+   <widget class="Line" name="MidtermIndicator">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>10</y>
+      <width>2</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="WeekNo">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>10</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Week 0</string>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="WeekNo_2">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>75</y>
+      <width>75</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cost: 18&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ResourceIcon_2">
+    <property name="geometry">
+     <rect>
+      <x>604</x>
+      <y>78</y>
+      <width>25</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../../assets.qrc">:/res/res/misc_images/Resources.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CancelBuy">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>140</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Cancel Buying Tower</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SellTower">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>170</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Sell Tower</string>
     </property>
    </widget>
   </widget>
@@ -31,12 +627,14 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../assets.qrc"/>
+ </resources>
  <connections/>
 </ui>

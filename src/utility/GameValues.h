@@ -2,17 +2,17 @@
 #define GAMEVALUES_H
 
 enum class EnemyType: int {
-	NormalHW = 100, Essay, EncryptedHW,
-	GroupProj, MathHW, COMPLab, PA, Desmond,
-	PopQuiz, Midterm, MATHExam, Final, ELPA, FYP
+    NormalHW = 100, Essay, EncryptedHW,
+    GroupProj, MathHW, COMPLab, PA, Desmond,
+    PopQuiz, Midterm, MATHExam, Final, ELPA, FYP
 };
 
 enum class TowerType: int {
-	Regular = 0, Arts, WolframAlpha, Hacker, Calc, Nerd, Ghostwriter, Chegg
+    Regular = 0, Arts, WolframAlpha, Hacker, Calc, Nerd, Ghostwriter, Chegg, None
 };
 
 enum class AuraType {
-	SlowAura, ArmorPierceAura, RageAura
+    SlowAura, ArmorPierceAura, RageAura
 };
 
 // map
@@ -22,14 +22,17 @@ const int NUM_OF_COL = 25; // x
 const int START[] = {0, 0}; // x, y
 const int END[] = {NUM_OF_COL, NUM_OF_ROW}; // x, y
 
+// Tower Prices
+const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
+
 // GPA (score)
 const float MAX_GPA = 4.3;
 
 // resources
 const float REDEMPTION_RATIO = 0.5; // how much resource user get back after destroying tower
-const int STARTING_RESOURCE = 5;
+const int STARTING_RESOURCE = 20;
 const int NUM_OF_RESOURCE_CAPACITY = 5;
-const int RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY] = {10, 20, 40, 80, 160}; // just random number
+const int RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY] = {30, 60, 100, 200, 300}; // just random number
 const float RESOURCE_CAPACITY_RATIO_TO_UPGRADE = 0.6;
 
 // week (wave)
