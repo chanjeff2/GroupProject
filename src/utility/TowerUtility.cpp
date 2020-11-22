@@ -45,6 +45,9 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
             position->tower = new Chegg(position);
             break;
         }
+        case TowerType::None: { // No towers selected
+            return; break;
+        }
         default: { // Prevent invalid Inputs
             position->tower = new Regular(position);
             break;
