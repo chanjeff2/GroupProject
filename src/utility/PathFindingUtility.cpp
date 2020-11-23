@@ -81,3 +81,21 @@ bool PathFindingUtility::updatePath() {
 	pathStartEndBuffer.clear();
 	return true;
 }
+
+// PathFindingUtility::Path
+void PathFindingUtility::Path::goToNextCell() {
+	pathStartEnd.pop_front();
+	--pathStartEndDistance;
+}
+
+int PathFindingUtility::Path::getRemainingDistance() {
+	return pathStartEndDistance;
+}
+
+bool PathFindingUtility::Path::isNextCellEnd() {
+	return pathStartEndDistance <= 2;
+}
+
+Cell *PathFindingUtility::Path::getCurrentCell() {
+	return pathStartEnd.at(0);
+}

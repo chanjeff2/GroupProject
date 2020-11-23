@@ -13,10 +13,16 @@ class PathFindingUtility
 {
 public:
 	class Path { // change to pointer if needed
-	public:
+		friend class PathFindingUtility; // for generating path
+
 		deque<Cell*> pathStartEnd; // deque storing cells in subsequent order where pathStartEnd[0] is start
 		int pathStartEndDistance; // total number of cells in pathStartEnd
+	public:
 		Path();
+		void goToNextCell();
+		int getRemainingDistance();
+		bool isNextCellEnd();
+		Cell *getCurrentCell();
 	};
 
 private:
