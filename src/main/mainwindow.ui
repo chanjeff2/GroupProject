@@ -304,9 +304,6 @@
     <property name="text">
      <string>4.3</string>
     </property>
-    <property name="pixmap">
-     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
-    </property>
    </widget>
    <widget class="QLabel" name="GPA_Cap">
     <property name="geometry">
@@ -325,9 +322,6 @@
     </property>
     <property name="text">
      <string>/4.3</string>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="GPAGrade">
@@ -348,9 +342,6 @@
     <property name="text">
      <string>(A+)</string>
     </property>
-    <property name="pixmap">
-     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
-    </property>
    </widget>
    <widget class="QLabel" name="ResourceSlash">
     <property name="geometry">
@@ -370,9 +361,6 @@
     <property name="text">
      <string>/</string>
     </property>
-    <property name="pixmap">
-     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
-    </property>
    </widget>
    <widget class="QLabel" name="Resource">
     <property name="geometry">
@@ -391,9 +379,6 @@
     </property>
     <property name="text">
      <string>20</string>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="ResourceIcon">
@@ -435,9 +420,6 @@
     </property>
     <property name="text">
      <string>30</string>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
     </property>
    </widget>
    <widget class="QPushButton" name="ResourceUpg">
@@ -530,9 +512,6 @@
     <property name="text">
      <string>Week 0</string>
     </property>
-    <property name="pixmap">
-     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
-    </property>
    </widget>
    <widget class="QLabel" name="WeekNo_2">
     <property name="geometry">
@@ -550,10 +529,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cost: 18&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
+     <string>Cost: 18</string>
     </property>
    </widget>
    <widget class="QLabel" name="ResourceIcon_2">
