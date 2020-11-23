@@ -574,17 +574,26 @@
     <property name="text">
      <string>Cancel Buying Tower</string>
     </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
    </widget>
-   <widget class="QPushButton" name="SellTower">
+   <widget class="QPushButton" name="TowerMode">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>170</y>
+      <y>180</y>
       <width>120</width>
-      <height>30</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -593,7 +602,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Sell Tower</string>
+     <string>Buy Tower Mode</string>
     </property>
    </widget>
   </widget>

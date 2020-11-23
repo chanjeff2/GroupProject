@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-
     this->setWindowTitle("UST Students vs. Assignments - Main Window");
 
     // Connect signal from clickable GraphicsView to here
@@ -22,7 +21,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_BuyRegular_clicked() {
     if (resource_manager.getResource() >= TOWER_PRICES[0]) {
         tower_selected = TowerType::Regular;
-        CancelBuy->setEnabled(true);
+        ui->CancelBuy->setEnabled(false);
     }
     else { // Return Not enough resource message
 
@@ -32,7 +31,7 @@ void MainWindow::on_BuyRegular_clicked() {
 void MainWindow::on_BuyArts_clicked() {
     if (resource_manager.getResource() >= TOWER_PRICES[1]) {
         tower_selected = TowerType::Arts;
-        CancelBuy->setEnabled(true);
+        ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
 
@@ -42,7 +41,7 @@ void MainWindow::on_BuyArts_clicked() {
 void MainWindow::on_BuyWolfram_clicked() {
     if (resource_manager.getResource() >= TOWER_PRICES[2]) {
         tower_selected = TowerType::WolframAlpha;
-        CancelBuy->setEnabled(true);
+        ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
 
@@ -52,7 +51,7 @@ void MainWindow::on_BuyWolfram_clicked() {
 void MainWindow::on_BuyHacker_clicked() {
     if (resource_manager.getResource() >= TOWER_PRICES[3]) {
         tower_selected = TowerType::Hacker;
-        CancelBuy->setEnabled(true);
+        ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
 
@@ -62,7 +61,7 @@ void MainWindow::on_BuyHacker_clicked() {
 void MainWindow::on_BuyCalc_clicked() {
     if (resource_manager.getResource() >= TOWER_PRICES[4]) {
         tower_selected = TowerType::Calc;
-        CancelBuy->setEnabled(true);
+        ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
 
@@ -72,7 +71,7 @@ void MainWindow::on_BuyCalc_clicked() {
 void MainWindow::on_BuyNerd_clicked() {
     if (resource_manager.getResource() >= TOWER_PRICES[5]) {
         tower_selected = TowerType::Nerd;
-        CancelBuy->setEnabled(true);
+        ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
 
@@ -82,7 +81,7 @@ void MainWindow::on_BuyNerd_clicked() {
 void MainWindow::on_BuyGWriter_clicked() {
     if (resource_manager.getResource() >= TOWER_PRICES[6]) {
         tower_selected = TowerType::Ghostwriter;
-        CancelBuy->setEnabled(true);
+        ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
 
@@ -92,10 +91,47 @@ void MainWindow::on_BuyGWriter_clicked() {
 void MainWindow::on_BuyChegg_clicked() {
     if (resource_manager.getResource() >= TOWER_PRICES[7]) {
         tower_selected = TowerType::Chegg;
-        CancelBuy->setEnabled(true);
+        ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
 
     }
 }
+
+void MainWindow::on_CancelBuy_clicked() {
+    tower_selected = TowerType::None;
+    ui->CancelBuy->setEnabled(false);
+}
+
+void MainWindow::on_TowerMode_clicked() {
+    if (sell_mode) {
+        sell_mode = false;
+        ui->TowerMode->setText("Buy Tower Mode");
+    } else {
+        sell_mode = true;
+        ui->TowerMode->setText("Sell Tower Mode");
+    }
+}
+
+void MainWindow::on_ResourceUpg_clicked() {
+    if (resource_manager.getResource() >= resource_manager.getResourceRequiredForUpgradeCapacity()) {
+        resource_manager.upgradeResourceCapacity();
+        if (resource_manager.getResourceCapacity() == RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY - 1]) {
+            ui->ResourceUpg->setText("Maxed!");
+            ui->ResourceUpg->setEnabled(false);
+        }
+    }
+}
+
+void MainWindow::on_Bestiary_clicked() {
+
+}
+
+void MainWindow::map_clicked(int x, int y) {
+    if (sell_mode) {
+        game_grid.placeTower(x, y, tower_selected);
+    } else {
+        game_grid.removeTower(x, y);
+    }
+};
 

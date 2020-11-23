@@ -4,9 +4,9 @@
 #include "src/utility/GameValues.h"
 #include "src/utility/ResourceManager.h"
 #include "src/utility/GPAManager.h"
+#include "src/map/GameGrid.h"
 
 #include <QMainWindow>
-#include <QPushButton>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,7 +34,7 @@ private slots:
 
     // Cancel selection / Sell tower
     void on_CancelBuy_clicked();
-    void on_SellTower_clicked();
+    void on_TowerMode_clicked();
 
     // Upgrade Resource Cap
     void on_ResourceUpg_clicked();
@@ -43,15 +43,16 @@ private slots:
     void on_Bestiary_clicked();
 
     // Clicking on map
-    void map_clicked(int row, int col);
+    void map_clicked(int x, int y);
 
 
 private:
     Ui::MainWindow *ui;
-    QPushButton* CancelBuy;
 
     TowerType tower_selected {TowerType::None};
     ResourceManager resource_manager;
     GPAManager gpa_manager;
+    GameGrid game_grid;
+    bool sell_mode {false};
 };
 #endif // MAINWINDOW_H
