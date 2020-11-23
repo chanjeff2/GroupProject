@@ -4,11 +4,13 @@
 #include <set>
 using namespace std;
 
-#include "src/map/cell.h"
-#include "src/utility/GameValues.h"
-#include "src/enemy/IEnemy.h"
-#include "src/tower/attack/IAttackStrategy.h"
-#include "src/tower/aura/IAuraEffectStrategy.h"
+// forward declaration
+enum class TowerType;
+enum class EnemyType;
+class Cell;
+class IAttackStrategy;
+class IAuraEffectStrategy;
+class IEnemy;
 
 class ITower {
 protected:
@@ -27,8 +29,8 @@ protected:
 
 public:
 	// data member
-	IAttackStrategy *attackStrategy = nullptr; // do attack
-	IAuraEffectStrategy *auraEffectStrategy = nullptr; // apply aura effect
+	IAttackStrategy *attackStrategy{nullptr}; // do attack
+	IAuraEffectStrategy *auraEffectStrategy{nullptr}; // apply aura effect
 
 	// destructor
 	virtual ~ITower();
