@@ -9,8 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setWindowTitle("UST Students vs. Assignments - Main Window");
 
-<<<<<<< Updated upstream
-=======
     // Link the objects with the layout manager
     gpa_layout_manager.GPALabel = ui->GPA;
     gpa_layout_manager.GradeLabel = ui->GPAGrade;
@@ -20,7 +18,10 @@ MainWindow::MainWindow(QWidget *parent)
     week_layout_manager.WeekCount = ui->WeekNo;
     week_layout_manager.WeekProgress = ui->Week;
 
->>>>>>> Stashed changes
+    // Link the objects with the layout manager
+    gpa_layout_manager.GPALabel = ui->GPARemaining;
+    gpa_layout_manager.GradeLabel = ui->GPAGrade;
+
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
 }
