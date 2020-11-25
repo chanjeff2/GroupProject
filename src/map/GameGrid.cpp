@@ -20,12 +20,30 @@ GameGrid::~GameGrid() {
 			delete grid[x][y]; // delete cells
 		}
 	}
-
 }
 
 // getter
-const Cell *GameGrid::getCell(int x, int y) {
+const Cell *GameGrid::getCell(int x, int y) const {
+	if (!isValidCoordinate(x, y))
+		return nullptr;
+
 	return grid[x][y];
+}
+
+const set<ITower*> &GameGrid::getAllTower() const {
+	return towerUtility.refOfTowers;
+}
+
+const set<IEnemy*> &GameGrid::getAllEnemy() const {
+	return enemyUtility.enemies;
+}
+
+// methods
+bool GameGrid::isValidCoordinate(int x, int y) const {
+	if (x < 0 || y < 0 || x > NUM_OF_COL - 1 || y > NUM_OF_ROW - 1)
+		return false;
+
+	return true;
 }
 
 /* can place -> true

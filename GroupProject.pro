@@ -23,7 +23,8 @@ SOURCES += \
     src/utility/EnemyUtility.cpp \
     src/utility/GPALayoutManager.cpp \
 	src/utility/GPAManager.cpp \
-	src/utility/PathFindingUtility.cpp \
+	src/utility/pathfinding/Path.cpp \
+	src/utility/pathfinding/PathFindingUtility.cpp \
     src/utility/ResourceLayoutManager.cpp \
 	src/utility/ResourceManager.cpp \
 	src/utility/TowerUtility.cpp \
@@ -45,7 +46,8 @@ HEADERS += \
     src/utility/GPALayoutManager.h \
 	src/utility/GPAManager.h \
     src/utility/GameValues.h \
-	src/utility/PathFindingUtility.h \
+	src/utility/pathfinding/Path.h \
+	src/utility/pathfinding/PathFindingUtility.h \
     src/utility/ResourceLayoutManager.h \
 	src/utility/ResourceManager.h \
 	src/utility/TowerUtility.h \

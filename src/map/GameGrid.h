@@ -7,23 +7,30 @@ using namespace std;
 
 #include "src/utility/TowerUtility.h"
 #include "src/utility/EnemyUtility.h"
-#include "src/utility/PathFindingUtility.h"
+#include "src/utility/pathfinding/PathFindingUtility.h"
 #include "src/utility/GameValues.h"
 
 
 class GameGrid
 {
-	static array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
+	array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
 	TowerUtility towerUtility;
 	EnemyUtility enemyUtility;
-	PathFindingUtility pathFindingUtility;
+	PathFindingUtility pathFindingUtility{this};
 
 public:
 	GameGrid();
 	~GameGrid();
 
 	// getter
-	static const Cell *getCell(int x, int y);
+	const Cell *getCell(int x, int y) const;
+
+	const set<ITower*> &getAllTower() const;
+
+	const set<IEnemy*> &getAllEnemy() const;
+
+	// methods
+	bool isValidCoordinate(int x, int y) const;
 
 	/* can place -> true
 	 * can't, i.e. cell contain tower/enemy/will block path -> false */
