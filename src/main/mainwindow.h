@@ -3,7 +3,11 @@
 
 #include "src/utility/GameValues.h"
 #include "src/utility/ResourceManager.h"
+#include "src/utility/ResourceLayoutManager.h"
 #include "src/utility/GPAManager.h"
+#include "src/utility/GPALayoutManager.h"
+#include "src/utility/WeekManager.h"
+#include "src/utility/WeekLayoutManager.h"
 #include "src/map/GameGrid.h"
 
 #include <QMainWindow>
@@ -50,8 +54,16 @@ private:
     Ui::MainWindow *ui;
 
     TowerType tower_selected {TowerType::None};
+
     ResourceManager resource_manager;
+    ResourceLayoutManager resource_layout_manager {&resource_manager};
+
     GPAManager gpa_manager;
+    GPALayoutManager gpa_layout_manager{&gpa_manager};
+
+    WeekManager week_manager;
+    WeekLayoutManager week_layout_manager{&week_manager};
+
     GameGrid game_grid;
     bool sell_mode {false};
 };

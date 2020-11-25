@@ -18,3 +18,4 @@ public:
 };
 
 #endif // GPAMANAGER_H
+
