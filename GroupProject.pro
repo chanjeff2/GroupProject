@@ -26,7 +26,8 @@ SOURCES += \
 	src/utility/PathFindingUtility.cpp \
 	src/utility/ResourceManager.cpp \
 	src/utility/TowerUtility.cpp \
-	src/utility/WeekManager.cpp
+    src/utility/WeekLayoutManager.cpp \
+        src/utility/WeekManager.cpp
 
 HEADERS += \
     src/enemy/FocusManager.h \
@@ -46,6 +47,7 @@ HEADERS += \
 	src/utility/PathFindingUtility.h \
 	src/utility/ResourceManager.h \
 	src/utility/TowerUtility.h \
+    src/utility/WeekLayoutManager.h \
 	src/utility/WeekManager.h
 
 FORMS += \
