@@ -9,6 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setWindowTitle("UST Students vs. Assignments - Main Window");
 
+    // Link the objects with the layout manager
+    gpa_layout_manager.GPALabel = ui->GPARemaining;
+    gpa_layout_manager.GradeLabel = ui->GPAGrade;
+
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
 }

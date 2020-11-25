@@ -4,6 +4,7 @@
 #include "src/utility/GameValues.h"
 #include "src/utility/ResourceManager.h"
 #include "src/utility/GPAManager.h"
+#include "src/utility/GPALayoutManager.h"
 #include "src/map/GameGrid.h"
 
 #include <QMainWindow>
@@ -52,6 +53,7 @@ private:
     TowerType tower_selected {TowerType::None};
     ResourceManager resource_manager;
     GPAManager gpa_manager;
+    GPALayoutManager gpa_layout_manager{&gpa_manager};
     GameGrid game_grid;
     bool sell_mode {false};
 };

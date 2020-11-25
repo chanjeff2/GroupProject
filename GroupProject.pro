@@ -21,6 +21,7 @@ SOURCES += \
     src/tower/ITower.cpp \
 	src/tower/targetSelect/ITargetSelectionStrategy.cpp \
     src/utility/EnemyUtility.cpp \
+    src/utility/GPALayoutManager.cpp \
 	src/utility/GPAManager.cpp \
 	src/utility/PathFindingUtility.cpp \
 	src/utility/ResourceManager.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     src/tower/ITower.h \
 	src/tower/targetSelect/ITargetSelectionStrategy.h \
     src/utility/EnemyUtility.h \
+    src/utility/GPALayoutManager.h \
 	src/utility/GPAManager.h \
     src/utility/GameValues.h \
 	src/utility/PathFindingUtility.h \
