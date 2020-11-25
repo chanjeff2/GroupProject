@@ -19,8 +19,12 @@ MainWindow::MainWindow(QWidget *parent)
     week_layout_manager.WeekProgress = ui->Week;
 
     // Link the objects with the layout manager
-    gpa_layout_manager.GPALabel = ui->GPARemaining;
+    gpa_layout_manager.GPALabel = ui->GPA;
     gpa_layout_manager.GradeLabel = ui->GPAGrade;
+
+    resource_layout_manager.Resource = ui->Resource;
+    resource_layout_manager.ResourceCap = ui->ResourceCap;
+    resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);

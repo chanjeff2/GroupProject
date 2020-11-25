@@ -24,6 +24,7 @@ SOURCES += \
     src/utility/GPALayoutManager.cpp \
 	src/utility/GPAManager.cpp \
 	src/utility/PathFindingUtility.cpp \
+    src/utility/ResourceLayoutManager.cpp \
 	src/utility/ResourceManager.cpp \
 	src/utility/TowerUtility.cpp \
     src/utility/WeekLayoutManager.cpp \
@@ -45,6 +46,7 @@ HEADERS += \
 	src/utility/GPAManager.h \
     src/utility/GameValues.h \
 	src/utility/PathFindingUtility.h \
+    src/utility/ResourceLayoutManager.h \
 	src/utility/ResourceManager.h \
 	src/utility/TowerUtility.h \
     src/utility/WeekLayoutManager.h \
