@@ -5,31 +5,30 @@
 #include <set>
 using namespace std;
 
+#include "Path.h"
+#include "src/utility/GameValues.h"
+
 // forward declaration
 class Cell;
+class ITower;
 class IEnemy;
+class GameGrid;
 
 class PathFindingUtility
 {
-public:
-	class Path { // change to pointer if needed
-		friend class PathFindingUtility; // for generating path
-
-		deque<Cell*> pathStartEnd; // deque storing cells in subsequent order where pathStartEnd[0] is start
-		int pathStartEndDistance; // total number of cells in pathStartEnd
-	public:
-		Path();
-		void goToNextCell();
-		int getRemainingDistance();
-		bool isNextCellEnd();
-		Cell *getCurrentCell();
-	};
-
 private:
 	class PathBuffer {
 	public:
 		Path path; // calculated path for
 		IEnemy *enemy; // corresponding enemy
+	};
+	
+	class CellDetails {
+	public:
+		const Cell *prevCell; // previous cell **start from end**
+		int f; // f = g + h
+		int g; // cost from start to this cell
+		int h; // cost from this cell to end
 	};
 
 	const Cell *entry;
@@ -37,13 +36,17 @@ private:
 	Path pathStartEnd; // path from entry to exit
 	Path pathStartEndBuffer; // buffer to store preview
 	set<PathBuffer*> pathBuffer; // buffer for each enemy
+	const GameGrid *gameGrid; // ref to game grid
 
-	Path findPath(const Cell *&start, const Cell *&End, const set<Cell*> &positionOfTowers);
+	Path processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Cell *end);
+
+	Path findPath(const Cell *start, const Cell *end, const set<ITower*> &Towers);
+	Path findPath(const Cell *start, const Cell *end);
 
 	bool isEnemyOnPath(const IEnemy *&enemies, const Path &path);
 
 public:
-	PathFindingUtility();
+	PathFindingUtility(GameGrid *gameGrid);
 
 	const Path getPathStartEnd() const;
 
