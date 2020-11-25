@@ -33,9 +33,9 @@ class Cell
 		void removeEnemy(IEnemy *enemy);
 
 		// no enemy nor tower
-		void isEmpty();
+		bool isEmpty() const;
 
-		void haveTower();
+		bool hasTower() const;
 };
 
 #endif // CELL_H
