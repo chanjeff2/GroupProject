@@ -10,6 +10,15 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle("UST Students vs. Assignments - Main Window");
 
     // Link the objects with the layout manager
+    gpa_layout_manager.GPALabel = ui->GPA;
+    gpa_layout_manager.GradeLabel = ui->GPAGrade;
+
+    week_layout_manager.SkipWeek = ui->SkipWeek;
+    week_layout_manager.TimeLeft = ui->TimeLeft;
+    week_layout_manager.WeekCount = ui->WeekNo;
+    week_layout_manager.WeekProgress = ui->Week;
+
+    // Link the objects with the layout manager
     gpa_layout_manager.GPALabel = ui->GPARemaining;
     gpa_layout_manager.GradeLabel = ui->GPAGrade;
 

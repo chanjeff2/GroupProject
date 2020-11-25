@@ -5,7 +5,7 @@ class ResourceManager
 {
 	int resource; // currency/resource to build tower
 	int resourceCapacityLevel; // max amount of resource that possible to have, can be upgraded
-	ResourceLayoutManager resourceLayoutManager(this);
+    ResourceLayoutManager resourceLayoutManager(this);
 
 public:
 	ResourceManager();

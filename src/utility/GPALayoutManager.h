@@ -5,6 +5,7 @@
 #include <vector>
 #include <QLabel>
 #include "src/utility/GameValues.h"
+#include "src/utility/GPAManager.h"
 
 class GPAManager;
 
