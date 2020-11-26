@@ -1,6 +1,6 @@
 #include "GPAManager.h"
 #include "GPALayoutManager.h"
-#include "GameValues.h"
+#include "src/utility/GameValues.h"
 
 // constructor
 GPAManager::GPAManager(): gpa(MAX_GPA) {}

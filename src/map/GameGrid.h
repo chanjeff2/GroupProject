@@ -5,14 +5,14 @@
 #include <set>
 using namespace std;
 
-#include "src/utility/TowerUtility.h"
-#include "src/utility/EnemyUtility.h"
+#include "src/utility/tower/TowerUtility.h"
+#include "src/utility/enemy/EnemyUtility.h"
 #include "src/utility/pathfinding/PathFindingUtility.h"
 #include "src/utility/GameValues.h"
 
-#include "src/utility/GPAManager.h"
-#include "src/utility/WeekManager.h"
-#include "src/utility/ResourceManager.h"
+#include "src/utility/GPA/GPAManager.h"
+#include "src/utility/week/WeekManager.h"
+#include "src/utility/resource/ResourceManager.h"
 
 
 class GameGrid

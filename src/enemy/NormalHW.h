@@ -6,7 +6,7 @@
 class NormalHW : public IEnemy
 {
 public:
-	NormalHW();
+	NormalHW(EnemyUtility *enemyUtility, Path path);
 };
 
 #endif // NORMALHW_H

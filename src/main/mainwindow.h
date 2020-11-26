@@ -2,12 +2,12 @@
 #define MAINWINDOW_H
 
 #include "src/utility/GameValues.h"
-#include "src/utility/ResourceManager.h"
-#include "src/utility/ResourceLayoutManager.h"
-#include "src/utility/GPAManager.h"
-#include "src/utility/GPALayoutManager.h"
-#include "src/utility/WeekManager.h"
-#include "src/utility/WeekLayoutManager.h"
+#include "src/utility/resource/ResourceManager.h"
+#include "src/utility/resource/ResourceLayoutManager.h"
+#include "src/utility/GPA/GPAManager.h"
+#include "src/utility/GPA/GPALayoutManager.h"
+#include "src/utility/week/WeekManager.h"
+#include "src/utility/week/WeekLayoutManager.h"
 #include "src/map/GameGrid.h"
 
 #include <QMainWindow>

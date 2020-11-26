@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
-#include "GameValues.h"
+#include "src/utility/GameValues.h"
 #include "WeekLayoutManager.h"
 
 class WeekManager: public QObject {
@@ -11,7 +11,7 @@ class WeekManager: public QObject {
 	bool isWeekCooldown; // true -> ready to start next week
 	std::atomic_int skippedWeeks; // no. of weeks skipped ** atomic for thread safe
 	QTimer* timer;
-  WeekLayoutManager* weekLayoutManager;
+	WeekLayoutManager* weekLayoutManager;
 
 	void goToNextWeek();
 public:

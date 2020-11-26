@@ -1,5 +1,5 @@
 #include "IEnemy.h"
-#include "src/utility/EnemyUtility.h"
+#include "src/utility/enemy/EnemyUtility.h"
 #include "src/map/cell.h"
 #include "src/utility/GameValues.h"
 

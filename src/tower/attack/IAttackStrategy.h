@@ -8,6 +8,7 @@ using namespace std;
 class ITower;
 class IEnemy;
 class ITargetSelectionStrategy;
+enum class TargetSelectionType;
 
 class IAttackStrategy
 {
@@ -22,11 +23,6 @@ protected:
 	IAttackStrategy(ITower *tower);
 public:
 	virtual ~IAttackStrategy();
-
-	// Target Selection Strategy Type
-	enum class TargetSelectionType {
-		Random, Priority, All, Null
-	};
 
 	// setter
 	void setMaxNumOfTarget(int maxNumOfTarget);

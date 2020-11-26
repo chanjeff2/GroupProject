@@ -2,7 +2,7 @@
 #include "FocusManager.h"
 #include "IEnemy.h"
 #include "src/tower/ITower.h"
-#include "src/utility/TowerUtility.h"
+#include "src/utility/tower/TowerUtility.h"
 #include "src/tower/attack/IAttackStrategy.h"
 #include "src/tower/aura/AuraEffect.h"
 
