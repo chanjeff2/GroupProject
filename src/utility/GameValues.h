@@ -12,7 +12,7 @@ enum class TowerType: int {
 };
 
 enum class AuraType {
-    SlowAura, ArmorPierceAura, RageAura
+	SlowAura, ArmorPierceAura, RageAura, Null
 };
 
 // map

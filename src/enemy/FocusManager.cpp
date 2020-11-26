@@ -2,6 +2,9 @@
 #include "FocusManager.h"
 #include "IEnemy.h"
 #include "src/tower/ITower.h"
+#include "src/utility/TowerUtility.h"
+#include "src/tower/attack/IAttackStrategy.h"
+#include "src/tower/aura/IAuraEffectStrategy.h"
 
 // constructor
 FocusManager::FocusManager(IEnemy *enemy): enemy(enemy) {}
@@ -89,15 +92,15 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 }
 
 void FocusManager::requestAddAuraEffectIfNeed() {
-	for (ITower* tower: TowerUtility.refOfTowers) {
-		tower.auraEffectStrategy.applyAuraEffectToEnemyInRangeIfNeed();
+	for (ITower* tower: TowerUtility::refOfTowers) {
+		tower->auraEffectStrategy->applyAuraEffectToEnemyInRangeIfNeed();
 	}
 }
 
 // for both attack and aura effect
 void FocusManager::requestUpdateFocus() {
 	for(ITower* tower: towersAttacking) {
-		tower->attackStrategy->checkFocusedEnemyInRange();
+		tower->attackStrategy->updateFocusedEnemyInRange();
 	}
 	for(ITower* tower: towersApplyingAura) {
 		tower->auraEffectStrategy->removeAuraEffectOfEnemyIfNeed();

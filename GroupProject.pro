@@ -17,9 +17,11 @@ SOURCES += \
     src/map/GameGrid.cpp \
     src/map/cell.cpp \
 	src/tower/attack/IAttackStrategy.cpp \
+	src/tower/attack/NormalAttack.cpp \
 	src/tower/aura/IAuraEffectStrategy.cpp \
     src/tower/ITower.cpp \
 	src/tower/targetSelect/ITargetSelectionStrategy.cpp \
+	src/tower/targetSelect/RandomSelection.cpp \
     src/utility/EnemyUtility.cpp \
     src/utility/GPALayoutManager.cpp \
 	src/utility/GPAManager.cpp \
@@ -39,9 +41,11 @@ HEADERS += \
     src/map/GameGrid.h \
     src/map/cell.h \
 	src/tower/attack/IAttackStrategy.h \
+	src/tower/attack/NormalAttack.h \
 	src/tower/aura/IAuraEffectStrategy.h \
     src/tower/ITower.h \
 	src/tower/targetSelect/ITargetSelectionStrategy.h \
+	src/tower/targetSelect/RandomSelection.h \
     src/utility/EnemyUtility.h \
     src/utility/GPALayoutManager.h \
 	src/utility/GPAManager.h \
