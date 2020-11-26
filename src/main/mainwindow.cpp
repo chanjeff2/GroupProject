@@ -140,6 +140,10 @@ void MainWindow::on_Bestiary_clicked() {
 
 }
 
+void MainWindow::on_StartGame_clicked() {
+
+}
+
 void MainWindow::map_clicked(int x, int y) {
     if (sell_mode) {
         game_grid.placeTower(x, y, tower_selected);
