@@ -2,7 +2,6 @@
 #define RESOURCELAYOUTMANAGER_H
 
 #include <QString>
-#include <vector>
 #include <QLabel>
 #include <QPushButton>
 #include "src/utility/GameValues.h"

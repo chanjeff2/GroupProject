@@ -2,7 +2,6 @@
 #define WEEKLAYOUTMANAGER_H
 
 #include <QString>
-#include <vector>
 #include <QLabel>
 #include <QProgressBar>
 #include <QPushButton>
