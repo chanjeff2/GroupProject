@@ -12,6 +12,7 @@ SOURCES += \
     src/enemy/FocusManager.cpp \
     src/enemy/IEnemy.cpp \
     src/enemy/ModManager.cpp \
+	src/enemy/NormalHW.cpp \
     src/main/main.cpp \
     src/main/mainwindow.cpp \
     src/map/GameGrid.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     src/enemy/FocusManager.h \
     src/enemy/IEnemy.h \
     src/enemy/ModManager.h \
+	src/enemy/NormalHW.h \
     src/main/mainwindow.h \
     src/map/GameGrid.h \
     src/map/cell.h \
