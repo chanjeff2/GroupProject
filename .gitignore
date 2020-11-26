@@ -34,3 +34,6 @@
 *.autosave
 *.Debug
 *.Release
+/build/Makefile
+*.GroupProject.Debug
+*.GroupProject.Release
