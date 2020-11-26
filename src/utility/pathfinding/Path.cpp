@@ -1,4 +1,5 @@
 #include "Path.h"
+#include "src/map/cell.h"
 
 void Path::goToNextCell() {
 	pathStartEnd.pop_front();
@@ -19,4 +20,8 @@ const Cell *Path::getCurrentCell() const {
 
 bool Path::isEmpty() const {
 	return pathStartEndDistance == 0;
+}
+
+const Coordinate Path::getCurrentCoordinate() const {
+	return make_pair(getCurrentCell()->x, getCurrentCell()->y);
 }
