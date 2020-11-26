@@ -17,8 +17,6 @@ int ResourceManager::getResourceRequiredForUpgradeCapacity() const {
 	return getResourceCapacity() * RESOURCE_CAPACITY_RATIO_TO_UPGRADE;
 }
 
-ResourceLayoutManager* ResourceManager::accessToLayoutManager() {return &resourceLayoutManager;}
-
 /* enough resource to spend -> spend & true
 		 * else -> do nothing & false
 		 * usage: if (spendResource(amount)) [doYourStuff] */
@@ -27,7 +25,7 @@ bool ResourceManager::spendResource(int amount) {
 		return false;
 	else {
 		resource -= amount;
-		resourceLayoutManager.updateResource(getResource());
+        resourceLayoutManager->updateResource(getResource());
 		return true;
 	}
 }
@@ -39,7 +37,7 @@ void ResourceManager::gainResource(int amount) {
 	if (resource > getResourceCapacity())
 		resource = getResourceCapacity();
 
-	resourceLayoutManager.updateResource(getResource());
+    resourceLayoutManager->updateResource(getResource());
 	return;
 }
 
@@ -56,8 +54,8 @@ bool ResourceManager::upgradeResourceCapacity() {
 		++resourceCapacityLevel;
 
 	if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY)
-		resourceLayoutManager.isResourceCapacityUpgradeAvailable(false);
+        resourceLayoutManager->isResourceCapacityUpgradeAvailable(false);
 
-	resourceLayoutManager.updateResourceCapacity(getResourceCapacity());
+    resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
 	return true;
 }
