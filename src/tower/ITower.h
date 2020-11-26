@@ -44,6 +44,8 @@ public:
 	virtual ~ITower();
 
 	// getter
+	TowerType getTowerType() const;
+
 	int getDamagePerHit() const;
 
 	float getHitPerSec() const;
