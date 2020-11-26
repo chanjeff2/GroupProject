@@ -1,17 +1,21 @@
-#include "IAuraEffectStrategy.h"
+#include "AuraEffect.h"
 #include "src/tower/ITower.h"
 #include "src/enemy/IEnemy.h"
 #include "src/utility/GameValues.h"
 
 // constructor
-IAuraEffectStrategy::IAuraEffectStrategy(ITower* tower, AuraType auraType) : tower(tower), auraType(auraType) {}
+AuraEffect::AuraEffect(ITower* tower, AuraType auraType) : tower(tower), auraType(auraType) {}
 
-AuraType IAuraEffectStrategy::getAuraType() const {
+AuraType AuraEffect::getAuraType() const {
 	return auraType;
 }
 
 // methods
-void IAuraEffectStrategy::applyAuraEffectToEnemyInRangeIfNeed() {
+void AuraEffect::updateAuraEffect(IEnemy *enemy, bool isApply) {
+	enemy->focusManager.updateAuraTowerInRange(isApply, this->auraType);
+}
+
+void AuraEffect::applyAuraEffectToEnemyInRangeIfNeed() {
 	// get all enemies in range
 	std::set<IEnemy*> enemiesInRange = tower->getEnemiesInRange();
 
@@ -26,7 +30,7 @@ void IAuraEffectStrategy::applyAuraEffectToEnemyInRangeIfNeed() {
 	}
 }
 
-void IAuraEffectStrategy::removeAuraEffectOfEnemyIfNeed() {
+void AuraEffect::removeAuraEffectOfEnemyIfNeed() {
 	// get all enemies in range
 	set<IEnemy*> enemiesInRange = tower->getEnemiesInRange();
 

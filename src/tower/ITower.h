@@ -12,7 +12,7 @@ enum class TowerType;
 enum class EnemyType;
 class Cell;
 class IAttackStrategy;
-class IAuraEffectStrategy;
+class AuraEffect;
 class IEnemy;
 class TowerUtility;
 
@@ -33,12 +33,12 @@ protected:
 	QTimer *timer;
 
 	// protected constructor -> prevent instantiation of ITower
-	ITower(Cell* position, TowerUtility *towerUtility);
+	ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType);
 
 public:
 	// data member
 	IAttackStrategy *attackStrategy{nullptr}; // do attack
-	IAuraEffectStrategy *auraEffectStrategy{nullptr}; // apply aura effect
+	AuraEffect *auraEffect{nullptr}; // apply aura effect
 
 	// destructor
 	virtual ~ITower();

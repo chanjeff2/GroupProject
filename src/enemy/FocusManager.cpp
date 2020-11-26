@@ -4,7 +4,7 @@
 #include "src/tower/ITower.h"
 #include "src/utility/TowerUtility.h"
 #include "src/tower/attack/IAttackStrategy.h"
-#include "src/tower/aura/IAuraEffectStrategy.h"
+#include "src/tower/aura/AuraEffect.h"
 
 // constructor
 FocusManager::FocusManager(IEnemy *enemy): enemy(enemy) {}
@@ -57,6 +57,10 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 				rageTowerInRange++;
 				break;
 			}
+			default: {
+				// Null Aura
+				break;
+			}
 		} // end of switch
 	} else { // removing aura effect
 		switch (modType) {
@@ -87,13 +91,17 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 
 				break;
 			}
+			default: {
+				// Null Aura
+				break;
+			}
 		} // end of switch
 	}
 }
 
 void FocusManager::requestAddAuraEffectIfNeed() {
 	for (ITower* tower: TowerUtility::refOfTowers) {
-		tower->auraEffectStrategy->applyAuraEffectToEnemyInRangeIfNeed();
+		tower->auraEffect->applyAuraEffectToEnemyInRangeIfNeed();
 	}
 }
 
@@ -103,6 +111,6 @@ void FocusManager::requestUpdateFocus() {
 		tower->attackStrategy->updateFocusedEnemyInRange();
 	}
 	for(ITower* tower: towersApplyingAura) {
-		tower->auraEffectStrategy->removeAuraEffectOfEnemyIfNeed();
+		tower->auraEffect->removeAuraEffectOfEnemyIfNeed();
 	}
 }

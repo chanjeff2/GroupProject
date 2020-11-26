@@ -1,5 +1,5 @@
-#ifndef IAURAEFFECTSTRATEGY_H
-#define IAURAEFFECTSTRATEGY_H
+#ifndef AURAEFFECT_H
+#define AURAEFFECT_H
 
 #include <set>
 using namespace std;
@@ -9,7 +9,7 @@ class ITower;
 class IEnemy;
 enum class AuraType;
 
-class IAuraEffectStrategy
+class AuraEffect
 {
 protected:
 	// data member
@@ -18,12 +18,11 @@ protected:
 	AuraType auraType;
 
 	// methods
-	virtual void updateAuraEffect(IEnemy *enemy, bool isApply) = 0; // to be overrided
-
-	// constructor
-	IAuraEffectStrategy(ITower* tower, AuraType auraType);
+	void updateAuraEffect(IEnemy *enemy, bool isApply);
 public:
-	virtual ~IAuraEffectStrategy() {}
+	// constructor
+	AuraEffect(ITower* tower, AuraType auraType);
+	virtual ~AuraEffect() {}
 
 	AuraType getAuraType() const;
 
@@ -33,4 +32,4 @@ public:
 	void removeAuraEffectOfEnemyIfNeed();
 };
 
-#endif // IAURAEFFECTSTRATEGY_H
+#endif // AURAEFFECT_H
