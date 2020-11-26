@@ -6,41 +6,58 @@
 #include <cmath>
 
 // constructor
-PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): entry(gameGrid->getCell(START[0], START[1])), deadline(gameGrid->getCell(END[0], END[1])) {
-	pathStartEnd = findPath(entry, deadline);
+PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(make_pair(START[0], START[1])), exit(make_pair(END[0], END[1])) {
+	pathStartEnd = findPath(entry, exit);
 }
 
 // methods
 
-Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Cell *end) {
+Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end) {
 	Path path;
 
-	int col = end->x;
-	int row = end->y;
-
-	bool reachStart = false;
+	// start from end
+	int col = end.first;
+	int row = end.second;
 
 	while (true) {
 		path.pathStartEnd.push_front(gameGrid->getCell(col, row));
 		path.pathStartEndDistance += 1;
-		int temp_col = cellDetails[col][row].prevCell->x;
-		int temp_row = cellDetails[col][row].prevCell->y;
-		col = temp_col;
-		row = temp_row;
 
-		if (reachStart) {
+		// stop after getting start node
+		if (cellDetails[col][row].prevCell == nullCoordinate) {
 			break;
 		}
 
-		if (cellDetails[col][row].prevCell == entry) {
-			reachStart = true;
-		}
+		int temp_col = cellDetails[col][row].prevCell.first;
+		int temp_row = cellDetails[col][row].prevCell.second;
+
+		col = temp_col;
+		row = temp_row;
 	}
 
 	return path;
 }
 
-Path PathFindingUtility::findPath(const Cell *start, const Cell *end, const set<ITower*> &Towers) {
+bool PathFindingUtility::isCoordinateBlocked(Coordinate coordinate, const set<Coordinate> &blockedPosition) const {
+	return (blockedPosition.find(coordinate) != blockedPosition.end());
+}
+
+bool PathFindingUtility::isCoordinateBlocked(int x, int y, const set<Coordinate> &blockedPosition) const {
+	return isCoordinateBlocked(make_pair(x, y), blockedPosition);
+}
+
+bool PathFindingUtility::isValidCoordinate(Coordinate coordinate) const {
+	if (coordinate.first < 0 || coordinate.second < 0 || coordinate.first > NUM_OF_COL - 1 || coordinate.second > NUM_OF_ROW - 1)
+		return false;
+	else
+		return true;
+}
+
+bool PathFindingUtility::isValidCoordinate(int x, int y) const {
+	return isValidCoordinate(make_pair(x, y));
+}
+
+Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, const set<Coordinate> &blockedPosition) {
 	// no possible path return NULL
 	// else return list of cells from start to end
 	// * additional, return also the distance
@@ -60,25 +77,14 @@ Path PathFindingUtility::findPath(const Cell *start, const Cell *end, const set<
 	// array holding cell details like coordinate and f, g, h values
 	CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW];
 
-	// init all cell
-	for (int col = 0; col < NUM_OF_COL; ++col) {
-		for (int row = 0; row < NUM_OF_ROW; ++row) {
-			cellDetails[col][row].f = NUM_OF_COL * NUM_OF_ROW;
-			cellDetails[col][row].g = NUM_OF_COL * NUM_OF_ROW;
-			cellDetails[col][row].h = NUM_OF_COL * NUM_OF_ROW;
-			cellDetails[col][row].prevCell = nullptr;
-		}
-	}
-
 	// init start cell
-	cellDetails[start->x][start->y].f = 0;
-	cellDetails[start->x][start->y].g = 0;
-	cellDetails[start->x][start->y].h = 0;
-	cellDetails[start->x][start->y].prevCell = start;
+	cellDetails[start.first][start.second].f = 0;
+	cellDetails[start.first][start.second].g = 0;
+	cellDetails[start.first][start.second].h = 0;
 
 	// open list for actual processing
-	map<const Cell*, int /*f*/> openList;
-	openList[start] = 0;
+	map<const Coordinate, int /*f*/> openList;
+	openList[start] = 0; // insert start && set start.f = 0;
 
 	// process loop
 	while (!openList.empty()) {
@@ -87,8 +93,8 @@ Path PathFindingUtility::findPath(const Cell *start, const Cell *end, const set<
 
 		openList.erase(itCell);
 
-		int _col = itCell->first->x;
-		int _row = itCell->first->y;
+		int _col = itCell->first.first; // coordinate.col
+		int _row = itCell->first.second; // coordinate.row
 
 		closedList[_col][_row] = true;
 
@@ -109,33 +115,38 @@ Path PathFindingUtility::findPath(const Cell *start, const Cell *end, const set<
 				int offseted_row = _row + drow;
 
 				// skip out of range cell
-				if (!gameGrid->isValidCoordinate(offseted_col, offseted_row)) {
+				if (!isValidCoordinate(offseted_col, offseted_row)) {
 					continue;
 				}
 
 				// reach destination
-				if (offseted_col == end->x && offseted_row == end->y) {
-					cellDetails[offseted_col][offseted_row].prevCell = gameGrid->getCell(_col, _row);
+				if (offseted_col == end.first && offseted_row == end.second) {
+					cellDetails[offseted_col][offseted_row].prevCell = make_pair(_col, _row);
 					path = processPath(cellDetails, end);
 					return path;
 				}
 
-				// skip precessed or blocked cell
-				if (closedList[offseted_col][offseted_row] == true || gameGrid->getCell(_col, _row)->hasTower()) {
+				// skip precessed cell
+				if (closedList[offseted_col][offseted_row] == true) {
+					continue;
+				}
+
+				// skip blocked cell
+				if (isCoordinateBlocked(offseted_col, offseted_row, blockedPosition)) {
 					continue;
 				}
 
 				int gNew = cellDetails[_col][_row].g + 1.0;
-				int hNew = abs(offseted_col - end->x) + abs(offseted_row - end->y);
+				int hNew = abs(offseted_col - end.first) + abs(offseted_row - end.second);
 				int fNew = gNew + hNew;
 
 				// update openlist if not exist or get a better path
 				if (cellDetails[offseted_col][offseted_row].f > fNew) {
-					openList[gameGrid->getCell(offseted_col, offseted_row)] = fNew;
+					openList[make_pair(offseted_col, offseted_row)] = fNew;
 					cellDetails[offseted_col][offseted_row].g = gNew;
 					cellDetails[offseted_col][offseted_row].h = hNew;
 					cellDetails[offseted_col][offseted_row].f = fNew;
-					cellDetails[offseted_col][offseted_row].prevCell = gameGrid->getCell(_col, _row);
+					cellDetails[offseted_col][offseted_row].prevCell = make_pair(_col, _row);
 				}
 			}
 		}
@@ -143,15 +154,11 @@ Path PathFindingUtility::findPath(const Cell *start, const Cell *end, const set<
 	return path;
 }
 
-Path PathFindingUtility::findPath(const Cell *start, const Cell *end) {
-	return findPath(start, end, gameGrid->getAllTower());
-}
-
-bool PathFindingUtility::isEnemyOnPath(const IEnemy *&enemies, const Path &path) {
-	[psudo: if (path.contains(enemy->currentPosition))
+bool PathFindingUtility::isEnemyOnPath(const IEnemy *&enemy, const Path &path) {
+	if (path.pathStartEnd.find(enemy->currentPosition))
 		return true;
 	else
-		return false;]
+		return false;
 }
 
 const Path PathFindingUtility::getPathStartEnd() const {
@@ -160,10 +167,11 @@ const Path PathFindingUtility::getPathStartEnd() const {
 
 /* return buffer storing validated path for each enemy
  * empty vector if not valid */
-bool PathFindingUtility::validateTowerPlacement(const set<Cell*> &positionOfTowers, const set<IEnemy*> &enemies) {
+bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies) {
 	// check from start to end
 	pathStartEndBuffer = findPath(entry, deadline, positionOfTowers);
-	if (pathStartEnd == NULL) {
+	// clear and return if don't find any possible path from start to end
+	if (pathStartEndBuffer.isEmpty()) {
 		pathBuffer.clear();
 		return false;
 	}

@@ -8,6 +8,10 @@ using namespace std;
 #include "Path.h"
 #include "src/utility/GameValues.h"
 
+typedef pair<int /*col*/, int /*row*/> Coordinate;
+
+const Coordinate nullCoordinate = make_pair(-1, -1);
+
 // forward declaration
 class Cell;
 class ITower;
@@ -20,30 +24,35 @@ private:
 	class PathBuffer {
 	public:
 		Path path; // calculated path for
-		IEnemy *enemy; // corresponding enemy
+		IEnemy *enemy{nullptr}; // corresponding enemy
 	};
 	
 	class CellDetails {
 	public:
-		const Cell *prevCell; // previous cell **start from end**
-		int f; // f = g + h
-		int g; // cost from start to this cell
-		int h; // cost from this cell to end
+		Coordinate prevCell{nullCoordinate}; // previous cell **start from end**
+		int f{NUM_OF_COL * NUM_OF_ROW}; // f = g + h
+		int g{NUM_OF_COL * NUM_OF_ROW}; // cost from start to this cell
+		int h{NUM_OF_COL * NUM_OF_ROW}; // cost from this cell to end
 	};
 
-	const Cell *entry;
-	const Cell *deadline;
+	const Coordinate entry;
+	const Coordinate exit;
 	Path pathStartEnd; // path from entry to exit
 	Path pathStartEndBuffer; // buffer to store preview
 	set<PathBuffer*> pathBuffer; // buffer for each enemy
 	const GameGrid *gameGrid; // ref to game grid
 
-	Path processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Cell *end);
+	Path processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end);
 
-	Path findPath(const Cell *start, const Cell *end, const set<ITower*> &Towers);
-	Path findPath(const Cell *start, const Cell *end);
+	bool isCoordinateBlocked(Coordinate coordinate, const set<Coordinate> &blockedPosition) const;
+	bool isCoordinateBlocked(int x, int y, const set<Coordinate> &blockedPosition) const;
 
-	bool isEnemyOnPath(const IEnemy *&enemies, const Path &path);
+	bool isValidCoordinate(Coordinate coordinate) const;
+	bool isValidCoordinate(int x, int y) const;
+
+	Path findPath(const Coordinate start, const Coordinate end, const set<Coordinate> &blockedPosition = set<Coordinate>());
+
+	bool isEnemyOnPath(const IEnemy *&enemy, const Path &path);
 
 public:
 	PathFindingUtility(GameGrid *gameGrid);
