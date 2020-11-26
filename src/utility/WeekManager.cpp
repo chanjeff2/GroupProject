@@ -1,5 +1,15 @@
 #include "WeekManager.h"
 #include "GameValues.h"
+#include "WeekLayoutManager.h"
+
+// constructor
+WeekManager::WeekManager() {
+	week = 0;
+	isWeekCooldown = true;
+	skippedWeeks = 0;
+
+	timer = new QTimer(this);
+}
 
 void WeekManager::goToNextWeek() {
 	// do nothing if week haven't cooldown
@@ -24,13 +34,6 @@ void WeekManager::goToNextWeek() {
 //	}, WEEK_COOLDOWN * 1000)]
 }
 
-// constructor
-WeekManager::WeekManager() {
-	week = 0;
-	isWeekCooldown = true;
-	skippedWeeks = 0;
-}
-
 // getter
 int WeekManager::getWeek() const {
 	return week;
@@ -39,8 +42,6 @@ int WeekManager::getWeek() const {
 bool WeekManager::isSkippedWeek() const {
 	return skippedWeeks > 0;
 }
-
-WeekLayoutManager* WeekManager::accessToLayoutManager() {return &weekLayoutManager;}
 
 // methods
 
@@ -65,10 +66,4 @@ void WeekManager::prepareForNextWeek() {
 		else
 			skippedWeeks--;
 	}));
-//	[psudo: delayedFunction({
-//		if (!isSkippedWeek())
-//			goToNextWeek();
-//		else
-//			skippedWeeks--;
-//		}, WEEK_COUNTDOWN * 1000)]
 }

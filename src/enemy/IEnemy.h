@@ -5,9 +5,11 @@
 using namespace std;
 
 #include <QObject>
+#include <QTimer>
 
 #include "FocusManager.h"
 #include "ModManager.h"
+#include "src/utility/pathfinding/Path.h"
 
 // forward declaration
 class Cell;
@@ -23,13 +25,13 @@ protected:
 	int worth; // How much does the enemy worth
 	int armor; // Armor points
 	bool canSlow; // Immunity to slowness
-//	Cell *currentPosition;
-	deque<Cell*> pathToTake; // pathToTake[0] = currentPosition
-	int distanceFromEnd;
+	Path path; // any thing related to path
 	EnemyUtility *enemyUtility; // keep ref to EnemyUtility to perform destroy
 
+	QTimer *timer; // for timed move
+
 	// protected constructor to prevent direct instantiation
-	IEnemy(EnemyUtility *enemyUtility);
+	IEnemy(EnemyUtility *enemyUtility, Path path);
 
 	// methods
 	void move();
@@ -46,7 +48,8 @@ public:
 	int getRawSpeed() const;
 	int getRawArmor() const;
 	bool getCanSlow() const;
-	const deque<Cell*> &getPathToTake() const;
+	int getWorth() const;
+	const Path &getPath() const;
 
 	// methods
 	void receiveDamage(int damage);

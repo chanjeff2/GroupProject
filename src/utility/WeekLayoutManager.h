@@ -10,7 +10,6 @@
 class WeekManager;
 
 class WeekLayoutManager {
-
     WeekManager* weekManager;
 public:
     QLabel* WeekCount;

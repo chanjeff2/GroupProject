@@ -2,16 +2,17 @@
 #include "src/utility/EnemyUtility.h"
 #include "src/map/cell.h"
 #include "src/utility/GameValues.h"
-#include <QTimer>
+
 
 // constructor
-IEnemy::IEnemy(EnemyUtility *enemyUtility): enemyUtility(enemyUtility), focusManager(this), modManager(this) {
-//	currentPosition = GameGrid.getCell(START[0], START[1]); // put new enemy to entry
-	pathToTake = PathFindingUtility.getPathStartEnd();
-	pathToTake.push_front(GameGrid.getCell(START[0], START[1])); // add dummy cell for first move
-
+IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path): path(path), enemyUtility(enemyUtility), focusManager(this), modManager(this) {
 	// born to move
-	move();
+	// get ready for next move
+	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+
+	timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, &IEnemy::move);
+	timer->start(timeTilNextMove);
 }
 
 // destructor
@@ -19,8 +20,8 @@ IEnemy::~IEnemy() {
 	// notify all tower focusing this enemy to clear focus
 	focusManager.requestUpdateFocus();
 
-	// retrieve resource
-	ResourceManager.gainResource(worth);
+	// stop moving
+	timer->stop();
 }
 
 // getter
@@ -36,22 +37,33 @@ bool IEnemy::getCanSlow() const {
 	return this->canSlow;
 }
 
-const deque<Cell*> &IEnemy::getPathToTake() const {
-	return this->pathToTake;
+const Path &IEnemy::getPath() const {
+	return this->path;
+}
+
+int IEnemy::getWorth() const {
+	return this->worth;
 }
 
 // methods
 void IEnemy::move() {
+	// check if reaching exit
+	if (path.isNextCellEnd()) {
+		enemyUtility->killEnemy(this, false);
+		return;
+	}
+
 	// perform move (i.e. goto next cell in pathToTake) + decrement distanceFromEnd
-	...
+	path.goToNextCell();
 
 	// notify all tower focusing this enemy to update focus if needed
 	focusManager.requestUpdateFocus();
 
 	// get ready for next move
 	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
-	QTimer::singleShot(timeTilNextMove, this, SLOT(this->move()));
-//	postDelay({move()}, 1000/speedModManager.getActualValue())
+	if (timer->interval() != timeTilNextMove) {
+		timer->setInterval(timeTilNextMove); // update timer interval in case there is change in speed;
+	}
 }
 
 void IEnemy::receiveDamage(int damage) {
@@ -60,7 +72,7 @@ void IEnemy::receiveDamage(int damage) {
 
 	// check if die
 	if (this->HP <= 0) {
-		enemyUtility->killEnemy(this);
+		enemyUtility->killEnemy(this, true);
 	}
 }
 

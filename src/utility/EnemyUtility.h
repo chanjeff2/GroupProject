@@ -7,17 +7,19 @@ using namespace std;
 // forward declaration
 class IEnemy;
 enum class EnemyType;
+class GameGrid;
 
 class EnemyUtility
 {
 public:
     set<IEnemy*> enemies; // all enemies
+	GameGrid *gameGrid; // ref to game grid
 
-    EnemyUtility();
+	EnemyUtility(GameGrid *gameGrid);
     ~EnemyUtility();
 
     void generateEnemy(EnemyType enemyType);
-    void killEnemy(IEnemy* enemy);
+	void killEnemy(IEnemy* enemy, bool isDieOfAttack);
 };
 
 #endif // ENEMYUTILITY_H

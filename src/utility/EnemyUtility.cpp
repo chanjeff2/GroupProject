@@ -1,8 +1,9 @@
 #include "EnemyUtility.h"
 #include "GameValues.h"
 #include "src/enemy/IEnemy.h"
+#include "src/map/GameGrid.h"
 
-EnemyUtility::EnemyUtility() = default;
+EnemyUtility::EnemyUtility(GameGrid *gameGrid): gameGrid(gameGrid) {};
 
 EnemyUtility::~EnemyUtility() {
     for (IEnemy *enemy: enemies) {
@@ -76,16 +77,22 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
     }
 }
 
-void EnemyUtility::killEnemy(IEnemy *enemy) {
-            // find &enemy in ememies and remove
-            enemies.erase(enemy);
+void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
+	// get resource if die of attack
+	if (isDieOfAttack) {
+		// retrieve resource
+		gameGrid->resourceManager.gainResource(enemy->getWorth());
+	}
 
-            delete enemy;
+	// find &enemy in ememies and remove
+	enemies.erase(enemy);
 
-            // check if any remaining enemy
-            if (/*no more enemy remain*/true || /*no more enemy to spawn*/ true) {
-            // proceed to next week or end game
-            // prepareForNextWeek()
+	delete enemy;
+
+	// check if any remaining enemy
+	if (/*no more enemy remain*/true || /*no more enemy to spawn*/ true) {
+		// proceed to next week
+		gameGrid->weekManager.prepareForNextWeek();
     }
 }
 

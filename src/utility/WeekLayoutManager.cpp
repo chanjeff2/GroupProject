@@ -13,14 +13,15 @@ void WeekLayoutManager::weekCountDown(int time) {
         TimeLeft->setEnabled(false);
         return;
     }
+
     // update time
     TimeLeft->setEnabled(true);
     TimeLeft->setText("Time left: " + QString::number(time));
 
     // queue for update time
-    [psudo: delayedFunction({
+	QTimer::singleShot(1000, [=] {
         weekCountDown(time - 1);
-        }, 1000)]
+		});
 }
 
 void WeekLayoutManager::updateWeek(const int week) {

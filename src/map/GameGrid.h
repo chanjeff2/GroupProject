@@ -10,15 +10,23 @@ using namespace std;
 #include "src/utility/pathfinding/PathFindingUtility.h"
 #include "src/utility/GameValues.h"
 
+#include "src/utility/GPAManager.h"
+#include "src/utility/WeekManager.h"
+#include "src/utility/ResourceManager.h"
+
 
 class GameGrid
 {
 	array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
 	TowerUtility towerUtility;
-	EnemyUtility enemyUtility;
+	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
 
 public:
+	GPAManager gpaManager;
+	WeekManager weekManager;
+	ResourceManager resourceManager;
+
 	GameGrid();
 	~GameGrid();
 

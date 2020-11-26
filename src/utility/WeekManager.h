@@ -22,8 +22,6 @@ public:
 
 	bool isSkippedWeek() const;
 
-    WeekLayoutManager* accessToLayoutManager();
-
 	// methods
 
 	// user manually skip to next week
