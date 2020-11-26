@@ -40,6 +40,8 @@ bool WeekManager::isSkippedWeek() const {
 	return skippedWeeks > 0;
 }
 
+WeekLayoutManager* WeekManager::accessToLayoutManager() {return &weekLayoutManager;}
+
 // methods
 
 // user manually skip to next week
@@ -53,7 +55,7 @@ void WeekManager::skipToNextWeek() {
 // system automatically proceed to next week after last enemy die
 void WeekManager::prepareForNextWeek() {
 	if (!isSkippedWeek()) {
-		weekLayoutManager.weekCountDown(WEEK_COUNTDOWN)
+        weekLayoutManager.weekCountDown(WEEK_COUNTDOWN);
 	}
 	// start count down timer to proceed to next week
 	// cooldown week skip

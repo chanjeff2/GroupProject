@@ -1,4 +1,5 @@
 #include "GPAManager.h"
+#include "GPALayoutManager.h"
 #include "GameValues.h"
 
 // constructor
@@ -8,6 +9,8 @@ GPAManager::GPAManager(): gpa(MAX_GPA) {}
 float GPAManager::getGPA() const {
 	return gpa;
 }
+
+GPALayoutManager* GPAManager::accessToLayoutManager() {return &gpaLayoutManager;}
 
 /* GameOver -> true
 		 * GameContinue -> false

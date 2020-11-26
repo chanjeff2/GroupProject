@@ -1,6 +1,7 @@
 #include "ResourceLayoutManager.h"
+#include "ResourceManager.h"
 
-ResourceLayoutManager::ResourceLayoutManager(ResourceManager *resourceManager) :
+ResourceLayoutManager::ResourceLayoutManager(ResourceManager* resourceManager) :
     resourceManager(resourceManager) {}
 
 void ResourceLayoutManager::updateResource(const int resource) {
