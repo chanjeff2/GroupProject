@@ -45,6 +45,11 @@ int IEnemy::getWorth() const {
 	return this->worth;
 }
 
+// setter
+void IEnemy::setPath(Path path) {
+	this->path = path;
+}
+
 // methods
 void IEnemy::move() {
 	// check if reaching exit
