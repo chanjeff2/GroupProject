@@ -24,16 +24,16 @@ SOURCES += \
 	src/tower/aura/AuraEffect.cpp \
 	src/tower/targetSelect/ITargetSelectionStrategy.cpp \
 	src/tower/targetSelect/RandomSelection.cpp \
-    src/utility/EnemyUtility.cpp \
-    src/utility/GPALayoutManager.cpp \
-	src/utility/GPAManager.cpp \
+	src/utility/enemy/EnemyUtility.cpp \
+	src/utility/GPA/GPALayoutManager.cpp \
+	src/utility/GPA/GPAManager.cpp \
 	src/utility/pathfinding/Path.cpp \
 	src/utility/pathfinding/PathFindingUtility.cpp \
-    src/utility/ResourceLayoutManager.cpp \
-	src/utility/ResourceManager.cpp \
-	src/utility/TowerUtility.cpp \
-    src/utility/WeekLayoutManager.cpp \
-        src/utility/WeekManager.cpp
+	src/utility/resource/ResourceLayoutManager.cpp \
+	src/utility/resource/ResourceManager.cpp \
+	src/utility/tower/TowerUtility.cpp \
+	src/utility/week/WeekLayoutManager.cpp \
+		src/utility/week/WeekManager.cpp
 
 HEADERS += \
     src/enemy/FocusManager.h \
@@ -50,17 +50,17 @@ HEADERS += \
 	src/tower/aura/AuraEffect.h \
 	src/tower/targetSelect/ITargetSelectionStrategy.h \
 	src/tower/targetSelect/RandomSelection.h \
-    src/utility/EnemyUtility.h \
-    src/utility/GPALayoutManager.h \
-	src/utility/GPAManager.h \
+	src/utility/enemy/EnemyUtility.h \
+	src/utility/GPA/GPALayoutManager.h \
+	src/utility/GPA/GPAManager.h \
     src/utility/GameValues.h \
 	src/utility/pathfinding/Path.h \
 	src/utility/pathfinding/PathFindingUtility.h \
-    src/utility/ResourceLayoutManager.h \
-	src/utility/ResourceManager.h \
-	src/utility/TowerUtility.h \
-    src/utility/WeekLayoutManager.h \
-	src/utility/WeekManager.h
+	src/utility/resource/ResourceLayoutManager.h \
+	src/utility/resource/ResourceManager.h \
+	src/utility/tower/TowerUtility.h \
+	src/utility/week/WeekLayoutManager.h \
+	src/utility/week/WeekManager.h
 
 FORMS += \
     src/main/mainwindow.ui
