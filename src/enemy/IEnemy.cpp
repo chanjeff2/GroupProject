@@ -45,6 +45,10 @@ bool IEnemy::getCanPierceArmor() const {
 	return this->canPierceArmor;
 }
 
+bool IEnemy::getCanEnrage() const {
+	return this->canEnrage;
+}
+
 const Path &IEnemy::getPath() const {
 	return this->path;
 }

@@ -8,4 +8,5 @@ NormalHW::NormalHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, 
 	armor = 0;
 	canSlow = true;
 	canPierceArmor = true;
+	canEnrage = false;
 }

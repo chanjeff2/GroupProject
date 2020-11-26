@@ -26,6 +26,7 @@ protected:
 	int armor; // Armor points
 	bool canSlow; // Immunity to slowness
 	bool canPierceArmor;
+	bool canEnrage;
 	Path path; // any thing related to path
 	EnemyUtility *enemyUtility; // keep ref to EnemyUtility to perform destroy
 
@@ -51,6 +52,7 @@ public:
 	int getRawArmor() const;
 	bool getCanSlow() const;
 	bool getCanPierceArmor() const;
+	bool getCanEnrage() const;
 	int getWorth() const;
 	const Path &getPath() const;
 

@@ -31,7 +31,8 @@ void ModManager::addModifier(AuraType mod) {
 			break;
 		}
 		case AuraType::RageAura: {
-			modifiers[mod] = new Modifier(RAGE_RATIO, RAGE_RATIO);
+			if (enemy->getCanEnrage()) // only apply to who can be enraged
+				modifiers[mod] = new Modifier(RAGE_RATIO, RAGE_RATIO);
 			break;
 		}
 		default: {
