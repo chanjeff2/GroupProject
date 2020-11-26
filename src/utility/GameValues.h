@@ -15,6 +15,10 @@ enum class AuraType {
 	SlowAura, ArmorPierceAura, RageAura, Null
 };
 
+enum class TargetSelectionType {
+	Random, Priority, All, Null
+};
+
 // map
 const int NUM_OF_ROW = 20; // y
 const int NUM_OF_COL = 25; // x
@@ -44,5 +48,8 @@ const float SLOW_TOWER_SLOW_RATIO = 0.7; // speed * 0.7 (slow aura)
 const float ARMOR_PIERCE_RATIO = 0.5; // Halves armor (armor piercing aura)
 const float RAGE_RATIO = 2.0; // When rage, speed and armor * 2 (rage aura)
 const float DEFAULT_RATIO = 1.0;
+
+// attack damage
+const float EFFECTIVE_ATTACK_RATIO = 2.0;
 
 #endif // GAMEVALUES_H

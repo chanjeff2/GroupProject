@@ -3,12 +3,12 @@
 #include "src/utility/GameValues.h"
 #include "src/enemy/IEnemy.h"
 #include "src/tower/attack/IAttackStrategy.h"
-#include "src/tower/aura/IAuraEffectStrategy.h"
+#include "src/tower/aura/AuraEffect.h"
 #include <cmath>
 #include "src/utility/TowerUtility.h"
 
 // protected constructor -> prevent instantiation of ITower
-ITower::ITower(Cell* position, TowerUtility *towerUtility): position(position), towerUtility(towerUtility) {
+ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
 	// born to fight !
 	long attackInterval = 1000/hitPerSec;
 	timer = new QTimer(this);
@@ -21,9 +21,15 @@ ITower::ITower(Cell* position, TowerUtility *towerUtility): position(position), 
 // destructor
 ITower::~ITower() {
 	timer->stop();
+	delete attackStrategy;
+	delete auraEffect;
 }
 
 // getter
+TowerType ITower::getTowerType() const {
+	return towerType;
+}
+
 int ITower::getDamagePerHit() const {
 	return damagePerHit;
 }
