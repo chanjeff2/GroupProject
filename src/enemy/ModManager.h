@@ -27,7 +27,7 @@ public:
 	virtual float getActualValue(Attribute attribute);
 private:
 	class Modifier {
-		const float speedMod; // the order of member data should be the same as in enum class Attribute
+		const float speedMod;
 		const float armorMod;
 	public:
 		Modifier(float speedMod, float armorMod);

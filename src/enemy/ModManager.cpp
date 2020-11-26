@@ -26,11 +26,17 @@ void ModManager::addModifier(AuraType mod) {
 			break;
 		}
 		case AuraType::ArmorPierceAura: {
-			modifiers[mod] = new Modifier(DEFAULT_RATIO, ARMOR_PIERCE_RATIO);
+			if (enemy->getCanPierceArmor()) // only apply to whose armor can be pierced
+				modifiers[mod] = new Modifier(DEFAULT_RATIO, ARMOR_PIERCE_RATIO);
 			break;
 		}
 		case AuraType::RageAura: {
-			modifiers[mod] = new Modifier(RAGE_RATIO, RAGE_RATIO);
+			if (enemy->getCanEnrage()) // only apply to who can be enraged
+				modifiers[mod] = new Modifier(RAGE_RATIO, RAGE_RATIO);
+			break;
+		}
+		default: {
+			// Null Aura (place safe)
 			break;
 		}
 	}

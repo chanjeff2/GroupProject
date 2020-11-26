@@ -5,7 +5,7 @@
 
 
 // constructor
-IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path): path(path), enemyUtility(enemyUtility), focusManager(this), modManager(this) {
+IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path(path), enemyUtility(enemyUtility), enemyType(enemyType), focusManager(this), modManager(this) {
 	// born to move
 	// get ready for next move
 	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
@@ -39,6 +39,14 @@ int IEnemy::getRawArmor() const {
 
 bool IEnemy::getCanSlow() const {
 	return this->canSlow;
+}
+
+bool IEnemy::getCanPierceArmor() const {
+	return this->canPierceArmor;
+}
+
+bool IEnemy::getCanEnrage() const {
+	return this->canEnrage;
 }
 
 const Path &IEnemy::getPath() const {
