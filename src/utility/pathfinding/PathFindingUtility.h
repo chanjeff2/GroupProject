@@ -8,8 +8,6 @@ using namespace std;
 #include "Path.h"
 #include "src/utility/GameValues.h"
 
-typedef pair<int /*col*/, int /*row*/> Coordinate;
-
 const Coordinate nullCoordinate = make_pair(-1, -1);
 
 // forward declaration
@@ -51,6 +49,13 @@ private:
 	bool isValidCoordinate(Coordinate coordinate) const;
 	bool isValidCoordinate(int x, int y) const;
 
+	/**
+	 * @brief findPath - by A* algorithm
+	 * @param start
+	 * @param end
+	 * @param blockedPosition
+	 * @return Path {deque<Cell*> from_start_to_end, int total_distance>} ; or empty Path if not found
+	 */
 	Path findPath(const Coordinate start, const Coordinate end, const set<Coordinate> &blockedPosition = set<Coordinate>());
 
 	bool isEnemyOnPath(const IEnemy *enemy, const Path &path);

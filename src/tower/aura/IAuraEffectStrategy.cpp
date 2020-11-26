@@ -1,9 +1,14 @@
 #include "IAuraEffectStrategy.h"
 #include "src/tower/ITower.h"
 #include "src/enemy/IEnemy.h"
+#include "src/utility/GameValues.h"
 
 // constructor
-IAuraEffectStrategy::IAuraEffectStrategy(ITower* tower) : tower(tower) {}
+IAuraEffectStrategy::IAuraEffectStrategy(ITower* tower, AuraType auraType) : tower(tower), auraType(auraType) {}
+
+AuraType IAuraEffectStrategy::getAuraType() const {
+	return auraType;
+}
 
 // methods
 void IAuraEffectStrategy::applyAuraEffectToEnemyInRangeIfNeed() {

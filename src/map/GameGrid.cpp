@@ -23,7 +23,7 @@ GameGrid::~GameGrid() {
 }
 
 // getter
-const Cell *GameGrid::getCell(int x, int y) const {
+Cell *GameGrid::getCell(int x, int y) const {
 	if (!isValidCoordinate(x, y))
 		return nullptr;
 
@@ -59,15 +59,15 @@ bool GameGrid::canPlaceTower(int x, int y) {
 
 	// check if the cell is occupied with any enemy
 	for (auto enemy: enemies) {
-		if (enemy->getPathToTake()[0]->x == x && enemy->getPathToTake()[0]->y == y)
+		if (enemy->getPath().getCurrentCoordinate() == make_pair(x, y))
 			return false;
 	}
 
-	set<Cell*> newTowerPositions = towerUtility.positionOfTowers;
-	newTowerPositions.insert(cell);
+	set<Coordinate> newTowerPositions = towerUtility.positionOfTowers;
+	newTowerPositions.insert(make_pair(x, y));
 
 	// validate path
-	if (!pathFindingUtility.validateTowerPlacement(newTowerPositions)) {
+	if (!pathFindingUtility.validateTowerPlacement(newTowerPositions, enemies)) {
 		return false;
 	}
 
@@ -97,7 +97,7 @@ bool GameGrid::removeTower(int x, int y) {
 	towerUtility.removeTower(cell);
 
 	// update path of enemies
-	pathFindingUtility.validateTowerPlacement(towerUtility.positionOfTowers);
+	pathFindingUtility.validateTowerPlacement(towerUtility.positionOfTowers, enemyUtility.enemies);
 	pathFindingUtility.updatePath();
 
 	return true;

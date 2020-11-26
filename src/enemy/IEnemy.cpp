@@ -25,6 +25,10 @@ IEnemy::~IEnemy() {
 }
 
 // getter
+EnemyType IEnemy::getEnemyType() const {
+	return this->enemyType;
+}
+
 int IEnemy::getRawSpeed() const {
 	return this->speed;
 }

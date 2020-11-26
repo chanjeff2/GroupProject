@@ -1,9 +1,20 @@
 #include "Path.h"
 #include "src/map/cell.h"
+#include "src/enemy/IEnemy.h"
 
-void Path::goToNextCell() {
+void Path::goToNextCell(IEnemy* enemy) {
+	// un reg from current cell
+	if (enemy != nullptr) {
+		pathStartEnd.at(0)->removeEnemy(enemy);
+	}
+
 	pathStartEnd.pop_front();
 	--pathStartEndDistance;
+
+	// reg into new cell
+	if (enemy != nullptr) {
+		pathStartEnd.at(0)->addEnemy(enemy);
+	}
 }
 
 int Path::getRemainingDistance() const {

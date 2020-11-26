@@ -18,7 +18,7 @@ using namespace std;
 class GameGrid
 {
 	array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
-	TowerUtility towerUtility;
+	TowerUtility towerUtility{this};
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
 
@@ -31,7 +31,7 @@ public:
 	~GameGrid();
 
 	// getter
-	const Cell *getCell(int x, int y) const;
+	Cell *getCell(int x, int y) const;
 
 	const set<ITower*> &getAllTower() const;
 

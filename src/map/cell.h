@@ -20,22 +20,25 @@ class Cell
 	Cell(int x, int y);
 	Cell(int x, int y, ITower *tower);
 
-    public:
-        const int x;
-        const int y;
+public:
+	const int x;
+	const int y;
 
-		// methods
-		// true -> successfully placed
-		bool placeTower(ITower *tower);
-		void removeTower();
+	ITower *getTower() const;
+	set<IEnemy*> getEnemy() const;
 
-		void addEnemy(IEnemy *enemy);
-		void removeEnemy(IEnemy *enemy);
+	// methods
+	// true -> successfully placed
+	bool placeTower(ITower *tower);
+	void removeTower();
 
-		// no enemy nor tower
-		bool isEmpty() const;
+	void addEnemy(IEnemy *enemy);
+	void removeEnemy(IEnemy *enemy);
 
-		bool hasTower() const;
+	// no enemy nor tower
+	bool isEmpty() const;
+
+	bool hasTower() const;
 };
 
 #endif // CELL_H
