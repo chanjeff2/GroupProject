@@ -2,6 +2,9 @@
 #include "src/tower/ITower.h"
 #include "src/enemy/IEnemy.h"
 #include "src/tower/targetSelect/ITargetSelectionStrategy.h"
+#include "src/utility/GameValues.h"
+
+#include <cmath>
 
 // protected constructor
 IAttackStrategy::IAttackStrategy(ITower *tower): tower(tower) {}
@@ -41,6 +44,12 @@ void IAttackStrategy::attack() {
 	if (!focusedEnemies.empty()) {
 		for (IEnemy *focusedEnemy: focusedEnemies) {
 			// attack !
+			if (tower->getEffectiveTowards().find(focusedEnemy->getEnemyType()) != tower->getEffectiveTowards().end()) {
+				int damage = round(tower->getDamagePerHit() * EFFECTIVE_ATTACK_RATIO);
+				focusedEnemy->receiveDamage(damage);
+			} else {
+				focusedEnemy->receiveDamage(tower->getDamagePerHit());
+			}
 		}
 	}
 
