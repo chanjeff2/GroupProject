@@ -25,6 +25,7 @@ private:
 	public:
 		Path path; // calculated path for
 		IEnemy *enemy{nullptr}; // corresponding enemy
+		PathBuffer(Path path, IEnemy *enemy);
 	};
 	
 	class CellDetails {
@@ -39,7 +40,7 @@ private:
 	const Coordinate exit;
 	Path pathStartEnd; // path from entry to exit
 	Path pathStartEndBuffer; // buffer to store preview
-	set<PathBuffer*> pathBuffer; // buffer for each enemy
+	set<PathBuffer> pathBuffer; // buffer for each enemy
 	const GameGrid *gameGrid; // ref to game grid
 
 	Path processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end);
@@ -52,7 +53,7 @@ private:
 
 	Path findPath(const Coordinate start, const Coordinate end, const set<Coordinate> &blockedPosition = set<Coordinate>());
 
-	bool isEnemyOnPath(const IEnemy *&enemy, const Path &path);
+	bool isEnemyOnPath(const IEnemy *enemy, const Path &path);
 
 public:
 	PathFindingUtility(GameGrid *gameGrid);
@@ -61,7 +62,7 @@ public:
 
 	/* return buffer storing validated path for each enemy
 	 * empty vector if not valid */
-	bool validateTowerPlacement(const set<Cell*> &positionOfTowers, const set<IEnemy*> &enemies);
+	bool validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies);
 
 	/* successfully updated path -> true
 	 * failed, path is blocked -> false */
