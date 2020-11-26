@@ -10,8 +10,6 @@ float GPAManager::getGPA() const {
 	return gpa;
 }
 
-GPALayoutManager* GPAManager::accessToLayoutManager() {return &gpaLayoutManager;}
-
 /* GameOver -> true
 		 * GameContinue -> false
 		 * usage: if (reduceGPA(amount)) [GG] */
