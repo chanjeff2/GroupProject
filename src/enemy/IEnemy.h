@@ -51,6 +51,9 @@ public:
 	int getWorth() const;
 	const Path &getPath() const;
 
+	// setter
+	void setPath(Path path);
+
 	// methods
 	void receiveDamage(int damage);
 
