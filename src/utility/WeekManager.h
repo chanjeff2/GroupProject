@@ -10,7 +10,7 @@ class WeekManager: public QObject {
 	int week; // wave
 	bool isWeekCooldown; // true -> ready to start next week
 	std::atomic_int skippedWeeks; // no. of weeks skipped ** atomic for thread safe
-    WeekLayoutManager weekLayoutManager{this};
+    WeekLayoutManager* weekLayoutManager;
 
 	void goToNextWeek();
 public:

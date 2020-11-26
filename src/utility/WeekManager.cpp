@@ -18,10 +18,10 @@ void WeekManager::goToNextWeek() {
 	}
 
 	isWeekCooldown = false;
-	weekLayoutManager.isWeekCoolDown(false);
+    weekLayoutManager->isWeekCoolDown(false);
 	// goto next week
 	++week;
-	weekLayoutManager.updateWeek(week);
+    weekLayoutManager->updateWeek(week);
 
 	// cooldown week skip
 	QTimer::singleShot(WEEK_COOLDOWN * 1000, this, SLOT([]{
@@ -56,7 +56,7 @@ void WeekManager::skipToNextWeek() {
 // system automatically proceed to next week after last enemy die
 void WeekManager::prepareForNextWeek() {
 	if (!isSkippedWeek()) {
-        weekLayoutManager.weekCountDown(WEEK_COUNTDOWN);
+        weekLayoutManager->weekCountDown(WEEK_COUNTDOWN);
 	}
 	// start count down timer to proceed to next week
 	// cooldown week skip

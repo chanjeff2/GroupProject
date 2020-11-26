@@ -6,15 +6,13 @@
 class GPAManager
 {
 	float gpa; // score
-    GPALayoutManager gpaLayoutManager{this};
+    GPALayoutManager* gpaLayoutManager;
 
 public:
 	GPAManager();
 
 	// methods
 	float getGPA() const;
-
-    GPALayoutManager* accessToLayoutManager();
 
 	/* GameOver -> true
 	 * GameContinue -> false
