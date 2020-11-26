@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "ResourceLayoutManager.h"
 #include "GameValues.h"
 
 ResourceManager::ResourceManager(): resource(STARTING_RESOURCE), resourceCapacityLevel(0) {
@@ -15,6 +16,8 @@ int ResourceManager::getResourceCapacity() const {
 int ResourceManager::getResourceRequiredForUpgradeCapacity() const {
 	return getResourceCapacity() * RESOURCE_CAPACITY_RATIO_TO_UPGRADE;
 }
+
+ResourceLayoutManager* ResourceManager::accessToLayoutManager() {return &resourceLayoutManager;}
 
 /* enough resource to spend -> spend & true
 		 * else -> do nothing & false

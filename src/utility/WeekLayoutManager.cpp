@@ -1,3 +1,4 @@
+#include "WeekManager.h"
 #include "WeekLayoutManager.h"
 
 WeekLayoutManager::WeekLayoutManager(WeekManager *weekManager) : weekManager(weekManager) {}

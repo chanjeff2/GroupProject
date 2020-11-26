@@ -1,4 +1,5 @@
 #include "GPALayoutManager.h"
+#include "GPAManager.h"
 
 GPALayoutManager::GPALayoutManager(GPAManager* gpaManager) : gpaManager(gpaManager) {}
 

@@ -5,13 +5,12 @@
 #include <vector>
 #include <QLabel>
 #include "src/utility/GameValues.h"
-#include "src/utility/GPAManager.h"
 
 class GPAManager;
 
 class GPALayoutManager {
     GPAManager* gpaManager;
-    std::vector<QString> grades = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"};
+    const std::vector<QString> grades = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"};
 public:
     QLabel* GPALabel;
     QLabel* GradeLabel;

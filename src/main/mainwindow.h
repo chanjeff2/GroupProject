@@ -56,13 +56,8 @@ private:
     TowerType tower_selected {TowerType::None};
 
     ResourceManager resource_manager;
-    ResourceLayoutManager resource_layout_manager {&resource_manager};
-
     GPAManager gpa_manager;
-    GPALayoutManager gpa_layout_manager{&gpa_manager};
-
     WeekManager week_manager;
-    WeekLayoutManager week_layout_manager{&week_manager};
 
     GameGrid game_grid;
     bool sell_mode {false};
