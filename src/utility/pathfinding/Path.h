@@ -8,12 +8,13 @@ typedef	pair<int /*col*/, int /*row*/> Coordinate;
 
 // forward declaration
 class Cell;
+class IEnemy;
 
 class Path { // change to pointer if needed
 	friend class PathFindingUtility; // for generating path
 
 	// member data
-	deque<const Cell*> pathStartEnd; // deque storing cells in subsequent order where pathStartEnd[0] is start
+	deque<Cell*> pathStartEnd; // deque storing cells in subsequent order where pathStartEnd[0] is start
 	int pathStartEndDistance{0}; // total number of cells in pathStartEnd
 public:
 	Path() = default;
@@ -24,7 +25,7 @@ public:
 	const Coordinate getCurrentCoordinate() const;
 	bool isEmpty() const;
 
-	void goToNextCell();
+	void goToNextCell(IEnemy* enemy = nullptr);
 };
 
 #endif // PATH_H
