@@ -4,6 +4,8 @@
 #include <deque>
 using namespace std;
 
+typedef	pair<int /*col*/, int /*row*/> Coordinate;
+
 // forward declaration
 class Cell;
 
@@ -19,6 +21,7 @@ public:
 	int getRemainingDistance() const;
 	bool isNextCellEnd() const;
 	const Cell *getCurrentCell() const;
+	const Coordinate getCurrentCoordinate() const;
 	bool isEmpty() const;
 
 	void goToNextCell();

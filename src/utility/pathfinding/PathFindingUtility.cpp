@@ -10,8 +10,9 @@ PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), 
 	pathStartEnd = findPath(entry, exit);
 }
 
-// methods
+PathFindingUtility::PathBuffer::PathBuffer(Path path, IEnemy *enemy): path(path), enemy(enemy) {};
 
+// methods
 Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end) {
 	Path path;
 
@@ -154,8 +155,8 @@ Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, 
 	return path;
 }
 
-bool PathFindingUtility::isEnemyOnPath(const IEnemy *&enemy, const Path &path) {
-	if (path.pathStartEnd.find(enemy->currentPosition))
+bool PathFindingUtility::isEnemyOnPath(const IEnemy *enemy, const Path &path) {
+	if (find(path.pathStartEnd.begin(), path.pathStartEnd.end(), enemy->getPath().getCurrentCell()) != path.pathStartEnd.end())
 		return true;
 	else
 		return false;
@@ -169,7 +170,7 @@ const Path PathFindingUtility::getPathStartEnd() const {
  * empty vector if not valid */
 bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies) {
 	// check from start to end
-	pathStartEndBuffer = findPath(entry, deadline, positionOfTowers);
+	pathStartEndBuffer = findPath(entry, exit, positionOfTowers);
 	// clear and return if don't find any possible path from start to end
 	if (pathStartEndBuffer.isEmpty()) {
 		pathBuffer.clear();
@@ -177,25 +178,32 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 	}
 
 	// check for enemies not on optimized path
-	[psudo: vector<IEnemy*> enemiesNotOnPath = enemies.filter({ enemy ->
-		Bool isOnPath = isEnemyOnPath(enemy, pathStartEndBuffer); // true -> on path
-		if (isOnPath)
-			std::vector<Cell*> tempPath = ... // pop until the start is current position
-			pathBuffer.push_back({enemy, tempPath, tempPath.size()}); // better to return the distance when calculate path instead of using size()
-		else
-			return true; // insert enemies not on path to enemiesNotOnPath
-	})]
+	set<IEnemy*> enemiesNotOnPath;
+	copy_if(enemies.begin(), enemies.end(), enemies.begin(), [&](IEnemy *enemy) {
+		bool isOnPath = isEnemyOnPath(enemy, pathStartEndBuffer);
+		if (isOnPath) {
+			Path _path = pathStartEndBuffer;
+			while (_path.getCurrentCell() != enemy->getPath().getCurrentCell()) {
+				_path.goToNextCell();
+			}
+			PathBuffer _pathBuffer(_path, enemy);
+			pathBuffer.insert(_pathBuffer); // add enemies on path to buffer
+		}
+		return !isOnPath; // // insert enemies not on path to enemiesNotOnPath
+	});
 
 	// check for remaining enemies
-	[psudo: forEach(enemiesNotOnPath) { enemy ->
-		std::vector<Cell*> path = findPath(enemy->currentPosition, deadline, positionOfTowers);
-		if (!path.empty()) {
-			pathBuffer.push_back({enemy, path, path.size()}); // better to return the distance when calculate path instead of using size()
+	for (auto enemy: enemiesNotOnPath) {
+		Path _path = findPath(enemy->getPath().getCurrentCoordinate(), exit, positionOfTowers);
+		if (!_path.isEmpty()) {
+			PathBuffer _pathBuffer(_path, enemy);
+			pathBuffer.insert(_pathBuffer); // add enemies not on path to buffer
 		} else {
-			pathBuffer.clear();
+			pathBuffer.clear(); // cannot find path for any enemy
 			return false;
 		}
-	}]
+	}
+
 	return true;
 }
 
@@ -208,14 +216,12 @@ bool PathFindingUtility::updatePath() {
 	}
 
 	// all valid, replace enemies' pathToTake by path in buffer & clear buffer
-	forEach(pathBuffer) { element ->
-		element.enemy.pathToTake = element.path;
-		element.enemy.distanceFromEnd
+	for (auto element: pathBuffer) {
+		element.enemy->setPath(element.path);
 	}
 	pathBuffer.clear();
 
-	// buffer content & clear buffer
+	// buffer content
 	pathStartEnd = pathStartEndBuffer;
-	pathStartEndBuffer.clear();
 	return true;
 }
