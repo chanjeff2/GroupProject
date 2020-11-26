@@ -25,13 +25,14 @@ protected:
 	int worth; // How much does the enemy worth
 	int armor; // Armor points
 	bool canSlow; // Immunity to slowness
+	bool canPierceArmor;
 	Path path; // any thing related to path
 	EnemyUtility *enemyUtility; // keep ref to EnemyUtility to perform destroy
 
 	QTimer *timer; // for timed move
 
 	// protected constructor to prevent direct instantiation
-	IEnemy(EnemyUtility *enemyUtility, Path path);
+	IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType);
 
 	// methods
 	void move();
@@ -45,9 +46,11 @@ public:
 	virtual ~IEnemy();
 
 	// getter
+	EnemyType getEnemyType() const;
 	int getRawSpeed() const;
 	int getRawArmor() const;
 	bool getCanSlow() const;
+	bool getCanPierceArmor() const;
 	int getWorth() const;
 	const Path &getPath() const;
 
@@ -56,9 +59,6 @@ public:
 
 	// methods
 	void receiveDamage(int damage);
-
-	virtual void special() = 0;
-	virtual void comeToDeadline() = 0;
 };
 
 #endif // IENEMY_H
