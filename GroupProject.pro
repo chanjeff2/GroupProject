@@ -27,6 +27,7 @@ SOURCES += \
     src/enemy/implementation/PopQuiz.cpp \
     src/main/main.cpp \
     src/main/mainwindow.cpp \
+    src/main/ClickableView.cpp \
     src/map/GameGrid.cpp \
     src/map/cell.cpp \
     src/tower/implementation/Arts.cpp \
@@ -72,6 +73,7 @@ HEADERS += \
     src/enemy/implementation/PA.h \
     src/enemy/implementation/PopQuiz.h \
     src/main/mainwindow.h \
+    src/main/ClickableView.h \
     src/map/GameGrid.h \
     src/map/cell.h \
     src/tower/implementation/Arts.h \
