@@ -10,7 +10,6 @@ using namespace std;
 #include "FocusManager.h"
 #include "ModManager.h"
 #include "src/utility/pathfinding/Path.h"
-#include "src/utility/GameValues.h"
 
 // forward declaration
 class Cell;
