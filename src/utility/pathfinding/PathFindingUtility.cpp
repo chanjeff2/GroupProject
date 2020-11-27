@@ -6,7 +6,7 @@
 #include <cmath>
 
 // constructor
-PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(make_pair(START[0], START[1])), exit(make_pair(END[0], END[1])) {
+PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {
 	pathStartEnd = findPath(entry, exit);
 }
 
@@ -162,7 +162,7 @@ bool PathFindingUtility::isEnemyOnPath(const IEnemy *enemy, const Path &path) {
 		return false;
 }
 
-const Path PathFindingUtility::getPathStartEnd() const {
+Path PathFindingUtility::getPathStartEnd() const {
 	return pathStartEnd;
 }
 

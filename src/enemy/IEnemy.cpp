@@ -62,6 +62,10 @@ void IEnemy::setPath(Path path) {
 	this->path = path;
 }
 
+void IEnemy::attachImageView(QGraphicsPixmapItem *imgView) {
+	this->enemyLayoutManager.attachImageView(imgView);
+}
+
 // methods
 void IEnemy::move() {
 	// check if reaching exit
@@ -72,6 +76,9 @@ void IEnemy::move() {
 
 	// perform move (i.e. goto next cell in pathToTake) + decrement distanceFromEnd
 	path.goToNextCell();
+
+	// update UI
+	enemyLayoutManager.moveTo(path.getCurrentCoordinate());
 
 	// notify all tower focusing this enemy to update focus if needed
 	focusManager.requestUpdateFocus();

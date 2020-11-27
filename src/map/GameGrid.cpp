@@ -38,6 +38,14 @@ const set<IEnemy*> &GameGrid::getAllEnemy() const {
 	return enemyUtility.enemies;
 }
 
+QGraphicsScene *GameGrid::getScene() const {
+	return scene;
+}
+
+Path GameGrid::getPathStartEnd() const {
+	return pathFindingUtility.getPathStartEnd();
+}
+
 // methods
 bool GameGrid::isValidCoordinate(int x, int y) const {
 	if (x < 0 || y < 0 || x > NUM_OF_COL - 1 || y > NUM_OF_ROW - 1)

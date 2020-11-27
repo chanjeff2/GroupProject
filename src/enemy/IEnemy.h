@@ -9,6 +9,7 @@ using namespace std;
 
 #include "FocusManager.h"
 #include "ModManager.h"
+#include "EnemyLayoutManager.h"
 #include "src/utility/pathfinding/Path.h"
 
 // forward declaration
@@ -29,6 +30,7 @@ protected:
 	bool canEnrage;
 	Path path; // any thing related to path
 	EnemyUtility *enemyUtility; // keep ref to EnemyUtility to perform destroy
+	EnemyLayoutManager enemyLayoutManager;
 
 	QTimer *timer; // for timed move
 
@@ -58,6 +60,7 @@ public:
 
 	// setter
 	void setPath(Path path);
+	void attachImageView(QGraphicsPixmapItem *imgView);
 
 	// methods
 	void receiveDamage(int damage);

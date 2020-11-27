@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+	src/enemy/EnemyLayoutManager.cpp \
     src/enemy/implementation/CompLab.cpp \
     src/enemy/implementation/Desmond.cpp \
     src/enemy/implementation/Elpa.cpp \
@@ -56,6 +57,7 @@ SOURCES += \
 		src/utility/week/WeekManager.cpp
 
 HEADERS += \
+	src/enemy/EnemyLayoutManager.h \
     src/enemy/implementation/CompLab.h \
     src/enemy/implementation/Desmond.h \
     src/enemy/implementation/Elpa.h \
