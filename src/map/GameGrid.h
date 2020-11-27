@@ -3,6 +3,9 @@
 
 #include <array>
 #include <set>
+#include <QGraphicsView>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsRectItem>
 using namespace std;
 
 #include "src/utility/tower/TowerUtility.h"

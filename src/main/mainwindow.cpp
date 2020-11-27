@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->graphicsView->setScene(&scene);
+    ui->graphicsView->show();
+
     this->setWindowTitle("UST Students vs. Assignments - Main Window");
 
     // Link the objects with the layout manager
