@@ -25,59 +25,59 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
             break;
         }
         case EnemyType::Essay: {
-			newEnemy = new Essay(START);
+			newEnemy = new Essay(this, path);
             break;
         }
         case EnemyType::EncryptedHW: {
-			newEnemy = new EncryptedHW(START);
+			newEnemy = new EncryptedHW(this, path);
             break;
         }
         case EnemyType::GroupProj: {
-			newEnemy = new GroupProj(START);
+			newEnemy = new GroupProj(this, path);
             break;
         }
         case EnemyType::MathHW: {
-			newEnemy = new MathHW(START);
+			newEnemy = new MathHW(this, path);
             break;
         }
         case EnemyType::COMPLab: {
-			newEnemy = new COMPLab(START);
+			newEnemy = new COMPLab(this, path);
             break;
         }
         case EnemyType::PA: {
-			newEnemy = new PA(START);
+			newEnemy = new PA(this, path);
             break;
         }
         case EnemyType::Desmond: {
-			newEnemy = new Desmond(START);
+			newEnemy = new Desmond(this, path);
             break;
         }
         case EnemyType::PopQuiz: {
-			newEnemy = new PopQuiz(START);
+			newEnemy = new PopQuiz(this, path);
             break;
         }
         case EnemyType::Midterm: {
-			newEnemy = new Midterm(START);
+			newEnemy = new Midterm(this, path);
             break;
         }
         case EnemyType::MATHExam: {
-			newEnemy = new MATHExam(START);
+			newEnemy = new MATHExam(this, path);
             break;
         }
         case EnemyType::Final: {
-			newEnemy = new Final(START);
+			newEnemy = new Final(this, path);
             break;
         }
         case EnemyType::ELPA: {
-			newEnemy = new ELPA(START);
+			newEnemy = new ELPA(this, path);
             break;
         }
         case EnemyType::FYP: {
-			newEnemy = new FYP(START);
+			newEnemy = new FYP(this, path);
             break;
         }
         default: { // Prevent invalid Inputs
-			newEnemy = new NormalHW(START);
+			newEnemy = new NormalHW(this, path);
             break;
         }
     }

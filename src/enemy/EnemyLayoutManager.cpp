@@ -6,15 +6,15 @@ EnemyLayoutManager::~EnemyLayoutManager() {
 	delete this->imgView;
 }
 
-void EnemyLayoutManager::init() {
+void EnemyLayoutManager::init(Coordinate coordinate) {
 	this->imgView->setVisible(true);
 	this->imgView->setZValue(static_cast<float>(Element::Enemy));
-	moveTo(START);
+	moveTo(coordinate);
 }
 
-void EnemyLayoutManager::attachImageView(QGraphicsPixmapItem *imgView) {
+void EnemyLayoutManager::attachImageView(QGraphicsPixmapItem *imgView, Coordinate coordinate) {
 	this->imgView = imgView;
-	init();
+	init(coordinate);
 }
 
 void EnemyLayoutManager::moveTo(int x, int y) {
