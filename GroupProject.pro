@@ -31,6 +31,7 @@ SOURCES += \
     src/main/ClickableView.cpp \
     src/map/GameGrid.cpp \
     src/map/cell.cpp \
+	src/tower/TowerLayoutManager.cpp \
     src/tower/implementation/Arts.cpp \
     src/tower/implementation/Calc.cpp \
     src/tower/implementation/Chegg.cpp \
@@ -78,6 +79,7 @@ HEADERS += \
     src/main/ClickableView.h \
     src/map/GameGrid.h \
     src/map/cell.h \
+	src/tower/TowerLayoutManager.h \
     src/tower/implementation/Arts.h \
     src/tower/implementation/Calc.h \
     src/tower/implementation/Chegg.h \

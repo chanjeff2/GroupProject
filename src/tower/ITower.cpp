@@ -50,6 +50,11 @@ set<EnemyType> ITower::getWeakTowards() const {
 	return weakTowards;
 }
 
+// setter
+void ITower::attachImageView(QGraphicsPixmapItem *imgView) {
+	towerLayoutManager.attachImageView(imgView, make_pair(position->x, position->y));
+}
+
 // methods
 set<IEnemy*> ITower::getEnemiesInRange() const {
 	// TODO: get non occupied cells (in boundary) <- can open new function here

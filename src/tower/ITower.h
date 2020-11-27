@@ -7,6 +7,8 @@ using namespace std;
 #include <QTimer>
 #include <QObject>
 
+#include "TowerLayoutManager.h"
+
 // forward declaration
 enum class TowerType;
 enum class EnemyType;
@@ -29,6 +31,7 @@ protected:
 	const Cell *position; // Cell contains tower,tower hold ref to cell
 
 	TowerUtility *towerUtility;
+	TowerLayoutManager towerLayoutManager;
 
 	QTimer *timer;
 
@@ -52,9 +55,12 @@ public:
 
 	int getCost() const;
 
-	std::set<EnemyType> getEffectiveTowards() const;
+	set<EnemyType> getEffectiveTowards() const;
 
-	std::set<EnemyType> getWeakTowards() const;
+	set<EnemyType> getWeakTowards() const;
+
+	// setter
+	attachImageView(QGraphicsPixmapItem *imgView, Coordinate coordinate)
 
 	// methods
 	std::set<IEnemy*> getEnemiesInRange() const;
