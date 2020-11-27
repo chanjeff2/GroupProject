@@ -3,8 +3,8 @@
 
 enum class EnemyType: int {
     NormalHW = 100, Essay, EncryptedHW,
-    GroupProj, MathHW, COMPLab, PA, Desmond,
-    PopQuiz, Midterm, MATHExam, Final, ELPA, FYP
+    GroupProj, MathHW, CompLab, PA, Desmond,
+    PopQuiz, Midterm, MathExam, Final, ELPA, FYP
 };
 
 enum class TowerType: int {

@@ -21,6 +21,7 @@ SOURCES += \
     src/enemy/IEnemy.cpp \
     src/enemy/MathExam.cpp \
     src/enemy/MathHW.cpp \
+    src/enemy/Midterm.cpp \
     src/enemy/ModManager.cpp \
 	src/enemy/NormalHW.cpp \
     src/enemy/PA.cpp \
@@ -67,6 +68,7 @@ HEADERS += \
     src/enemy/IEnemy.h \
     src/enemy/MathExam.h \
     src/enemy/MathHW.h \
+    src/enemy/Midterm.h \
     src/enemy/ModManager.h \
 	src/enemy/NormalHW.h \
     src/enemy/PA.h \

@@ -13,8 +13,10 @@ using namespace std;
 
 #include "attack/NormalAttack.h"
 #include "aura/AuraEffect.h"
+#include "src/utility/GameValues.h"
 
 // forward declaration
+/*
 enum class TowerType {
     Regular = 0,
     Arts = 1,
@@ -24,7 +26,7 @@ enum class TowerType {
     Nerd = 5,
     Ghostwriter = 6,
     Chegg = 7
-};
+};*/
 
 //enum class EnemyType;
 class Cell;

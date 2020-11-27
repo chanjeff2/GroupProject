@@ -10,9 +10,11 @@ using namespace std;
 #include "FocusManager.h"
 #include "ModManager.h"
 #include "src/utility/pathfinding/Path.h"
+#include "src/utility/GameValues.h"
 
 // forward declaration
 class Cell;
+/*
 enum class EnemyType {
     NormalHW = 0,
     Essay = 1,
@@ -28,7 +30,7 @@ enum class EnemyType {
     Final = 11,
     ELPA = 12,
     FYP = 13
-} ;
+} ;*/
 class EnemyUtility;
 
 class IEnemy: public QObject {
