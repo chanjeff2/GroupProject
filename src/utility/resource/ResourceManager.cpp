@@ -59,3 +59,7 @@ bool ResourceManager::upgradeResourceCapacity() {
     resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
 	return true;
 }
+
+ResourceLayoutManager* ResourceManager::accessToLayoutManager() const {
+    return resourceLayoutManager;
+}

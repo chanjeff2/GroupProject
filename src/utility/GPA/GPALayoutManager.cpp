@@ -20,3 +20,4 @@ void GPALayoutManager::UpdateGPA(float GPA) {
     GPALabel->setText(QString::number(GPA));
     GradeLabel->setText("(" + grade + ")");
 }
+
