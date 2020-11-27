@@ -22,7 +22,7 @@ protected:
 public:
 	// constructor
 	AuraEffect(ITower* tower, AuraType auraType);
-	~AuraEffect() {}
+	~AuraEffect();
 
 	AuraType getAuraType() const;
 
