@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
 #include "ResourceLayoutManager.h"
-#include "GameValues.h"
+#include "src/utility/GameValues.h"
 
 ResourceManager::ResourceManager(): resource(STARTING_RESOURCE), resourceCapacityLevel(0) {
 }
