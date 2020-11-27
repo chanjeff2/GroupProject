@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
 #include "ResourceLayoutManager.h"
-#include "src/utility/GameValues.h"
+#include "GameValues.h"
 
 ResourceManager::ResourceManager(): resource(STARTING_RESOURCE), resourceCapacityLevel(0) {
 }
@@ -58,8 +58,4 @@ bool ResourceManager::upgradeResourceCapacity() {
 
     resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
 	return true;
-}
-
-ResourceLayoutManager* ResourceManager::accessToLayoutManager() const {
-    return resourceLayoutManager;
 }

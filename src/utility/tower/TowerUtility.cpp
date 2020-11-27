@@ -1,6 +1,6 @@
 #include "TowerUtility.h"
 #include "src/tower/ITower.h"
-#include "src/utility/GameValues.h"
+#include "GameValues.h"
 #include "src/map/cell.h"
 #include "src/tower/aura/IAuraEffectStrategy.h"
 #include "src/map/GameGrid.h"

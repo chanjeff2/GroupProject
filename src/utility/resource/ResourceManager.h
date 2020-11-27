@@ -31,8 +31,6 @@ public:
 	 * (but we should have disabled the upgrade button)
 	 * can still check to place safe */
 	bool upgradeResourceCapacity();
-
-    ResourceLayoutManager* accessToLayoutManager() const;
 };
 
 #endif // RESOURCEMANAGER_H

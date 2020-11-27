@@ -1,5 +1,5 @@
 #include "WeekManager.h"
-#include "src/utility/GameValues.h"
+#include "GameValues.h"
 #include "WeekLayoutManager.h"
 
 // constructor
@@ -66,8 +66,4 @@ void WeekManager::prepareForNextWeek() {
 		else
 			skippedWeeks--;
 	}));
-}
-
-WeekLayoutManager* WeekManager::accessToLayoutManager() const {
-    return weekLayoutManager;
 }
