@@ -13,6 +13,7 @@ class ITargetSelectionStrategy
 {
 public:
 	ITargetSelectionStrategy();
+	virtual ~ITargetSelectionStrategy();
 	/**
 	 * @brief selectTarget - filter away all weakTowards and focused enemies
 	 * @param enemiesInRange

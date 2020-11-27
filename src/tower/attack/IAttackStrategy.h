@@ -14,7 +14,7 @@ class IAttackStrategy
 {
 protected:
 	// data member
-	const ITower *tower; // ref to tower
+	ITower *tower; // ref to tower
 	int maxNumOfTarget = 0; // only applicable to normal attack
 	set<IEnemy*> focusedEnemies;
 	ITargetSelectionStrategy *targetSelectionStrategy = nullptr; // ways to select target
@@ -31,6 +31,8 @@ public:
 
 	// methods
 	virtual void updateFocusedEnemyInRange() = 0; // update according to attack type
+
+	void clearAllFocus(); // clear all focus when destroy
 
 	void attack();
 };
