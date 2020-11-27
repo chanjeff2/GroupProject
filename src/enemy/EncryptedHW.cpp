@@ -1,4 +1,5 @@
 #include "EncryptedHW.h"
+#include "src/utility/GameValues.h"
 
 EncryptedHW::EncryptedHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::EncryptedHW)
 {

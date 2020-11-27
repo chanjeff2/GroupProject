@@ -1,4 +1,5 @@
 #include "Elpa.h"
+#include "src/utility/GameValues.h"
 
 ELPA::ELPA(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::ELPA)
 {

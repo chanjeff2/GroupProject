@@ -1,4 +1,5 @@
 #include "MathExam.h"
+#include "src/utility/GameValues.h"
 
 MathExam::MathExam(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::MathExam)
 {

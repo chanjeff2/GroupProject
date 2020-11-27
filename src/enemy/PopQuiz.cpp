@@ -1,4 +1,5 @@
 #include "PopQuiz.h"
+#include "src/utility/GameValues.h"
 
 PopQuiz::PopQuiz(EnemyUtility *enemyUtility, Path path) : IEnemy(enemyUtility, path, EnemyType::PopQuiz)
 {

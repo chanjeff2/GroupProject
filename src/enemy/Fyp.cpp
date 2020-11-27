@@ -1,4 +1,5 @@
 #include "Fyp.h"
+#include "src/utility/GameValues.h"
 
 FYP::FYP(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::FYP)
 {

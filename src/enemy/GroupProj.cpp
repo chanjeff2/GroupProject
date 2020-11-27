@@ -1,4 +1,5 @@
 #include "GroupProj.h"
+#include "src/utility/GameValues.h"
 
 GroupProj::GroupProj(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::GroupProj)
 {

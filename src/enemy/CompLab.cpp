@@ -1,4 +1,5 @@
 #include "CompLab.h"
+#include "src/utility/GameValues.h"
 
 CompLab::CompLab(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::CompLab)
 {

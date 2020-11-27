@@ -1,4 +1,5 @@
 #include "MathHW.h"
+#include "src/utility/GameValues.h"
 
 MathHW::MathHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::MathHW)
 {

@@ -1,4 +1,5 @@
 #include "Final.h"
+#include "src/utility/GameValues.h"
 
 Final::Final(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::Final)
 {

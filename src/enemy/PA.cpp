@@ -1,4 +1,5 @@
 #include "PA.h"
+#include "src/utility/GameValues.h"
 
 PA::PA(EnemyUtility *enemyUtility, Path path) : IEnemy(enemyUtility, path, EnemyType::PA)
 {

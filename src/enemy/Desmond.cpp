@@ -1,4 +1,5 @@
 #include "Desmond.h"
+#include "src/utility/GameValues.h"
 
 Desmond::Desmond(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::Desmond)
 {
