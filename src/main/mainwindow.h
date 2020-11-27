@@ -63,8 +63,8 @@ private:
     GPAManager gpa_manager;
     WeekManager week_manager;
 
-    GameGrid game_grid;
     QGraphicsScene scene;
+    GameGrid game_grid{&scene};
     bool sell_mode {false};
 };
 #endif // MAINWINDOW_H

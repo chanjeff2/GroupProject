@@ -21,6 +21,7 @@ using namespace std;
 class GameGrid
 {
 	array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
+    QGraphicsScene* scene;
 	TowerUtility towerUtility{this};
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
@@ -30,7 +31,7 @@ public:
 	WeekManager weekManager;
 	ResourceManager resourceManager;
 
-	GameGrid();
+    GameGrid(QGraphicsScene* scene);
 	~GameGrid();
 
 	// getter

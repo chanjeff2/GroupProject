@@ -4,7 +4,7 @@
 #include "src/enemy/IEnemy.h"
 #include "src/map/cell.h"
 
-GameGrid::GameGrid() {
+GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 	// init grid
 	for (int x = 0; x < NUM_OF_COL; ++x) {
 		for (int y = 0; y < NUM_OF_ROW; ++y) {

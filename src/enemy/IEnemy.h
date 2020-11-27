@@ -13,22 +13,7 @@ using namespace std;
 
 // forward declaration
 class Cell;
-enum class EnemyType {
-    NormalHW = 0,
-    Essay = 1,
-    EncryptedHW = 2,
-    GroupProj = 3,
-    MathHW = 4,
-    CompLab = 5,
-    PA = 6,
-    Desmond = 7,
-    PopQuiz = 8,
-    Midterm = 9,
-    MathExam = 10,
-    Final = 11,
-    ELPA = 12,
-    FYP = 13
-} ;
+enum class EnemyType;
 class EnemyUtility;
 
 class IEnemy: public QObject {

@@ -15,16 +15,7 @@ using namespace std;
 #include "aura/AuraEffect.h"
 
 // forward declaration
-enum class TowerType {
-    Regular = 0,
-    Arts = 1,
-    WolframAlpha = 2,
-    Hacker = 3,
-    Calc = 4,
-    Nerd = 5,
-    Ghostwriter = 6,
-    Chegg = 7
-};
+enum class TowerType;
 
 //enum class EnemyType;
 class Cell;
