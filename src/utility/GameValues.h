@@ -6,6 +6,10 @@ using namespace std;
 
 typedef	pair<int /*col*/, int /*row*/> Coordinate;
 
+enum class Element: int {
+	Cell = 0, Indicator, Tower, Enemy
+};
+
 enum class EnemyType: int {
     NormalHW = 100, Essay, EncryptedHW,
     GroupProj, MathHW, COMPLab, PA, Desmond,
@@ -28,8 +32,11 @@ enum class TargetSelectionType {
 const int NUM_OF_ROW = 20; // y
 const int NUM_OF_COL = 25; // x
 
-const int START[] = {0, 0}; // x, y
-const int END[] = {NUM_OF_COL, NUM_OF_ROW}; // x, y
+const Coordinate START = make_pair(0, 0); // x, y
+const Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
+
+// cell size for display
+const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(32, 32);
 
 // Tower Prices
 const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};

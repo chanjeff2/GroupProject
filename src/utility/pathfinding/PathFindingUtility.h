@@ -63,7 +63,7 @@ private:
 public:
 	PathFindingUtility(GameGrid *gameGrid);
 
-	const Path getPathStartEnd() const;
+	Path getPathStartEnd() const;
 
 	/* return buffer storing validated path for each enemy
 	 * empty vector if not valid */

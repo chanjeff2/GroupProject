@@ -1,7 +1,9 @@
 #include "EnemyUtility.h"
-#include "GameValues.h"
+#include "src/utility/GameValues.h"
 #include "src/enemy/IEnemy.h"
 #include "src/map/GameGrid.h"
+
+#include "src/enemy/implementation/NormalHW.h"
 
 EnemyUtility::EnemyUtility(GameGrid *gameGrid): gameGrid(gameGrid) {};
 
@@ -12,69 +14,77 @@ EnemyUtility::~EnemyUtility() {
 }
 
 void EnemyUtility::generateEnemy(EnemyType enemyType) {
+	IEnemy *newEnemy;
+	QString imgPath;
+	Path path = gameGrid->getPathStartEnd();
     // Each homework type are separate classes (to be added)
     switch(enemyType) {
         case EnemyType::NormalHW: {
-            enemies.insert(new NormalHW(START));
+			newEnemy = new NormalHW(this, path);
+			imgPath = ":/res/res/enemies_images/NormalHW Grid"; // img path - tbc
             break;
         }
         case EnemyType::Essay: {
-            enemies.insert(new Essay(START));
+			newEnemy = new Essay(START);
             break;
         }
         case EnemyType::EncryptedHW: {
-            enemies.insert(new EncryptedHW(START));
+			newEnemy = new EncryptedHW(START);
             break;
         }
         case EnemyType::GroupProj: {
-            enemies.insert(new GroupProj(START));
+			newEnemy = new GroupProj(START);
             break;
         }
         case EnemyType::MathHW: {
-            enemies.insert(new MathHW(START));
+			newEnemy = new MathHW(START);
             break;
         }
         case EnemyType::COMPLab: {
-            enemies.insert(new COMPLab(START));
+			newEnemy = new COMPLab(START);
             break;
         }
         case EnemyType::PA: {
-            enemies.insert(new PA(START));
+			newEnemy = new PA(START);
             break;
         }
         case EnemyType::Desmond: {
-            enemies.insert(new Desmond(START));
+			newEnemy = new Desmond(START);
             break;
         }
         case EnemyType::PopQuiz: {
-            enemies.insert(new PopQuiz(START));
+			newEnemy = new PopQuiz(START);
             break;
         }
         case EnemyType::Midterm: {
-            enemies.insert(new Midterm(START));
+			newEnemy = new Midterm(START);
             break;
         }
         case EnemyType::MATHExam: {
-            enemies.insert(new MATHExam(START));
+			newEnemy = new MATHExam(START);
             break;
         }
         case EnemyType::Final: {
-            enemies.insert(new Final(START));
+			newEnemy = new Final(START);
             break;
         }
         case EnemyType::ELPA: {
-            enemies.insert(new ELPA(START));
+			newEnemy = new ELPA(START);
             break;
         }
         case EnemyType::FYP: {
-            enemies.insert(new FYP(START));
+			newEnemy = new FYP(START);
             break;
         }
         default: { // Prevent invalid Inputs
-            enemies.insert(new NormalHW(START));
+			newEnemy = new NormalHW(START);
             break;
         }
     }
+
+	enemies.insert(newEnemy);
+	QGraphicsPixmapItem *img = this->gameGrid->getScene()->addPixmap(QPixmap(imgPath));
+	newEnemy->attachImageView(img);
 }
 
 void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {

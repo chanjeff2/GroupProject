@@ -41,6 +41,10 @@ public:
 
 	const set<IEnemy*> &getAllEnemy() const;
 
+	QGraphicsScene *getScene() const;
+
+	Path getPathStartEnd() const;
+
 	// methods
 	bool isValidCoordinate(int x, int y) const;
 
