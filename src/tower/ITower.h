@@ -60,7 +60,7 @@ public:
 	set<EnemyType> getWeakTowards() const;
 
 	// setter
-	attachImageView(QGraphicsPixmapItem *imgView, Coordinate coordinate)
+	void attachImageView(QGraphicsPixmapItem *imgView);
 
 	// methods
 	std::set<IEnemy*> getEnemiesInRange() const;
