@@ -1,6 +1,11 @@
 #ifndef GAMEVALUES_H
 #define GAMEVALUES_H
 
+#include <utility>
+using namespace std;
+
+typedef	pair<int /*col*/, int /*row*/> Coordinate;
+
 enum class EnemyType: int {
     NormalHW = 100, Essay, EncryptedHW,
     GroupProj, MathHW, COMPLab, PA, Desmond,

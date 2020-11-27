@@ -4,12 +4,11 @@
 #include <set>
 using namespace std;
 
-typedef pair<int /*col*/, int /*row*/> Coordinate;
+#include "src/utility/GameValues.h"
 
 // forward declaration
 class ITower;
 class Cell;
-enum class TowerType;
 class GameGrid;
 
 class TowerUtility
