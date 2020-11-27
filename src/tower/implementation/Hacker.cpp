@@ -1,6 +1,7 @@
 #include "Hacker.h"
 #include "src/utility/GameValues.h"
 #include "src/tower/aura/AuraEffect.h"
+#include "src/tower/attack/NormalAttack.h"
 
 Hacker::Hacker(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Hacker)
 {

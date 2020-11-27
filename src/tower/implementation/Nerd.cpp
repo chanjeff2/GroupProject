@@ -1,6 +1,7 @@
 #include "Nerd.h"
 #include "src/utility/GameValues.h"
 #include "src/tower/aura/AuraEffect.h"
+#include "src/tower/attack/NormalAttack.h"
 
 Nerd::Nerd(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Nerd)
 {

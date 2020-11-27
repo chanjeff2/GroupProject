@@ -1,6 +1,7 @@
 #include "Chegg.h"
 #include "src/utility/GameValues.h"
 #include "src/tower/aura/AuraEffect.h"
+#include "src/tower/attack/NormalAttack.h"
 
 Chegg::Chegg(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Chegg)
 {
