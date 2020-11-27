@@ -6,10 +6,13 @@
 
 #include <cmath>
 
+#include "src/tower/targetSelect/RandomSelection.h"
+
 // protected constructor
 IAttackStrategy::IAttackStrategy(ITower *tower): tower(tower) {}
 
 IAttackStrategy::~IAttackStrategy() {
+	clearAllFocus();
 	delete targetSelectionStrategy;
 }
 
@@ -20,18 +23,18 @@ void IAttackStrategy::setMaxNumOfTarget(int maxNumOfTarget) {
 
 void IAttackStrategy::setTargetSelectionStrategy(TargetSelectionType targetSelectionType) {
 	switch(targetSelectionType) {
-//			case TargetSelectionType::Random:
-//				this->targetSelectionStrategy = new RandomSelection();
-//				break;
-//			case TargetSelectionType::Priority:
-//				this->targetSelectionStrategy = new PrioritySelection();
-//				break;
-//			case TargetSelectionType::All:
-//				this->targetSelectionStrategy = new AllSelection();
-//				break;
-//			default: // just to place safe, as we set to null by default already
-//				this->targetSelectionStrategy = new NullSelection();
-//				break;
+			case TargetSelectionType::Random:
+				this->targetSelectionStrategy = new RandomSelection();
+				break;
+			case TargetSelectionType::Priority:
+				this->targetSelectionStrategy = new PrioritySelection();
+				break;
+			case TargetSelectionType::All:
+				this->targetSelectionStrategy = new AllSelection();
+				break;
+			default: // just to place safe, as we set to null by default already
+				this->targetSelectionStrategy = new NullSelection();
+				break;
 	}
 }
 
@@ -52,11 +55,10 @@ void IAttackStrategy::attack() {
 			}
 		}
 	}
+}
 
-	// prepare for next atack
-	postDelayed({
-		// safe check, do nothing if this tower is deleted
-		if (refOfTower.contains(this))
-			attack();
-	}, 1000/tower->getHitPerSec())
+void IAttackStrategy::clearAllFocus() {
+	for (auto enemy: focusedEnemies) {
+		enemy->focusManager.detachTowerAttackObserver(this->tower);
+	}
 }

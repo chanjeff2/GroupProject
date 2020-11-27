@@ -6,13 +6,22 @@
 // constructor
 AuraEffect::AuraEffect(ITower* tower, AuraType auraType) : tower(tower), auraType(auraType) {}
 
+AuraEffect::~AuraEffect() {
+	clearAllFocus();
+}
+
 AuraType AuraEffect::getAuraType() const {
 	return auraType;
 }
 
 // methods
-void AuraEffect::updateAuraEffect(IEnemy *enemy, bool isApply) {
+void AuraEffect::updateAuraEffect(IEnemy *enemy, bool isApply /* false for remove */) {
 	enemy->focusManager.updateAuraTowerInRange(isApply, this->auraType);
+	if (isApply) {
+		enemy->focusManager.attachTowerAuraEffectObserver(this->tower);
+	} else {
+		enemy->focusManager.detachTowerAuraEffectObserver(this->tower);
+	}
 }
 
 void AuraEffect::applyAuraEffectToEnemyInRangeIfNeed() {
@@ -23,7 +32,6 @@ void AuraEffect::applyAuraEffectToEnemyInRangeIfNeed() {
 	for(IEnemy* enemyInRange: enemiesInRange) {
 		// if enemy is not affected by aura, apply aura effect
 		if (auraAffectedEnemies.find(enemyInRange) == auraAffectedEnemies.end()) {
-			enemyInRange->focusManager.attachTowerAuraEffectObserver(this->tower);
 			updateAuraEffect(enemyInRange, true);
 			this->auraAffectedEnemies.insert(enemyInRange);
 		}
@@ -38,11 +46,16 @@ void AuraEffect::removeAuraEffectOfEnemyIfNeed() {
 	for(auto it = this->auraAffectedEnemies.begin(); it != this->auraAffectedEnemies.end(); /*don't add thing here*/) {
 		// if enemy is not in range/ died, clear foucs
 		if (enemiesInRange.find(*it) == enemiesInRange.end()) {
-			(*it)->focusManager.detachTowerAuraEffectObserver(this->tower);
 			updateAuraEffect(*it, false);
 			it = this->auraAffectedEnemies.erase(it);
 		} else {
 			++it;
 		}
+	}
+}
+
+void AuraEffect::clearAllFocus() {
+	for (auto enemy: auraAffectedEnemies) {
+		updateAuraEffect(enemy, false);
 	}
 }
