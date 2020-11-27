@@ -1,5 +1,5 @@
 #include "WeekManager.h"
-#include "GameValues.h"
+#include "src/utility/GameValues.h"
 #include "WeekLayoutManager.h"
 
 // constructor
