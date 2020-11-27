@@ -37,3 +37,6 @@
 /build/Makefile
 *.GroupProject.Debug
 *.GroupProject.Release
+
+# build
+build/
