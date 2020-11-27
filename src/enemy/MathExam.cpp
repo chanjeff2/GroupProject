@@ -1,7 +1,7 @@
 #include "MathExam.h"
 #include "src/utility/GameValues.h"
 
-MathExam::MathExam(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::MathExam)
+MATHExam::MATHExam(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::MATHExam)
 {
     HP = 5;
     speed = 0.5;
