@@ -29,7 +29,14 @@ SOURCES += \
     src/main/mainwindow.cpp \
     src/map/GameGrid.cpp \
     src/map/cell.cpp \
+    src/tower/Arts.cpp \
+    src/tower/Calc.cpp \
+    src/tower/Chegg.cpp \
+    src/tower/Ghostwriter.cpp \
+    src/tower/Hacker.cpp \
+    src/tower/Nerd.cpp \
 	src/tower/Regular.cpp \
+    src/tower/WolframAlpha.cpp \
 	src/tower/attack/IAttackStrategy.cpp \
 	src/tower/attack/NormalAttack.cpp \
     src/tower/ITower.cpp \
@@ -67,7 +74,14 @@ HEADERS += \
     src/main/mainwindow.h \
     src/map/GameGrid.h \
     src/map/cell.h \
+    src/tower/Arts.h \
+    src/tower/Calc.h \
+    src/tower/Chegg.h \
+    src/tower/Ghostwriter.h \
+    src/tower/Hacker.h \
+    src/tower/Nerd.h \
 	src/tower/Regular.h \
+    src/tower/WolframAlpha.h \
 	src/tower/attack/IAttackStrategy.h \
 	src/tower/attack/NormalAttack.h \
     src/tower/ITower.h \

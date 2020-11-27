@@ -6,7 +6,7 @@
 class PA : public IEnemy
 {
 public:
-    PA();
+    PA(EnemyUtility *enemyUtility, Path path);
 };
 
 #endif // PA_H
