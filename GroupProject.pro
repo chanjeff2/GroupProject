@@ -9,34 +9,34 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/enemy/CompLab.cpp \
-    src/enemy/Desmond.cpp \
-    src/enemy/Elpa.cpp \
-    src/enemy/EncryptedHW.cpp \
-    src/enemy/Essay.cpp \
-    src/enemy/Final.cpp \
+    src/enemy/implementation/CompLab.cpp \
+    src/enemy/implementation/Desmond.cpp \
+    src/enemy/implementation/Elpa.cpp \
+    src/enemy/implementation/EncryptedHW.cpp \
+    src/enemy/implementation/Essay.cpp \
+    src/enemy/implementation/Final.cpp \
     src/enemy/FocusManager.cpp \
-    src/enemy/Fyp.cpp \
-    src/enemy/GroupProj.cpp \
+    src/enemy/implementation/Fyp.cpp \
+    src/enemy/implementation/GroupProj.cpp \
     src/enemy/IEnemy.cpp \
-    src/enemy/MathExam.cpp \
-    src/enemy/MathHW.cpp \
+    src/enemy/implementation/MathExam.cpp \
+    src/enemy/implementation/MathHW.cpp \
     src/enemy/ModManager.cpp \
-	src/enemy/NormalHW.cpp \
-    src/enemy/PA.cpp \
-    src/enemy/PopQuiz.cpp \
+	src/enemy/implementation/NormalHW.cpp \
+    src/enemy/implementation/PA.cpp \
+    src/enemy/implementation/PopQuiz.cpp \
     src/main/main.cpp \
     src/main/mainwindow.cpp \
     src/map/GameGrid.cpp \
     src/map/cell.cpp \
-    src/tower/Arts.cpp \
-    src/tower/Calc.cpp \
-    src/tower/Chegg.cpp \
-    src/tower/Ghostwriter.cpp \
-    src/tower/Hacker.cpp \
-    src/tower/Nerd.cpp \
-	src/tower/Regular.cpp \
-    src/tower/WolframAlpha.cpp \
+    src/tower/implementation/Arts.cpp \
+    src/tower/implementation/Calc.cpp \
+    src/tower/implementation/Chegg.cpp \
+    src/tower/implementation/Ghostwriter.cpp \
+    src/tower/implementation/Hacker.cpp \
+    src/tower/implementation/Nerd.cpp \
+	src/tower/implementation/Regular.cpp \
+    src/tower/implementation/WolframAlpha.cpp \
 	src/tower/attack/IAttackStrategy.cpp \
 	src/tower/attack/NormalAttack.cpp \
     src/tower/ITower.cpp \
@@ -55,33 +55,33 @@ SOURCES += \
 		src/utility/week/WeekManager.cpp
 
 HEADERS += \
-    src/enemy/CompLab.h \
-    src/enemy/Desmond.h \
-    src/enemy/Elpa.h \
-    src/enemy/EncryptedHW.h \
-    src/enemy/Essay.h \
-    src/enemy/Final.h \
+    src/enemy/implementation/CompLab.h \
+    src/enemy/implementation/Desmond.h \
+    src/enemy/implementation/Elpa.h \
+    src/enemy/implementation/EncryptedHW.h \
+    src/enemy/implementation/Essay.h \
+    src/enemy/implementation/Final.h \
     src/enemy/FocusManager.h \
-    src/enemy/Fyp.h \
-    src/enemy/GroupProj.h \
+    src/enemy/implementation/Fyp.h \
+    src/enemy/implementation/GroupProj.h \
     src/enemy/IEnemy.h \
-    src/enemy/MathExam.h \
-    src/enemy/MathHW.h \
+    src/enemy/implementation/MathExam.h \
+    src/enemy/implementation/MathHW.h \
     src/enemy/ModManager.h \
-	src/enemy/NormalHW.h \
-    src/enemy/PA.h \
-    src/enemy/PopQuiz.h \
+	src/enemy/implementation/NormalHW.h \
+    src/enemy/implementation/PA.h \
+    src/enemy/implementation/PopQuiz.h \
     src/main/mainwindow.h \
     src/map/GameGrid.h \
     src/map/cell.h \
-    src/tower/Arts.h \
-    src/tower/Calc.h \
-    src/tower/Chegg.h \
-    src/tower/Ghostwriter.h \
-    src/tower/Hacker.h \
-    src/tower/Nerd.h \
-	src/tower/Regular.h \
-    src/tower/WolframAlpha.h \
+    src/tower/implementation/Arts.h \
+    src/tower/implementation/Calc.h \
+    src/tower/implementation/Chegg.h \
+    src/tower/implementation/Ghostwriter.h \
+    src/tower/implementation/Hacker.h \
+    src/tower/implementation/Nerd.h \
+	src/tower/implementation/Regular.h \
+    src/tower/implementation/WolframAlpha.h \
 	src/tower/attack/IAttackStrategy.h \
 	src/tower/attack/NormalAttack.h \
     src/tower/ITower.h \

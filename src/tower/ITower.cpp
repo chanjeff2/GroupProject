@@ -7,8 +7,6 @@
 #include <cmath>
 #include "src/utility/tower/TowerUtility.h"
 
-
-
 // protected constructor -> prevent instantiation of ITower
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
 	// born to fight !
