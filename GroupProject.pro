@@ -9,15 +9,35 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/enemy/CompLab.cpp \
+    src/enemy/Desmond.cpp \
+    src/enemy/Elpa.cpp \
+    src/enemy/EncryptedHW.cpp \
+    src/enemy/Essay.cpp \
+    src/enemy/Final.cpp \
     src/enemy/FocusManager.cpp \
+    src/enemy/Fyp.cpp \
+    src/enemy/GroupProj.cpp \
     src/enemy/IEnemy.cpp \
+    src/enemy/MathExam.cpp \
+    src/enemy/MathHW.cpp \
+    src/enemy/Midterm.cpp \
     src/enemy/ModManager.cpp \
 	src/enemy/NormalHW.cpp \
+    src/enemy/PA.cpp \
+    src/enemy/PopQuiz.cpp \
     src/main/main.cpp \
     src/main/mainwindow.cpp \
     src/map/GameGrid.cpp \
     src/map/cell.cpp \
+    src/tower/Arts.cpp \
+    src/tower/Calc.cpp \
+    src/tower/Chegg.cpp \
+    src/tower/Ghostwriter.cpp \
+    src/tower/Hacker.cpp \
+    src/tower/Nerd.cpp \
 	src/tower/Regular.cpp \
+    src/tower/WolframAlpha.cpp \
 	src/tower/attack/IAttackStrategy.cpp \
 	src/tower/attack/NormalAttack.cpp \
     src/tower/ITower.cpp \
@@ -36,14 +56,34 @@ SOURCES += \
 		src/utility/week/WeekManager.cpp
 
 HEADERS += \
+    src/enemy/CompLab.h \
+    src/enemy/Desmond.h \
+    src/enemy/Elpa.h \
+    src/enemy/EncryptedHW.h \
+    src/enemy/Essay.h \
+    src/enemy/Final.h \
     src/enemy/FocusManager.h \
+    src/enemy/Fyp.h \
+    src/enemy/GroupProj.h \
     src/enemy/IEnemy.h \
+    src/enemy/MathExam.h \
+    src/enemy/MathHW.h \
+    src/enemy/Midterm.h \
     src/enemy/ModManager.h \
 	src/enemy/NormalHW.h \
+    src/enemy/PA.h \
+    src/enemy/PopQuiz.h \
     src/main/mainwindow.h \
     src/map/GameGrid.h \
     src/map/cell.h \
+    src/tower/Arts.h \
+    src/tower/Calc.h \
+    src/tower/Chegg.h \
+    src/tower/Ghostwriter.h \
+    src/tower/Hacker.h \
+    src/tower/Nerd.h \
 	src/tower/Regular.h \
+    src/tower/WolframAlpha.h \
 	src/tower/attack/IAttackStrategy.h \
 	src/tower/attack/NormalAttack.h \
     src/tower/ITower.h \
