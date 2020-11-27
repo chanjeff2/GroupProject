@@ -1,6 +1,7 @@
 #include "Arts.h"
 #include "src/utility/GameValues.h"
 #include "src/tower/aura/AuraEffect.h"
+#include "src/tower/attack/NormalAttack.h"
 
 Arts::Arts(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Arts) {
     damagePerHit = 1;

@@ -1,6 +1,7 @@
 #include "Ghostwriter.h"
 #include "src/utility/GameValues.h"
 #include "src/tower/aura/AuraEffect.h"
+#include "src/tower/attack/NormalAttack.h"
 
 Ghostwriter::Ghostwriter(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Ghostwriter)
 {
