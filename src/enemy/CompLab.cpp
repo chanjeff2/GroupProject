@@ -1,7 +1,7 @@
 #include "CompLab.h"
 #include "src/utility/GameValues.h"
 
-CompLab::CompLab(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::CompLab)
+COMPLab::COMPLab(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::COMPLab)
 {
     HP = 2;
     speed = 0.5;

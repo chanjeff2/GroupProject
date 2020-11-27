@@ -3,10 +3,10 @@
 
 #include "IEnemy.h"
 
-class CompLab : public IEnemy
+class COMPLab : public IEnemy
 {
 public:
-    CompLab(EnemyUtility *enemyUtility, Path path);
+    COMPLab(EnemyUtility *enemyUtility, Path path);
 };
 
 #endif // COMPLAB_H
