@@ -11,6 +11,7 @@
 #include "src/map/GameGrid.h"
 
 #include <QMainWindow>
+#include <QGraphicsScene>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -63,6 +64,7 @@ private:
     WeekManager week_manager;
 
     GameGrid game_grid;
+    QGraphicsScene scene;
     bool sell_mode {false};
 };
 #endif // MAINWINDOW_H
