@@ -7,28 +7,9 @@ using namespace std;
 #include <QTimer>
 #include <QObject>
 
-#include "src/enemy/IEnemy.h"
-
-#include "src/utility/GameValues.h"
-
-#include "attack/NormalAttack.h"
-#include "aura/AuraEffect.h"
-#include "src/utility/GameValues.h"
-
 // forward declaration
-/*
-enum class TowerType {
-    Regular = 0,
-    Arts = 1,
-    WolframAlpha = 2,
-    Hacker = 3,
-    Calc = 4,
-    Nerd = 5,
-    Ghostwriter = 6,
-    Chegg = 7
-};*/
-
-//enum class EnemyType;
+enum class TowerType;
+enum class EnemyType;
 class Cell;
 class IAttackStrategy;
 class AuraEffect;

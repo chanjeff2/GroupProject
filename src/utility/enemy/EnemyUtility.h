@@ -4,11 +4,9 @@
 #include <set>
 using namespace std;
 
-#include "src/enemy/IEnemy.h"
-
 // forward declaration
-//class IEnemy;
-//enum class EnemyType;
+class IEnemy;
+enum class EnemyType;
 class GameGrid;
 
 class EnemyUtility
