@@ -63,7 +63,7 @@ void IEnemy::setPath(Path path) {
 }
 
 void IEnemy::attachImageView(QGraphicsPixmapItem *imgView) {
-	this->enemyLayoutManager.attachImageView(imgView);
+	this->enemyLayoutManager.attachImageView(imgView, path.getCurrentCoordinate());
 }
 
 // methods

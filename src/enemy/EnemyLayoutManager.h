@@ -7,13 +7,13 @@
 class EnemyLayoutManager
 {
 	QGraphicsPixmapItem *imgView{nullptr}; // img of enemy
-	void init(); // call after attachImageView
+	void init(Coordinate coordinate); // call after attachImageView
 
 public:
 	EnemyLayoutManager();
 	~EnemyLayoutManager();
 
-	void attachImageView(QGraphicsPixmapItem *imgView);
+	void attachImageView(QGraphicsPixmapItem *imgView, Coordinate coordinate);
 	void moveTo(int x, int y);
 	void moveTo(Coordinate coordinate);
 };
