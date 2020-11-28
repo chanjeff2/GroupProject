@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>711</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -191,8 +191,8 @@
          <string>10 Resources</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../res/towers_images/RegularStudent Purchase.png</normaloff>../../res/towers_images/RegularStudent Purchase.png</iconset>
+         <iconset resource="../../assets.qrc">
+          <normaloff>:/res/res/towers_images/RegularStudent Purchase.png</normaloff>:/res/res/towers_images/RegularStudent Purchase.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -208,8 +208,8 @@
          <string>15 Resources</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../res/towers_images/ArtsStudent Purchase.png</normaloff>../../res/towers_images/ArtsStudent Purchase.png</iconset>
+         <iconset resource="../../assets.qrc">
+          <normaloff>:/res/res/towers_images/ArtsStudent Purchase.png</normaloff>:/res/res/towers_images/ArtsStudent Purchase.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -225,8 +225,8 @@
          <string>30 Resources</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../res/towers_images/Wolfram Purchase.png</normaloff>../../res/towers_images/Wolfram Purchase.png</iconset>
+         <iconset resource="../../assets.qrc">
+          <normaloff>:/res/res/towers_images/Wolfram Purchase.png</normaloff>:/res/res/towers_images/Wolfram Purchase.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -242,8 +242,8 @@
          <string>35 Resources</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../res/towers_images/Hackerman Purchase.png</normaloff>../../res/towers_images/Hackerman Purchase.png</iconset>
+         <iconset resource="../../assets.qrc">
+          <normaloff>:/res/res/towers_images/Hackerman Purchase.png</normaloff>:/res/res/towers_images/Hackerman Purchase.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -259,8 +259,8 @@
          <string>40 Resources</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../res/towers_images/Calculator Purchase.png</normaloff>../../res/towers_images/Calculator Purchase.png</iconset>
+         <iconset resource="../../assets.qrc">
+          <normaloff>:/res/res/towers_images/Calculator Purchase.png</normaloff>:/res/res/towers_images/Calculator Purchase.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -276,8 +276,8 @@
          <string>50 Resources</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../res/towers_images/Nerd Purchase.png</normaloff>../../res/towers_images/Nerd Purchase.png</iconset>
+         <iconset resource="../../assets.qrc">
+          <normaloff>:/res/res/towers_images/Nerd Purchase.png</normaloff>:/res/res/towers_images/Nerd Purchase.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -293,8 +293,8 @@
          <string>75 Resources</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../res/towers_images/Ghostwriter Purchase.png</normaloff>../../res/towers_images/Ghostwriter Purchase.png</iconset>
+         <iconset resource="../../assets.qrc">
+          <normaloff>:/res/res/towers_images/Ghostwriter Purchase.png</normaloff>:/res/res/towers_images/Ghostwriter Purchase.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -310,8 +310,8 @@
          <string>250 Resources</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../res/towers_images/Chegg Purchase.png</normaloff>../../res/towers_images/Chegg Purchase.png</iconset>
+         <iconset resource="../../assets.qrc">
+          <normaloff>:/res/res/towers_images/Chegg Purchase.png</normaloff>:/res/res/towers_images/Chegg Purchase.png</iconset>
         </property>
         <property name="iconSize">
          <size>
