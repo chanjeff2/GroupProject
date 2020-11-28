@@ -5,7 +5,7 @@
 #include "src/tower/attack/IAttackStrategy.h"
 #include "src/tower/aura/AuraEffect.h"
 #include <cmath>
-#include "src/utility/TowerUtility.h"
+#include "src/utility/tower/TowerUtility.h"
 
 // protected constructor -> prevent instantiation of ITower
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
@@ -48,6 +48,11 @@ set<EnemyType> ITower::getEffectiveTowards() const {
 
 set<EnemyType> ITower::getWeakTowards() const {
 	return weakTowards;
+}
+
+// setter
+void ITower::attachImageView(QGraphicsPixmapItem *imgView) {
+	towerLayoutManager.attachImageView(imgView, make_pair(position->x, position->y));
 }
 
 // methods

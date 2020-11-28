@@ -5,7 +5,6 @@
 #include <QLabel>
 #include <QProgressBar>
 #include <QPushButton>
-#include "src/utility/GameValues.h"
 
 class WeekManager;
 

@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
 #include "ResourceLayoutManager.h"
-#include "GameValues.h"
+#include "src/utility/GameValues.h"
 
 ResourceManager::ResourceManager(): resource(STARTING_RESOURCE), resourceCapacityLevel(0) {
 }
@@ -47,14 +47,16 @@ void ResourceManager::gainResource(int amount) {
 		 * can still check to place safe */
 bool ResourceManager::upgradeResourceCapacity() {
 	// max level
-	if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY)
-		return false;
+    if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY) {
+        return false; }
 
-	if (spendResource(getResourceRequiredForUpgradeCapacity()))
-		++resourceCapacityLevel;
+    if (spendResource(getResourceRequiredForUpgradeCapacity())) {
+        ++resourceCapacityLevel; }
 
-	if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY)
+    if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY) {
         resourceLayoutManager->isResourceCapacityUpgradeAvailable(false);
+        resourceLayoutManager->ResourceUpgrade->setText("Maxed!");
+    }
 
     resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
 	return true;

@@ -6,7 +6,7 @@
 #include <cmath>
 
 // constructor
-PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(make_pair(START[0], START[1])), exit(make_pair(END[0], END[1])) {
+PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {
 	pathStartEnd = findPath(entry, exit);
 }
 
@@ -162,7 +162,7 @@ bool PathFindingUtility::isEnemyOnPath(const IEnemy *enemy, const Path &path) {
 		return false;
 }
 
-const Path PathFindingUtility::getPathStartEnd() const {
+Path PathFindingUtility::getPathStartEnd() const {
 	return pathStartEnd;
 }
 
@@ -173,32 +173,45 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 	pathStartEndBuffer = findPath(entry, exit, positionOfTowers);
 	// clear and return if don't find any possible path from start to end
 	if (pathStartEndBuffer.isEmpty()) {
+		for (auto element: pathBuffer) {
+			// dellocate memory
+			delete element;
+		}
 		pathBuffer.clear();
 		return false;
 	}
 
 	// check for enemies not on optimized path
 	set<IEnemy*> enemiesNotOnPath;
-	copy_if(enemies.begin(), enemies.end(), enemies.begin(), [&](IEnemy *enemy) {
-		bool isOnPath = isEnemyOnPath(enemy, pathStartEndBuffer);
+	//  hardcode copy_if
+	for (auto it = enemies.begin(); it != enemies.end(); ++it) {
+		bool isOnPath = isEnemyOnPath(*it, pathStartEndBuffer);
 		if (isOnPath) {
-			Path _path = pathStartEndBuffer;
-			while (_path.getCurrentCell() != enemy->getPath().getCurrentCell()) {
-				_path.goToNextCell();
+			if (isOnPath) {
+				Path _path = pathStartEndBuffer;
+				while (_path.getCurrentCell() != (*it)->getPath().getCurrentCell()) {
+					_path.goToNextCell();
+				}
+				PathBuffer *_pathBuffer = new PathBuffer(_path, *it);
+				pathBuffer.insert(_pathBuffer); // add enemies on path to buffer
+			} else {
+				// reg it as not on Path
+				enemiesNotOnPath.insert(*it);
 			}
-			PathBuffer _pathBuffer(_path, enemy);
-			pathBuffer.insert(_pathBuffer); // add enemies on path to buffer
 		}
-		return !isOnPath; // // insert enemies not on path to enemiesNotOnPath
-	});
+	}
 
 	// check for remaining enemies
 	for (auto enemy: enemiesNotOnPath) {
 		Path _path = findPath(enemy->getPath().getCurrentCoordinate(), exit, positionOfTowers);
 		if (!_path.isEmpty()) {
-			PathBuffer _pathBuffer(_path, enemy);
+			PathBuffer *_pathBuffer = new PathBuffer(_path, enemy);
 			pathBuffer.insert(_pathBuffer); // add enemies not on path to buffer
 		} else {
+			for (auto element: pathBuffer) {
+				// dellocate memory
+				delete element;
+			}
 			pathBuffer.clear(); // cannot find path for any enemy
 			return false;
 		}
@@ -217,7 +230,9 @@ bool PathFindingUtility::updatePath() {
 
 	// all valid, replace enemies' pathToTake by path in buffer & clear buffer
 	for (auto element: pathBuffer) {
-		element.enemy->setPath(element.path);
+		element->enemy->setPath(element->path);
+		// dellocate memory
+		delete element;
 	}
 	pathBuffer.clear();
 

@@ -2,9 +2,10 @@
 #define TOWERUTILITY_H
 
 #include <set>
+
 using namespace std;
 
-typedef pair<int /*col*/, int /*row*/> Coordinate;
+#include "src/utility/GameValues.h"
 
 // forward declaration
 class ITower;

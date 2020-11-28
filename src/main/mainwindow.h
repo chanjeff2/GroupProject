@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QMainWindow>
+#include <QGraphicsScene>
+
 #include "src/utility/GameValues.h"
 #include "src/utility/resource/ResourceManager.h"
 #include "src/utility/resource/ResourceLayoutManager.h"
@@ -9,9 +12,6 @@
 #include "src/utility/week/WeekManager.h"
 #include "src/utility/week/WeekLayoutManager.h"
 #include "src/map/GameGrid.h"
-
-#include <QMainWindow>
-#include <QGraphicsScene>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -59,12 +59,18 @@ private:
 
     TowerType tower_selected {TowerType::None};
 
-    ResourceManager resource_manager;
-    GPAManager gpa_manager;
-    WeekManager week_manager;
-
-    GameGrid game_grid;
     QGraphicsScene scene;
+    GameGrid game_grid{&scene};
+
+    ResourceManager resource_manager;
+    ResourceLayoutManager resource_layout_manager{&resource_manager};
+
+    GPAManager gpa_manager;
+    GPALayoutManager gpa_layout_manager{&gpa_manager};
+
+    WeekManager week_manager{&game_grid};
+    WeekLayoutManager week_layout_manager{&week_manager};
+
     bool sell_mode {false};
 };
 #endif // MAINWINDOW_H

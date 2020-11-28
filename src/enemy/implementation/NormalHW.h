@@ -1,7 +1,7 @@
 #ifndef NORMALHW_H
 #define NORMALHW_H
 
-#include "IEnemy.h"
+#include "src/enemy/IEnemy.h"
 
 class NormalHW : public IEnemy
 {

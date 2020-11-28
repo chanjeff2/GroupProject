@@ -1,6 +1,15 @@
 #ifndef GAMEVALUES_H
 #define GAMEVALUES_H
 
+#include <utility>
+using namespace std;
+
+typedef	pair<int /*col*/, int /*row*/> Coordinate;
+
+enum class Element: int {
+	Cell = 0, Indicator, Tower, Enemy
+};
+
 enum class EnemyType: int {
     NormalHW = 100, Essay, EncryptedHW,
     GroupProj, MathHW, COMPLab, PA, Desmond,
@@ -23,8 +32,11 @@ enum class TargetSelectionType {
 const int NUM_OF_ROW = 20; // y
 const int NUM_OF_COL = 25; // x
 
-const int START[] = {0, 0}; // x, y
-const int END[] = {NUM_OF_COL, NUM_OF_ROW}; // x, y
+const Coordinate START = make_pair(0, 0); // x, y
+const Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
+
+// cell size for display
+const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
 
 // Tower Prices
 const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
@@ -42,6 +54,7 @@ const float RESOURCE_CAPACITY_RATIO_TO_UPGRADE = 0.6;
 // week (wave)
 const int WEEK_COOLDOWN = 3; // (in sec) cooldown before user can manually proceed to next week
 const int WEEK_COUNTDOWN = 10; // (in sec) countdown between week end and next week start
+const int ENEMY_GENERATE_INTERVAL = 1;
 
 // modifications
 const float SLOW_TOWER_SLOW_RATIO = 0.7; // speed * 0.7 (slow aura)

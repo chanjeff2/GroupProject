@@ -4,7 +4,7 @@
 #include "src/enemy/IEnemy.h"
 #include "src/map/cell.h"
 
-GameGrid::GameGrid() {
+GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 	// init grid
 	for (int x = 0; x < NUM_OF_COL; ++x) {
 		for (int y = 0; y < NUM_OF_ROW; ++y) {
@@ -36,6 +36,14 @@ const set<ITower*> &GameGrid::getAllTower() const {
 
 const set<IEnemy*> &GameGrid::getAllEnemy() const {
 	return enemyUtility.enemies;
+}
+
+QGraphicsScene *GameGrid::getScene() const {
+	return scene;
+}
+
+Path GameGrid::getPathStartEnd() const {
+	return pathFindingUtility.getPathStartEnd();
 }
 
 // methods
@@ -101,4 +109,8 @@ bool GameGrid::removeTower(int x, int y) {
 	pathFindingUtility.updatePath();
 
 	return true;
+}
+
+void GameGrid::generateEnemy(EnemyType enemyType) {
+	this->enemyUtility.generateEnemy(enemyType);
 }

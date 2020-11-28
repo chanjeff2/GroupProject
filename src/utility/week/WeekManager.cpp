@@ -1,9 +1,16 @@
 #include "WeekManager.h"
-#include "GameValues.h"
+#include "src/utility/GameValues.h"
 #include "WeekLayoutManager.h"
+#include "src/map/GameGrid.h"
+
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <QFileDialog>
+#include <QDebug>
 
 // constructor
-WeekManager::WeekManager() {
+WeekManager::WeekManager(GameGrid *gameGrid): gameGrid(gameGrid) {
 	week = 0;
 	isWeekCooldown = true;
 	skippedWeeks = 0;
@@ -23,15 +30,14 @@ void WeekManager::goToNextWeek() {
 	++week;
     weekLayoutManager->updateWeek(week);
 
+	// generate enemy
+	processWeek();
+
 	// cooldown week skip
 	QTimer::singleShot(WEEK_COOLDOWN * 1000, this, SLOT([]{
 		isWeekCooldown = true
 		weekLayoutManager.isWeekCoolDown(true);
 	}));
-//	[psudo: delayedFunction({
-//		isWeekCooldown = true
-//		weekLayoutManager.isWeekCoolDown(true);
-//	}, WEEK_COOLDOWN * 1000)]
 }
 
 // getter
@@ -45,8 +51,64 @@ bool WeekManager::isSkippedWeek() const {
 
 // methods
 
+void WeekManager::loadEnemy(const string& fileName) {
+	numOfWeeks = 0;
+	ifstream enemyFile(fileName);
+
+	if (!enemyFile) {
+		qDebug() << "Error: cannot open " << QString::fromStdString(fileName);
+		return;
+	}
+
+	while (!enemyFile.eof()) {
+		string line_input;
+		getline(enemyFile, line_input);
+		istringstream line_input_stream(line_input);
+
+		int enemyID;
+		vector<EnemyType> listOfEnemy;
+		while (line_input_stream >> enemyID) {
+			listOfEnemy.push_back(static_cast<EnemyType>(enemyID));
+		}
+		// skip empty line if any
+		if (!listOfEnemy.empty()) {
+			weeksOfEnemies.push_back(listOfEnemy);
+			++numOfWeeks;
+		}
+	}
+
+	enemyFile.close();
+
+	// start the game
+	prepareForNextWeek();
+}
+
+void WeekManager::wrapUp() {
+}
+
+void WeekManager::processWeek() {
+	vector<EnemyType> enemyOfThisWeek = weeksOfEnemies.at(week - 1);
+	auto it = enemyOfThisWeek.begin();
+	connect(timer, &QTimer::timeout, [&]() {
+		generateEnemy(*it);
+		++it;
+		if (it == enemyOfThisWeek.end()) {
+			timer->stop();
+		}
+	});
+	timer->start(ENEMY_GENERATE_INTERVAL * 1000);
+}
+
+void WeekManager::generateEnemy(EnemyType enemyType) {
+	gameGrid->generateEnemy(enemyType);
+}
+
 // user manually skip to next week
 void WeekManager::skipToNextWeek() {
+	if (week == numOfWeeks) {
+		return;
+	}
+
 	// increment skip counter
 	++skippedWeeks;
 
@@ -55,6 +117,11 @@ void WeekManager::skipToNextWeek() {
 
 // system automatically proceed to next week after last enemy die
 void WeekManager::prepareForNextWeek() {
+	if (week == numOfWeeks) {
+		wrapUp();
+		return;
+	}
+
 	if (!isSkippedWeek()) {
         weekLayoutManager->weekCountDown(WEEK_COUNTDOWN);
 	}

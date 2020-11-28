@@ -1,7 +1,7 @@
 #ifndef REGULAR_H
 #define REGULAR_H
 
-#include "ITower.h"
+#include "src/tower/ITower.h"
 
 class Regular : public ITower
 {

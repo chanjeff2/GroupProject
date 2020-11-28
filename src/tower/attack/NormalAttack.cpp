@@ -1,5 +1,6 @@
 #include "NormalAttack.h"
 #include "src/tower/ITower.h"
+#include "src/enemy/IEnemy.h"
 #include "src/tower/targetSelect/ITargetSelectionStrategy.h"
 
 #include <set>
@@ -16,6 +17,9 @@ void NormalAttack::updateFocusedEnemyInRange() {
 	for (auto it = this->focusedEnemies.begin(); it != this->focusedEnemies.end(); /*don't add thing here*/) {
 		// remove focus if out of range/died
 		if (enemiesInRange.find(*it) == enemiesInRange.end()) {
+			// detach observer in enemy
+			(*it)->focusManager.detachTowerAttackObserver(this->tower);
+
 			it = this->focusedEnemies.erase(it);
 		} else {
 			++it;
@@ -24,6 +28,7 @@ void NormalAttack::updateFocusedEnemyInRange() {
 
 	int numOfFocusedEnemies = this->focusedEnemies.size();
 
+	// add new target
 	if (numOfFocusedEnemies < this->maxNumOfTarget) {
 		// get vector of sorted enemies in range, where [0] should be attack first
 		vector<IEnemy*> enemiesToAttack = this->targetSelectionStrategy->selectTarget(enemiesInRange, this->tower->getEffectiveTowards(), this->tower->getWeakTowards(), this->focusedEnemies);
@@ -33,6 +38,9 @@ void NormalAttack::updateFocusedEnemyInRange() {
 			for (IEnemy *enemy: enemiesToAttack) {
 				// add it to focus
 				this->focusedEnemies.insert(enemy);
+				// attach observer in enemy
+				enemy->focusManager.attachTowerAttackObserver(this->tower);
+
 				++numOfFocusedEnemies;
 				// break if reach max amount of target
 				if (numOfFocusedEnemies == this->maxNumOfTarget)

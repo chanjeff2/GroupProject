@@ -21,16 +21,17 @@ using namespace std;
 class GameGrid
 {
 	array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
+    QGraphicsScene* scene;
 	TowerUtility towerUtility{this};
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
 
 public:
 	GPAManager gpaManager;
-	WeekManager weekManager;
+	WeekManager weekManager{this};
 	ResourceManager resourceManager;
 
-	GameGrid();
+    GameGrid(QGraphicsScene* scene);
 	~GameGrid();
 
 	// getter
@@ -39,6 +40,10 @@ public:
 	const set<ITower*> &getAllTower() const;
 
 	const set<IEnemy*> &getAllEnemy() const;
+
+	QGraphicsScene *getScene() const;
+
+	Path getPathStartEnd() const;
 
 	// methods
 	bool isValidCoordinate(int x, int y) const;
@@ -54,6 +59,8 @@ public:
 	/* successfully remove tower -> true
 	 * failed -> false */
 	bool removeTower(int x, int y);
+
+	void generateEnemy(EnemyType enemyType);
 };
 
 #endif // GAMEGRID_H

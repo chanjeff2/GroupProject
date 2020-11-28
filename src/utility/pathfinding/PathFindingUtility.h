@@ -38,7 +38,7 @@ private:
 	const Coordinate exit;
 	Path pathStartEnd; // path from entry to exit
 	Path pathStartEndBuffer; // buffer to store preview
-	set<PathBuffer> pathBuffer; // buffer for each enemy
+	set<PathBuffer*> pathBuffer; // buffer for each enemy
 	const GameGrid *gameGrid; // ref to game grid
 
 	Path processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end);
@@ -63,7 +63,7 @@ private:
 public:
 	PathFindingUtility(GameGrid *gameGrid);
 
-	const Path getPathStartEnd() const;
+	Path getPathStartEnd() const;
 
 	/* return buffer storing validated path for each enemy
 	 * empty vector if not valid */

@@ -22,7 +22,7 @@ protected:
 public:
 	// constructor
 	AuraEffect(ITower* tower, AuraType auraType);
-	virtual ~AuraEffect() {}
+	~AuraEffect();
 
 	AuraType getAuraType() const;
 
@@ -30,6 +30,8 @@ public:
 	void applyAuraEffectToEnemyInRangeIfNeed();
 
 	void removeAuraEffectOfEnemyIfNeed();
+
+	void clearAllFocus(); // clear all focus when destroy
 };
 
 #endif // AURAEFFECT_H
