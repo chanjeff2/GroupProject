@@ -1,19 +1,11 @@
 #include "Regular.h"
 #include "src/utility/GameValues.h"
-<<<<<<< HEAD:src/tower/Regular.cpp
-#include "attack/NormalAttack.h"
-#include "aura/AuraEffect.h"
-
-Regular::Regular(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Regular) {
-	damagePerHit = 1;
-=======
 #include "src/tower/aura/AuraEffect.h"
 #include "src/tower/attack/NormalAttack.h"
 
 Regular::Regular(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Regular)
 {
     damagePerHit = 16;
->>>>>>> dev:src/tower/implementation/Regular.cpp
 	hitPerSec = 1.0;
 	effectiveTowards = set<EnemyType>{};
 	weakTowards = set<EnemyType>{};
