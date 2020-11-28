@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QMainWindow>
+#include <QGraphicsScene>
+
 #include "src/utility/GameValues.h"
 #include "src/utility/resource/ResourceManager.h"
 #include "src/utility/resource/ResourceLayoutManager.h"
@@ -9,9 +12,6 @@
 #include "src/utility/week/WeekManager.h"
 #include "src/utility/week/WeekLayoutManager.h"
 #include "src/map/GameGrid.h"
-
-#include <QMainWindow>
-#include <QGraphicsScene>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
 
     // Connect signal from clickable GraphicsView to here
-    connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
+    connect(ui->graphicsView, SIGNAL(ClickableView::mouseClicked), this, SLOT(MainWindow::map_clicked));
 }
 
 MainWindow::~MainWindow()
