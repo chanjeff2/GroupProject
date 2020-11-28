@@ -1,12 +1,11 @@
 #include "TowerUtility.h"
 #include "src/tower/ITower.h"
+#include "src/utility/GameValues.h"
 #include "src/map/cell.h"
 #include "src/tower/aura/AuraEffect.h"
 #include "src/map/GameGrid.h"
 
 #include <cmath>
-
-#include "src/tower/implementation/Regular.h"
 
 // init of static member
 set<ITower*> TowerUtility::refOfTowers;
@@ -22,7 +21,6 @@ TowerUtility::~TowerUtility() {
 void TowerUtility::placeTower(TowerType towerType, Cell *position) {
     // Each tower type are separate classes (to be added)
 	ITower *newTower;
-	QString imgPath;
 
     switch(towerType) {
         case TowerType::Regular: {
@@ -67,15 +65,12 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
     }
     // update ref list
 	refOfTowers.insert(newTower);
-	if (newTower->auraEffect->getAuraType() != AuraType::Null) {
+	if (newTower->auraEffectStrategy->getAuraType() != AuraType::Null) {
 		refOfAuraTowers.insert(newTower);
 	}
 	position->placeTower(newTower);
     // update position list
 	positionOfTowers.insert(make_pair(position->x, position->y));
-
-	QGraphicsPixmapItem *img = this->gameGrid->getScene()->addPixmap(QPixmap(imgPath));
-	newTower->attachImageView(img);
 }
 
 void TowerUtility::removeTower(Cell *position) {
@@ -85,7 +80,7 @@ void TowerUtility::removeTower(Cell *position) {
 
 	// find &tower in refOfTowers and remove
 	refOfTowers.erase(position->getTower());
-	if (position->getTower()->auraEffect->getAuraType() != AuraType::Null) {
+	if (position->getTower()->auraEffectStrategy->getAuraType() != AuraType::Null) {
 		refOfAuraTowers.insert(position->getTower());
 	}
 	// find position in positionOfTowers and remove
