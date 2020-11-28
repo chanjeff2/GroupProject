@@ -7,11 +7,16 @@ AllSelection::AllSelection() {};
 
 vector<IEnemy*> AllSelection::selectTarget(set<IEnemy*> enemiesInRange, set<EnemyType> effectiveTowards,
                                               set<EnemyType> weakTowards, set<IEnemy*> focusedEnemies) {
-    // remove enemy that weak towards
-    remove_if(enemiesInRange.begin(), enemiesInRange.end(), [&](IEnemy *enemy) {
-        // exist in weakTowards
-        return weakTowards.find(enemy->getEnemyType()) != weakTowards.end();
-    });
+	// remove enemy that weak towards
+	// erase_if hardcode
+	for (auto it = enemiesInRange.begin(); it != enemiesInRange.end(); /*nothing*/) {
+		// check if exist in weakTowards
+		if (weakTowards.find((*it)->getEnemyType()) != weakTowards.end()) {
+			it = enemiesInRange.erase(it);
+		} else {
+			++it;
+		}
+	}
 
     vector<IEnemy*> selectedTarget;
     // remove focused enemy
