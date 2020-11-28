@@ -173,6 +173,10 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 	pathStartEndBuffer = findPath(entry, exit, positionOfTowers);
 	// clear and return if don't find any possible path from start to end
 	if (pathStartEndBuffer.isEmpty()) {
+		for (auto element: pathBuffer) {
+			// dellocate memory
+			delete element;
+		}
 		pathBuffer.clear();
 		return false;
 	}
@@ -188,7 +192,7 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 				while (_path.getCurrentCell() != (*it)->getPath().getCurrentCell()) {
 					_path.goToNextCell();
 				}
-				PathBuffer _pathBuffer(_path, *it);
+				PathBuffer *_pathBuffer = new PathBuffer(_path, *it);
 				pathBuffer.insert(_pathBuffer); // add enemies on path to buffer
 			} else {
 				// reg it as not on Path
@@ -201,9 +205,13 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 	for (auto enemy: enemiesNotOnPath) {
 		Path _path = findPath(enemy->getPath().getCurrentCoordinate(), exit, positionOfTowers);
 		if (!_path.isEmpty()) {
-			PathBuffer _pathBuffer(_path, enemy);
+			PathBuffer *_pathBuffer = new PathBuffer(_path, enemy);
 			pathBuffer.insert(_pathBuffer); // add enemies not on path to buffer
 		} else {
+			for (auto element: pathBuffer) {
+				// dellocate memory
+				delete element;
+			}
 			pathBuffer.clear(); // cannot find path for any enemy
 			return false;
 		}
@@ -222,7 +230,9 @@ bool PathFindingUtility::updatePath() {
 
 	// all valid, replace enemies' pathToTake by path in buffer & clear buffer
 	for (auto element: pathBuffer) {
-		element.enemy->setPath(element.path);
+		element->enemy->setPath(element->path);
+		// dellocate memory
+		delete element;
 	}
 	pathBuffer.clear();
 
