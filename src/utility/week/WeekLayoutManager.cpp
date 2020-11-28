@@ -1,5 +1,6 @@
 #include "WeekManager.h"
 #include "WeekLayoutManager.h"
+#include "src/utility/GameValues.h"
 
 WeekLayoutManager::WeekLayoutManager(WeekManager *weekManager) : weekManager(weekManager) {}
 
