@@ -110,3 +110,7 @@ bool GameGrid::removeTower(int x, int y) {
 
 	return true;
 }
+
+void GameGrid::generateEnemy(EnemyType enemyType) {
+	this->enemyUtility.generateEnemy(enemyType);
+}

@@ -28,7 +28,7 @@ class GameGrid
 
 public:
 	GPAManager gpaManager;
-	WeekManager weekManager;
+	WeekManager weekManager{this};
 	ResourceManager resourceManager;
 
     GameGrid(QGraphicsScene* scene);
@@ -59,6 +59,8 @@ public:
 	/* successfully remove tower -> true
 	 * failed -> false */
 	bool removeTower(int x, int y);
+
+	void generateEnemy(EnemyType enemyType);
 };
 
 #endif // GAMEGRID_H

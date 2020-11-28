@@ -1,6 +1,7 @@
 #include "WeekManager.h"
 #include "src/utility/GameValues.h"
 #include "WeekLayoutManager.h"
+#include "src/map/GameGrid.h"
 
 #include <fstream>
 #include <sstream>
@@ -9,7 +10,7 @@
 #include <QDebug>
 
 // constructor
-WeekManager::WeekManager() {
+WeekManager::WeekManager(GameGrid *gameGrid): gameGrid(gameGrid) {
 	week = 0;
 	isWeekCooldown = true;
 	skippedWeeks = 0;
@@ -30,6 +31,7 @@ void WeekManager::goToNextWeek() {
     weekLayoutManager->updateWeek(week);
 
 	// generate enemy
+	processWeek();
 
 	// cooldown week skip
 	QTimer::singleShot(WEEK_COOLDOWN * 1000, this, SLOT([]{
@@ -68,13 +70,41 @@ void WeekManager::loadEnemy(const string& fileName) {
 			listOfEnemy.push_back(static_cast<EnemyType>(enemyID));
 		}
 		weeksOfEnemies.push_back(listOfEnemy);
+		++numOfWeeks;
 	}
 
 	enemyFile.close();
+
+	// start the game
+	prepareForNextWeek();
+}
+
+void WeekManager::wrapUp() {
+}
+
+void WeekManager::processWeek() {
+	vector<EnemyType> enemyOfThisWeek = weeksOfEnemies.at(week - 1);
+	auto it = enemyOfThisWeek.begin();
+	connect(timer, &QTimer::timeout, [&]() {
+		generateEnemy(*it);
+		++it;
+		if (it == enemyOfThisWeek.end()) {
+			timer->stop();
+		}
+	});
+	timer->start(ENEMY_GENERATE_INTERVAL * 1000);
+}
+
+void WeekManager::generateEnemy(EnemyType enemyType) {
+	gameGrid->generateEnemy(enemyType);
 }
 
 // user manually skip to next week
 void WeekManager::skipToNextWeek() {
+	if (week == numOfWeeks) {
+		return;
+	}
+
 	// increment skip counter
 	++skippedWeeks;
 
@@ -83,6 +113,11 @@ void WeekManager::skipToNextWeek() {
 
 // system automatically proceed to next week after last enemy die
 void WeekManager::prepareForNextWeek() {
+	if (week == numOfWeeks) {
+		wrapUp();
+		return;
+	}
+
 	if (!isSkippedWeek()) {
         weekLayoutManager->weekCountDown(WEEK_COUNTDOWN);
 	}
