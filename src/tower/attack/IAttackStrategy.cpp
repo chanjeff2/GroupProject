@@ -7,6 +7,10 @@
 #include <cmath>
 
 #include "src/tower/targetSelect/RandomSelection.h"
+#include "src/tower/targetSelect/PrioritySelection.h"
+#include "src/tower/targetSelect/AllSelection.h"
+#include "src/tower/targetSelect/NullSelection.h"
+
 
 // protected constructor
 IAttackStrategy::IAttackStrategy(ITower *tower): tower(tower) {}
