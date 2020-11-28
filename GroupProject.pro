@@ -23,6 +23,7 @@ SOURCES += \
     src/enemy/implementation/MathExam.cpp \
     src/enemy/implementation/MathHW.cpp \
     src/enemy/ModManager.cpp \
+    src/enemy/implementation/Midterm.cpp \
 	src/enemy/implementation/NormalHW.cpp \
     src/enemy/implementation/PA.cpp \
     src/enemy/implementation/PopQuiz.cpp \
@@ -72,6 +73,7 @@ HEADERS += \
     src/enemy/implementation/MathExam.h \
     src/enemy/implementation/MathHW.h \
     src/enemy/ModManager.h \
+    src/enemy/implementation/Midterm.h \
 	src/enemy/implementation/NormalHW.h \
     src/enemy/implementation/PA.h \
     src/enemy/implementation/PopQuiz.h \

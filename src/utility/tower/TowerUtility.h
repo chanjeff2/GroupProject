@@ -2,13 +2,24 @@
 #define TOWERUTILITY_H
 
 #include <set>
+
+#include "src/tower/implementation/Regular.h"
+#include "src/tower/implementation/Arts.h"
+#include "src/tower/implementation/WolframAlpha.h"
+#include "src/tower/implementation/Hacker.h"
+#include "src/tower/implementation/Calc.h"
+#include "src/tower/implementation/Nerd.h"
+#include "src/tower/implementation/Ghostwriter.h"
+#include "src/tower/implementation/Chegg.h"
+
 using namespace std;
 
-#include "src/utility/GameValues.h"
+typedef pair<int /*col*/, int /*row*/> Coordinate;
 
 // forward declaration
 class ITower;
 class Cell;
+enum class TowerType;
 class GameGrid;
 
 class TowerUtility
