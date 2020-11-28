@@ -27,6 +27,7 @@ SOURCES += \
 	src/enemy/implementation/NormalHW.cpp \
     src/enemy/implementation/PA.cpp \
     src/enemy/implementation/PopQuiz.cpp \
+    src/main/Bestiary.cpp \
     src/main/main.cpp \
     src/main/mainwindow.cpp \
     src/main/ClickableView.cpp \
@@ -80,6 +81,7 @@ HEADERS += \
 	src/enemy/implementation/NormalHW.h \
     src/enemy/implementation/PA.h \
     src/enemy/implementation/PopQuiz.h \
+    src/main/Bestiary.h \
     src/main/mainwindow.h \
     src/main/ClickableView.h \
     src/map/GameGrid.h \
@@ -115,6 +117,7 @@ HEADERS += \
 	src/utility/week/WeekManager.h
 
 FORMS += \
+    src/main/bestiary.ui \
     src/main/mainwindow.ui
 
 # Default rules for deployment.
