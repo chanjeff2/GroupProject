@@ -10,7 +10,7 @@ WolframAlpha::WolframAlpha(Cell* position, TowerUtility *towerUtility): ITower(p
     effectiveTowards = set<EnemyType>{ EnemyType::MathHW };
     weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA, EnemyType::Midterm,
                                   EnemyType::MATHExam, EnemyType::FYP };
-    cost = 30;
+    cost = TOWER_PRICES[2];
     range = 4;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);

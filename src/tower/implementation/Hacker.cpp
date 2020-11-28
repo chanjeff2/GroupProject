@@ -9,7 +9,7 @@ Hacker::Hacker(Cell* position, TowerUtility *towerUtility): ITower(position, tow
     hitPerSec = 1.0;
     effectiveTowards = set<EnemyType>{ EnemyType::COMPLab , EnemyType::PA, EnemyType::PopQuiz };
     weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA, EnemyType::EncryptedHW };
-    cost = 35;
+    cost = TOWER_PRICES[3];
     range = 3;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
