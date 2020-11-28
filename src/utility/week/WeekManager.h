@@ -25,8 +25,6 @@ class WeekManager: public QObject {
 	int numOfWeeks{0};
 	vector<vector<EnemyType>> weeksOfEnemies;
 
-	void loadEnemy(const string& fileName);
-
 	void goToNextWeek();
 
 	// iterate and generate enemies in week
@@ -45,6 +43,7 @@ public:
 	bool isSkippedWeek() const;
 
 	// methods
+	void loadEnemy(const string& fileName);
 
 	// user manually skip to next week
 	void skipToNextWeek();
