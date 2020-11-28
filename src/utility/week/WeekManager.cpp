@@ -2,6 +2,12 @@
 #include "src/utility/GameValues.h"
 #include "WeekLayoutManager.h"
 
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <QFileDialog>
+#include <QDebug>
+
 // constructor
 WeekManager::WeekManager() {
 	week = 0;
@@ -23,15 +29,13 @@ void WeekManager::goToNextWeek() {
 	++week;
     weekLayoutManager->updateWeek(week);
 
+	// generate enemy
+
 	// cooldown week skip
 	QTimer::singleShot(WEEK_COOLDOWN * 1000, this, SLOT([]{
 		isWeekCooldown = true
 		weekLayoutManager.isWeekCoolDown(true);
 	}));
-//	[psudo: delayedFunction({
-//		isWeekCooldown = true
-//		weekLayoutManager.isWeekCoolDown(true);
-//	}, WEEK_COOLDOWN * 1000)]
 }
 
 // getter
@@ -44,6 +48,30 @@ bool WeekManager::isSkippedWeek() const {
 }
 
 // methods
+
+void WeekManager::loadEnemy(const string& fileName) {
+	ifstream enemyFile(fileName);
+
+	if (!enemyFile) {
+		qDebug() << "Error: cannot open " << QString::fromStdString(fileName);
+		return;
+	}
+
+	while (!enemyFile.eof()) {
+		string line_input;
+		getline(enemyFile, line_input);
+		istringstream line_input_stream(line_input);
+
+		int enemyID;
+		vector<EnemyType> listOfEnemy;
+		while (line_input_stream >> enemyID) {
+			listOfEnemy.push_back(static_cast<EnemyType>(enemyID));
+		}
+		weeksOfEnemies.push_back(listOfEnemy);
+	}
+
+	enemyFile.close();
+}
 
 // user manually skip to next week
 void WeekManager::skipToNextWeek() {
