@@ -5,14 +5,14 @@
 
 Hacker::Hacker(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Hacker)
 {
-    damagePerHit = 1;
+    damagePerHit = 9;
     hitPerSec = 1.0;
-	effectiveTowards = set<EnemyType>{ EnemyType::EncryptedHW , EnemyType::COMPLab , EnemyType::PA };
-    weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA };
-    cost = 2;
-    range = 2;
+    effectiveTowards = set<EnemyType>{ EnemyType::COMPLab , EnemyType::PA, EnemyType::PopQuiz };
+    weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA, EnemyType::EncryptedHW };
+    cost = 35;
+    range = 3;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-    auraEffect = new AuraEffect(this, AuraType::Null);
+    auraEffect = new AuraEffect(this, AuraType::SlowAura);
 };

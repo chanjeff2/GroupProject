@@ -3,11 +3,11 @@
 
 Final::Final(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::Final)
 {
-    HP = 5;
-    speed = 0.5;
-    worth = 3;
-    armor = 3;
+    HP = 1280;
+    speed = 1.0;
+    worth = 20;
+    armor = 4;
     canSlow = true;
     canPierceArmor = true;
-    canEnrage = false;
+    canEnrage = true;
 };

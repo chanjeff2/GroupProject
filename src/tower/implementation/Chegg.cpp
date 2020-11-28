@@ -5,12 +5,13 @@
 
 Chegg::Chegg(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Chegg)
 {
-    damagePerHit = 1;
-    hitPerSec = 1.0;
-    effectiveTowards = set<EnemyType>{ EnemyType::NormalHW , EnemyType::MathHW };
-    weakTowards = set<EnemyType>{ EnemyType::PopQuiz };
-    cost = 2;
-    range = 2;
+    damagePerHit = 288;
+    hitPerSec = 0.1;
+    effectiveTowards = set<EnemyType>{};
+    weakTowards = set<EnemyType>{ EnemyType::Midterm, EnemyType::Desmond, EnemyType::MATHExam,
+                                  EnemyType::Final, EnemyType::ELPA, EnemyType::FYP };
+    cost = 250;
+    range = 5;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);

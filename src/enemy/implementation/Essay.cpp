@@ -2,11 +2,11 @@
 #include "src/utility/GameValues.h"
 
 Essay::Essay(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::Essay) {
-    HP = 4;
-    speed = 0.5;
-    worth = 2;
-    armor = 1;
+    HP = 144;
+    speed = 1.5;
+    worth = 1;
+    armor = 2;
     canSlow = true;
-    canPierceArmor = true;
+    canPierceArmor = false;
     canEnrage = false;
 }

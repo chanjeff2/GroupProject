@@ -3,9 +3,9 @@
 
 Midterm::Midterm(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::Midterm)
 {
-    HP = 2;
-    speed = 0.5;
-    worth = 2;
+    HP = 576;
+    speed = 0.9;
+    worth = 8;
     armor = 2;
     canSlow = true;
     canPierceArmor = true;

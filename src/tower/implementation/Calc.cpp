@@ -5,14 +5,14 @@
 
 Calc::Calc(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Calc)
 {
-    damagePerHit = 1;
-    hitPerSec = 1.0;
-	effectiveTowards = set<EnemyType>{ EnemyType::MATHExam , EnemyType::MathHW };
-    weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA };
-    cost = 2;
-    range = 2;
+    damagePerHit = 32;
+    hitPerSec = 1.4;
+    effectiveTowards = set<EnemyType>{ EnemyType::MathHW };
+    weakTowards = set<EnemyType>{ EnemyType::MATHExam, EnemyType::Essay, EnemyType::ELPA };
+    cost = 40;
+    range = 4;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-    auraEffect = new AuraEffect(this, AuraType::Null);
+    auraEffect = new AuraEffect(this, AuraType::ArmorPierceAura);
 };

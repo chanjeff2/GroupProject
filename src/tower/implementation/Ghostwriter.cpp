@@ -5,14 +5,14 @@
 
 Ghostwriter::Ghostwriter(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Ghostwriter)
 {
-    damagePerHit = 1;
-    hitPerSec = 1.0;
-    effectiveTowards = set<EnemyType>{ EnemyType::Essay };
-    weakTowards = set<EnemyType>{ EnemyType::Midterm , EnemyType::Final };
-    cost = 2;
-    range = 2;
+    damagePerHit = 32;
+    hitPerSec = 0.4;
+    effectiveTowards = set<EnemyType>{ EnemyType::Essay, EnemyType::Midterm, EnemyType::MATHExam };
+    weakTowards = set<EnemyType>{ EnemyType::Final, EnemyType::FYP };
+    cost = 75;
+    range = 9;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-    auraEffect = new AuraEffect(this, AuraType::Null);
+    auraEffect = new AuraEffect(this, AuraType::RageAura);
 };
