@@ -10,7 +10,7 @@ Chegg::Chegg(Cell* position, TowerUtility *towerUtility): ITower(position, tower
     effectiveTowards = set<EnemyType>{};
     weakTowards = set<EnemyType>{ EnemyType::Midterm, EnemyType::Desmond, EnemyType::MATHExam,
                                   EnemyType::Final, EnemyType::ELPA, EnemyType::FYP };
-    cost = 250;
+    cost = TOWER_PRICES[7];
     range = 5;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);

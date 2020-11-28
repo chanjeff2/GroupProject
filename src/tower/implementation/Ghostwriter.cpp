@@ -9,7 +9,7 @@ Ghostwriter::Ghostwriter(Cell* position, TowerUtility *towerUtility): ITower(pos
     hitPerSec = 0.4;
     effectiveTowards = set<EnemyType>{ EnemyType::Essay, EnemyType::Midterm, EnemyType::MATHExam };
     weakTowards = set<EnemyType>{ EnemyType::Final, EnemyType::FYP };
-    cost = 75;
+    cost = TOWER_PRICES[6];
     range = 9;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);

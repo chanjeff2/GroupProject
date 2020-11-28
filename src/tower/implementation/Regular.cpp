@@ -9,7 +9,7 @@ Regular::Regular(Cell* position, TowerUtility *towerUtility): ITower(position, t
 	hitPerSec = 1.0;
 	effectiveTowards = set<EnemyType>{};
 	weakTowards = set<EnemyType>{};
-    cost = 10;
+    cost = TOWER_PRICES[0];
     range = 3;
 	attackStrategy = new NormalAttack(this);
 	attackStrategy->setMaxNumOfTarget(1);
