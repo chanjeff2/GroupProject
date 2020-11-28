@@ -18,6 +18,7 @@ vector<IEnemy*> PrioritySelection::selectTarget(set<IEnemy*> enemiesInRange, set
     set_difference(enemiesInRange.begin(), enemiesInRange.end(), focusedEnemies.begin(), focusedEnemies.end(), selectedTarget.begin());
 
     // Select enemy depending on its priority
+    // Unfinished here. Maybe need another enum for priorties?
 
     return selectedTarget;
 }
