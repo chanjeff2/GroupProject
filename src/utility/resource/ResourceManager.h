@@ -30,9 +30,7 @@ public:
 	 * if already max level, do nothing
 	 * (but we should have disabled the upgrade button)
 	 * can still check to place safe */
-	bool upgradeResourceCapacity();
-
-    ResourceLayoutManager* accessToLayoutManager() const;
+    bool upgradeResourceCapacity();
 };
 
 #endif // RESOURCEMANAGER_H

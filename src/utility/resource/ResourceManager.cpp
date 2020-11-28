@@ -47,19 +47,17 @@ void ResourceManager::gainResource(int amount) {
 		 * can still check to place safe */
 bool ResourceManager::upgradeResourceCapacity() {
 	// max level
-	if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY)
-		return false;
+    if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY) {
+        return false; }
 
-	if (spendResource(getResourceRequiredForUpgradeCapacity()))
-		++resourceCapacityLevel;
+    if (spendResource(getResourceRequiredForUpgradeCapacity())) {
+        ++resourceCapacityLevel; }
 
-	if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY)
+    if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY) {
         resourceLayoutManager->isResourceCapacityUpgradeAvailable(false);
+        resourceLayoutManager->ResourceUpgrade->setText("Maxed!");
+    }
 
     resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
 	return true;
-}
-
-ResourceLayoutManager* ResourceManager::accessToLayoutManager() const {
-    return resourceLayoutManager;
 }

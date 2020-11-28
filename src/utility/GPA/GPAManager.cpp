@@ -24,7 +24,3 @@ bool GPAManager::reduceGPA(float amount) {
 		return false;
 	}
 }
-
-GPALayoutManager* GPAManager::accessToLayoutManager() const {
-    return gpaLayoutManager;
-}

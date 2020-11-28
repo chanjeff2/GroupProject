@@ -130,7 +130,3 @@ void WeekManager::prepareForNextWeek() {
 			skippedWeeks--;
 	}));
 }
-
-WeekLayoutManager* WeekManager::accessToLayoutManager() const {
-    return weekLayoutManager;
-}
