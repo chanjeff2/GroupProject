@@ -117,7 +117,7 @@ HEADERS += \
 	src/utility/week/WeekManager.h
 
 FORMS += \
-    src/main/bestiary.ui \
+    src/main/Bestiary.ui \
     src/main/mainwindow.ui
 
 # Default rules for deployment.

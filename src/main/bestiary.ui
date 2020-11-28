@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BestiaryView</class>
- <widget class="QDialog" name="BestiaryView">
+ <class>BestiaryWindow</class>
+ <widget class="QWidget" name="BestiaryWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,30 +11,17 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>UST Students vs. Assignemnts - Main Screen</string>
-  </property>
-  <property name="modal">
-   <bool>false</bool>
+   <string>Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <property name="spacing">
-      <number>10</number>
-     </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="ExitBestiary">
-       <property name="text">
-        <string>Exit Bestiary</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="BestiaryLabel">
+      <widget class="QLabel" name="BestiaryTitle">
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>28</pointsize>
+         <pointsize>24</pointsize>
         </font>
        </property>
        <property name="text">
@@ -46,19 +33,105 @@
       </widget>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0,0">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item row="1" column="0" colspan="6">
-        <widget class="QLabel" name="Tower">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="1">
+        <widget class="QPushButton" name="Arts">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/towers_images/ArtsStudent Purchase.png</normaloff>:/res/res/towers_images/ArtsStudent Purchase.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="Wolfram">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/towers_images/Wolfram Purchase.png</normaloff>:/res/res/towers_images/Wolfram Purchase.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="Hacker">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/towers_images/Hackerman Purchase.png</normaloff>:/res/res/towers_images/Hackerman Purchase.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QPushButton" name="Calculator">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/towers_images/Calculator Purchase.png</normaloff>:/res/res/towers_images/Calculator Purchase.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="6">
+        <widget class="QLabel" name="Towers">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>40</height>
+           <height>20</height>
           </size>
          </property>
          <property name="font">
@@ -75,8 +148,14 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="1" column="0">
         <widget class="QPushButton" name="Regular">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -92,25 +171,14 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="4">
-        <widget class="QPushButton" name="Calculator">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/towers_images/Calculator Purchase.png</normaloff>:/res/res/towers_images/Calculator Purchase.png</iconset>
-         </property>
-         <property name="iconSize">
+       <item row="1" column="5">
+        <widget class="QPushButton" name="Nerd">
+         <property name="minimumSize">
           <size>
            <width>40</width>
            <height>40</height>
           </size>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="5">
-        <widget class="QPushButton" name="Nerd">
          <property name="text">
           <string/>
          </property>
@@ -126,59 +194,14 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="Arts">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/towers_images/ArtsStudent Purchase.png</normaloff>:/res/res/towers_images/ArtsStudent Purchase.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="2">
-        <widget class="QPushButton" name="Wolframalpha">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/towers_images/Wolfram Purchase.png</normaloff>:/res/res/towers_images/Wolfram Purchase.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QPushButton" name="Hacker">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/towers_images/Hackerman Purchase.png</normaloff>:/res/res/towers_images/Hackerman Purchase.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
         <widget class="QPushButton" name="Ghostwriter">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -194,8 +217,14 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="3">
+       <item row="2" column="3">
         <widget class="QPushButton" name="Chegg">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -214,21 +243,21 @@
       </layout>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0,0,0">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="MathPaperwork">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="3">
+        <widget class="QPushButton" name="GroupProj">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/MathHW3 Grid.png</normaloff>:/res/res/enemies_images/MathHW3 Grid.png</iconset>
+           <normaloff>:/res/res/enemies_images/GpPrj Grid.png</normaloff>:/res/res/enemies_images/GpPrj Grid.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -238,131 +267,12 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="2">
-        <widget class="QPushButton" name="HFile">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/COMPLab2 Grid.png</normaloff>:/res/res/enemies_images/COMPLab2 Grid.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="4">
-        <widget class="QPushButton" name="Desmond">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/Desmond Grid.png</normaloff>:/res/res/enemies_images/Desmond Grid.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3">
-        <widget class="QPushButton" name="PA">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/PA Grid.png</normaloff>:/res/res/enemies_images/PA Grid.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="5">
-        <widget class="QPushButton" name="Classviva">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/MathHW2 Bestiary.png</normaloff>:/res/res/enemies_images/MathHW2 Bestiary.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QPushButton" name="CppFile">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/COMPLab Grid.png</normaloff>:/res/res/enemies_images/COMPLab Grid.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="NormaHW">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/NormalHW Grid.png</normaloff>:/res/res/enemies_images/NormalHW Grid.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="4">
-        <widget class="QPushButton" name="Webwork">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/MathHW1 Grid.png</normaloff>:/res/res/enemies_images/MathHW1 Grid.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>40</width>
-           <height>40</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="6">
-        <widget class="QLabel" name="Enemies">
+       <item row="0" column="0" colspan="6">
+        <widget class="QLabel" name="Towers_2">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>40</height>
+           <height>20</height>
           </size>
          </property>
          <property name="font">
@@ -379,8 +289,60 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="5">
+       <item row="1" column="5">
+        <widget class="QPushButton" name="Classviva">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/enemies_images/MathHW2 Bestiary.png</normaloff>:/res/res/enemies_images/MathHW2 Bestiary.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="EncryptedHW">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/enemies_images/Encrypted Grid.png</normaloff>:/res/res/enemies_images/Encrypted Grid.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5">
         <widget class="QPushButton" name="PaperPopQuiz">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -397,7 +359,36 @@
         </widget>
        </item>
        <item row="2" column="1">
+        <widget class="QPushButton" name="CppFile">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/enemies_images/COMPLab Grid.png</normaloff>:/res/res/enemies_images/COMPLab Grid.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
         <widget class="QPushButton" name="Essay">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -413,14 +404,43 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="Encrypted">
+       <item row="1" column="4">
+        <widget class="QPushButton" name="Webwork">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/Encrypted Grid.png</normaloff>:/res/res/enemies_images/Encrypted Grid.png</iconset>
+           <normaloff>:/res/res/enemies_images/MathHW1 Grid.png</normaloff>:/res/res/enemies_images/MathHW1 Grid.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="MathPaperwork">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/enemies_images/MathHW3 Grid.png</normaloff>:/res/res/enemies_images/MathHW3 Grid.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -431,13 +451,19 @@
         </widget>
        </item>
        <item row="2" column="3">
-        <widget class="QPushButton" name="GroupProj">
+        <widget class="QPushButton" name="PA">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset resource="../../assets.qrc">
-           <normaloff>:/res/res/enemies_images/GpPrj Grid.png</normaloff>:/res/res/enemies_images/GpPrj Grid.png</iconset>
+           <normaloff>:/res/res/enemies_images/PA Grid.png</normaloff>:/res/res/enemies_images/PA Grid.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -447,8 +473,83 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="2" column="2">
+        <widget class="QPushButton" name="HFile">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/enemies_images/COMPLab2 Grid.png</normaloff>:/res/res/enemies_images/COMPLab2 Grid.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="NormalHW">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/enemies_images/NormalHW Grid.png</normaloff>:/res/res/enemies_images/NormalHW Grid.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QPushButton" name="Desmond">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../assets.qrc">
+           <normaloff>:/res/res/enemies_images/Desmond Grid.png</normaloff>:/res/res/enemies_images/Desmond Grid.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
         <widget class="QPushButton" name="IPRS">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -464,8 +565,14 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="3" column="1">
         <widget class="QPushButton" name="Midterm">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -481,8 +588,14 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="2">
+       <item row="3" column="2">
         <widget class="QPushButton" name="MathExam">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -498,8 +611,14 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="3">
-        <widget class="QPushButton" name="Final">
+       <item row="3" column="3">
+        <widget class="QPushButton" name="FINAL">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -515,8 +634,14 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="4">
+       <item row="3" column="4">
         <widget class="QPushButton" name="ELPA">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -532,8 +657,14 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="5">
+       <item row="3" column="5">
         <widget class="QPushButton" name="FYP">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -554,19 +685,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <property name="spacing">
-      <number>5</number>
-     </property>
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item alignment="Qt::AlignHCenter">
       <widget class="QGraphicsView" name="graphicsView">
        <property name="maximumSize">
@@ -574,12 +693,6 @@
          <width>120</width>
          <height>120</height>
         </size>
-       </property>
-       <property name="lineWidth">
-        <number>1</number>
-       </property>
-       <property name="midLineWidth">
-        <number>1</number>
        </property>
       </widget>
      </item>
