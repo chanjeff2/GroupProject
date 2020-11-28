@@ -1,6 +1,7 @@
 #include "EnemyUtility.h"
 #include "src/utility/GameValues.h"
 #include "src/enemy/IEnemy.h"
+#include "src/utility/pathfinding/Path.h"
 #include "src/map/GameGrid.h"
 
 EnemyUtility::EnemyUtility(GameGrid *gameGrid): gameGrid(gameGrid) {};
@@ -15,63 +16,63 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
     // Each homework type are separate classes (to be added)
     switch(enemyType) {
         case EnemyType::NormalHW: {
-            enemies.insert(new NormalHW(START));
+            enemies.insert(new NormalHW(this, Path()));
             break;
         }
         case EnemyType::Essay: {
-            enemies.insert(new Essay(START));
+            enemies.insert(new Essay(this, Path()));
             break;
         }
         case EnemyType::EncryptedHW: {
-            enemies.insert(new EncryptedHW(START));
+            enemies.insert(new EncryptedHW(this, Path()));
             break;
         }
         case EnemyType::GroupProj: {
-            enemies.insert(new GroupProj(START));
+            enemies.insert(new GroupProj(this, Path()));
             break;
         }
         case EnemyType::MathHW: {
-            enemies.insert(new MathHW(START));
+            enemies.insert(new MathHW(this, Path()));
             break;
         }
         case EnemyType::COMPLab: {
-            enemies.insert(new COMPLab(START));
+            enemies.insert(new COMPLab(this, Path()));
             break;
         }
         case EnemyType::PA: {
-            enemies.insert(new PA(START));
+            enemies.insert(new PA(this, Path()));
             break;
         }
         case EnemyType::Desmond: {
-            enemies.insert(new Desmond(START));
+            enemies.insert(new Desmond(this, Path()));
             break;
         }
         case EnemyType::PopQuiz: {
-            enemies.insert(new PopQuiz(START));
+            enemies.insert(new PopQuiz(this, Path()));
             break;
         }
         case EnemyType::Midterm: {
-            enemies.insert(new Midterm(START));
+            enemies.insert(new Midterm(this, Path()));
             break;
         }
         case EnemyType::MATHExam: {
-            enemies.insert(new MATHExam(START));
+            enemies.insert(new MATHExam(this, Path()));
             break;
         }
         case EnemyType::Final: {
-            enemies.insert(new Final(START));
+            enemies.insert(new Final(this, Path()));
             break;
         }
         case EnemyType::ELPA: {
-            enemies.insert(new ELPA(START));
+            enemies.insert(new ELPA(this, Path()));
             break;
         }
         case EnemyType::FYP: {
-            enemies.insert(new FYP(START));
+            enemies.insert(new FYP(this, Path()));
             break;
         }
         default: { // Prevent invalid Inputs
-            enemies.insert(new NormalHW(START));
+            enemies.insert(new NormalHW(this, Path()));
             break;
         }
     }

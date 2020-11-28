@@ -5,12 +5,13 @@
 
 WolframAlpha::WolframAlpha(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::WolframAlpha)
 {
-    damagePerHit = 1;
+    damagePerHit = 23;
     hitPerSec = 1.0;
-	effectiveTowards = set<EnemyType>{ EnemyType::MATHExam , EnemyType::MathHW };
-    weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA };
-    cost = 2;
-    range = 2;
+    effectiveTowards = set<EnemyType>{ EnemyType::MathHW };
+    weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA, EnemyType::Midterm,
+                                  EnemyType::MATHExam, EnemyType::FYP };
+    cost = 30;
+    range = 4;
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
