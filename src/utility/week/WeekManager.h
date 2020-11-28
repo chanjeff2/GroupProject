@@ -10,6 +10,7 @@ using namespace std;
 
 // forward declaration
 enum class EnemyType;
+class GameGrid;
 
 class WeekManager: public QObject {
 	int week; // wave
@@ -18,6 +19,8 @@ class WeekManager: public QObject {
 	QTimer* timer;
 	WeekLayoutManager* weekLayoutManager;
 
+	GameGrid *gameGrid;
+
 	// wave of enemy to be generate
 	int numOfWeeks{0};
 	vector<vector<EnemyType>> weeksOfEnemies;
@@ -25,9 +28,16 @@ class WeekManager: public QObject {
 	void loadEnemy(const string& fileName);
 
 	void goToNextWeek();
+
+	// iterate and generate enemies in week
+	void processWeek();
+	void generateEnemy(EnemyType enemyType);
+
+	// end the game
+	void wrapUp();
 public:
 	// constructor
-	WeekManager();
+	WeekManager(GameGrid *gameGrid);
 
 	// getter
 	int getWeek() const;
