@@ -45,7 +45,10 @@ SOURCES += \
 	src/tower/attack/NormalAttack.cpp \
     src/tower/ITower.cpp \
 	src/tower/aura/AuraEffect.cpp \
+    src/tower/targetSelect/AllSelection.cpp \
 	src/tower/targetSelect/ITargetSelectionStrategy.cpp \
+    src/tower/targetSelect/NullSelection.cpp \
+    src/tower/targetSelect/PrioritySelection.cpp \
 	src/tower/targetSelect/RandomSelection.cpp \
 	src/utility/enemy/EnemyUtility.cpp \
 	src/utility/GPA/GPALayoutManager.cpp \
@@ -94,7 +97,10 @@ HEADERS += \
 	src/tower/attack/NormalAttack.h \
     src/tower/ITower.h \
 	src/tower/aura/AuraEffect.h \
+    src/tower/targetSelect/AllSelection.h \
 	src/tower/targetSelect/ITargetSelectionStrategy.h \
+    src/tower/targetSelect/NullSelection.h \
+    src/tower/targetSelect/PrioritySelection.h \
 	src/tower/targetSelect/RandomSelection.h \
 	src/utility/enemy/EnemyUtility.h \
 	src/utility/GPA/GPALayoutManager.h \
