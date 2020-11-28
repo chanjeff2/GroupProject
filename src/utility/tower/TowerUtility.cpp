@@ -65,7 +65,7 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
     }
     // update ref list
 	refOfTowers.insert(newTower);
-	if (newTower->auraEffectStrategy->getAuraType() != AuraType::Null) {
+    if (newTower->auraEffect->getAuraType() != AuraType::Null) {
 		refOfAuraTowers.insert(newTower);
 	}
 	position->placeTower(newTower);
@@ -80,7 +80,7 @@ void TowerUtility::removeTower(Cell *position) {
 
 	// find &tower in refOfTowers and remove
 	refOfTowers.erase(position->getTower());
-	if (position->getTower()->auraEffectStrategy->getAuraType() != AuraType::Null) {
+    if (position->getTower()->auraEffect->getAuraType() != AuraType::Null) {
 		refOfAuraTowers.insert(position->getTower());
 	}
 	// find position in positionOfTowers and remove
