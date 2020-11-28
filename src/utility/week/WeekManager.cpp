@@ -52,6 +52,7 @@ bool WeekManager::isSkippedWeek() const {
 // methods
 
 void WeekManager::loadEnemy(const string& fileName) {
+	numOfWeeks = 0;
 	ifstream enemyFile(fileName);
 
 	if (!enemyFile) {
@@ -69,8 +70,11 @@ void WeekManager::loadEnemy(const string& fileName) {
 		while (line_input_stream >> enemyID) {
 			listOfEnemy.push_back(static_cast<EnemyType>(enemyID));
 		}
-		weeksOfEnemies.push_back(listOfEnemy);
-		++numOfWeeks;
+		// skip empty line if any
+		if (!listOfEnemy.empty()) {
+			weeksOfEnemies.push_back(listOfEnemy);
+			++numOfWeeks;
+		}
 	}
 
 	enemyFile.close();
