@@ -3,6 +3,9 @@
 
 #include "ClickableView.h"
 
+#include <QFileDialog>
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -26,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.Resource = ui->Resource;
     resource_layout_manager.ResourceCap = ui->ResourceCap;
     resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
+
+    // Misc stuff
+    //resource_layout_manager.isResourceCapacityUpgradeAvailable(false);
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, SIGNAL(ClickableView::mouseClicked), this, SLOT(MainWindow::map_clicked));
@@ -132,12 +138,9 @@ void MainWindow::on_TowerMode_clicked() {
 }
 
 void MainWindow::on_ResourceUpg_clicked() {
+    bool buffer = false;
     if (resource_manager.getResource() >= resource_manager.getResourceRequiredForUpgradeCapacity()) {
-        resource_manager.upgradeResourceCapacity();
-        if (resource_manager.getResourceCapacity() == RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY - 1]) {
-            ui->ResourceUpg->setText("Maxed!");
-            ui->ResourceUpg->setEnabled(false);
-        }
+        buffer = resource_manager.upgradeResourceCapacity();
     }
 }
 
@@ -146,7 +149,12 @@ void MainWindow::on_Bestiary_clicked() {
 }
 
 void MainWindow::on_StartGame_clicked() {
-
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Waves file"), ".", tr("Text Files (*.txt)"));
+    qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info
+    if (filename == "") return;
+    else {
+        week_manager.loadEnemy(filename.toStdString());
+    }
 }
 
 void MainWindow::map_clicked(int x, int y) {
