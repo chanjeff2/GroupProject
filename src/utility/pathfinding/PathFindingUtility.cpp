@@ -179,18 +179,23 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 
 	// check for enemies not on optimized path
 	set<IEnemy*> enemiesNotOnPath;
-	copy_if(enemies.begin(), enemies.end(), enemies.begin(), [&](IEnemy *enemy) {
-		bool isOnPath = isEnemyOnPath(enemy, pathStartEndBuffer);
+	//  hardcode copy_if
+	for (auto it = enemies.begin(); it != enemies.end(); ++it) {
+		bool isOnPath = isEnemyOnPath(*it, pathStartEndBuffer);
 		if (isOnPath) {
-			Path _path = pathStartEndBuffer;
-			while (_path.getCurrentCell() != enemy->getPath().getCurrentCell()) {
-				_path.goToNextCell();
+			if (isOnPath) {
+				Path _path = pathStartEndBuffer;
+				while (_path.getCurrentCell() != (*it)->getPath().getCurrentCell()) {
+					_path.goToNextCell();
+				}
+				PathBuffer _pathBuffer(_path, *it);
+				pathBuffer.insert(_pathBuffer); // add enemies on path to buffer
+			} else {
+				// reg it as not on Path
+				enemiesNotOnPath.insert(*it);
 			}
-			PathBuffer _pathBuffer(_path, enemy);
-			pathBuffer.insert(_pathBuffer); // add enemies on path to buffer
 		}
-		return !isOnPath; // // insert enemies not on path to enemiesNotOnPath
-	});
+	}
 
 	// check for remaining enemies
 	for (auto enemy: enemiesNotOnPath) {
