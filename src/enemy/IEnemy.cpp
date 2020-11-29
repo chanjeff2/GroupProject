@@ -3,16 +3,11 @@
 #include "src/map/cell.h"
 #include "src/utility/GameValues.h"
 
+#include <QDebug>
 
 // constructor
-IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path(path), enemyUtility(enemyUtility), enemyType(enemyType), focusManager(this), modManager(this) {
-	// born to move
-	// get ready for next move
-	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path(path), enemyUtility(enemyUtility), enemyType(enemyType) {
 
-	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, &IEnemy::move);
-	timer->start(timeTilNextMove);
 }
 
 // destructor
@@ -88,6 +83,18 @@ void IEnemy::move() {
 	if (timer->interval() != timeTilNextMove) {
 		timer->setInterval(timeTilNextMove); // update timer interval in case there is change in speed;
 	}
+}
+
+void IEnemy::trigger() {
+	// born to move
+	// get ready for next move
+	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+
+	qDebug() << "timeTilNextMove:" << timeTilNextMove;
+
+	timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, &IEnemy::move);
+	timer->start(timeTilNextMove);
 }
 
 void IEnemy::receiveDamage(int damage) {

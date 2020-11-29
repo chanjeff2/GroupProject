@@ -42,8 +42,8 @@ protected:
 
 public:
 	// data member
-	FocusManager focusManager; // manage tower focus
-	ModManager modManager; // manage speed and armor modifiers
+	FocusManager focusManager{this}; // manage tower focus
+	ModManager modManager{this}; // manage speed and armor modifiers
 
 	// destructor
 	virtual ~IEnemy();
@@ -63,6 +63,7 @@ public:
 	void attachImageView(QGraphicsPixmapItem *imgView);
 
 	// methods
+	void trigger(); // trigger after init in base class
 	void receiveDamage(int damage);
 };
 
