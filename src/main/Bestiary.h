@@ -8,7 +8,7 @@
 class BestiaryWindow : public QWidget {
     Q_OBJECT
 public:
-    BestiaryWindow(QWidget *parent = nullptr);
+    explicit BestiaryWindow(QWidget *parent = nullptr);
     ~BestiaryWindow();
 
 private slots:
