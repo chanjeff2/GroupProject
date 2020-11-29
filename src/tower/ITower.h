@@ -63,6 +63,8 @@ public:
 	void attachImageView(QGraphicsPixmapItem *imgView);
 
 	// methods
+	void trigger();
+
 	std::set<IEnemy*> getEnemiesInRange() const;
 };
 

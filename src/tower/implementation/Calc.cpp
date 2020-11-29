@@ -15,4 +15,6 @@ Calc::Calc(Cell* position, TowerUtility *towerUtility): ITower(position, towerUt
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
     auraEffect = new AuraEffect(this, AuraType::ArmorPierceAura);
+
+	trigger();
 };
