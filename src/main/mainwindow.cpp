@@ -48,7 +48,7 @@ void MainWindow::on_BuyRegular_clicked() {
         ui->CancelBuy->setEnabled(false);
     }
     else { // Return Not enough resource message
-
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
@@ -58,7 +58,7 @@ void MainWindow::on_BuyArts_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
-
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
@@ -68,7 +68,7 @@ void MainWindow::on_BuyWolfram_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
-
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
@@ -78,7 +78,7 @@ void MainWindow::on_BuyHacker_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
-
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
@@ -88,7 +88,7 @@ void MainWindow::on_BuyCalc_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
-
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
@@ -98,7 +98,7 @@ void MainWindow::on_BuyNerd_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
-
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
@@ -108,7 +108,7 @@ void MainWindow::on_BuyGWriter_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
-
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
@@ -118,7 +118,7 @@ void MainWindow::on_BuyChegg_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
-
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
@@ -134,6 +134,10 @@ void MainWindow::on_TowerMode_clicked() {
     } else {
         sell_mode = true;
         ui->TowerMode->setText("Sell Tower Mode");
+
+        // Cancel buying towers
+        tower_selected = TowerType::None;
+        ui->CancelBuy->setEnabled(false);
     }
 }
 
