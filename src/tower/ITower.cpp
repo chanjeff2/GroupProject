@@ -7,8 +7,6 @@
 #include <cmath>
 #include "src/utility/tower/TowerUtility.h"
 
-#include <QDebug>
-
 // protected constructor -> prevent instantiation of ITower
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
 
@@ -84,8 +82,10 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 				continue;
 			}
 
-			enemyInRange.insert(cell->getEnemy().begin(), cell->getEnemy().end());
-
+			auto enemyOnCell = cell->getEnemy();
+			for (auto enemy: enemyOnCell) {
+				enemyInRange.insert(enemy);
+			}
 		}
 	}
 	return enemyInRange;

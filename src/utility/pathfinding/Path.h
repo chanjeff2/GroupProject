@@ -21,7 +21,7 @@ public:
 	
 	int getRemainingDistance() const;
 	bool isNextCellEnd() const;
-	const Cell *getCurrentCell() const;
+	Cell *getCurrentCell() const;
 	const Coordinate getCurrentCoordinate() const;
 	bool isEmpty() const;
 

@@ -3,6 +3,7 @@
 #include "src/enemy/IEnemy.h"
 #include "src/utility/pathfinding/Path.h"
 #include "src/map/GameGrid.h"
+#include "src/map/cell.h"
 
 #include "src/enemy/implementation/NormalHW.h"
 #include "src/enemy/implementation/Essay.h"
@@ -125,6 +126,9 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 		// reduce gpa
 		gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO);
 	}
+
+	// remove enemy from cell
+	enemy->getPath().getCurrentCell()->removeEnemy(enemy);
 
 	// find &enemy in ememies and remove
 	enemies.erase(enemy);

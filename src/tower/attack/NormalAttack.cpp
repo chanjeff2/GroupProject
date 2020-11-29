@@ -49,8 +49,9 @@ void NormalAttack::updateFocusedEnemyInRange() {
 
 				++numOfFocusedEnemies;
 				// break if reach max amount of target
-				if (numOfFocusedEnemies == this->maxNumOfTarget)
+				if (numOfFocusedEnemies == this->maxNumOfTarget) {
 					break;
+				}
 			}
 		}
 	}

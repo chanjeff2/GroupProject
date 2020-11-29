@@ -49,7 +49,8 @@ void IAttackStrategy::attack() {
 
 	// perform attack if have focus
 	if (!focusedEnemies.empty()) {
-		for (IEnemy *focusedEnemy: focusedEnemies) {
+		auto tempEnemyList = focusedEnemies; // error occur if erase enemy (die) while looping over list
+		for (IEnemy *focusedEnemy: tempEnemyList) {
 			// attack !
 			if (tower->getEffectiveTowards().find(focusedEnemy->getEnemyType()) != tower->getEffectiveTowards().end()) {
 				int damage = round(tower->getDamagePerHit() * EFFECTIVE_ATTACK_RATIO);
