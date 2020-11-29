@@ -12,6 +12,7 @@
 #include "src/utility/week/WeekManager.h"
 #include "src/utility/week/WeekLayoutManager.h"
 #include "src/map/GameGrid.h"
+#include "Bestiary.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -56,6 +57,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    BestiaryWindow bestiary_window;
 
     TowerType tower_selected {TowerType::None};
 

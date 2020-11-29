@@ -4,12 +4,17 @@
 #include <QWidget>
 #include <QGraphicsView>
 #include <QTextBrowser>
+#include "ui_Bestiary.h"
 
 class BestiaryWindow : public QWidget {
     Q_OBJECT
 public:
     explicit BestiaryWindow(QWidget *parent = nullptr);
     ~BestiaryWindow();
+
+private:
+
+    Ui::BestiaryWindow *ui;
 
 private slots:
 

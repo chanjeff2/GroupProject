@@ -149,7 +149,7 @@ void MainWindow::on_ResourceUpg_clicked() {
 }
 
 void MainWindow::on_Bestiary_clicked() {
-
+    bestiary_window.show();
 }
 
 void MainWindow::on_StartGame_clicked() {
