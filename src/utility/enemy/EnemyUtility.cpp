@@ -121,6 +121,9 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 	if (isDieOfAttack) {
 		// retrieve resource
 		gameGrid->resourceManager.gainResource(enemy->getWorth());
+	} else {
+		// reduce gpa
+		gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO);
 	}
 
 	// find &enemy in ememies and remove

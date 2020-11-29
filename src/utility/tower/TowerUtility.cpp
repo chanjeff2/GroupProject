@@ -114,6 +114,13 @@ Cell *TowerUtility::getCell(int x, int y) const {
 	return gameGrid->getCell(x, y);
 }
 
+int TowerUtility::getCost(TowerType towerType) const {
+	if (towerType == TowerType::None) {
+		return 0;
+	}
+	return TOWER_PRICES[static_cast<int>(towerType)];
+}
+
 bool TowerUtility::isValidCoordinate(int x, int y) const {
 	return gameGrid->isValidCoordinate(x, y);
 }
