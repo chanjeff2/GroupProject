@@ -1,7 +1,6 @@
 #include "GPAManager.h"
 #include "GPALayoutManager.h"
 #include "src/utility/GameValues.h"
-
 // constructor
 GPAManager::GPAManager(): gpa(MAX_GPA) {}
 
@@ -16,6 +15,9 @@ float GPAManager::getGPA() const {
 
 bool GPAManager::reduceGPA(float amount) {
 	gpa -= amount;
+    // Rounding off to 2 d.p.
+    int temp = gpa * 100 + 0.5;
+    gpa = temp / 100.0;
 	gpaLayoutManager->UpdateGPA(gpa);
 
 	if (gpa <= 0) {
