@@ -90,12 +90,12 @@ Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, 
 	// process loop
 	while (!openList.empty()) {
 		// randomly pick first element
-		auto itCell = openList.begin();
+		auto cell = *(openList.begin());
 
-		openList.erase(itCell);
+		openList.erase(openList.begin());
 
-		int _col = itCell->first.first; // coordinate.col
-		int _row = itCell->first.second; // coordinate.row
+		int _col = cell.first.first; // coordinate.col
+		int _row = cell.first.second; // coordinate.row
 
 		closedList[_col][_row] = true;
 

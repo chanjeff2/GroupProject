@@ -4,8 +4,8 @@
 
 
 BestiaryWindow::BestiaryWindow(QWidget *parent)
-    : QWidget(parent) , ui(new Ui::BestiaryWindow){
-
+    : QWidget(parent) , ui(new Ui::BestiaryWindow)
+{
     ui->setupUi(this);
     ui->graphicsView->setScene(&scene);
 
@@ -15,7 +15,9 @@ BestiaryWindow::BestiaryWindow(QWidget *parent)
     //ui->graphicsView->fitInView(bounds);
 }
 
-BestiaryWindow::~BestiaryWindow() {}
+BestiaryWindow::~BestiaryWindow() {
+    delete ui;
+}
 
 void BestiaryWindow::showEvent(QShowEvent * show_event) {
     //ui->playerGrid->fitInView(player_scene.sceneRect(),Qt::KeepAspectRatio);
@@ -198,4 +200,6 @@ void BestiaryWindow::on_FYP_clicked() {
                              "\nImmune to ghostwriters and online tools");
 }
 
-void BestiaryWindow::on_ExitBestiary_clicked() {}
+void BestiaryWindow::on_ExitBestiary_clicked() {
+    this->close();
+}

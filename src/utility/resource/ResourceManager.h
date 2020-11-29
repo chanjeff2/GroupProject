@@ -31,6 +31,8 @@ public:
 	 * (but we should have disabled the upgrade button)
 	 * can still check to place safe */
     bool upgradeResourceCapacity();
+
+	void setLayoutManager(ResourceLayoutManager* resourceLayoutManager);
 };
 
 #endif // RESOURCEMANAGER_H
