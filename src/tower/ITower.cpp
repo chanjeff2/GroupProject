@@ -11,6 +11,8 @@
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
 	// born to fight !
 	long attackInterval = 1000/hitPerSec;
+	attackInterval /= GAME_SPEED;
+
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, [&] {
 		attackStrategy->attack();
