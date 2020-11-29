@@ -5,6 +5,8 @@
 #include <QGraphicsView>
 #include <QTextBrowser>
 #include "ui_Bestiary.h"
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
 
 class BestiaryWindow : public QWidget {
     Q_OBJECT
@@ -15,6 +17,9 @@ public:
 private:
 
     Ui::BestiaryWindow *ui;
+    QGraphicsScene scene;
+    QGraphicsPixmapItem* icon;
+    void showEvent(QShowEvent* show_event);
 
 private slots:
 
