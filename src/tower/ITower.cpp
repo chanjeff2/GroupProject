@@ -7,8 +7,6 @@
 #include <cmath>
 #include "src/utility/tower/TowerUtility.h"
 
-#include <QDebug>
-
 // protected constructor -> prevent instantiation of ITower
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
 
@@ -69,7 +67,6 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 	// loop over all enemies, check if non occupied cells contain enemy current position
 	// add enemy to buffer set if yes
 	// return buffer set
-	qDebug() << "get enemy in range";
 
 	set<IEnemy*> enemyInRange;
 	for (int dcol = -range; dcol <= range; ++dcol) {
@@ -84,8 +81,6 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 				// skip empty cell
 				continue;
 			}
-
-			qDebug() << "col:" << cell->x << "; row:" << cell->y;
 
 			auto enemyOnCell = cell->getEnemy();
 			for (auto enemy: enemyOnCell) {
