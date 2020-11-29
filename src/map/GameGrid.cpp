@@ -96,11 +96,18 @@ bool GameGrid::canPlaceTower(int x, int y) {
 /* success -> true
  * fail -> false */
 bool GameGrid::placeTower(int x, int y, TowerType towerType) {
+	// check if enough resource
+	if (resourceManager.getResource() < towerUtility.getCost(towerType)) {
+		return false;
+	}
+
 	if (canPlaceTower(x, y)) {
 		Cell *cell = grid[x][y];
 		towerUtility.placeTower(towerType, cell);
 		// update path
 		pathFindingUtility.updatePath();
+		// spend resource
+		resourceManager.spendResource(towerUtility.getCost(towerType));
 		return true;
 	}
 	return false;

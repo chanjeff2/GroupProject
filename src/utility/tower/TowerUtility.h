@@ -29,6 +29,7 @@ public:
     void removeTower(Cell *position);
 
 	Cell *getCell(int x, int y) const;
+	int getCost(TowerType towerType) const;
 	bool isValidCoordinate(int x, int y) const;
 };
 
