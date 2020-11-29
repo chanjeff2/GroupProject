@@ -9,7 +9,10 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 	for (int x = 0; x < NUM_OF_COL; ++x) {
 		for (int y = 0; y < NUM_OF_ROW; ++y) {
 			grid[x][y] = new Cell(x, y);
-		}
+
+            QGraphicsRectItem* square = scene->addRect(x*40, y*40, 40, 40, QPen(Qt::black), QBrush(Qt::NoBrush));
+
+        }
 	}
 }
 GameGrid::~GameGrid() {

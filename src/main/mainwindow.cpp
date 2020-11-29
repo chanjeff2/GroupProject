@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
 
     // Misc stuff
-    //resource_layout_manager.isResourceCapacityUpgradeAvailable(false);
+    ui->graphicsView->fitInView(scene.sceneRect(), Qt::IgnoreAspectRatio);
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
@@ -162,6 +162,8 @@ void MainWindow::on_StartGame_clicked() {
 }
 
 void MainWindow::map_clicked(int x, int y) {
+    qDebug() << x << y;
+    if ((x < 0 || y < 0) || (x > NUM_OF_COL || y > NUM_OF_ROW)) return;
     if (sell_mode) {
         game_grid.placeTower(x, y, tower_selected);
     } else {
