@@ -64,6 +64,13 @@ bool GameGrid::canPlaceTower(int x, int y) {
 	Cell *cell = grid[x][y];
 	set<IEnemy*> enemies = enemyUtility.enemies;
 
+	Coordinate newPos = make_pair(x, y);
+
+	// check if place at start or end
+	if (newPos == START || newPos == END) {
+		return false;
+	}
+
 	// Check if the cell is occupied with tower
 	if (cell->tower != NULL) {
 		return false;
@@ -71,12 +78,12 @@ bool GameGrid::canPlaceTower(int x, int y) {
 
 	// check if the cell is occupied with any enemy
 	for (auto enemy: enemies) {
-		if (enemy->getPath().getCurrentCoordinate() == make_pair(x, y))
+		if (enemy->getPath().getCurrentCoordinate() == newPos)
 			return false;
 	}
 
 	set<Coordinate> newTowerPositions = towerUtility.positionOfTowers;
-	newTowerPositions.insert(make_pair(x, y));
+	newTowerPositions.insert(newPos);
 
 	// validate path
 	if (!pathFindingUtility.validateTowerPlacement(newTowerPositions, enemies)) {
@@ -92,6 +99,8 @@ bool GameGrid::placeTower(int x, int y, TowerType towerType) {
 	if (canPlaceTower(x, y)) {
 		Cell *cell = grid[x][y];
 		towerUtility.placeTower(towerType, cell);
+		// update path
+		pathFindingUtility.updatePath();
 		return true;
 	}
 	return false;

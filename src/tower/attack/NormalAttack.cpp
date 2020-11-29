@@ -13,6 +13,7 @@ NormalAttack::NormalAttack(ITower *tower): IAttackStrategy(tower) {};
 void NormalAttack::updateFocusedEnemyInRange() {
 	// update if current focused enemies out of range/died
 	set<IEnemy*> enemiesInRange = this->tower->getEnemiesInRange();
+
 	// loop over all focused enemies
 	for (auto it = this->focusedEnemies.begin(); it != this->focusedEnemies.end(); /*don't add thing here*/) {
 		// remove focus if out of range/died
@@ -24,6 +25,11 @@ void NormalAttack::updateFocusedEnemyInRange() {
 		} else {
 			++it;
 		}
+	}
+
+	// no need update if no enemies in range
+	if (enemiesInRange.empty()) {
+		return;
 	}
 
 	int numOfFocusedEnemies = this->focusedEnemies.size();

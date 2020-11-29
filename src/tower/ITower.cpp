@@ -7,6 +7,8 @@
 #include <cmath>
 #include "src/utility/tower/TowerUtility.h"
 
+#include <QDebug>
+
 // protected constructor -> prevent instantiation of ITower
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
 
@@ -22,6 +24,8 @@ ITower::~ITower() {
 void ITower::trigger() {
 	// born to fight !
 	long attackInterval = 1000/hitPerSec;
+	attackInterval /= GAME_SPEED;
+
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, [&] {
 		attackStrategy->attack();
@@ -65,11 +69,23 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 	// loop over all enemies, check if non occupied cells contain enemy current position
 	// add enemy to buffer set if yes
 	// return buffer set
+
 	set<IEnemy*> enemyInRange;
 	for (int dcol = -range; dcol <= range; ++dcol) {
 		for (int drow = -range; drow <= range; ++drow) {
+			if (!towerUtility->isValidCoordinate(position->x + dcol, position->y + drow)) {
+				// skip invalid cell
+				continue;
+			}
+
 			Cell *cell = towerUtility->getCell(position->x + dcol, position->y + drow);
+			if (cell->getEnemy().empty()) {
+				// skip empty cell
+				continue;
+			}
+
 			enemyInRange.insert(cell->getEnemy().begin(), cell->getEnemy().end());
+
 		}
 	}
 	return enemyInRange;

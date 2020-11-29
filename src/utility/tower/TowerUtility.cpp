@@ -114,3 +114,7 @@ Cell *TowerUtility::getCell(int x, int y) const {
 	return gameGrid->getCell(x, y);
 }
 
+bool TowerUtility::isValidCoordinate(int x, int y) const {
+	return gameGrid->isValidCoordinate(x, y);
+}
+
