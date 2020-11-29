@@ -107,10 +107,16 @@ void FocusManager::requestAddAuraEffectIfNeed() {
 
 // for both attack and aura effect
 void FocusManager::requestUpdateFocus() {
-	for(ITower* tower: towersAttacking) {
-		tower->attackStrategy->updateFocusedEnemyInRange();
+	if (!towersAttacking.empty()) {
+		auto tempTowerList = towersAttacking; // error occur if erase element while looping over list
+		for(auto tower: tempTowerList) {
+			tower->attackStrategy->updateFocusedEnemyInRange();
+		}
 	}
-	for(ITower* tower: towersApplyingAura) {
-		tower->auraEffect->removeAuraEffectOfEnemyIfNeed();
+	if (!towersApplyingAura.empty()) {
+		auto tempTowerList = towersApplyingAura; // // error occur if erase element while looping over list
+		for(auto tower: tempTowerList) {
+			tower->auraEffect->removeAuraEffectOfEnemyIfNeed();
+		}
 	}
 }
