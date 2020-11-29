@@ -9,13 +9,7 @@
 
 // protected constructor -> prevent instantiation of ITower
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
-	// born to fight !
-	long attackInterval = 1000/hitPerSec;
-	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, [&] {
-		attackStrategy->attack();
-	});
-	timer->start(attackInterval);
+
 }
 
 // destructor
@@ -23,6 +17,16 @@ ITower::~ITower() {
 	timer->stop();
 	delete attackStrategy;
 	delete auraEffect;
+}
+
+void ITower::trigger() {
+	// born to fight !
+	long attackInterval = 1000/hitPerSec;
+	timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, [&] {
+		attackStrategy->attack();
+	});
+	timer->start(attackInterval);
 }
 
 // getter

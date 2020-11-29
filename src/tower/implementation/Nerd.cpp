@@ -15,4 +15,6 @@ Nerd::Nerd(Cell* position, TowerUtility *towerUtility): ITower(position, towerUt
     attackStrategy->setMaxNumOfTarget(5);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
     auraEffect = new AuraEffect(this, AuraType::Null);
+
+	trigger();
 }

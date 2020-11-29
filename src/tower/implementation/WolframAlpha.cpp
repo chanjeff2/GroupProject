@@ -16,4 +16,6 @@ WolframAlpha::WolframAlpha(Cell* position, TowerUtility *towerUtility): ITower(p
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
     auraEffect = new AuraEffect(this, AuraType::Null);
+
+	trigger();
 };

@@ -15,4 +15,6 @@ Hacker::Hacker(Cell* position, TowerUtility *towerUtility): ITower(position, tow
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
     auraEffect = new AuraEffect(this, AuraType::SlowAura);
+
+	trigger();
 };

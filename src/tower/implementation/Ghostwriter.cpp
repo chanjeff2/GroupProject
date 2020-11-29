@@ -15,4 +15,6 @@ Ghostwriter::Ghostwriter(Cell* position, TowerUtility *towerUtility): ITower(pos
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
     auraEffect = new AuraEffect(this, AuraType::RageAura);
+
+	trigger();
 };
