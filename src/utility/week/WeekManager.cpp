@@ -134,3 +134,7 @@ void WeekManager::prepareForNextWeek() {
 			skippedWeeks--;
 	}));
 }
+
+void WeekManager::setLayoutManager(WeekLayoutManager* weekLayoutManager) {
+	this->weekLayoutManager = weekLayoutManager;
+}
