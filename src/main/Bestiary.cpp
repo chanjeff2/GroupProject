@@ -1,6 +1,5 @@
 #include "Bestiary.h"
 #include "ui_Bestiary.h"
-#include <qDebug>
 
 
 BestiaryWindow::BestiaryWindow(QWidget *parent)
