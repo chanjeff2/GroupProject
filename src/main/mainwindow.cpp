@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
 	game_grid.resourceManager.setLayoutManager(&resource_layout_manager);
 
     // Misc stuff
-    ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+    ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
@@ -50,9 +50,10 @@ MainWindow::~MainWindow()
 void MainWindow::on_BuyRegular_clicked() {
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[0]) {
         tower_selected = TowerType::Regular;
-        ui->CancelBuy->setEnabled(false);
+        ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
+        tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
     }
 }
@@ -63,6 +64,7 @@ void MainWindow::on_BuyArts_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
+        tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
     }
 }
@@ -73,6 +75,7 @@ void MainWindow::on_BuyWolfram_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
+        tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
     }
 }
@@ -83,6 +86,7 @@ void MainWindow::on_BuyHacker_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
+        tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
     }
 }
@@ -93,6 +97,7 @@ void MainWindow::on_BuyCalc_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
+        tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
     }
 }
@@ -103,6 +108,7 @@ void MainWindow::on_BuyNerd_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
+        tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
     }
 }
@@ -113,6 +119,7 @@ void MainWindow::on_BuyGWriter_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
+        tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
     }
 }
@@ -123,6 +130,7 @@ void MainWindow::on_BuyChegg_clicked() {
         ui->CancelBuy->setEnabled(true);
     }
     else { // Return Not enough resource message
+        tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
     }
 }
@@ -168,8 +176,8 @@ void MainWindow::on_StartGame_clicked() {
 
 void MainWindow::map_clicked(int x, int y) {
     qDebug() << x << y;
-    if ((x < 0 || y < 0) || (x > NUM_OF_COL || y > NUM_OF_ROW)) return;
-    if (sell_mode) {
+    if ((x < 0 || y < 0) || (x >= NUM_OF_COL || y >= NUM_OF_ROW)) return;
+    if (!sell_mode) {
         game_grid.placeTower(x, y, tower_selected);
     } else {
         game_grid.removeTower(x, y);
