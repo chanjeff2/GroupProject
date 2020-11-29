@@ -73,5 +73,6 @@ private:
     WeekLayoutManager week_layout_manager{&game_grid.weekManager};
 
     bool sell_mode {false};
+    bool game_started {false};
 };
 #endif // MAINWINDOW_H

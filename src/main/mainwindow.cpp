@@ -174,6 +174,7 @@ void MainWindow::on_StartGame_clicked() {
     else {
         game_grid.weekManager.loadEnemy(filename.toStdString());
         week_layout_manager.SkipWeek->setEnabled(true);
+        game_started = true;
     }
 }
 
@@ -184,6 +185,7 @@ void MainWindow::on_SkipWeek_clicked() {
 
 void MainWindow::map_clicked(int x, int y) {
     qDebug() << x << y;
+    if (!game_started) return;
     if ((x < 0 || y < 0) || (x >= NUM_OF_COL || y >= NUM_OF_ROW)) return;
     if (!sell_mode) {
         game_grid.placeTower(x, y, tower_selected);
