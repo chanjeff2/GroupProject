@@ -20,7 +20,11 @@ vector<IEnemy*> RandomSelection::selectTarget(set<IEnemy*> enemiesInRange, set<E
 
 	vector<IEnemy*> selectedTarget;
 	// remove focused enemy
-	set_difference(enemiesInRange.begin(), enemiesInRange.end(), focusedEnemies.begin(), focusedEnemies.end(), selectedTarget.begin());
+	if (!focusedEnemies.empty()) {
+		set_difference(enemiesInRange.begin(), enemiesInRange.end(), focusedEnemies.begin(), focusedEnemies.end(), selectedTarget.begin());
+	} else {
+		copy(enemiesInRange.begin(), enemiesInRange.end(), back_inserter(selectedTarget));
+	}
 
 	// randomize
 	shuffle(selectedTarget.begin(), selectedTarget.end(), default_random_engine());

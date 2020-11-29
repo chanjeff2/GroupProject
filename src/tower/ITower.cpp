@@ -69,6 +69,7 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 	// loop over all enemies, check if non occupied cells contain enemy current position
 	// add enemy to buffer set if yes
 	// return buffer set
+	qDebug() << "get enemy in range";
 
 	set<IEnemy*> enemyInRange;
 	for (int dcol = -range; dcol <= range; ++dcol) {
@@ -84,8 +85,12 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 				continue;
 			}
 
-			enemyInRange.insert(cell->getEnemy().begin(), cell->getEnemy().end());
+			qDebug() << "col:" << cell->x << "; row:" << cell->y;
 
+			auto enemyOnCell = cell->getEnemy();
+			for (auto enemy: enemyOnCell) {
+				enemyInRange.insert(enemy);
+			}
 		}
 	}
 	return enemyInRange;
