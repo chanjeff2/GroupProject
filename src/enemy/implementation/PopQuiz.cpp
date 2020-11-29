@@ -10,4 +10,6 @@ PopQuiz::PopQuiz(EnemyUtility *enemyUtility, Path path) : IEnemy(enemyUtility, p
     canSlow = true;
     canPierceArmor = true;
     canEnrage = false;
+
+	trigger();
 }

@@ -10,4 +10,6 @@ FYP::FYP(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, Enem
     canSlow = true;
     canPierceArmor = true;
     canEnrage = false;
+
+	trigger();
 }

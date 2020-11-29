@@ -14,8 +14,6 @@ WeekManager::WeekManager(GameGrid *gameGrid): gameGrid(gameGrid) {
 	week = 0;
 	isWeekCooldown = true;
 	skippedWeeks = 0;
-
-	timer = new QTimer(this);
 }
 
 void WeekManager::goToNextWeek() {
@@ -34,10 +32,10 @@ void WeekManager::goToNextWeek() {
 	processWeek();
 
 	// cooldown week skip
-	QTimer::singleShot(WEEK_COOLDOWN * 1000, this, SLOT([]{
-		isWeekCooldown = true
-		weekLayoutManager.isWeekCoolDown(true);
-	}));
+	QTimer::singleShot(WEEK_COOLDOWN * 1000, [&]{
+		isWeekCooldown = true;
+		weekLayoutManager->isWeekCoolDown(true);
+	});
 }
 
 // getter
@@ -87,20 +85,29 @@ void WeekManager::wrapUp() {
 }
 
 void WeekManager::processWeek() {
-	vector<EnemyType> enemyOfThisWeek = weeksOfEnemies.at(week - 1);
-	auto it = enemyOfThisWeek.begin();
-	connect(timer, &QTimer::timeout, [&]() {
-		generateEnemy(*it);
-		++it;
-		if (it == enemyOfThisWeek.end()) {
-			timer->stop();
-		}
-	});
-	timer->start(ENEMY_GENERATE_INTERVAL * 1000);
+	if (weeksOfEnemies.empty()) {
+		qDebug() << "Error: empty week";
+		return;
+	}
+	vector<EnemyType> &enemyOfThisWeek = weeksOfEnemies.at(week - 1);
+
+	finishGenerateEnemy = false;
+	generateEnemy(enemyOfThisWeek, 0, enemyOfThisWeek.size());
+
 }
 
-void WeekManager::generateEnemy(EnemyType enemyType) {
-	gameGrid->generateEnemy(enemyType);
+void WeekManager::generateEnemy(vector<EnemyType> &enemyList, int index, int size) {
+	qDebug() << "WeekManager: generate Enemy";
+	gameGrid->generateEnemy(enemyList.at(index));
+	// increment iterator
+	if (++index == size) {
+		finishGenerateEnemy = true;
+		return;
+	}
+
+	QTimer::singleShot(ENEMY_GENERATE_INTERVAL * 1000, [=, &enemyList]() {
+		generateEnemy(enemyList, index, size);
+	});
 }
 
 // user manually skip to next week
@@ -127,12 +134,12 @@ void WeekManager::prepareForNextWeek() {
 	}
 	// start count down timer to proceed to next week
 	// cooldown week skip
-	QTimer::singleShot(WEEK_COUNTDOWN * 1000, this, SLOT([]{
+	QTimer::singleShot(WEEK_COUNTDOWN * 1000, [&]{
 		if (!isSkippedWeek())
 			goToNextWeek();
 		else
 			skippedWeeks--;
-	}));
+	});
 }
 
 void WeekManager::setLayoutManager(WeekLayoutManager* weekLayoutManager) {
