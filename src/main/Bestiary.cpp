@@ -9,6 +9,8 @@ BestiaryWindow::BestiaryWindow(QWidget *parent)
     ui->setupUi(this);
     ui->graphicsView->setScene(&scene);
 
+    this->setWindowTitle("UST Students vs. Assignments - Bestiary");
+
     icon = scene.addPixmap(QPixmap());
 
     //QGraphicsRectItem* bounds = scene.addRect( QRect(0,0,40,40)) ;
