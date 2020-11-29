@@ -15,7 +15,7 @@ class GameGrid;
 class WeekManager: public QObject {
 	int week; // wave
 	bool isWeekCooldown; // true -> ready to start next week
-	bool finishGenerateEnemy; // flag checking if generated all enemy in each week
+	bool finishGenerateEnemy{true}; // flag checking if generated all enemy in each week
 	atomic_int skippedWeeks; // no. of weeks skipped ** atomic for thread safe
 	WeekLayoutManager* weekLayoutManager;
 
