@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "clickableview.h"
+#include "src/main/clickableview.h"
 
 #include <QFileDialog>
 #include <QDebug>
