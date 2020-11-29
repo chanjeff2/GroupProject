@@ -14,8 +14,6 @@ WeekManager::WeekManager(GameGrid *gameGrid): gameGrid(gameGrid) {
 	week = 0;
 	isWeekCooldown = true;
 	skippedWeeks = 0;
-
-	timer = new QTimer(this);
 }
 
 void WeekManager::goToNextWeek() {
@@ -87,20 +85,29 @@ void WeekManager::wrapUp() {
 }
 
 void WeekManager::processWeek() {
-	vector<EnemyType> enemyOfThisWeek = weeksOfEnemies.at(week - 1);
-	auto it = enemyOfThisWeek.begin();
-	connect(timer, &QTimer::timeout, [&]() {
-		generateEnemy(*it);
-		++it;
-		if (it == enemyOfThisWeek.end()) {
-			timer->stop();
-		}
-	});
-	timer->start(ENEMY_GENERATE_INTERVAL * 1000);
+	if (weeksOfEnemies.empty()) {
+		qDebug() << "Error: empty week";
+		return;
+	}
+	vector<EnemyType> &enemyOfThisWeek = weeksOfEnemies.at(week - 1);
+
+	finishGenerateEnemy = false;
+	generateEnemy(enemyOfThisWeek.begin(), enemyOfThisWeek.end());
+
 }
 
-void WeekManager::generateEnemy(EnemyType enemyType) {
-	gameGrid->generateEnemy(enemyType);
+void WeekManager::generateEnemy(vector<EnemyType>::iterator begin, vector<EnemyType>::iterator end) {
+	qDebug() << "WeekManager: generate Enemy";
+	gameGrid->generateEnemy(*begin);
+	// increment iterator
+	if (++begin == end) {
+		finishGenerateEnemy = true;
+		return;
+	}
+
+	QTimer::singleShot(ENEMY_GENERATE_INTERVAL * 1000, [&] {
+		generateEnemy(begin, end);
+	});
 }
 
 // user manually skip to next week
