@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
 
     // Misc stuff
-    ui->graphicsView->fitInView(scene.sceneRect(), Qt::IgnoreAspectRatio);
+    ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);

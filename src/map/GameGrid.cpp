@@ -11,7 +11,7 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 			grid[x][y] = new Cell(x, y);
 
             QGraphicsRectItem* square = scene->addRect(x*40, y*40, 40, 40, QPen(Qt::black), QBrush(Qt::NoBrush));
-
+            cell_squares[x][y] = square;
         }
 	}
 }

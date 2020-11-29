@@ -25,7 +25,7 @@ class GameGrid
 	TowerUtility towerUtility{this};
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
-    array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> cell_squares;
+    array<array<QGraphicsRectItem*, NUM_OF_ROW>, NUM_OF_COL> cell_squares;
 
 public:
 	GPAManager gpaManager;
