@@ -59,6 +59,7 @@ bool ResourceManager::upgradeResourceCapacity() {
     }
 
     resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
+    resourceLayoutManager->updateResourceNeededToUpg(getResourceRequiredForUpgradeCapacity());
 	return true;
 }
 

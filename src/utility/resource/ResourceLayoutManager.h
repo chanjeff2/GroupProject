@@ -14,6 +14,7 @@ class ResourceLayoutManager
 public:
     QLabel* Resource;
     QLabel* ResourceCap;
+    QLabel* ResourceNeededToUpg;
     QPushButton* ResourceUpgrade;
 
     ResourceLayoutManager(ResourceManager *resourceManager);
@@ -21,6 +22,8 @@ public:
     void updateResource(const int resource);
 
     void updateResourceCapacity(const int resourceCapacity);
+
+    void updateResourceNeededToUpg(const int resourceNeededToUpg);
 
     void isResourceCapacityUpgradeAvailable(bool isAvailable);
 };

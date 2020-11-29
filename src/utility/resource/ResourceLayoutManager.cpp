@@ -12,6 +12,10 @@ void ResourceLayoutManager::updateResourceCapacity(const int resourceCapacity) {
     ResourceCap->setText(QString::number(resourceCapacity));
 }
 
+void ResourceLayoutManager::updateResourceNeededToUpg(const int resourceNeededToUpg) {
+    ResourceNeededToUpg->setText("Cost: " + QString::number(resourceNeededToUpg));
+}
+
 void ResourceLayoutManager::isResourceCapacityUpgradeAvailable(bool isAvailable) {
     ResourceUpgrade->setEnabled(isAvailable);
 }

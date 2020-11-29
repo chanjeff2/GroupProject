@@ -29,7 +29,7 @@ enum class TargetSelectionType {
 };
 
 // Global setting
-const float GAME_SPEED = 5.0;
+const float GAME_SPEED = 1.0;
 
 // map
 const int NUM_OF_ROW = 20; // y
