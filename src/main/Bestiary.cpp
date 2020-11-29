@@ -2,7 +2,9 @@
 #include "ui_Bestiary.h"
 
 BestiaryWindow::BestiaryWindow(QWidget *parent)
-    : QWidget(parent) {}
+    : QWidget(parent) , ui(new Ui::BestiaryWindow){
+   ui->setupUi(this);
+}
 
 BestiaryWindow::~BestiaryWindow() {}
 
