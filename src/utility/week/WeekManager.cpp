@@ -34,10 +34,10 @@ void WeekManager::goToNextWeek() {
 	processWeek();
 
 	// cooldown week skip
-	QTimer::singleShot(WEEK_COOLDOWN * 1000, this, SLOT([]{
-		isWeekCooldown = true
-		weekLayoutManager.isWeekCoolDown(true);
-	}));
+	QTimer::singleShot(WEEK_COOLDOWN * 1000, [&]{
+		isWeekCooldown = true;
+		weekLayoutManager->isWeekCoolDown(true);
+	});
 }
 
 // getter
@@ -127,12 +127,12 @@ void WeekManager::prepareForNextWeek() {
 	}
 	// start count down timer to proceed to next week
 	// cooldown week skip
-	QTimer::singleShot(WEEK_COUNTDOWN * 1000, this, SLOT([]{
+	QTimer::singleShot(WEEK_COUNTDOWN * 1000, [&]{
 		if (!isSkippedWeek())
 			goToNextWeek();
 		else
 			skippedWeeks--;
-	}));
+	});
 }
 
 void WeekManager::setLayoutManager(WeekLayoutManager* weekLayoutManager) {
