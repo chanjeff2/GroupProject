@@ -24,7 +24,7 @@ EnemyType IEnemy::getEnemyType() const {
 	return this->enemyType;
 }
 
-int IEnemy::getRawSpeed() const {
+float IEnemy::getRawSpeed() const {
 	return this->speed;
 }
 
@@ -70,7 +70,7 @@ void IEnemy::move() {
 	}
 
 	// perform move (i.e. goto next cell in pathToTake) + decrement distanceFromEnd
-	path.goToNextCell();
+	path.goToNextCell(this);
 
 	// update UI
 	enemyLayoutManager.moveTo(path.getCurrentCoordinate());
@@ -79,7 +79,7 @@ void IEnemy::move() {
 	focusManager.requestUpdateFocus();
 
 	// get ready for next move
-	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
 	timeTilNextMove /= GAME_SPEED;
 
 	if (timer->interval() != timeTilNextMove) {
@@ -90,7 +90,7 @@ void IEnemy::move() {
 void IEnemy::trigger() {
 	// born to move
 	// get ready for next move
-	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
 	timeTilNextMove /= GAME_SPEED;
 
 	timer = new QTimer(this);

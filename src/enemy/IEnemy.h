@@ -50,7 +50,7 @@ public:
 
 	// getter
 	EnemyType getEnemyType() const;
-	int getRawSpeed() const;
+	float getRawSpeed() const;
 	int getRawArmor() const;
 	bool getCanSlow() const;
 	bool getCanPierceArmor() const;
