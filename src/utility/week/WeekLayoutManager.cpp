@@ -20,7 +20,7 @@ void WeekLayoutManager::weekCountDown(int time) {
     TimeLeft->setText("Time left: " + QString::number(time));
 
     // queue for update time
-	QTimer::singleShot(1000, [=] {
+	QTimer::singleShot(1000 / GAME_SPEED, [=] {
         weekCountDown(time - 1);
 		});
 }
