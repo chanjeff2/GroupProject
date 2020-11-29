@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "ClickableView.h"
+#include "clickableview.h"
 
 #include <QFileDialog>
 #include <QDebug>
@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     //resource_layout_manager.isResourceCapacityUpgradeAvailable(false);
 
     // Connect signal from clickable GraphicsView to here
-    connect(ui->graphicsView, SIGNAL(ClickableView::mouseClicked), this, SLOT(MainWindow::map_clicked));
+    connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
 }
 
 MainWindow::~MainWindow()
@@ -43,7 +43,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_BuyRegular_clicked() {
-    if (resource_manager.getResource() >= TOWER_PRICES[0]) {
+    if (game_grid.resourceManager.getResource() >= TOWER_PRICES[0]) {
         tower_selected = TowerType::Regular;
         ui->CancelBuy->setEnabled(false);
     }
@@ -53,7 +53,7 @@ void MainWindow::on_BuyRegular_clicked() {
 }
 
 void MainWindow::on_BuyArts_clicked() {
-    if (resource_manager.getResource() >= TOWER_PRICES[1]) {
+    if (game_grid.resourceManager.getResource() >= TOWER_PRICES[1]) {
         tower_selected = TowerType::Arts;
         ui->CancelBuy->setEnabled(true);
     }
@@ -63,7 +63,7 @@ void MainWindow::on_BuyArts_clicked() {
 }
 
 void MainWindow::on_BuyWolfram_clicked() {
-    if (resource_manager.getResource() >= TOWER_PRICES[2]) {
+    if (game_grid.resourceManager.getResource() >= TOWER_PRICES[2]) {
         tower_selected = TowerType::WolframAlpha;
         ui->CancelBuy->setEnabled(true);
     }
@@ -73,7 +73,7 @@ void MainWindow::on_BuyWolfram_clicked() {
 }
 
 void MainWindow::on_BuyHacker_clicked() {
-    if (resource_manager.getResource() >= TOWER_PRICES[3]) {
+    if (game_grid.resourceManager.getResource() >= TOWER_PRICES[3]) {
         tower_selected = TowerType::Hacker;
         ui->CancelBuy->setEnabled(true);
     }
@@ -83,7 +83,7 @@ void MainWindow::on_BuyHacker_clicked() {
 }
 
 void MainWindow::on_BuyCalc_clicked() {
-    if (resource_manager.getResource() >= TOWER_PRICES[4]) {
+    if (game_grid.resourceManager.getResource() >= TOWER_PRICES[4]) {
         tower_selected = TowerType::Calc;
         ui->CancelBuy->setEnabled(true);
     }
@@ -93,7 +93,7 @@ void MainWindow::on_BuyCalc_clicked() {
 }
 
 void MainWindow::on_BuyNerd_clicked() {
-    if (resource_manager.getResource() >= TOWER_PRICES[5]) {
+    if (game_grid.resourceManager.getResource() >= TOWER_PRICES[5]) {
         tower_selected = TowerType::Nerd;
         ui->CancelBuy->setEnabled(true);
     }
@@ -103,7 +103,7 @@ void MainWindow::on_BuyNerd_clicked() {
 }
 
 void MainWindow::on_BuyGWriter_clicked() {
-    if (resource_manager.getResource() >= TOWER_PRICES[6]) {
+    if (game_grid.resourceManager.getResource() >= TOWER_PRICES[6]) {
         tower_selected = TowerType::Ghostwriter;
         ui->CancelBuy->setEnabled(true);
     }
@@ -113,7 +113,7 @@ void MainWindow::on_BuyGWriter_clicked() {
 }
 
 void MainWindow::on_BuyChegg_clicked() {
-    if (resource_manager.getResource() >= TOWER_PRICES[7]) {
+    if (game_grid.resourceManager.getResource() >= TOWER_PRICES[7]) {
         tower_selected = TowerType::Chegg;
         ui->CancelBuy->setEnabled(true);
     }
@@ -139,8 +139,8 @@ void MainWindow::on_TowerMode_clicked() {
 
 void MainWindow::on_ResourceUpg_clicked() {
     bool buffer = false;
-    if (resource_manager.getResource() >= resource_manager.getResourceRequiredForUpgradeCapacity()) {
-        buffer = resource_manager.upgradeResourceCapacity();
+    if (game_grid.resourceManager.getResource() >= game_grid.resourceManager.getResourceRequiredForUpgradeCapacity()) {
+        buffer = game_grid.resourceManager.upgradeResourceCapacity();
     }
 }
 
@@ -153,7 +153,7 @@ void MainWindow::on_StartGame_clicked() {
     qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info
     if (filename == "") return;
     else {
-        week_manager.loadEnemy(filename.toStdString());
+        game_grid.weekManager.loadEnemy(filename.toStdString());
     }
 }
 

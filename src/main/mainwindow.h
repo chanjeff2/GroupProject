@@ -62,14 +62,9 @@ private:
     QGraphicsScene scene;
     GameGrid game_grid{&scene};
 
-    ResourceManager resource_manager;
-    ResourceLayoutManager resource_layout_manager{&resource_manager};
-
-    GPAManager gpa_manager;
-    GPALayoutManager gpa_layout_manager{&gpa_manager};
-
-    WeekManager week_manager{&game_grid};
-    WeekLayoutManager week_layout_manager{&week_manager};
+    ResourceLayoutManager resource_layout_manager{&game_grid.resourceManager};
+    GPALayoutManager gpa_layout_manager{&game_grid.gpaManager};
+    WeekLayoutManager week_layout_manager{&game_grid.weekManager};
 
     bool sell_mode {false};
 };
