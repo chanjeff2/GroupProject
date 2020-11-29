@@ -24,3 +24,7 @@ bool GPAManager::reduceGPA(float amount) {
 		return false;
 	}
 }
+
+void GPAManager::setLayoutManager(GPALayoutManager* gpaLayoutManager) {
+	this->gpaLayoutManager = gpaLayoutManager;
+}

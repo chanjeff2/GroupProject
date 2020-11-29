@@ -50,6 +50,8 @@ public:
 
 	// system automatically proceed to next week after last enemy die
 	void prepareForNextWeek();
+
+	void setLayoutManager(WeekLayoutManager* weekLayoutManager);
 };
 
 #endif // WEEKMANAGER_H

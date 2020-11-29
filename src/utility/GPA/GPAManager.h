@@ -18,6 +18,8 @@ public:
 	 * GameContinue -> false
 	 * usage: if (reduceGPA(amount)) [GG] */
 	bool reduceGPA(float amount);
+
+	void setLayoutManager(GPALayoutManager* gpaLayoutManager);
 };
 
 #endif // GPAMANAGER_H

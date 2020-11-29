@@ -30,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.ResourceCap = ui->ResourceCap;
     resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
 
+	// link manager with layout manager
+	game_grid.gpaManager.setLayoutManager(&gpa_layout_manager);
+	game_grid.weekManager.setLayoutManager(&week_layout_manager);
+	game_grid.resourceManager.setLayoutManager(&resource_layout_manager);
+
     // Misc stuff
     //resource_layout_manager.isResourceCapacityUpgradeAvailable(false);
 
