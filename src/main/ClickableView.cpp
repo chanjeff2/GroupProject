@@ -1,6 +1,6 @@
 #include <QMouseEvent>
 
-#include "ClickableView.h"
+#include "clickableview.h"
 
 ClickableView::ClickableView(QWidget *parent):QGraphicsView(parent) {}
 
@@ -18,6 +18,6 @@ void ClickableView::mousePressEvent(QMouseEvent *event) {
     QPointF clicked_pos = mapToScene(event->pos());
     int tile_x = static_cast<int>(clicked_pos.x())/40;
     int tile_y = static_cast<int>(clicked_pos.y())/40;
-    emit mouseClicked(tile_y, tile_x);
+    emit mouseClicked(tile_x, tile_y);
     return;
 }
