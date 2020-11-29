@@ -129,9 +129,9 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 	delete enemy;
 
 	// check if any remaining enemy
-	if (/*no more enemy remain*/true || /*no more enemy to spawn*/ true) {
+	if (enemies.empty()) {
 		// proceed to next week
-		gameGrid->weekManager.prepareForNextWeek();
+		gameGrid->weekManager.prepareForNextWeek(); // will check if all enemy generated
     }
 }
 

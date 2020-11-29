@@ -28,6 +28,9 @@ enum class TargetSelectionType {
 	Random, Priority, All, Null
 };
 
+// Global setting
+const float GAME_SPEED = 5.0;
+
 // map
 const int NUM_OF_ROW = 20; // y
 const int NUM_OF_COL = 25; // x

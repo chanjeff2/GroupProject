@@ -80,6 +80,8 @@ void IEnemy::move() {
 
 	// get ready for next move
 	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+	timeTilNextMove /= GAME_SPEED;
+
 	if (timer->interval() != timeTilNextMove) {
 		timer->setInterval(timeTilNextMove); // update timer interval in case there is change in speed;
 	}
@@ -89,8 +91,7 @@ void IEnemy::trigger() {
 	// born to move
 	// get ready for next move
 	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
-
-	qDebug() << "timeTilNextMove:" << timeTilNextMove;
+	timeTilNextMove /= GAME_SPEED;
 
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &IEnemy::move);
