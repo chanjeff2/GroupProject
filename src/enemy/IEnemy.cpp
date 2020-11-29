@@ -12,11 +12,11 @@ IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path
 
 // destructor
 IEnemy::~IEnemy() {
-	// notify all tower focusing this enemy to clear focus
-	focusManager.requestUpdateFocus();
-
 	// stop moving
 	timer->stop();
+
+	// notify all tower focusing this enemy to clear focus
+	focusManager.requestUpdateFocus();
 }
 
 // getter

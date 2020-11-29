@@ -25,7 +25,7 @@ bool Path::isNextCellEnd() const {
 	return pathStartEndDistance <= 2;
 }
 
-const Cell *Path::getCurrentCell() const {
+Cell *Path::getCurrentCell() const {
 	return pathStartEnd.at(0);
 }
 
