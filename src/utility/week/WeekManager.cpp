@@ -32,7 +32,7 @@ void WeekManager::goToNextWeek() {
 	processWeek();
 
 	// cooldown week skip
-	QTimer::singleShot(WEEK_COOLDOWN * 1000, [&]{
+	QTimer::singleShot(WEEK_COOLDOWN * 1000 / GAME_SPEED, [&]{
 		isWeekCooldown = true;
 		weekLayoutManager->isWeekCoolDown(true);
 	});
@@ -97,7 +97,7 @@ void WeekManager::processWeek() {
 }
 
 void WeekManager::generateEnemy(vector<EnemyType> &enemyList, int index, int size) {
-	qDebug() << "WeekManager: generate Enemy";
+	qDebug() << "WeekManager: generate Enemy ID:" << static_cast<int>(enemyList.at(index));
 	gameGrid->generateEnemy(enemyList.at(index));
 	// increment iterator
 	if (++index == size) {
@@ -105,7 +105,7 @@ void WeekManager::generateEnemy(vector<EnemyType> &enemyList, int index, int siz
 		return;
 	}
 
-	QTimer::singleShot(ENEMY_GENERATE_INTERVAL * 1000, [=, &enemyList]() {
+	QTimer::singleShot(ENEMY_GENERATE_INTERVAL * 1000 / GAME_SPEED, [=, &enemyList]() {
 		generateEnemy(enemyList, index, size);
 	});
 }
@@ -124,6 +124,12 @@ void WeekManager::skipToNextWeek() {
 
 // system automatically proceed to next week after last enemy die
 void WeekManager::prepareForNextWeek() {
+	qDebug() << "WeekManager: prepare For Next Week";
+	if (!finishGenerateEnemy) {
+		// prevent start new week before generated all enemy
+		return;
+	}
+
 	if (week == numOfWeeks) {
 		wrapUp();
 		return;
@@ -134,7 +140,7 @@ void WeekManager::prepareForNextWeek() {
 	}
 	// start count down timer to proceed to next week
 	// cooldown week skip
-	QTimer::singleShot(WEEK_COUNTDOWN * 1000, [&]{
+	QTimer::singleShot(WEEK_COUNTDOWN * 1000 / GAME_SPEED, [&]{
 		if (!isSkippedWeek())
 			goToNextWeek();
 		else
