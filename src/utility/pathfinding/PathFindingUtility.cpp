@@ -4,15 +4,18 @@
 #include "src/enemy/IEnemy.h"
 
 #include <cmath>
+#include <QDebug>
 
 // constructor
-PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {
-	pathStartEnd = findPath(entry, exit);
-}
+PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {}
 
 PathFindingUtility::PathBuffer::PathBuffer(Path path, IEnemy *enemy): path(path), enemy(enemy) {};
 
 // methods
+void PathFindingUtility::init() {
+	pathStartEnd = findPath(entry, exit);
+}
+
 Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end) {
 	Path path;
 
@@ -21,6 +24,7 @@ Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_
 	int row = end.second;
 
 	while (true) {
+//		qDebug() << "col:" << col << "; row:" << row;
 		path.pathStartEnd.push_front(gameGrid->getCell(col, row));
 		path.pathStartEndDistance += 1;
 

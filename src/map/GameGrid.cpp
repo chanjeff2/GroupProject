@@ -11,6 +11,7 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 			grid[x][y] = new Cell(x, y);
 		}
 	}
+	pathFindingUtility.init();
 }
 GameGrid::~GameGrid() {
 	// delete grid
