@@ -16,6 +16,7 @@ float GPAManager::getGPA() const {
 
 bool GPAManager::reduceGPA(float amount) {
 	gpa -= amount;
+	gpaLayoutManager->UpdateGPA(gpa);
 
 	if (gpa <= 0) {
         gpa = 0.0;
