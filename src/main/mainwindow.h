@@ -51,6 +51,9 @@ private slots:
     // Start Game Pressed
     void on_StartGame_clicked();
 
+    // Skip Week Pressed
+    void on_SkipWeek_clicked();
+
     // Clicking on map
     void map_clicked(int x, int y);
 

@@ -75,6 +75,7 @@ void WeekManager::loadEnemy(const string& fileName) {
 		}
 	}
 
+    weekLayoutManager->initNumOfWeeks(numOfWeeks);
 	enemyFile.close();
 
 	// start the game

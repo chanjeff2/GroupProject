@@ -25,6 +25,8 @@ public:
     void weekCountDown(int time);
 
     void updateWeek(const int week);
+
+    void initNumOfWeeks(int numOfWeeks);
 };
 
 #endif // WEEKLAYOUTMANAGER_H

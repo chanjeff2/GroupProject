@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.Resource = ui->Resource;
     resource_layout_manager.ResourceCap = ui->ResourceCap;
     resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
+    resource_layout_manager.ResourceNeededToUpg = ui->CapUpgCost;
 
 	// link manager with layout manager
 	game_grid.gpaManager.setLayoutManager(&gpa_layout_manager);
@@ -37,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Misc stuff
     ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
+    week_layout_manager.SkipWeek->setEnabled(false);
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
@@ -171,7 +173,13 @@ void MainWindow::on_StartGame_clicked() {
     if (filename == "") return;
     else {
         game_grid.weekManager.loadEnemy(filename.toStdString());
+        week_layout_manager.SkipWeek->setEnabled(true);
     }
+}
+
+void MainWindow::on_SkipWeek_clicked() {
+    week_layout_manager.TimeLeft->setText("Time left:");
+    game_grid.weekManager.skipToNextWeek();
 }
 
 void MainWindow::map_clicked(int x, int y) {

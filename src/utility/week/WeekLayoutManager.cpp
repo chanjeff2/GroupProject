@@ -30,3 +30,7 @@ void WeekLayoutManager::updateWeek(const int week) {
         // Update progress bar
         WeekProgress->setValue(week);
 }
+
+void WeekLayoutManager::initNumOfWeeks(int numOfWeeks) {
+    WeekProgress->setMaximum(numOfWeeks);
+}
