@@ -29,7 +29,7 @@ class WeekManager: public QObject {
 
 	// iterate and generate enemies in week
 	void processWeek();
-	void generateEnemy(vector<EnemyType>::iterator begin, vector<EnemyType>::iterator end);
+	void generateEnemy(vector<EnemyType> &enemyList, int index, int size);
 
 	// end the game
 	void wrapUp();

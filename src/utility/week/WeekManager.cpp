@@ -92,21 +92,21 @@ void WeekManager::processWeek() {
 	vector<EnemyType> &enemyOfThisWeek = weeksOfEnemies.at(week - 1);
 
 	finishGenerateEnemy = false;
-	generateEnemy(enemyOfThisWeek.begin(), enemyOfThisWeek.end());
+	generateEnemy(enemyOfThisWeek, 0, enemyOfThisWeek.size());
 
 }
 
-void WeekManager::generateEnemy(vector<EnemyType>::iterator begin, vector<EnemyType>::iterator end) {
+void WeekManager::generateEnemy(vector<EnemyType> &enemyList, int index, int size) {
 	qDebug() << "WeekManager: generate Enemy";
-	gameGrid->generateEnemy(*begin);
+	gameGrid->generateEnemy(enemyList.at(index));
 	// increment iterator
-	if (++begin == end) {
+	if (++index == size) {
 		finishGenerateEnemy = true;
 		return;
 	}
 
-	QTimer::singleShot(ENEMY_GENERATE_INTERVAL * 1000, [&] {
-		generateEnemy(begin, end);
+	QTimer::singleShot(ENEMY_GENERATE_INTERVAL * 1000, [=, &enemyList]() {
+		generateEnemy(enemyList, index, size);
 	});
 }
 
