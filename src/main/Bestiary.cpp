@@ -6,7 +6,9 @@ BestiaryWindow::BestiaryWindow(QWidget *parent)
    ui->setupUi(this);
 }
 
-BestiaryWindow::~BestiaryWindow() {}
+BestiaryWindow::~BestiaryWindow() {
+    delete ui;
+}
 
 void BestiaryWindow::on_Regular_clicked() {}
 
@@ -39,4 +41,6 @@ void BestiaryWindow::on_FINAL_clicked() {}
 void BestiaryWindow::on_ELPA_clicked() {}
 void BestiaryWindow::on_FYP_clicked() {}
 
-void BestiaryWindow::on_ExitBestiary_clicked() {}
+void BestiaryWindow::on_ExitBestiary_clicked() {
+    this->close();
+}
