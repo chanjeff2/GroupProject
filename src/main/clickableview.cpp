@@ -1,6 +1,6 @@
 #include <QMouseEvent>
 
-#include "clickableview.h"
+#include "ClickableView.h"
 #include "src/utility/GameValues.h"
 
 ClickableView::ClickableView(QWidget *parent):QGraphicsView(parent) {}

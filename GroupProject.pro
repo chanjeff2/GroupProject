@@ -28,7 +28,7 @@ SOURCES += \
     src/enemy/implementation/PA.cpp \
     src/enemy/implementation/PopQuiz.cpp \
     src/main/Bestiary.cpp \
-    src/main/clickableview.cpp \
+	src/main/ClickableView.cpp \
     src/main/main.cpp \
     src/main/mainwindow.cpp \
     src/map/GameGrid.cpp \
@@ -82,7 +82,7 @@ HEADERS += \
     src/enemy/implementation/PA.h \
     src/enemy/implementation/PopQuiz.h \
     src/main/Bestiary.h \
-    src/main/clickableview.h \
+	src/main/ClickableView.h \
     src/main/mainwindow.h \
     src/map/GameGrid.h \
     src/map/cell.h \
