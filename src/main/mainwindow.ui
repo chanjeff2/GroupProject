@@ -324,7 +324,7 @@
      </layout>
     </item>
     <item row="2" column="0" rowspan="2" colspan="3">
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <widget class="ClickableView" name="graphicsView"/>
     </item>
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
@@ -537,6 +537,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ClickableView</class>
+   <extends>QGraphicsView</extends>
+   <header>clickableview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../assets.qrc"/>
  </resources>
