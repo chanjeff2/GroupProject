@@ -2,8 +2,8 @@
 #include "src/utility/GameValues.h"
 
 NormalHW::NormalHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::NormalHW) {
-    HP = 56;
-    speed = 1.5;
+    HP = 47;
+    speed = 1.2;
     worth = 1;
     armor = 0;
 	canSlow = true;

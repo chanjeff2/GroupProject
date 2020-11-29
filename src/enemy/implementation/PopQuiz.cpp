@@ -3,7 +3,7 @@
 
 PopQuiz::PopQuiz(EnemyUtility *enemyUtility, Path path) : IEnemy(enemyUtility, path, EnemyType::PopQuiz)
 {
-    HP = 50;
+    HP = 31;
     speed = 3.2;
     worth = 1;
     armor = 0;
