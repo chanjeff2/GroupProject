@@ -19,3 +19,12 @@ void ResourceLayoutManager::updateResourceNeededToUpg(const int resourceNeededTo
 void ResourceLayoutManager::isResourceCapacityUpgradeAvailable(bool isAvailable) {
     ResourceUpgrade->setEnabled(isAvailable);
 }
+
+void ResourceLayoutManager::indicateNotEnoughResource() {
+    if (!NotEnoughResources->isVisible()) {
+        NotEnoughResources->setVisible(true);
+        QTimer::singleShot(1000 / GAME_SPEED, [&]{
+            NotEnoughResources->setVisible(false);
+        });
+    }
+}
