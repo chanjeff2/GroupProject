@@ -179,10 +179,12 @@ Path PathFindingUtility::getPathStartEnd() const {
 /* return buffer storing validated path for each enemy
  * empty vector if not valid */
 bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies) {
+	qDebug() << "PathFindingUtility: validate tower placement";
 	// check from start to end
 	pathStartEndBuffer = findPath(entry, exit, positionOfTowers);
 	// clear and return if don't find any possible path from start to end
 	if (pathStartEndBuffer.isEmpty()) {
+		qDebug() << "PathFindingUtility: no path from start to end";
 		for (auto element: pathBuffer) {
 			// dellocate memory
 			delete element;
@@ -219,6 +221,7 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 			PathBuffer *_pathBuffer = new PathBuffer(_path, enemy);
 			pathBuffer.insert(_pathBuffer); // add enemies not on path to buffer
 		} else {
+			qDebug() << "PathFindingUtility: no path from start to end for one enemy";
 			for (auto element: pathBuffer) {
 				// dellocate memory
 				delete element;
@@ -235,8 +238,10 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 /* successfully updated path -> true
  * failed, path is blocked -> false */
 bool PathFindingUtility::updatePath() {
+	qDebug() << "PathFindingUtility: update path";
 
 	if (pathBuffer.empty() && pathStartEndBuffer.isEmpty()) {
+		qDebug() << "PathFindingUtility: update path failed: no buffer exists";
 		return false;
 	}
 
