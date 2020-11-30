@@ -15,6 +15,7 @@
 #include "src/map/GameGrid.h"
 #include "src/map/cell.h"
 #include "src/tower/ITower.h"
+#include "src/tower/aura/AuraEffect.h"
 #include "Bestiary.h"
 
 QT_BEGIN_NAMESPACE

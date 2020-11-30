@@ -221,13 +221,24 @@ void MainWindow::map_hovered(int x, int y) {
         int length_x = CELL_SIZE.first * (2 * range + 1);
         int length_y = CELL_SIZE.second * (2 * range + 1);
 
+        // Color of the range, if there is a aura
+        QBrush range_color;
+        switch (game_grid.getCell(x, y)->getTower()->auraEffect->getAuraType()) {
+            case AuraType::Null: case AuraType::RageAura:
+                range_color = Qt::NoBrush; break;
+            case AuraType::SlowAura:
+                range_color = QColor(28, 118, 199, 100); break;
+            case AuraType::ArmorPierceAura:
+                range_color = QColor(85, 85, 85, 100); break;
+        }
+
         // Constraints to prevent drawing out of bounds
         if (x - range < 0) { starting_pos_x = 0; length_x = CELL_SIZE.first * (x + range + 1);}
         if (y - range < 0) { starting_pos_y = 0; length_y = CELL_SIZE.second * (x + range + 1);}
         if (x + range >= NUM_OF_COL) { length_x = NUM_OF_COL * CELL_SIZE.first - starting_pos_x; }
         if (y + range >= NUM_OF_ROW) { length_y = NUM_OF_ROW * CELL_SIZE.second - starting_pos_y; }
 
-        QGraphicsRectItem* range_to_be_drawn = scene.addRect(QRect(starting_pos_x, starting_pos_y, length_x, length_y), QPen(Qt::black), QBrush(Qt::NoBrush));
+        QGraphicsRectItem* range_to_be_drawn = scene.addRect(QRect(starting_pos_x, starting_pos_y, length_x, length_y), QPen(Qt::black), range_color);
         drawn_range = range_to_be_drawn;
     }
 };
