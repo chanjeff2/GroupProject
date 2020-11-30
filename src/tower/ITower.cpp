@@ -48,6 +48,10 @@ int ITower::getCost() const {
 	return cost;
 }
 
+int ITower::getRange() const {
+    return range;
+}
+
 set<EnemyType> ITower::getEffectiveTowards() const {
 	return effectiveTowards;
 }

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QGraphicsRectItem>
 
 #include "src/utility/GameValues.h"
 #include "src/utility/resource/ResourceManager.h"
@@ -12,6 +13,8 @@
 #include "src/utility/week/WeekManager.h"
 #include "src/utility/week/WeekLayoutManager.h"
 #include "src/map/GameGrid.h"
+#include "src/map/cell.h"
+#include "src/tower/ITower.h"
 #include "Bestiary.h"
 
 QT_BEGIN_NAMESPACE
@@ -54,9 +57,9 @@ private slots:
     // Skip Week Pressed
     void on_SkipWeek_clicked();
 
-    // Clicking on map
+    // Map manipulations
     void map_clicked(int x, int y);
-
+    void map_hovered(int x, int y);
 
 private:
     Ui::MainWindow *ui;
@@ -67,6 +70,7 @@ private:
 
     QGraphicsScene scene;
     GameGrid game_grid{&scene};
+    QGraphicsRectItem* drawn_range {nullptr};
 
     ResourceLayoutManager resource_layout_manager{&game_grid.resourceManager};
     GPALayoutManager gpa_layout_manager{&game_grid.gpaManager};

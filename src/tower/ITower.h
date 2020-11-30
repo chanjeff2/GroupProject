@@ -55,6 +55,8 @@ public:
 
 	int getCost() const;
 
+    int getRange() const;
+
 	set<EnemyType> getEffectiveTowards() const;
 
 	set<EnemyType> getWeakTowards() const;

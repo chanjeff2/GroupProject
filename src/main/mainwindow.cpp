@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->graphicsView->setScene(&scene);
     ui->graphicsView->show();
+    ui->graphicsView->setMouseTracking(true);
 
     this->setWindowTitle("UST Students vs. Assignments - Main Window");
 
@@ -42,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
+    connect(ui->graphicsView, &ClickableView::mouseHovered, this, &MainWindow::map_hovered);
 }
 
 MainWindow::~MainWindow()
@@ -186,11 +188,27 @@ void MainWindow::on_SkipWeek_clicked() {
 void MainWindow::map_clicked(int x, int y) {
     qDebug() << x << y;
     if (!game_started) return;
-    if ((x < 0 || y < 0) || (x >= NUM_OF_COL || y >= NUM_OF_ROW)) return;
+    if (!game_grid.isValidCoordinate(x, y)) return;
     if (!sell_mode) {
         game_grid.placeTower(x, y, tower_selected);
     } else {
         game_grid.removeTower(x, y);
+    }
+};
+
+void MainWindow::map_hovered(int x, int y) {
+    delete drawn_range;
+    drawn_range = nullptr;
+    if (!game_started) return;
+    if (!game_grid.isValidCoordinate(x, y)) return;
+    if (game_grid.getCell(x, y)->hasTower()) {
+        int range = game_grid.getCell(x, y)->getTower()->getRange();
+        int starting_pos_x = CELL_SIZE.first * x - range * CELL_SIZE.first;
+        int starting_pos_y = CELL_SIZE.second * y - range * CELL_SIZE.second;
+        int length_x = CELL_SIZE.first * (2 * range + 1);
+        int length_y = CELL_SIZE.second * (2 * range + 1);
+        QGraphicsRectItem* range_to_be_drawn = scene.addRect(QRect(starting_pos_x, starting_pos_y, length_x, length_y), QPen(Qt::black), QBrush(Qt::NoBrush));
+        drawn_range = range_to_be_drawn;
     }
 };
 
