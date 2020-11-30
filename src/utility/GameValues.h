@@ -2,6 +2,7 @@
 #define GAMEVALUES_H
 
 #include <utility>
+#include <string>
 using namespace std;
 
 typedef	pair<int /*col*/, int /*row*/> Coordinate;
@@ -14,6 +15,12 @@ enum class EnemyType: int {
     NormalHW = 100, Essay, EncryptedHW,
     GroupProj, MathHW, COMPLab, PA, Desmond,
     PopQuiz, Midterm, MATHExam, Final, ELPA, FYP
+};
+
+const string ENEMY_NAME[14] = {
+	"NormalHW", "Essay", "EncryptedHW",
+	"GroupProj", "MathHW", "COMPLab", "PA", "Desmond",
+	"PopQuiz", "Midterm", "MATHExam", "Final", "ELPA", "FYP"
 };
 
 enum class TowerType: int {
