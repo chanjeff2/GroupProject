@@ -113,7 +113,7 @@ void TowerUtility::removeTower(Cell *position) {
 	// find &tower in refOfTowers and remove
 	refOfTowers.erase(position->getTower());
     if (position->getTower()->auraEffect->getAuraType() != AuraType::Null) {
-		refOfAuraTowers.insert(position->getTower());
+		refOfAuraTowers.erase(position->getTower());
 	}
 	// find position in positionOfTowers and remove
 	positionOfTowers.erase(make_pair(position->x, position->y));
