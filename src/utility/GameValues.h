@@ -29,7 +29,7 @@ enum class TargetSelectionType {
 };
 
 // Global setting
-const float GAME_SPEED = 1.0;
+const float GAME_SPEED = 5.0;
 
 // map
 const int NUM_OF_ROW = 20; // y
@@ -46,13 +46,13 @@ const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
 
 // GPA (score)
 const float MAX_GPA = 4.3;
-const float DAMAGE_RATIO = 0.01; // worth * ratio = damage to gpa after reaching exit
+const float DAMAGE_RATIO = 0.1; // worth * ratio = damage to gpa after reaching exit
 
 // resources
 const float REDEMPTION_RATIO = 0.5; // how much resource user get back after destroying tower
-const int STARTING_RESOURCE = 20;
+const int STARTING_RESOURCE = 2000;
 const int NUM_OF_RESOURCE_CAPACITY = 5;
-const int RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY] = {30, 60, 100, 200, 300}; // just random number
+const int RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY] = {3000, 60, 100, 200, 300}; // just random number
 const float RESOURCE_CAPACITY_RATIO_TO_UPGRADE = 0.6;
 
 // week (wave)
