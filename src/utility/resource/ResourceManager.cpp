@@ -27,8 +27,8 @@ bool ResourceManager::spendResource(int amount) {
 		qDebug() << "ResourceManager: not enough resource";
 		return false;
 	} else {
-		qDebug() << "ResourceManager: spend resource:" << amount << "; new resource amount: " << resource;
 		resource -= amount;
+		qDebug() << "ResourceManager: spend resource:" << amount << "; new resource amount: " << resource;
         resourceLayoutManager->updateResource(getResource());
 		return true;
 	}
