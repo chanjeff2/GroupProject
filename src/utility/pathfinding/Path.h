@@ -26,6 +26,7 @@ public:
 	bool isEmpty() const;
 
 	void goToNextCell(IEnemy* enemy = nullptr);
+	void clear();
 };
 
 #endif // PATH_H

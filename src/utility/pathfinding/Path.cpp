@@ -36,3 +36,8 @@ bool Path::isEmpty() const {
 const Coordinate Path::getCurrentCoordinate() const {
 	return make_pair(getCurrentCell()->x, getCurrentCell()->y);
 }
+
+void Path::clear() {
+	pathStartEnd.clear();
+	pathStartEndDistance = 0;
+}
