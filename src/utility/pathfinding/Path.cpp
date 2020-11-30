@@ -2,6 +2,8 @@
 #include "src/map/cell.h"
 #include "src/enemy/IEnemy.h"
 
+#include <QDebug>
+
 void Path::goToNextCell(IEnemy* enemy) {
 	// un reg from current cell
 	if (enemy != nullptr) {
@@ -13,6 +15,7 @@ void Path::goToNextCell(IEnemy* enemy) {
 
 	// reg into new cell
 	if (enemy != nullptr) {
+		qDebug() << "Path:" << *enemy << "moved to" << *getCurrentCell();
 		pathStartEnd.at(0)->addEnemy(enemy);
 	}
 }
