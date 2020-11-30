@@ -44,10 +44,16 @@ Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_
 }
 
 bool PathFindingUtility::isCoordinateBlocked(Coordinate coordinate, const set<Coordinate> &blockedPosition) const {
+	if (blockedPosition.empty()) {
+		return false;
+	}
 	return (blockedPosition.find(coordinate) != blockedPosition.end());
 }
 
 bool PathFindingUtility::isCoordinateBlocked(int x, int y, const set<Coordinate> &blockedPosition) const {
+	if (blockedPosition.empty()) {
+		return false;
+	}
 	return isCoordinateBlocked(make_pair(x, y), blockedPosition);
 }
 
@@ -182,6 +188,7 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 			delete element;
 		}
 		pathBuffer.clear();
+		pathStartEndBuffer.clear();
 		return false;
 	}
 
@@ -217,6 +224,7 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 				delete element;
 			}
 			pathBuffer.clear(); // cannot find path for any enemy
+			pathStartEndBuffer.clear();
 			return false;
 		}
 	}
@@ -228,7 +236,7 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
  * failed, path is blocked -> false */
 bool PathFindingUtility::updatePath() {
 
-	if (pathBuffer.empty()) {
+	if (pathBuffer.empty() && pathStartEndBuffer.isEmpty()) {
 		return false;
 	}
 
@@ -242,5 +250,7 @@ bool PathFindingUtility::updatePath() {
 
 	// buffer content
 	pathStartEnd = pathStartEndBuffer;
+	pathStartEndBuffer.clear();
+
 	return true;
 }
