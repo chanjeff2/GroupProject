@@ -20,7 +20,7 @@ void NormalAttack::updateFocusedEnemyInRange() {
 	for (auto it = this->focusedEnemies.begin(); it != this->focusedEnemies.end(); /*don't add thing here*/) {
 		// remove focus if out of range/died
 		if (enemiesInRange.find(*it) == enemiesInRange.end()) {
-			qDebug() << "NormalAttack:" << QString::fromStdString(tower->id) << "cancel focusing" << QString::fromStdString((*it)->id);
+			qDebug() << "NormalAttack:" << *tower << "cancel focusing" << **it;
 			// detach observer in enemy
 			(*it)->focusManager.detachTowerAttackObserver(this->tower);
 
@@ -45,7 +45,7 @@ void NormalAttack::updateFocusedEnemyInRange() {
 		if (!enemiesToAttack.empty()) {
 			// loop over all sorted enemies to attack
 			for (IEnemy *enemy: enemiesToAttack) {
-				qDebug() << "NormalAttack:" << QString::fromStdString(tower->id) << "focus" << QString::fromStdString(enemy->id);
+				qDebug() << "NormalAttack:" << *tower << "focus" << *enemy;
 				// add it to focus
 				this->focusedEnemies.insert(enemy);
 				// attach observer in enemy
@@ -54,7 +54,7 @@ void NormalAttack::updateFocusedEnemyInRange() {
 				++numOfFocusedEnemies;
 				// break if reach max amount of target
 				if (numOfFocusedEnemies == this->maxNumOfTarget) {
-					qDebug() << "NormalAttack:" << QString::fromStdString(tower->id) << "reach max target";
+					qDebug() << "NormalAttack:" << *tower << "reach max target";
 					break;
 				}
 			}

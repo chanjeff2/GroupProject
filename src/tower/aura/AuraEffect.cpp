@@ -20,10 +20,10 @@ AuraType AuraEffect::getAuraType() const {
 void AuraEffect::updateAuraEffect(IEnemy *enemy, bool isApply /* false for remove */) {
 	enemy->focusManager.updateAuraTowerInRange(isApply, this->auraType);
 	if (isApply) {
-		qDebug() << "AuraEffect: attach aura to" << QString::fromStdString(enemy->id);
+		qDebug() << "AuraEffect: attach aura to" << *enemy;
 		enemy->focusManager.attachTowerAuraEffectObserver(this->tower);
 	} else {
-		qDebug() << "AuraEffect: remove aura from " << QString::fromStdString(enemy->id);
+		qDebug() << "AuraEffect: remove aura from " << *enemy;
 		enemy->focusManager.detachTowerAuraEffectObserver(this->tower);
 	}
 }

@@ -1,6 +1,27 @@
 #include "cell.h"
 #include "GameGrid.h"
 #include "src/tower/ITower.h"
+#include "src/enemy/IEnemy.h"
+
+QDebug& operator<<(QDebug &qdebug, const Cell &cell) {
+	qdebug.nospace() << "(" << cell.x << ", " << cell.y << "); "
+					 << "tower { ";
+	if (cell.hasTower()) {
+		qdebug << *(cell.tower);
+	}
+	qdebug << " }; "
+	<< "enemy { ";
+	if (!cell.enemy.empty()) {
+		auto it = cell.enemy.begin();
+		qdebug << **it;
+		++it;
+		for (; it != cell.enemy.end(); ++it) {
+			qdebug << ", " << **it;
+		}
+	}
+	qdebug << " };";
+	return qdebug.space();
+}
 
 Cell::Cell(int x, int y): x(x), y(y), tower(nullptr) {};
 

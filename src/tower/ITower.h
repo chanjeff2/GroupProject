@@ -7,6 +7,7 @@ using namespace std;
 
 #include <QTimer>
 #include <QObject>
+#include <QDebug>
 
 #include "TowerLayoutManager.h"
 
@@ -20,6 +21,7 @@ class IEnemy;
 class TowerUtility;
 
 class ITower: public QObject {
+	friend QDebug& operator<<(QDebug &qdebug, const ITower &tower);
 protected:
 	// data member
 	TowerType towerType; // identify type of towers, starting from 0
