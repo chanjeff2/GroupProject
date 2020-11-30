@@ -60,11 +60,11 @@ void IAttackStrategy::attack() {
 		// attack !
 		if (tower->getEffectiveTowards().find(focusedEnemy->getEnemyType()) != tower->getEffectiveTowards().end()) {
 			int damage = round(tower->getDamagePerHit() * EFFECTIVE_ATTACK_RATIO);
-			qDebug() << "IAttackStrategy:" << QString::fromStdString(tower->id) << "attack" << QString::fromStdString(focusedEnemy->id)
+			qDebug() << "IAttackStrategy:" << *tower << "attack" << *focusedEnemy
 					 << "with effectively" << damage << "damage";
 			focusedEnemy->receiveDamage(damage);
 		} else {
-			qDebug() << "IAttackStrategy:" <<QString::fromStdString(tower->id) << "attack" << QString::fromStdString(focusedEnemy->id)
+			qDebug() << "IAttackStrategy:" << *tower << "attack" << *focusedEnemy
 					 << "with" << tower->getDamagePerHit() << "damage";
 			focusedEnemy->receiveDamage(tower->getDamagePerHit());
 		}

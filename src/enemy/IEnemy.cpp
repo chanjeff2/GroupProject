@@ -5,6 +5,10 @@
 
 #include <QDebug>
 
+QDebug& operator<<(QDebug &qdebug, const IEnemy &enemy) {
+	return qdebug << QString::fromStdString(enemy.id);
+}
+
 // constructor
 IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path(path), enemyUtility(enemyUtility), enemyType(enemyType) {
 

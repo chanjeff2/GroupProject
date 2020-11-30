@@ -19,6 +19,7 @@ enum class EnemyType;
 class EnemyUtility;
 
 class IEnemy: public QObject {
+	friend QDebug& operator<<(QDebug &qdebug, const IEnemy &enemy);
 protected:
 	// data member
 	EnemyType enemyType; // identify type of enemies, starting from 100

@@ -86,8 +86,8 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
 	newTower->id = TOWER_NAME[static_cast<int>(towerType)] + '_' + to_string(towerID_index);
 	++towerID_index;
 
-	qDebug().nospace() << "TowerUtility: place tower " << QString::fromStdString(newTower->id)
-					   << " at (" << position->x << ", " << position->y << ")";
+	qDebug().nospace() << "TowerUtility: place tower " << *newTower
+					   << " at " << *position;
 
     // update ref list
 	refOfTowers.insert(newTower);
@@ -103,8 +103,8 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
 }
 
 void TowerUtility::removeTower(Cell *position) {
-	qDebug().nospace() << "TowerUtility: remove tower " << QString::fromStdString(position->getTower()->id)
-					   << " at (" << position->x << ", " << position->y << ")";
+	qDebug().nospace() << "TowerUtility: remove tower " << *position->getTower()
+					   << " at " << *position;
 
 	// redemption
 	int redemption = round(position->getTower()->getCost() * REDEMPTION_RATIO);
