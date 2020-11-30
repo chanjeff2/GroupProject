@@ -83,7 +83,7 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
         }
     }
 
-	newTower->id = TOWER_NAME[static_cast<int>(towerType)] + '_' + static_cast<char>(towerID_index);
+	newTower->id = TOWER_NAME[static_cast<int>(towerType)] + '_' + to_string(towerID_index);
 	++towerID_index;
 
 	qDebug().nospace() << "TowerUtility: place tower " << QString::fromStdString(newTower->id)
