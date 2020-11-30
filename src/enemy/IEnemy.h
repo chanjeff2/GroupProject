@@ -2,6 +2,7 @@
 #define IENEMY_H
 
 #include <deque>
+#include <string>
 using namespace std;
 
 #include <QObject>
@@ -41,6 +42,7 @@ protected:
 	void move();
 
 public:
+	string id; // for debug
 	// data member
 	FocusManager focusManager{this}; // manage tower focus
 	ModManager modManager{this}; // manage speed and armor modifiers
