@@ -13,7 +13,6 @@ using namespace std;
 NormalAttack::NormalAttack(ITower *tower): IAttackStrategy(tower) {};
 
 void NormalAttack::updateFocusedEnemyInRange() {
-	qDebug() << "NormalAttack:" << QString::fromStdString(tower->id) << "update focused enemy in range";
 	// update if current focused enemies out of range/died
 	set<IEnemy*> enemiesInRange = this->tower->getEnemiesInRange();
 
