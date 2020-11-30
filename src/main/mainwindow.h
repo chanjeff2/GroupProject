@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QGraphicsRectItem>
 
 #include "src/utility/GameValues.h"
 #include "src/utility/resource/ResourceManager.h"
@@ -12,6 +13,10 @@
 #include "src/utility/week/WeekManager.h"
 #include "src/utility/week/WeekLayoutManager.h"
 #include "src/map/GameGrid.h"
+#include "src/map/cell.h"
+#include "src/tower/ITower.h"
+#include "src/tower/aura/AuraEffect.h"
+#include "Bestiary.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +29,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    // Helper function for drawing tower range
+    void draw_range(ITower* tower, int x, int y);
 
 private slots:
     // Basically all button click events
@@ -50,27 +58,29 @@ private slots:
     // Start Game Pressed
     void on_StartGame_clicked();
 
-    // Clicking on map
-    void map_clicked(int x, int y);
+    // Skip Week Pressed
+    void on_SkipWeek_clicked();
 
+    // Map manipulations
+    void map_clicked(int x, int y);
+    void map_hovered(int x, int y);
 
 private:
     Ui::MainWindow *ui;
+
+    BestiaryWindow bestiary_window;
 
     TowerType tower_selected {TowerType::None};
 
     QGraphicsScene scene;
     GameGrid game_grid{&scene};
+    QGraphicsRectItem* drawn_range {nullptr};
 
-    ResourceManager resource_manager;
-    ResourceLayoutManager resource_layout_manager{&resource_manager};
-
-    GPAManager gpa_manager;
-    GPALayoutManager gpa_layout_manager{&gpa_manager};
-
-    WeekManager week_manager{&game_grid};
-    WeekLayoutManager week_layout_manager{&week_manager};
+    ResourceLayoutManager resource_layout_manager{&game_grid.resourceManager};
+    GPALayoutManager gpa_layout_manager{&game_grid.gpaManager};
+    WeekLayoutManager week_layout_manager{&game_grid.weekManager};
 
     bool sell_mode {false};
+    bool game_started {false};
 };
 #endif // MAINWINDOW_H

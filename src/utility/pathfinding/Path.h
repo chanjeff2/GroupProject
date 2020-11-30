@@ -21,11 +21,12 @@ public:
 	
 	int getRemainingDistance() const;
 	bool isNextCellEnd() const;
-	const Cell *getCurrentCell() const;
+	Cell *getCurrentCell() const;
 	const Coordinate getCurrentCoordinate() const;
 	bool isEmpty() const;
 
 	void goToNextCell(IEnemy* enemy = nullptr);
+	void clear();
 };
 
 #endif // PATH_H

@@ -28,6 +28,9 @@ enum class TargetSelectionType {
 	Random, Priority, All, Null
 };
 
+// Global setting
+const float GAME_SPEED = 1.0; // higher -> game process faster
+
 // map
 const int NUM_OF_ROW = 20; // y
 const int NUM_OF_COL = 25; // x
@@ -43,6 +46,7 @@ const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
 
 // GPA (score)
 const float MAX_GPA = 4.3;
+const float DAMAGE_RATIO = 0.1; // worth * ratio = damage to gpa after reaching exit
 
 // resources
 const float REDEMPTION_RATIO = 0.5; // how much resource user get back after destroying tower

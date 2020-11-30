@@ -10,4 +10,6 @@ MathHW::MathHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path
     canSlow = true;
     canPierceArmor = true;
     canEnrage = false;
+
+	trigger();
 }

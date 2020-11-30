@@ -12,8 +12,11 @@ public:
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 
+    void mouseMoveEvent(QMouseEvent *event) override;
+
 signals:
-    void mouseClicked(int row, int col);
+    void mouseClicked(int x, int y);
+    void mouseHovered(int x, int y);
 };
 
 #endif // CLICKABLEVIEW_H

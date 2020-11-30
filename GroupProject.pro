@@ -28,9 +28,9 @@ SOURCES += \
     src/enemy/implementation/PA.cpp \
     src/enemy/implementation/PopQuiz.cpp \
     src/main/Bestiary.cpp \
+	src/main/ClickableView.cpp \
     src/main/main.cpp \
     src/main/mainwindow.cpp \
-    src/main/ClickableView.cpp \
     src/map/GameGrid.cpp \
     src/map/cell.cpp \
 	src/tower/TowerLayoutManager.cpp \
@@ -82,8 +82,8 @@ HEADERS += \
     src/enemy/implementation/PA.h \
     src/enemy/implementation/PopQuiz.h \
     src/main/Bestiary.h \
+	src/main/ClickableView.h \
     src/main/mainwindow.h \
-    src/main/ClickableView.h \
     src/map/GameGrid.h \
     src/map/cell.h \
 	src/tower/TowerLayoutManager.h \
@@ -119,6 +119,9 @@ HEADERS += \
 FORMS += \
     src/main/Bestiary.ui \
     src/main/mainwindow.ui
+
+INCLUDEPATH += \
+    $$PWD/src/main
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

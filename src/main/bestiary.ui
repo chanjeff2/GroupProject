@@ -17,6 +17,13 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
+      <widget class="QPushButton" name="ExitBestiary">
+       <property name="text">
+        <string>Close Bestiary</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="BestiaryTitle">
        <property name="font">
         <font>

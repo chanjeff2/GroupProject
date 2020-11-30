@@ -59,5 +59,10 @@ bool ResourceManager::upgradeResourceCapacity() {
     }
 
     resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
+    resourceLayoutManager->updateResourceNeededToUpg(getResourceRequiredForUpgradeCapacity());
 	return true;
+}
+
+void ResourceManager::setLayoutManager(ResourceLayoutManager* resourceLayoutManager) {
+	this->resourceLayoutManager = resourceLayoutManager;
 }

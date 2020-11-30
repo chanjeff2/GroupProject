@@ -20,7 +20,7 @@ void WeekLayoutManager::weekCountDown(int time) {
     TimeLeft->setText("Time left: " + QString::number(time));
 
     // queue for update time
-	QTimer::singleShot(1000, [=] {
+	QTimer::singleShot(1000 / GAME_SPEED, [=] {
         weekCountDown(time - 1);
 		});
 }
@@ -29,4 +29,8 @@ void WeekLayoutManager::updateWeek(const int week) {
         WeekCount->setText("Week " + QString::number(week));
         // Update progress bar
         WeekProgress->setValue(week);
+}
+
+void WeekLayoutManager::initNumOfWeeks(int numOfWeeks) {
+    WeekProgress->setMaximum(numOfWeeks);
 }

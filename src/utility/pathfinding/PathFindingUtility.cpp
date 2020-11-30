@@ -4,15 +4,18 @@
 #include "src/enemy/IEnemy.h"
 
 #include <cmath>
+#include <QDebug>
 
 // constructor
-PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {
-	pathStartEnd = findPath(entry, exit);
-}
+PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {}
 
 PathFindingUtility::PathBuffer::PathBuffer(Path path, IEnemy *enemy): path(path), enemy(enemy) {};
 
 // methods
+void PathFindingUtility::init() {
+	pathStartEnd = findPath(entry, exit);
+}
+
 Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end) {
 	Path path;
 
@@ -21,6 +24,7 @@ Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_
 	int row = end.second;
 
 	while (true) {
+//		qDebug() << "col:" << col << "; row:" << row;
 		path.pathStartEnd.push_front(gameGrid->getCell(col, row));
 		path.pathStartEndDistance += 1;
 
@@ -40,10 +44,16 @@ Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_
 }
 
 bool PathFindingUtility::isCoordinateBlocked(Coordinate coordinate, const set<Coordinate> &blockedPosition) const {
+	if (blockedPosition.empty()) {
+		return false;
+	}
 	return (blockedPosition.find(coordinate) != blockedPosition.end());
 }
 
 bool PathFindingUtility::isCoordinateBlocked(int x, int y, const set<Coordinate> &blockedPosition) const {
+	if (blockedPosition.empty()) {
+		return false;
+	}
 	return isCoordinateBlocked(make_pair(x, y), blockedPosition);
 }
 
@@ -90,12 +100,12 @@ Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, 
 	// process loop
 	while (!openList.empty()) {
 		// randomly pick first element
-		auto itCell = openList.begin();
+		auto cell = *(openList.begin());
 
-		openList.erase(itCell);
+		openList.erase(openList.begin());
 
-		int _col = itCell->first.first; // coordinate.col
-		int _row = itCell->first.second; // coordinate.row
+		int _col = cell.first.first; // coordinate.col
+		int _row = cell.first.second; // coordinate.row
 
 		closedList[_col][_row] = true;
 
@@ -169,15 +179,18 @@ Path PathFindingUtility::getPathStartEnd() const {
 /* return buffer storing validated path for each enemy
  * empty vector if not valid */
 bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies) {
+	qDebug() << "PathFindingUtility: validate tower placement";
 	// check from start to end
 	pathStartEndBuffer = findPath(entry, exit, positionOfTowers);
 	// clear and return if don't find any possible path from start to end
 	if (pathStartEndBuffer.isEmpty()) {
+		qDebug() << "PathFindingUtility: no path from start to end";
 		for (auto element: pathBuffer) {
 			// dellocate memory
 			delete element;
 		}
 		pathBuffer.clear();
+		pathStartEndBuffer.clear();
 		return false;
 	}
 
@@ -208,11 +221,13 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 			PathBuffer *_pathBuffer = new PathBuffer(_path, enemy);
 			pathBuffer.insert(_pathBuffer); // add enemies not on path to buffer
 		} else {
+			qDebug() << "PathFindingUtility: no path from start to end for one enemy";
 			for (auto element: pathBuffer) {
 				// dellocate memory
 				delete element;
 			}
 			pathBuffer.clear(); // cannot find path for any enemy
+			pathStartEndBuffer.clear();
 			return false;
 		}
 	}
@@ -223,8 +238,10 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 /* successfully updated path -> true
  * failed, path is blocked -> false */
 bool PathFindingUtility::updatePath() {
+	qDebug() << "PathFindingUtility: update path";
 
-	if (pathBuffer.empty()) {
+	if (pathBuffer.empty() && pathStartEndBuffer.isEmpty()) {
+		qDebug() << "PathFindingUtility: update path failed: no buffer exists";
 		return false;
 	}
 
@@ -238,5 +255,7 @@ bool PathFindingUtility::updatePath() {
 
 	// buffer content
 	pathStartEnd = pathStartEndBuffer;
+	pathStartEndBuffer.clear();
+
 	return true;
 }

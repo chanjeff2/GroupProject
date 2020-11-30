@@ -9,13 +9,7 @@
 
 // protected constructor -> prevent instantiation of ITower
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
-	// born to fight !
-	long attackInterval = 1000/hitPerSec;
-	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, [&] {
-		attackStrategy->attack();
-	});
-	timer->start(attackInterval);
+
 }
 
 // destructor
@@ -23,6 +17,18 @@ ITower::~ITower() {
 	timer->stop();
 	delete attackStrategy;
 	delete auraEffect;
+}
+
+void ITower::trigger() {
+	// born to fight !
+	long attackInterval = 1000/hitPerSec;
+	attackInterval /= GAME_SPEED;
+
+	timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, [&] {
+		attackStrategy->attack();
+	});
+	timer->start(attackInterval);
 }
 
 // getter
@@ -40,6 +46,10 @@ float ITower::getHitPerSec() const {
 
 int ITower::getCost() const {
 	return cost;
+}
+
+int ITower::getRange() const {
+    return range;
 }
 
 set<EnemyType> ITower::getEffectiveTowards() const {
@@ -61,11 +71,25 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 	// loop over all enemies, check if non occupied cells contain enemy current position
 	// add enemy to buffer set if yes
 	// return buffer set
+
 	set<IEnemy*> enemyInRange;
 	for (int dcol = -range; dcol <= range; ++dcol) {
 		for (int drow = -range; drow <= range; ++drow) {
+			if (!towerUtility->isValidCoordinate(position->x + dcol, position->y + drow)) {
+				// skip invalid cell
+				continue;
+			}
+
 			Cell *cell = towerUtility->getCell(position->x + dcol, position->y + drow);
-			enemyInRange.insert(cell->getEnemy().begin(), cell->getEnemy().end());
+			if (cell->getEnemy().empty()) {
+				// skip empty cell
+				continue;
+			}
+
+			auto enemyOnCell = cell->getEnemy();
+			for (auto enemy: enemyOnCell) {
+				enemyInRange.insert(enemy);
+			}
 		}
 	}
 	return enemyInRange;

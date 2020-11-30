@@ -3,25 +3,20 @@
 #include "src/map/cell.h"
 #include "src/utility/GameValues.h"
 
+#include <QDebug>
 
 // constructor
-IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path(path), enemyUtility(enemyUtility), enemyType(enemyType), focusManager(this), modManager(this) {
-	// born to move
-	// get ready for next move
-	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path(path), enemyUtility(enemyUtility), enemyType(enemyType) {
 
-	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, &IEnemy::move);
-	timer->start(timeTilNextMove);
 }
 
 // destructor
 IEnemy::~IEnemy() {
-	// notify all tower focusing this enemy to clear focus
-	focusManager.requestUpdateFocus();
-
 	// stop moving
 	timer->stop();
+
+	// notify all tower focusing this enemy to clear focus
+	focusManager.requestUpdateFocus();
 }
 
 // getter
@@ -29,7 +24,7 @@ EnemyType IEnemy::getEnemyType() const {
 	return this->enemyType;
 }
 
-int IEnemy::getRawSpeed() const {
+float IEnemy::getRawSpeed() const {
 	return this->speed;
 }
 
@@ -75,7 +70,7 @@ void IEnemy::move() {
 	}
 
 	// perform move (i.e. goto next cell in pathToTake) + decrement distanceFromEnd
-	path.goToNextCell();
+	path.goToNextCell(this);
 
 	// update UI
 	enemyLayoutManager.moveTo(path.getCurrentCoordinate());
@@ -84,10 +79,23 @@ void IEnemy::move() {
 	focusManager.requestUpdateFocus();
 
 	// get ready for next move
-	long timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+	timeTilNextMove /= GAME_SPEED;
+
 	if (timer->interval() != timeTilNextMove) {
 		timer->setInterval(timeTilNextMove); // update timer interval in case there is change in speed;
 	}
+}
+
+void IEnemy::trigger() {
+	// born to move
+	// get ready for next move
+	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+	timeTilNextMove /= GAME_SPEED;
+
+	timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, &IEnemy::move);
+	timer->start(timeTilNextMove);
 }
 
 void IEnemy::receiveDamage(int damage) {

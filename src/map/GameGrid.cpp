@@ -8,9 +8,19 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 	// init grid
 	for (int x = 0; x < NUM_OF_COL; ++x) {
 		for (int y = 0; y < NUM_OF_ROW; ++y) {
-			grid[x][y] = new Cell(x, y);
-		}
+            grid[x][y] = new Cell(x, y);
+
+            QBrush brushcolor(Qt::NoBrush);
+            if (x == 0 && y == 0)
+                brushcolor = Qt::green;
+            else if (x == NUM_OF_COL - 1 && y == NUM_OF_ROW - 1)
+                brushcolor = Qt::red;
+
+            QGraphicsRectItem* square = scene->addRect(x*40, y*40, 40, 40, QPen(Qt::gray), brushcolor);
+            cell_squares[x][y] = square;
+        }
 	}
+	pathFindingUtility.init();
 }
 GameGrid::~GameGrid() {
 	// delete grid
@@ -60,6 +70,13 @@ bool GameGrid::canPlaceTower(int x, int y) {
 	Cell *cell = grid[x][y];
 	set<IEnemy*> enemies = enemyUtility.enemies;
 
+	Coordinate newPos = make_pair(x, y);
+
+	// check if place at start or end
+	if (newPos == START || newPos == END) {
+		return false;
+	}
+
 	// Check if the cell is occupied with tower
 	if (cell->tower != NULL) {
 		return false;
@@ -67,12 +84,12 @@ bool GameGrid::canPlaceTower(int x, int y) {
 
 	// check if the cell is occupied with any enemy
 	for (auto enemy: enemies) {
-		if (enemy->getPath().getCurrentCoordinate() == make_pair(x, y))
+		if (enemy->getPath().getCurrentCoordinate() == newPos)
 			return false;
 	}
 
 	set<Coordinate> newTowerPositions = towerUtility.positionOfTowers;
-	newTowerPositions.insert(make_pair(x, y));
+	newTowerPositions.insert(newPos);
 
 	// validate path
 	if (!pathFindingUtility.validateTowerPlacement(newTowerPositions, enemies)) {
@@ -85,9 +102,18 @@ bool GameGrid::canPlaceTower(int x, int y) {
 /* success -> true
  * fail -> false */
 bool GameGrid::placeTower(int x, int y, TowerType towerType) {
+	// check if enough resource
+	if (resourceManager.getResource() < towerUtility.getCost(towerType)) {
+		return false;
+	}
+
 	if (canPlaceTower(x, y)) {
 		Cell *cell = grid[x][y];
 		towerUtility.placeTower(towerType, cell);
+		// update path
+		pathFindingUtility.updatePath();
+		// spend resource
+		resourceManager.spendResource(towerUtility.getCost(towerType));
 		return true;
 	}
 	return false;

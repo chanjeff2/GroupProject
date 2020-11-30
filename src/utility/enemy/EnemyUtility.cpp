@@ -3,6 +3,7 @@
 #include "src/enemy/IEnemy.h"
 #include "src/utility/pathfinding/Path.h"
 #include "src/map/GameGrid.h"
+#include "src/map/cell.h"
 
 #include "src/enemy/implementation/NormalHW.h"
 #include "src/enemy/implementation/Essay.h"
@@ -121,7 +122,13 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 	if (isDieOfAttack) {
 		// retrieve resource
 		gameGrid->resourceManager.gainResource(enemy->getWorth());
+	} else {
+		// reduce gpa
+		gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO);
 	}
+
+	// remove enemy from cell
+	enemy->getPath().getCurrentCell()->removeEnemy(enemy);
 
 	// find &enemy in ememies and remove
 	enemies.erase(enemy);
@@ -129,9 +136,9 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 	delete enemy;
 
 	// check if any remaining enemy
-	if (/*no more enemy remain*/true || /*no more enemy to spawn*/ true) {
+	if (enemies.empty()) {
 		// proceed to next week
-		gameGrid->weekManager.prepareForNextWeek();
+		gameGrid->weekManager.prepareForNextWeek(); // will check if all enemy generated
     }
 }
 

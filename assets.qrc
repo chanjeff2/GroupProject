@@ -60,5 +60,6 @@
         <file>res/towers_images/RegularStudent Purchase.png</file>
         <file>res/towers_images/Wolfram Grid.png</file>
         <file>res/towers_images/Wolfram Purchase.png</file>
+        <file>res/enemies_images/Desmond Bestiary.png</file>
     </qresource>
 </RCC>

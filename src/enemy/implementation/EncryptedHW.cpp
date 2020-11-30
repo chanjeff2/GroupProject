@@ -11,4 +11,5 @@ EncryptedHW::EncryptedHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUti
     canPierceArmor = true;
     canEnrage = false;
 
+	trigger();
 }

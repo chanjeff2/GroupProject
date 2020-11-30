@@ -4,12 +4,22 @@
 #include <QWidget>
 #include <QGraphicsView>
 #include <QTextBrowser>
+#include "ui_Bestiary.h"
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
 
 class BestiaryWindow : public QWidget {
     Q_OBJECT
 public:
-    BestiaryWindow(QWidget *parent = nullptr);
+    explicit BestiaryWindow(QWidget *parent = nullptr);
     ~BestiaryWindow();
+
+private:
+
+    Ui::BestiaryWindow *ui;
+    QGraphicsScene scene;
+    QGraphicsPixmapItem* icon;
+    void showEvent(QShowEvent* show_event);
 
 private slots:
 

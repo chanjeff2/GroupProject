@@ -55,6 +55,8 @@ public:
 
 	int getCost() const;
 
+    int getRange() const;
+
 	set<EnemyType> getEffectiveTowards() const;
 
 	set<EnemyType> getWeakTowards() const;
@@ -63,6 +65,8 @@ public:
 	void attachImageView(QGraphicsPixmapItem *imgView);
 
 	// methods
+	void trigger();
+
 	std::set<IEnemy*> getEnemiesInRange() const;
 };
 

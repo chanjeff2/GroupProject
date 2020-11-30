@@ -25,7 +25,7 @@ bool Path::isNextCellEnd() const {
 	return pathStartEndDistance <= 2;
 }
 
-const Cell *Path::getCurrentCell() const {
+Cell *Path::getCurrentCell() const {
 	return pathStartEnd.at(0);
 }
 
@@ -35,4 +35,9 @@ bool Path::isEmpty() const {
 
 const Coordinate Path::getCurrentCoordinate() const {
 	return make_pair(getCurrentCell()->x, getCurrentCell()->y);
+}
+
+void Path::clear() {
+	pathStartEnd.clear();
+	pathStartEndDistance = 0;
 }
