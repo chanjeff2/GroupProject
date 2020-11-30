@@ -20,7 +20,12 @@
 #include "src/enemy/implementation/Elpa.h"
 #include "src/enemy/implementation/Fyp.h"
 
-EnemyUtility::EnemyUtility(GameGrid *gameGrid): gameGrid(gameGrid) {};
+#include <stdlib.h>
+#include <time.h>
+
+EnemyUtility::EnemyUtility(GameGrid *gameGrid): gameGrid(gameGrid) {
+    srand(time(0));
+};
 
 EnemyUtility::~EnemyUtility() {
     for (IEnemy *enemy: enemies) {
@@ -57,12 +62,28 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		}
 		case EnemyType::MathHW: {
 			newEnemy = new MathHW(this, path);
-			imgPath = ":/res/res/enemies_images/MathHW1 Grid";
+            // Polymorph enemy - has 3 Forms!
+            int rng = (rand() % 3) + 1;
+            switch (rng) {
+                case 1:
+                    imgPath = ":/res/res/enemies_images/MathHW1 Grid"; break;
+                case 2:
+                    imgPath = ":/res/res/enemies_images/MathHW2 Grid"; break;
+                case 3:
+                    imgPath = ":/res/res/enemies_images/MathHW3 Grid"; break;
+            }
 			break;
 		}
 		case EnemyType::COMPLab: {
 			newEnemy = new COMPLab(this, path);
-			imgPath = ":/res/res/enemies_images/COMPLab Grid";
+            // Polymorph enemy - has 2 Forms!
+            int rng = (rand() % 2) + 1;
+            switch (rng) {
+                case 1:
+                    imgPath = ":/res/res/enemies_images/COMPLab Grid"; break;
+                case 2:
+                    imgPath = ":/res/res/enemies_images/COMPLab2 Grid"; break;
+            }
 			break;
 		}
 		case EnemyType::PA: {
@@ -77,7 +98,14 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		}
 		case EnemyType::PopQuiz: {
 			newEnemy = new PopQuiz(this, path);
-			imgPath = ":/res/res/enemies_images/PopQuiz1 Grid";
+            // Polymorph enemy - has 2 Forms!
+            int rng = (rand() % 2) + 1;
+            switch (rng) {
+                case 1:
+                    imgPath = ":/res/res/enemies_images/PopQuiz1 Grid"; break;
+                case 2:
+                    imgPath = ":/res/res/enemies_images/PopQuiz2 Grid"; break;
+            }
 			break;
 		}
 		case EnemyType::Midterm: {
