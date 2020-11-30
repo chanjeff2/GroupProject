@@ -56,7 +56,7 @@ const int RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY] = {30, 60, 100, 200, 300};
 const float RESOURCE_CAPACITY_RATIO_TO_UPGRADE = 0.6;
 
 // week (wave)
-const int WEEK_COOLDOWN = 3; // (in sec) cooldown before user can manually proceed to next week
+const int WEEK_COOLDOWN = 1; // (in sec) cooldown before user can manually proceed to next week after last enemy spawn
 const int WEEK_COUNTDOWN = 10; // (in sec) countdown between week end and next week start
 const int ENEMY_GENERATE_INTERVAL = 1;
 

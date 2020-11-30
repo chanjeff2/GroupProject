@@ -30,12 +30,6 @@ void WeekManager::goToNextWeek() {
 
 	// generate enemy
 	processWeek();
-
-	// cooldown week skip
-	QTimer::singleShot(WEEK_COOLDOWN * 1000 / GAME_SPEED, [&]{
-		isWeekCooldown = true;
-		weekLayoutManager->isWeekCoolDown(true);
-	});
 }
 
 // getter
@@ -54,7 +48,7 @@ void WeekManager::loadEnemy(const string& fileName) {
 	ifstream enemyFile(fileName);
 
 	if (!enemyFile) {
-		qDebug() << "Error: cannot open " << QString::fromStdString(fileName);
+		qDebug() << "WeekManager: Error: cannot open " << QString::fromStdString(fileName);
 		return;
 	}
 
@@ -98,11 +92,19 @@ void WeekManager::processWeek() {
 }
 
 void WeekManager::generateEnemy(vector<EnemyType> &enemyList, int index, int size) {
-	qDebug() << "WeekManager: generate Enemy ID:" << static_cast<int>(enemyList.at(index));
+
 	gameGrid->generateEnemy(enemyList.at(index));
 	// increment iterator
 	if (++index == size) {
 		finishGenerateEnemy = true;
+
+		// cooldown week skip
+		QTimer::singleShot(WEEK_COOLDOWN * 1000 / GAME_SPEED, [&]{
+			qDebug() << "WeekManager: cooldown for next week";
+			isWeekCooldown = true;
+			weekLayoutManager->isWeekCoolDown(true);
+		});
+
 		return;
 	}
 
@@ -116,6 +118,7 @@ void WeekManager::skipToNextWeek() {
 	if (week == numOfWeeks) {
 		return;
 	}
+	qDebug() << "WeekManager: skip to next week";
 
 	// increment skip counter
 	++skippedWeeks;
