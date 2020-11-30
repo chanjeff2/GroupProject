@@ -100,7 +100,7 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 }
 
 void FocusManager::requestAddAuraEffectIfNeed() {
-	for (ITower* tower: TowerUtility::refOfTowers) {
+	for (ITower* tower: TowerUtility::refOfAuraTowers) {
 		tower->auraEffect->applyAuraEffectToEnemyInRangeIfNeed();
 	}
 }
