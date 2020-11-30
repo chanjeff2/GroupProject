@@ -16,8 +16,8 @@ float GPAManager::getGPA() const {
 bool GPAManager::reduceGPA(float amount) {
 	gpa -= amount;
     // Rounding off to 2 d.p.
-    int temp = gpa * 100 + 0.5;
-    gpa = temp / 100.0;
+    int temp = gpa * 10 + 0.5;
+    gpa = temp / 10.0;
 	gpaLayoutManager->UpdateGPA(gpa);
 
 	if (gpa <= 0) {

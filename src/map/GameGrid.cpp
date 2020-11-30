@@ -10,7 +10,13 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 		for (int y = 0; y < NUM_OF_ROW; ++y) {
             grid[x][y] = new Cell(x, y);
 
-            QGraphicsRectItem* square = scene->addRect(x*40, y*40, 40, 40, QPen(Qt::gray), QBrush(Qt::NoBrush));
+            QBrush brushcolor(Qt::NoBrush);
+            if (x == 0 && y == 0)
+                brushcolor = Qt::green;
+            else if (x == NUM_OF_COL - 1 && y == NUM_OF_ROW - 1)
+                brushcolor = Qt::red;
+
+            QGraphicsRectItem* square = scene->addRect(x*40, y*40, 40, 40, QPen(Qt::gray), brushcolor);
             cell_squares[x][y] = square;
         }
 	}
