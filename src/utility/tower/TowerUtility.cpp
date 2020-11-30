@@ -5,6 +5,7 @@
 #include "src/map/GameGrid.h"
 
 #include <cmath>
+#include <QDebug>
 
 #include "src/tower/implementation/Regular.h"
 #include "src/tower/implementation/Arts.h"
@@ -81,6 +82,13 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
             break;
         }
     }
+
+	newTower->id = TOWER_NAME[static_cast<int>(towerType)] + '_' + static_cast<char>(towerID_index);
+	++towerID_index;
+
+	qDebug().nospace() << "TowerUtility: place tower " << QString::fromStdString(newTower->id)
+					   << " at (" << position->x << ", " << position->y << ")";
+
     // update ref list
 	refOfTowers.insert(newTower);
     if (newTower->auraEffect->getAuraType() != AuraType::Null) {
@@ -95,6 +103,9 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
 }
 
 void TowerUtility::removeTower(Cell *position) {
+	qDebug().nospace() << "TowerUtility: remove tower " << QString::fromStdString(position->getTower()->id)
+					   << " at (" << position->x << ", " << position->y << ")";
+
 	// redemption
 	int redemption = round(position->getTower()->getCost() * REDEMPTION_RATIO);
 	gameGrid->resourceManager.gainResource(redemption);

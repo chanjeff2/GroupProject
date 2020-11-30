@@ -16,6 +16,7 @@ class GameGrid;
 class TowerUtility
 {
 	GameGrid *gameGrid;
+	int towerID_index{0}; // debug
 public:
 	static set<ITower*> refOfTowers; // ref of all towers
 	static set<ITower*> refOfAuraTowers; // ref of all tower with aura

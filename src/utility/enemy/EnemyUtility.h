@@ -11,6 +11,7 @@ class GameGrid;
 
 class EnemyUtility
 {
+	int enemyID_index{0}; // debug
 public:
     set<IEnemy*> enemies; // all enemies
 	GameGrid *gameGrid; // ref to game grid

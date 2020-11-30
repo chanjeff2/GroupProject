@@ -2,6 +2,8 @@
 #include "ResourceLayoutManager.h"
 #include "src/utility/GameValues.h"
 
+#include <QDebug>
+
 ResourceManager::ResourceManager(): resource(STARTING_RESOURCE), resourceCapacityLevel(0) {
 }
 
@@ -21,9 +23,11 @@ int ResourceManager::getResourceRequiredForUpgradeCapacity() const {
 		 * else -> do nothing & false
 		 * usage: if (spendResource(amount)) [doYourStuff] */
 bool ResourceManager::spendResource(int amount) {
-	if (resource < amount)
+	if (resource < amount) {
+		qDebug() << "ResourceManager: not enough resource";
 		return false;
-	else {
+	} else {
+		qDebug() << "ResourceManager: spend resource:" << amount << "; new resource amount: " << resource;
 		resource -= amount;
         resourceLayoutManager->updateResource(getResource());
 		return true;
@@ -37,6 +41,7 @@ void ResourceManager::gainResource(int amount) {
 	if (resource > getResourceCapacity())
 		resource = getResourceCapacity();
 
+	qDebug() << "ResourceManager: gain resource:" << amount << "; new resource amount: " << resource;
     resourceLayoutManager->updateResource(getResource());
 	return;
 }
@@ -48,10 +53,14 @@ void ResourceManager::gainResource(int amount) {
 bool ResourceManager::upgradeResourceCapacity() {
 	// max level
     if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY) {
-        return false; }
+		qDebug() << "ResourceManager: failed upgrade capacity, max level";
+		return false;
+	}
 
     if (spendResource(getResourceRequiredForUpgradeCapacity())) {
-        ++resourceCapacityLevel; }
+		++resourceCapacityLevel;
+		qDebug() << "ResourceManager: upgrade capacity to :" << getResourceCapacity();
+	}
 
     if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY) {
         resourceLayoutManager->isResourceCapacityUpgradeAvailable(false);

@@ -3,6 +3,8 @@
 #include "src/enemy/IEnemy.h"
 #include "src/utility/GameValues.h"
 
+#include <QDebug>
+
 // constructor
 AuraEffect::AuraEffect(ITower* tower, AuraType auraType) : tower(tower), auraType(auraType) {}
 
@@ -18,8 +20,10 @@ AuraType AuraEffect::getAuraType() const {
 void AuraEffect::updateAuraEffect(IEnemy *enemy, bool isApply /* false for remove */) {
 	enemy->focusManager.updateAuraTowerInRange(isApply, this->auraType);
 	if (isApply) {
+		qDebug() << "AuraEffect: attach aura to" << QString::fromStdString(enemy->id);
 		enemy->focusManager.attachTowerAuraEffectObserver(this->tower);
 	} else {
+		qDebug() << "AuraEffect: remove aura from " << QString::fromStdString(enemy->id);
 		enemy->focusManager.detachTowerAuraEffectObserver(this->tower);
 	}
 }

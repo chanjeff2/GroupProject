@@ -5,6 +5,8 @@
 #include "src/map/GameGrid.h"
 #include "src/map/cell.h"
 
+#include <QDebug>
+
 #include "src/enemy/implementation/NormalHW.h"
 #include "src/enemy/implementation/Essay.h"
 #include "src/enemy/implementation/EncryptedHW.h"
@@ -140,6 +142,11 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		}
 	}
 
+	newEnemy->id = ENEMY_NAME[static_cast<int>(enemyType)] + '_' + static_cast<char>(enemyID_index);
+	++enemyID_index;
+
+	qDebug() << "EnemyUtility: generate enemy" << QString::fromStdString(newEnemy->id);
+
 	enemies.insert(newEnemy);
 	QGraphicsPixmapItem *img = this->gameGrid->getScene()->addPixmap(QPixmap(imgPath));
 	newEnemy->attachImageView(img);
@@ -148,9 +155,12 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 	// get resource if die of attack
 	if (isDieOfAttack) {
+		qDebug().nospace() << "EnemyUtility: kill enemy " << QString::fromStdString(enemy->id) << " by attack"
+				 << " at (" << enemy->getPath().getCurrentCoordinate() << ")";
 		// retrieve resource
 		gameGrid->resourceManager.gainResource(enemy->getWorth());
 	} else {
+		qDebug() << "EnemyUtility: kill enemy" << QString::fromStdString(enemy->id) << "by deadline";
 		// reduce gpa
 		gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO);
 	}
