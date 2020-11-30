@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.ResourceCap = ui->ResourceCap;
     resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
     resource_layout_manager.ResourceNeededToUpg = ui->CapUpgCost;
-    resource_layout_manager.NotEnoughResources = ui->NotEnoughRes;
+    resource_layout_manager.NotEnoughResources = ui->Warning;
 
 	// link manager with layout manager
 	game_grid.gpaManager.setLayoutManager(&gpa_layout_manager);
@@ -41,8 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
     // Misc stuff
     ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
     week_layout_manager.SkipWeek->setEnabled(false);
-    ui->NotEnoughRes->setVisible(false);
-    ui->NotEnoughRes->setStyleSheet(QStringLiteral("QLabel{color: rgb(255, 0, 0);}"));
+    ui->Warning->setVisible(false);
+    ui->Warning->setStyleSheet(QStringLiteral("QLabel{color: rgb(255, 0, 0);}"));
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
@@ -55,6 +55,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_BuyRegular_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[0]) {
         tower_selected = TowerType::Regular;
         ui->CancelBuy->setEnabled(true);
@@ -67,6 +68,7 @@ void MainWindow::on_BuyRegular_clicked() {
 }
 
 void MainWindow::on_BuyArts_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[1]) {
         tower_selected = TowerType::Arts;
         ui->CancelBuy->setEnabled(true);
@@ -79,6 +81,7 @@ void MainWindow::on_BuyArts_clicked() {
 }
 
 void MainWindow::on_BuyWolfram_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[2]) {
         tower_selected = TowerType::WolframAlpha;
         ui->CancelBuy->setEnabled(true);
@@ -91,6 +94,7 @@ void MainWindow::on_BuyWolfram_clicked() {
 }
 
 void MainWindow::on_BuyHacker_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[3]) {
         tower_selected = TowerType::Hacker;
         ui->CancelBuy->setEnabled(true);
@@ -103,6 +107,7 @@ void MainWindow::on_BuyHacker_clicked() {
 }
 
 void MainWindow::on_BuyCalc_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[4]) {
         tower_selected = TowerType::Calc;
         ui->CancelBuy->setEnabled(true);
@@ -115,6 +120,7 @@ void MainWindow::on_BuyCalc_clicked() {
 }
 
 void MainWindow::on_BuyNerd_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[5]) {
         tower_selected = TowerType::Nerd;
         ui->CancelBuy->setEnabled(true);
@@ -127,6 +133,7 @@ void MainWindow::on_BuyNerd_clicked() {
 }
 
 void MainWindow::on_BuyGWriter_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[6]) {
         tower_selected = TowerType::Ghostwriter;
         ui->CancelBuy->setEnabled(true);
@@ -139,6 +146,7 @@ void MainWindow::on_BuyGWriter_clicked() {
 }
 
 void MainWindow::on_BuyChegg_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= TOWER_PRICES[7]) {
         tower_selected = TowerType::Chegg;
         ui->CancelBuy->setEnabled(true);
@@ -199,10 +207,17 @@ void MainWindow::on_SkipWeek_clicked() {
 
 void MainWindow::map_clicked(int x, int y) {
     qDebug() << x << y;
-    if (!game_started) return;
-    if (!game_grid.isValidCoordinate(x, y)) return;
+    if (!game_started || !game_grid.isValidCoordinate(x, y)) return;
     if (!sell_mode) {
-        game_grid.placeTower(x, y, tower_selected);
+        if (game_grid.canPlaceTower(x, y))
+            game_grid.placeTower(x, y, tower_selected);
+        else {
+            ui->Warning->setText("Invalid Placement");
+            ui->Warning->setVisible(true);
+            QTimer::singleShot(750, [&]{
+                ui->Warning->setVisible(false);
+            });
+        }
     } else {
         game_grid.removeTower(x, y);
     }
@@ -238,8 +253,7 @@ void MainWindow::draw_range(int range, AuraType aura, int x, int y) {
 void MainWindow::map_hovered(int x, int y) {
     delete drawn_range; drawn_range = nullptr;
     delete previewed_tower; previewed_tower = nullptr;
-    if (!game_started) return;
-    if (!game_grid.isValidCoordinate(x, y)) return;
+    if (!game_started || !game_grid.isValidCoordinate(x, y) || sell_mode) return;
     if (game_grid.getCell(x, y)->hasTower()) {
         // Draw out the range
         draw_range(game_grid.getCell(x, y)->getTower()->getRange(),
