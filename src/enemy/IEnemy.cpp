@@ -77,6 +77,7 @@ void IEnemy::move() {
 
 	// notify all tower focusing this enemy to update focus if needed
 	focusManager.requestUpdateFocus();
+	focusManager.requestAddAuraEffectIfNeed();
 
 	// get ready for next move
 	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
