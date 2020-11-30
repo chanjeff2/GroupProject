@@ -19,4 +19,10 @@ void GPALayoutManager::UpdateGPA(float GPA) {
     else grade = grades[10];
     GPALabel->setText(QString::number(GPA));
     GradeLabel->setText("(" + grade + ")");
+
+    // Your GPA Blinks if it drops
+    GPALabel->setStyleSheet(QStringLiteral("QLabel{color: rgb(255, 0, 0);}"));
+    QTimer::singleShot(100, [&]{
+        GPALabel->setStyleSheet(QStringLiteral("QLabel{color: rgb(0, 0, 0);}"));
+    });
 }
