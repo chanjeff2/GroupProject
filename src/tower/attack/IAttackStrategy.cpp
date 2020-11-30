@@ -58,6 +58,14 @@ void IAttackStrategy::attack() {
 	auto tempEnemyList = focusedEnemies; // error occur if erase enemy (die) while looping over list
 	for (IEnemy *focusedEnemy: tempEnemyList) {
 		// attack !
+		// no effective
+		if (tower->getEffectiveTowards().empty()) {
+			qDebug() << "IAttackStrategy:" << *tower << "attack" << *focusedEnemy
+					 << "with" << tower->getDamagePerHit() << "damage";
+			focusedEnemy->receiveDamage(tower->getDamagePerHit());
+			continue;
+		}
+		// check effective
 		if (tower->getEffectiveTowards().find(focusedEnemy->getEnemyType()) != tower->getEffectiveTowards().end()) {
 			int damage = round(tower->getDamagePerHit() * EFFECTIVE_ATTACK_RATIO);
 			qDebug() << "IAttackStrategy:" << *tower << "attack" << *focusedEnemy
