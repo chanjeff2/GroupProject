@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 
 #include "src/utility/GameValues.h"
 #include "src/utility/resource/ResourceManager.h"
@@ -31,7 +32,7 @@ public:
     ~MainWindow();
 
     // Helper function for drawing tower range
-    void draw_range(ITower* tower, int x, int y);
+    void draw_range(int range, AuraType aura, int x, int y);
 
 private slots:
     // Basically all button click events
@@ -75,6 +76,7 @@ private:
     QGraphicsScene scene;
     GameGrid game_grid{&scene};
     QGraphicsRectItem* drawn_range {nullptr};
+    QGraphicsPixmapItem* previewed_tower {nullptr};
 
     ResourceLayoutManager resource_layout_manager{&game_grid.resourceManager};
     GPALayoutManager gpa_layout_manager{&game_grid.gpaManager};
