@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "ClickableView.h"
+#include "src/main/clickableview.h"
 
 #include <QFileDialog>
 #include <QDebug>
@@ -159,9 +159,8 @@ void MainWindow::on_TowerMode_clicked() {
 }
 
 void MainWindow::on_ResourceUpg_clicked() {
-    bool buffer = false;
     if (game_grid.resourceManager.getResource() >= game_grid.resourceManager.getResourceRequiredForUpgradeCapacity()) {
-        buffer = game_grid.resourceManager.upgradeResourceCapacity();
+        game_grid.resourceManager.upgradeResourceCapacity();
     }
 }
 
@@ -202,11 +201,19 @@ void MainWindow::map_hovered(int x, int y) {
     if (!game_started) return;
     if (!game_grid.isValidCoordinate(x, y)) return;
     if (game_grid.getCell(x, y)->hasTower()) {
+        // Draw out the range
         int range = game_grid.getCell(x, y)->getTower()->getRange();
         int starting_pos_x = CELL_SIZE.first * x - range * CELL_SIZE.first;
         int starting_pos_y = CELL_SIZE.second * y - range * CELL_SIZE.second;
         int length_x = CELL_SIZE.first * (2 * range + 1);
         int length_y = CELL_SIZE.second * (2 * range + 1);
+
+        // Constraints to prevent drawing out of bounds
+        if (x - range < 0) { starting_pos_x = 0; length_x = CELL_SIZE.first * (x + range + 1);}
+        if (y - range < 0) { starting_pos_y = 0; length_y = CELL_SIZE.second * (x + range + 1);}
+        if (x + range >= NUM_OF_COL) { length_x = NUM_OF_COL * CELL_SIZE.first - starting_pos_x; }
+        if (y + range >= NUM_OF_ROW) { length_y = NUM_OF_ROW * CELL_SIZE.second - starting_pos_y; }
+
         QGraphicsRectItem* range_to_be_drawn = scene.addRect(QRect(starting_pos_x, starting_pos_y, length_x, length_y), QPen(Qt::black), QBrush(Qt::NoBrush));
         drawn_range = range_to_be_drawn;
     }

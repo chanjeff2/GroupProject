@@ -323,9 +323,6 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="0" rowspan="2" colspan="3">
-     <widget class="ClickableView" name="graphicsView"/>
-    </item>
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
       <item row="6" column="0" colspan="2">
@@ -523,6 +520,9 @@
       </item>
      </layout>
     </item>
+    <item row="2" column="0" colspan="3">
+     <widget class="ClickableView" name="graphicsView"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -541,7 +541,7 @@
   <customwidget>
    <class>ClickableView</class>
    <extends>QGraphicsView</extends>
-   <header>clickableview.h</header>
+   <header location="global">clickableview.h</header>
   </customwidget>
  </customwidgets>
  <resources>
