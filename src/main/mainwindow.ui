@@ -54,6 +54,9 @@
           <property name="pixmap">
            <pixmap resource="../../assets.qrc">:/res/res/misc_images/GPA.png</pixmap>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
         </item>
         <item>
@@ -66,6 +69,9 @@
           </property>
           <property name="text">
            <string>4.3</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -80,6 +86,9 @@
           <property name="text">
            <string>/4.3</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
         </item>
         <item>
@@ -92,6 +101,9 @@
           </property>
           <property name="text">
            <string>(A+)</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -323,9 +335,162 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="0">
+    <item row="2" column="0" colspan="4">
+     <widget class="ClickableView" name="graphicsView"/>
+    </item>
+    <item row="0" column="3">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="2">
+         <widget class="QLabel" name="ResourceSlash">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>/</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="ResourceIcon">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../../assets.qrc">:/res/res/misc_images/Resources.png</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="ResourceCap">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>30</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="Resource">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>20</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ResourceUpg">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Upgrade</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="CapUpgCost">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Cost: 18</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="ResourceIcon_2">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../../assets.qrc">:/res/res/misc_images/Resources.png</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0" colspan="3">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="6" column="0" colspan="2">
+      <item row="5" column="0">
+       <widget class="QLabel" name="TimeLeft">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Time left:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2" rowspan="2">
+       <widget class="QLabel" name="WeekNo">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Week 0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="3">
        <widget class="QPushButton" name="SkipWeek">
         <property name="enabled">
          <bool>true</bool>
@@ -340,7 +505,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" rowspan="2">
+      <item row="3" column="0" rowspan="2" colspan="2">
        <widget class="QProgressBar" name="Week">
         <property name="font">
          <font>
@@ -386,8 +551,8 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1" rowspan="2">
-       <widget class="QLabel" name="WeekNo">
+      <item row="5" column="1" colspan="2">
+       <widget class="QLabel" name="NotEnoughRes">
         <property name="font">
          <font>
           <family>Arial</family>
@@ -395,133 +560,14 @@
          </font>
         </property>
         <property name="text">
-         <string>Week 0</string>
+         <string>Not Enough Resources!</string>
         </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="TimeLeft">
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Time left:</string>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
      </layout>
-    </item>
-    <item row="0" column="1" colspan="2">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="2">
-         <widget class="QLabel" name="ResourceSlash">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>/</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="ResourceIcon">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="../../assets.qrc">:/res/res/misc_images/Resources.png</pixmap>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLabel" name="ResourceCap">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>30</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="Resource">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>20</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ResourceUpg">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>Upgrade</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="CapUpgCost">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Cost: 18</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="ResourceIcon_2">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="../../assets.qrc">:/res/res/misc_images/Resources.png</pixmap>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0" colspan="3">
-     <widget class="ClickableView" name="graphicsView"/>
     </item>
    </layout>
   </widget>

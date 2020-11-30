@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.ResourceCap = ui->ResourceCap;
     resource_layout_manager.ResourceUpgrade = ui->ResourceUpg;
     resource_layout_manager.ResourceNeededToUpg = ui->CapUpgCost;
+    resource_layout_manager.NotEnoughResources = ui->NotEnoughRes;
 
 	// link manager with layout manager
 	game_grid.gpaManager.setLayoutManager(&gpa_layout_manager);
@@ -40,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
     // Misc stuff
     ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
     week_layout_manager.SkipWeek->setEnabled(false);
+    ui->NotEnoughRes->setVisible(false);
+    ui->NotEnoughRes->setStyleSheet(QStringLiteral("QLabel{color: rgb(255, 0, 0);}"));
 
     // Connect signal from clickable GraphicsView to here
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
@@ -59,6 +62,7 @@ void MainWindow::on_BuyRegular_clicked() {
     else { // Return Not enough resource message
         tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
@@ -70,6 +74,7 @@ void MainWindow::on_BuyArts_clicked() {
     else { // Return Not enough resource message
         tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
@@ -81,6 +86,7 @@ void MainWindow::on_BuyWolfram_clicked() {
     else { // Return Not enough resource message
         tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
@@ -92,6 +98,7 @@ void MainWindow::on_BuyHacker_clicked() {
     else { // Return Not enough resource message
         tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
@@ -103,6 +110,7 @@ void MainWindow::on_BuyCalc_clicked() {
     else { // Return Not enough resource message
         tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
@@ -114,6 +122,7 @@ void MainWindow::on_BuyNerd_clicked() {
     else { // Return Not enough resource message
         tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
@@ -125,6 +134,7 @@ void MainWindow::on_BuyGWriter_clicked() {
     else { // Return Not enough resource message
         tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
@@ -136,6 +146,7 @@ void MainWindow::on_BuyChegg_clicked() {
     else { // Return Not enough resource message
         tower_selected = TowerType::None;
         ui->CancelBuy->setEnabled(false);
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
@@ -161,6 +172,8 @@ void MainWindow::on_TowerMode_clicked() {
 void MainWindow::on_ResourceUpg_clicked() {
     if (game_grid.resourceManager.getResource() >= game_grid.resourceManager.getResourceRequiredForUpgradeCapacity()) {
         game_grid.resourceManager.upgradeResourceCapacity();
+    } else {
+        resource_layout_manager.indicateNotEnoughResource();
     }
 }
 
