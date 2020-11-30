@@ -2,6 +2,7 @@
 #define ITOWER_H
 
 #include <set>
+#include <string>
 using namespace std;
 
 #include <QTimer>
@@ -39,6 +40,7 @@ protected:
 	ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType);
 
 public:
+	string id; // for debug
 	// data member
 	IAttackStrategy *attackStrategy{nullptr}; // do attack
 	AuraEffect *auraEffect{nullptr}; // apply aura effect

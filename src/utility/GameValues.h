@@ -27,6 +27,10 @@ enum class TowerType: int {
     Regular = 0, Arts, WolframAlpha, Hacker, Calc, Nerd, Ghostwriter, Chegg, None
 };
 
+const string TOWER_NAME[8] = {
+	"Regular", "Arts", "WolframAlpha", "Hacker", "Calc", "Nerd", "Ghostwriter", "Chegg"
+};
+
 enum class AuraType {
 	SlowAura, ArmorPierceAura, RageAura, Null
 };
