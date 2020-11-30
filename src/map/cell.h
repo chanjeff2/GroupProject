@@ -2,6 +2,7 @@
 #define CELL_H
 
 #include <set>
+#include <QDebug>
 using namespace std;
 
 // forward declaration
@@ -12,6 +13,7 @@ class GameGrid;
 class Cell
 {
 	friend class GameGrid; // cell can only be created when map init
+	friend QDebug& operator<<(QDebug &qdebug, const Cell &cell);
 
 	ITower *tower;
 	set<IEnemy*> enemy;

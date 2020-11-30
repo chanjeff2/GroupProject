@@ -7,6 +7,10 @@
 #include <cmath>
 #include "src/utility/tower/TowerUtility.h"
 
+QDebug& operator<<(QDebug &qdebug, const ITower &tower) {
+	return qdebug << QString::fromStdString(tower.id);
+}
+
 // protected constructor -> prevent instantiation of ITower
 ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType): position(position), towerUtility(towerUtility), towerType(towerType) {
 
