@@ -4,6 +4,7 @@
 #include <QString>
 #include <vector>
 #include <QLabel>
+#include <QTimer>
 #include "src/utility/GameValues.h"
 
 class GPAManager;
