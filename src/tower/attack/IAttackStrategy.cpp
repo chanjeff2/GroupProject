@@ -6,6 +6,8 @@
 
 #include <cmath>
 
+#include <QDebug>
+
 #include "src/tower/targetSelect/RandomSelection.h"
 #include "src/tower/targetSelect/PrioritySelection.h"
 #include "src/tower/targetSelect/AllSelection.h"
@@ -47,19 +49,27 @@ void IAttackStrategy::attack() {
 	// check if focused max amount of target(s) if possible
 	updateFocusedEnemyInRange();
 
+	// return if no focus
+	if (focusedEnemies.empty()) {
+		return;
+	}
+
 	// perform attack if have focus
-	if (!focusedEnemies.empty()) {
-		auto tempEnemyList = focusedEnemies; // error occur if erase enemy (die) while looping over list
-		for (IEnemy *focusedEnemy: tempEnemyList) {
-			// attack !
-			if (tower->getEffectiveTowards().find(focusedEnemy->getEnemyType()) != tower->getEffectiveTowards().end()) {
-				int damage = round(tower->getDamagePerHit() * EFFECTIVE_ATTACK_RATIO);
-				focusedEnemy->receiveDamage(damage);
-			} else {
-				focusedEnemy->receiveDamage(tower->getDamagePerHit());
-			}
+	auto tempEnemyList = focusedEnemies; // error occur if erase enemy (die) while looping over list
+	for (IEnemy *focusedEnemy: tempEnemyList) {
+		// attack !
+		if (tower->getEffectiveTowards().find(focusedEnemy->getEnemyType()) != tower->getEffectiveTowards().end()) {
+			int damage = round(tower->getDamagePerHit() * EFFECTIVE_ATTACK_RATIO);
+			qDebug() << "IAttackStrategy:" << QString::fromStdString(tower->id) << "attack" << QString::fromStdString(focusedEnemy->id)
+					 << "with effectively" << damage << "damage";
+			focusedEnemy->receiveDamage(damage);
+		} else {
+			qDebug() << "IAttackStrategy:" <<QString::fromStdString(tower->id) << "attack" << QString::fromStdString(focusedEnemy->id)
+					 << "with" << tower->getDamagePerHit() << "damage";
+			focusedEnemy->receiveDamage(tower->getDamagePerHit());
 		}
 	}
+
 }
 
 void IAttackStrategy::clearAllFocus() {
