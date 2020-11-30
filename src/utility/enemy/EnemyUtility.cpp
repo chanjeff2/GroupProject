@@ -142,7 +142,7 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		}
 	}
 
-	newEnemy->id = ENEMY_NAME[static_cast<int>(enemyType)] + '_' + to_string(enemyID_index);
+	newEnemy->id = ENEMY_NAME[static_cast<int>(enemyType) - static_cast<int>(EnemyType::NormalHW)] + '_' + to_string(enemyID_index);
 	++enemyID_index;
 
 	qDebug() << "EnemyUtility: generate enemy" << QString::fromStdString(newEnemy->id);
