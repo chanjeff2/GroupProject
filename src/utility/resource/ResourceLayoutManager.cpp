@@ -21,10 +21,9 @@ void ResourceLayoutManager::isResourceCapacityUpgradeAvailable(bool isAvailable)
 }
 
 void ResourceLayoutManager::indicateNotEnoughResource() {
-    if (!NotEnoughResources->isVisible()) {
-        NotEnoughResources->setVisible(true);
-        QTimer::singleShot(1000 / GAME_SPEED, [&]{
-            NotEnoughResources->setVisible(false);
-        });
-    }
+    NotEnoughResources->setText("Not Enough Resources");
+    NotEnoughResources->setVisible(true);
+    QTimer::singleShot(750, [&]{
+        NotEnoughResources->setVisible(false);
+    });
 }
