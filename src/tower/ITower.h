@@ -36,7 +36,6 @@ protected:
 	TowerUtility *towerUtility;
 	TowerLayoutManager towerLayoutManager;
 
-
 	QTimer *timer;
 
 	// protected constructor -> prevent instantiation of ITower

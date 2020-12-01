@@ -40,6 +40,10 @@ Cell *GameGrid::getCell(int x, int y) const {
 	return grid[x][y];
 }
 
+Cell *GameGrid::getCell(Coordinate coordinate) const {
+	return getCell(coordinate.first, coordinate.second);
+}
+
 const set<ITower*> &GameGrid::getAllTower() const {
 	return towerUtility.refOfTowers;
 }
