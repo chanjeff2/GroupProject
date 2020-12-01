@@ -37,6 +37,7 @@ public:
 
 	// getter
 	Cell *getCell(int x, int y) const;
+	Cell *getCell(Coordinate coordinate) const;
 
 	const set<ITower*> &getAllTower() const;
 
