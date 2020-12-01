@@ -31,6 +31,7 @@ public:
 	// tower placement and removal
     void placeTower(TowerType towerType, Cell *position);
     void removeTower(Cell *position);
+    void removeAllTowers();
 
 	// getter
 	Cell *getCell(int x, int y) const;

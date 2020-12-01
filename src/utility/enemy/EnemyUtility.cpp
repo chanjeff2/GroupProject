@@ -180,4 +180,6 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
     }
 }
 
+void EnemyUtility::killAllEnemies() {}
+
 

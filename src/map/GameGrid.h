@@ -65,6 +65,8 @@ public:
 	void generateEnemy(EnemyType enemyType);
 
 	QGraphicsRectItem* drawRange(TowerType towertype, Coordinate position);
+
+    void clearBoard();
 };
 
 #endif // GAMEGRID_H

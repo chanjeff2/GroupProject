@@ -124,6 +124,15 @@ void TowerUtility::removeTower(Cell *position) {
 	position->removeTower();
 }
 
+void TowerUtility::removeAllTowers() {
+    auto emptyList = positionOfTowers;
+    for (Coordinate i : positionOfTowers) {
+        int x = i.first;
+        int y = i.second;
+        removeTower(getCell(x, y));
+    }
+}
+
 Cell *TowerUtility::getCell(int x, int y) const {
 	return gameGrid->getCell(x, y);
 }

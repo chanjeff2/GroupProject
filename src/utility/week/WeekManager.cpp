@@ -140,7 +140,7 @@ void WeekManager::prepareForNextWeek() {
 		return;
 	}
 
-	if (week == numOfWeeks) {
+    if (week == numOfWeeks) {
 		wrapUp();
 		return;
 	}

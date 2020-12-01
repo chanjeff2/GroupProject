@@ -54,7 +54,7 @@ public:
 	void prepareForNextWeek();
 
 	void setLayoutManager(WeekLayoutManager* weekLayoutManager);
-
+	
 signals:
     void game_beaten();
 };

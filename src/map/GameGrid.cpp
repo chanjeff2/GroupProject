@@ -148,3 +148,8 @@ void GameGrid::generateEnemy(EnemyType enemyType) {
 QGraphicsRectItem* GameGrid::drawRange(TowerType towertype, Coordinate position) {
 	return this->towerUtility.drawRange(towertype, position);
 }
+
+void GameGrid::clearBoard() {
+    towerUtility.removeAllTowers();
+    enemyUtility.killAllEnemies();
+}
