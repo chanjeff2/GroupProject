@@ -3,7 +3,6 @@
 
 #include <utility>
 #include <string>
-
 using namespace std;
 
 typedef	pair<int /*col*/, int /*row*/> Coordinate;
@@ -55,19 +54,6 @@ const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
 
 // Tower Prices
 const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
-const int TOWER_RANGES[8] = {3, 3, 3, 3, 4, 2, 9, 5};
-
-const AuraType TOWER_AURAS[8] = { AuraType::Null, AuraType::Null, AuraType::Null, AuraType::SlowAura, AuraType::ArmorPierceAura, AuraType::Null, AuraType::RageAura, AuraType::Null };
-const string TOWER_PATHS[8] = {
-    ":/res/res/towers_images/RegularStudent Grid",
-    ":/res/res/towers_images/ArtsStudent Grid",
-    ":/res/res/towers_images/Wolfram Grid",
-    ":/res/res/towers_images/Hackerman Grid",
-    ":/res/res/towers_images/Calculator Grid",
-    ":/res/res/towers_images/Nerd Grid",
-    ":/res/res/towers_images/Ghostwriter Grid"
-    ":/res/res/towers_images/Chegg Grid"
-};
 
 // GPA (score)
 const float MAX_GPA = 4.3;
@@ -75,9 +61,9 @@ const float DAMAGE_RATIO = 0.1; // worth * ratio = damage to gpa after reaching 
 
 // resources
 const float REDEMPTION_RATIO = 0.5; // how much resource user get back after destroying tower
-const int STARTING_RESOURCE = 50;
+const int STARTING_RESOURCE = 20;
 const int NUM_OF_RESOURCE_CAPACITY = 5;
-const int RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY] = {50, 75, 100, 200, 300}; // just random number
+const int RESOURCE_CAPACITY[NUM_OF_RESOURCE_CAPACITY] = {30, 60, 100, 200, 300}; // just random number
 const float RESOURCE_CAPACITY_RATIO_TO_UPGRADE = 0.6;
 
 // week (wave)
