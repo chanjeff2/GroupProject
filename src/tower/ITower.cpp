@@ -65,8 +65,8 @@ set<EnemyType> ITower::getWeakTowards() const {
 }
 
 // setter
-void ITower::attachImageView(QGraphicsPixmapItem *imgView) {
-	towerLayoutManager.attachImageView(imgView, make_pair(position->x, position->y));
+void ITower::attachImageView(QGraphicsPixmapItem *imgView, QGraphicsRectItem* rangeView) {
+    towerLayoutManager.attachImageView(imgView, rangeView, make_pair(position->x, position->y));
 }
 
 // methods
@@ -95,6 +95,12 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 				enemyInRange.insert(enemy);
 			}
 		}
-	}
+    }
 	return enemyInRange;
+}
+
+QGraphicsRectItem* ITower::showRange(bool visibility) const {
+    if ( auraEffect->getAuraType() == AuraType::Null )
+        return this->towerLayoutManager.showRange(visibility);
+    return nullptr;
 }
