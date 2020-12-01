@@ -95,6 +95,8 @@ void WeekManager::processWeek() {
 
 void WeekManager::generateEnemy(vector<EnemyType> &enemyList, int index, int size) {
 
+    if (isGameOver) return;
+
 	gameGrid->generateEnemy(enemyList.at(index));
 	// increment iterator
 	if (++index == size) {
@@ -162,4 +164,19 @@ void WeekManager::prepareForNextWeek() {
 
 void WeekManager::setLayoutManager(WeekLayoutManager* weekLayoutManager) {
 	this->weekLayoutManager = weekLayoutManager;
+}
+
+void WeekManager::stopGeneration() {
+    isGameOver = true;
+}
+
+void WeekManager::manager_reset() {
+    week = 0;
+    isWeekCooldown = false;
+    isGameOver = false;
+    skippedWeeks = 0;
+    finishGenerateEnemy = true;
+    weekLayoutManager->isWeekCoolDown(isWeekCooldown);
+    weekLayoutManager->updateWeek(0);
+    weekLayoutManager->initNumOfWeeks(numOfWeeks);
 }

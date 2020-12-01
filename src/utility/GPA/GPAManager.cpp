@@ -43,3 +43,9 @@ bool GPAManager::reduceGPA(float amount) {
 void GPAManager::setLayoutManager(GPALayoutManager* gpaLayoutManager) {
 	this->gpaLayoutManager = gpaLayoutManager;
 }
+
+void GPAManager::manager_reset() {
+    gpa = MAX_GPA;
+    is_game_over = false;
+    gpaLayoutManager->UpdateGPA(gpa);
+}

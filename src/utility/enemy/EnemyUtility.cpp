@@ -180,6 +180,13 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
     }
 }
 
-void EnemyUtility::killAllEnemies() {}
+void EnemyUtility::killAllEnemies() {
+    gameGrid->weekManager.stopGeneration();
+    // This part is commented to prevent crashes for now
+    /* auto emptyList = enemies;
+    for (IEnemy* guy : emptyList) {
+        killEnemy(guy, true);
+    } */
+}
 
 

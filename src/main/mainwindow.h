@@ -29,6 +29,7 @@ public:
     ~MainWindow();
 
     // Helper function on reseting the game
+    void game_reset();
 
 private slots:
     // Basically all button click events

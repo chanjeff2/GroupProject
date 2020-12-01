@@ -317,6 +317,7 @@ void MainWindow::game_over_process() {
     message += "Weeks passed: ";
     message += QString::number(game_grid.weekManager.getWeek() - 1);
     QMessageBox::critical(this, "Game Over!", message, QMessageBox::Ok);
+    game_reset();
 }
 
 void MainWindow::game_beaten_process() {
@@ -335,4 +336,18 @@ void MainWindow::game_beaten_process() {
     message += "GPA of this semster: ";
     message += QString::number(final_GPA);
     QMessageBox::information(this, "You Win!", message, QMessageBox::Ok);
+    game_reset();
+}
+
+void MainWindow::game_reset() {
+    // Resets everything in the window
+    game_started = false;
+    tower_selected = TowerType::None;
+    delete drawn_range; drawn_range = nullptr;
+    delete previewed_tower; previewed_tower = nullptr;
+
+    // Resets the managers
+    game_grid.gpaManager.manager_reset();
+    game_grid.resourceManager.manager_reset();
+    game_grid.weekManager.manager_reset();
 }
