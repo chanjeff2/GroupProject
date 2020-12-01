@@ -27,6 +27,11 @@ bool GPAManager::reduceGPA(float amount) {
         gpa = 0.0;
 		gpaLayoutManager->UpdateGPA(gpa);
 		qDebug() << "GPAManager: new GPA:" << gpa;
+        if (!is_game_over) {
+            is_game_over = true;
+            qDebug() << "Game Over!";
+            emit game_over();
+        }
 		return true; // game over
 	} else {
 		gpaLayoutManager->UpdateGPA(gpa);
