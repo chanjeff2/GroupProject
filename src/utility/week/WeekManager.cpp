@@ -77,6 +77,7 @@ void WeekManager::loadEnemy(const string& fileName) {
 }
 
 void WeekManager::wrapUp() {
+    emit game_beaten();
 }
 
 void WeekManager::processWeek() {

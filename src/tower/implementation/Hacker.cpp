@@ -10,11 +10,11 @@ Hacker::Hacker(Cell* position, TowerUtility *towerUtility): ITower(position, tow
     effectiveTowards = set<EnemyType>{ EnemyType::COMPLab , EnemyType::PA, EnemyType::PopQuiz };
     weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA, EnemyType::EncryptedHW };
     cost = TOWER_PRICES[3];
-    range = 3;
+    range = TOWER_RANGES[3];
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-    auraEffect = new AuraEffect(this, AuraType::SlowAura);
+    auraEffect = new AuraEffect(this, TOWER_AURAS[3]);
 
 	trigger();
 };

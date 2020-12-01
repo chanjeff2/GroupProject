@@ -10,11 +10,11 @@ Nerd::Nerd(Cell* position, TowerUtility *towerUtility): ITower(position, towerUt
     effectiveTowards = set<EnemyType>{ EnemyType::GroupProj };
     weakTowards = set<EnemyType>{ EnemyType::MathHW, EnemyType::PA, EnemyType::Essay };
     cost = TOWER_PRICES[5];
-    range = 2;
+    range = TOWER_RANGES[5];
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(5);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-    auraEffect = new AuraEffect(this, AuraType::Null);
+    auraEffect = new AuraEffect(this, TOWER_AURAS[5]);
 
 	trigger();
 }

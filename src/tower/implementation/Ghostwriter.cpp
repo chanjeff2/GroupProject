@@ -10,11 +10,11 @@ Ghostwriter::Ghostwriter(Cell* position, TowerUtility *towerUtility): ITower(pos
     effectiveTowards = set<EnemyType>{ EnemyType::Essay, EnemyType::Midterm, EnemyType::MATHExam };
     weakTowards = set<EnemyType>{ EnemyType::Final, EnemyType::FYP };
     cost = TOWER_PRICES[6];
-    range = 9;
+    range = TOWER_RANGES[6];
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-    auraEffect = new AuraEffect(this, AuraType::RageAura);
+    auraEffect = new AuraEffect(this, TOWER_AURAS[6]);
 
 	trigger();
 };

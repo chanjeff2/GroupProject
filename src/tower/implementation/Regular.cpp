@@ -10,11 +10,11 @@ Regular::Regular(Cell* position, TowerUtility *towerUtility): ITower(position, t
 	effectiveTowards = set<EnemyType>{};
 	weakTowards = set<EnemyType>{};
     cost = TOWER_PRICES[0];
-    range = 3;
+    range = TOWER_RANGES[0];
 	attackStrategy = new NormalAttack(this);
 	attackStrategy->setMaxNumOfTarget(1);
 	attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-	auraEffect = new AuraEffect(this, AuraType::Null);
+    auraEffect = new AuraEffect(this, TOWER_AURAS[0]);
 
 	trigger();
 }
