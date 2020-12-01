@@ -6,12 +6,15 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDir>
+#include <QTime>
 
 namespace logging {
+	short max_log_files = 5;
 	string fileNamePrefix = "log/Debug-";
 	string fileSuffix = ".log";
 	string timeStringYMD = "%Y-%m-%d";
-	string timeStringTMDHMS = "%Y-%m-%d %X";
+	string timeStringFileTMDHMS = "%Y-%m-%d_%H¡G%M¡G%S"; // colon used here is U+FF1A, not normal literal colon
+	string timeStringTMDHMS = "%Y-%m-%d_%H:%M:%S";
 	QTextStream *fileStream;
 }
 
@@ -38,18 +41,18 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 //		ss << localMsg.constData() << '\n';
 //	}
 	// msg only
-	ss << localMsg.constData() << '\n';
+	ss << "(" << QTime::currentTime().toString("hh:mm:ss:zzz").toStdString() << ") " << localMsg.constData();
 
 	switch (type) {
 		case QtDebugMsg:
 		case QtInfoMsg:
-			*logging::fileStream << QString::fromStdString(ss.str());
-			cout << ss.str();
+			*logging::fileStream << QString::fromStdString(ss.str()) << endl;
+			cout << ss.str() << endl;
 			break;
 		case QtWarningMsg:
 		case QtCriticalMsg:
 		case QtFatalMsg:
-			cerr << ss.str();
+			cerr << ss.str() << endl;
 	}
 	if (type == QtFatalMsg) {
 		abort();
@@ -59,23 +62,39 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 int main(int argc, char *argv[])
 {
 	// logging
+    // make dir if not exists
 	QDir dir("log");
 	if (!dir.exists()) {
 		dir.mkdir(".");
 	}
 
-	string fileName = logging::fileNamePrefix + getFormattedTime(logging::timeStringYMD) + logging::fileSuffix;
+    // generate file name
+	string fileName = logging::fileNamePrefix + getFormattedTime(logging::timeStringFileTMDHMS) + logging::fileSuffix;
 
+    // check existing number of log files
+	QStringList logfiles = dir.entryList(QDir::Files, QDir::Name);
+	QTextStream(stdout) << logfiles.size() << " existing log file(s):\n";
+	for (auto logfile: logfiles) {
+		QTextStream(stdout) << logfile << '\n';
+	}
+	// remove old log files
+	while (logfiles.size() >= logging::max_log_files) {
+		QTextStream(stdout) << "deleting oldest log file: " << logfiles.first() << "\n";
+		dir.remove(logfiles.first());
+		logfiles.pop_front();
+	}
+
+    // generate log file
 	QFile file(fileName.c_str());
-	file.open(QIODevice::Append);
+	file.open(QIODevice::Append|QIODevice::WriteOnly);
 	logging::fileStream = new QTextStream(&file);
 
 	QFileInfo fi(file);
-	QTextStream(stdout) << "log file path: " << fi.absoluteFilePath() << '\n';
+	QTextStream(stdout) << "new log file path: " << fi.absoluteFilePath() << '\n';
 
 	const string timeStamp = getFormattedTime(logging::timeStringTMDHMS);
 
-	*logging::fileStream << "\n<" << timeStamp.c_str() << ">\n";
+	*logging::fileStream << "<log-" << timeStamp.c_str() << ">" << endl;
 
 	qInstallMessageHandler(myMessageOutput);
 	// end of logging
@@ -84,7 +103,7 @@ int main(int argc, char *argv[])
 	MainWindow w;
 	w.show();
 	auto result = a.exec();
-	*logging::fileStream << "</" <<timeStamp.c_str() << ">\n";
+	*logging::fileStream << "</log-" << timeStamp.c_str() << ">" << endl;
 	file.close();
 	return result;
 }
