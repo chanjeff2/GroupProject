@@ -16,6 +16,8 @@ public:
     QProgressBar* WeekProgress;
     QPushButton* SkipWeek;
 
+	bool isSkipped; // flag checking skip during count down
+
     WeekLayoutManager(WeekManager *weekManager);
 
     // toggle skip button

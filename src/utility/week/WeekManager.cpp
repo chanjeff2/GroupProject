@@ -21,6 +21,7 @@ void WeekManager::goToNextWeek() {
 	if (!isWeekCooldown) {
 		return;
 	}
+	qDebug() << "WeekManager: go to Next Week";
 
 	isWeekCooldown = false;
     weekLayoutManager->isWeekCoolDown(false);
@@ -122,7 +123,11 @@ void WeekManager::skipToNextWeek() {
 	qDebug() << "WeekManager: skip to next week";
 
 	// increment skip counter
-	++skippedWeeks;
+	if (gameGrid->getAllEnemy().empty()) {
+		// increment skippedWeeks to cancel emitted prepareForNextWeek()
+		++skippedWeeks;
+	}
+	weekLayoutManager->isSkipped = true;
 
 	goToNextWeek();
 }
@@ -140,16 +145,18 @@ void WeekManager::prepareForNextWeek() {
 		return;
 	}
 
-	if (!isSkippedWeek()) {
-        weekLayoutManager->weekCountDown(WEEK_COUNTDOWN);
-	}
+	weekLayoutManager->isSkipped = false;
+	weekLayoutManager->weekCountDown(WEEK_COUNTDOWN);
+
 	// start count down timer to proceed to next week
 	// cooldown week skip
 	QTimer::singleShot(WEEK_COUNTDOWN * 1000 / GAME_SPEED, [&]{
-		if (!isSkippedWeek())
+		if (!isSkippedWeek()) {
 			goToNextWeek();
-		else
+		} else {
+			qDebug() << "WeekManager: skippedWeeks--";
 			skippedWeeks--;
+		}
 	});
 }
 
