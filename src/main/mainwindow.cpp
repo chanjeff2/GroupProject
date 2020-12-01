@@ -225,33 +225,6 @@ void MainWindow::map_clicked(int x, int y) {
     }
 };
 
-void MainWindow::draw_range(int range, AuraType aura, int x, int y) {
-    int starting_pos_x = CELL_SIZE.first * x - range * CELL_SIZE.first;
-    int starting_pos_y = CELL_SIZE.second * y - range * CELL_SIZE.second;
-    int length_x = CELL_SIZE.first * (2 * range + 1);
-    int length_y = CELL_SIZE.second * (2 * range + 1);
-
-    // Color of the range, if there is a aura
-    QBrush range_color;
-    switch (aura) {
-        case AuraType::Null: case AuraType::RageAura:
-            range_color = Qt::NoBrush; break;
-        case AuraType::SlowAura:
-            range_color = QColor(28, 118, 199, 100); break;
-        case AuraType::ArmorPierceAura:
-            range_color = QColor(85, 85, 85, 100); break;
-    }
-
-    // Constraints to prevent drawing out of bounds
-    if (x - range < 0) { starting_pos_x = 0; length_x = CELL_SIZE.first * (x + range + 1);}
-    if (y - range < 0) { starting_pos_y = 0; length_y = CELL_SIZE.second * (y + range + 1);}
-    if (x + range >= NUM_OF_COL) { length_x = NUM_OF_COL * CELL_SIZE.first - starting_pos_x; }
-    if (y + range >= NUM_OF_ROW) { length_y = NUM_OF_ROW * CELL_SIZE.second - starting_pos_y; }
-
-    QGraphicsRectItem* range_to_be_drawn = scene.addRect(QRect(starting_pos_x, starting_pos_y, length_x, length_y), QPen(Qt::black), range_color);
-    drawn_range = range_to_be_drawn;
-};
-
 void MainWindow::map_hovered(int x, int y) {
     if ( drawn_range != nullptr ) {
         drawn_range->setVisible(false);
@@ -261,76 +234,20 @@ void MainWindow::map_hovered(int x, int y) {
     if (!game_started || !game_grid.isValidCoordinate(x, y) || sell_mode) return;
     if (game_grid.getCell(x, y)->hasTower()) {
         // Draw out the range
-        /*
-        draw_range(game_grid.getCell(x, y)->getTower()->getRange(),
-                   game_grid.getCell(x, y)->getTower()->auraEffect->getAuraType(), x, y);
-                   */
+
         drawn_range = game_grid.getCell(x, y)->getTower()->showRange(true);
     } else {
         if (tower_selected == TowerType::None) return;
         else {
             // Get tower datas
             // Will modify if better methods are found
-            //QString img_path;
-            QString img_path = QString::fromStdString(TOWER_PATHS[int(tower_selected)]);
-            //int range = 0;
-            int range = TOWER_RANGES[int(tower_selected)];
-            //AuraType aura = AuraType::Null;
-            AuraType aura = TOWER_AURAS[int(tower_selected)];
-            /*
-            switch (tower_selected) {
-                case TowerType::Regular: {
-                    img_path = ":/res/res/towers_images/RegularStudent Grid";
-                    range = 3;
-                    break;
-                }
-                case TowerType::Arts: {
-                    img_path = ":/res/res/towers_images/ArtsStudent Grid";
-                    range = 3;
-                    break;
-                }
-                case TowerType::WolframAlpha: {
-                    img_path = ":/res/res/towers_images/Wolfram Grid";
-                    range = 3;
-                    break;
-                }
-                case TowerType::Hacker: {
-                    img_path = ":/res/res/towers_images/Hackerman Grid";
-                    range = 3;
-                    aura = AuraType::SlowAura;
-                    break;
-                }
-                case TowerType::Calc: {
-                    img_path = ":/res/res/towers_images/Calculator Grid";
-                    range = 4;
-                    aura = AuraType::ArmorPierceAura;
-                    break;
-                }
-                case TowerType::Nerd: {
-                    img_path = ":/res/res/towers_images/Nerd Grid";
-                    range = 2;
-                    break;
-                }
-                case TowerType::Ghostwriter: {
-                    img_path = ":/res/res/towers_images/Ghostwriter Grid";
-                    range = 9;
-                    aura = AuraType::RageAura;
-                    break;
-                }
-                case TowerType::Chegg: {
-                    img_path = ":/res/res/towers_images/Chegg Grid";
-                    range = 5;
-                    break;
-                }
-                default: break;
-            }*/
+            QString img_path = QString::fromStdString(TOWER_IMAGES[int(tower_selected)]);
 
             previewed_tower = scene.addPixmap(QPixmap(img_path));
             previewed_tower->setOffset(x*40, y*40);
             previewed_tower->setOpacity(0.5);
 
             // Draw out the range
-            //draw_range(range, aura, x, y);
             drawn_range = TowerUtility::drawRange( make_pair(x,y) , tower_selected , scene);
         }
     }
