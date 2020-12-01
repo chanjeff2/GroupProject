@@ -77,6 +77,8 @@ private:
     QGraphicsRectItem* drawn_range {nullptr};
     QGraphicsPixmapItem* previewed_tower {nullptr};
 
+	Coordinate cursorPos = nullCoordinate;
+
     ResourceLayoutManager resource_layout_manager{&game_grid.resourceManager};
     GPALayoutManager gpa_layout_manager{&game_grid.gpaManager};
     WeekLayoutManager week_layout_manager{&game_grid.weekManager};

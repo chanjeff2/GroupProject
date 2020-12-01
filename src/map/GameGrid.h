@@ -63,6 +63,8 @@ public:
 	bool removeTower(int x, int y);
 
 	void generateEnemy(EnemyType enemyType);
+
+	QGraphicsRectItem* drawRange(TowerType towertype, Coordinate position);
 };
 
 #endif // GAMEGRID_H
