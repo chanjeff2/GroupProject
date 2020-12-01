@@ -1,12 +1,17 @@
 #ifndef GPAMANAGER_H
 #define GPAMANAGER_H
 
+#include <QObject>
 #include "GPALayoutManager.h"
 
-class GPAManager
+class GPAManager : public QObject
 {
+    Q_OBJECT
+
+private:
 	float gpa; // score
     GPALayoutManager* gpaLayoutManager;
+    bool is_game_over;
 
 public:
 	GPAManager();
@@ -20,6 +25,9 @@ public:
 	bool reduceGPA(float amount);
 
 	void setLayoutManager(GPALayoutManager* gpaLayoutManager);
+
+signals:
+    void game_over();
 };
 
 #endif // GPAMANAGER_H

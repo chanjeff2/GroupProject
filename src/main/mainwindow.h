@@ -7,11 +7,8 @@
 #include <QGraphicsPixmapItem>
 
 #include "src/utility/GameValues.h"
-#include "src/utility/resource/ResourceManager.h"
 #include "src/utility/resource/ResourceLayoutManager.h"
-#include "src/utility/GPA/GPAManager.h"
 #include "src/utility/GPA/GPALayoutManager.h"
-#include "src/utility/week/WeekManager.h"
 #include "src/utility/week/WeekLayoutManager.h"
 #include "src/map/GameGrid.h"
 #include "src/map/cell.h"
@@ -65,6 +62,9 @@ private slots:
     // Map manipulations
     void map_clicked(int x, int y);
     void map_hovered(int x, int y);
+
+    // Game States
+    void game_over_process();
 
 private:
     Ui::MainWindow *ui;
