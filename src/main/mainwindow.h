@@ -62,6 +62,7 @@ private slots:
 
     // Game States
     void game_over_process();
+    void game_beaten_process();
 
 private:
     Ui::MainWindow *ui;
@@ -72,6 +73,7 @@ private:
 
     QGraphicsScene scene;
     GameGrid game_grid{&scene};
+
     QGraphicsRectItem* drawn_range {nullptr};
     QGraphicsPixmapItem* previewed_tower {nullptr};
 

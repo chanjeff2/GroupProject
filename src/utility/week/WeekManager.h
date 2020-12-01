@@ -13,6 +13,8 @@ enum class EnemyType;
 class GameGrid;
 
 class WeekManager: public QObject {
+    Q_OBJECT
+private:
 	int week; // wave
 	bool isWeekCooldown; // true -> ready to start next week
 	bool finishGenerateEnemy{true}; // flag checking if generated all enemy in each week
@@ -52,6 +54,9 @@ public:
 	void prepareForNextWeek();
 
 	void setLayoutManager(WeekLayoutManager* weekLayoutManager);
+
+signals:
+    void game_beaten();
 };
 
 #endif // WEEKMANAGER_H
