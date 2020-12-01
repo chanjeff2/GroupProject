@@ -36,6 +36,7 @@ protected:
 	TowerUtility *towerUtility;
 	TowerLayoutManager towerLayoutManager;
 
+
 	QTimer *timer;
 
 	// protected constructor -> prevent instantiation of ITower
@@ -66,12 +67,14 @@ public:
 	set<EnemyType> getWeakTowards() const;
 
 	// setter
-	void attachImageView(QGraphicsPixmapItem *imgView);
+    void attachImageView(QGraphicsPixmapItem *imgView, QGraphicsRectItem* rangeView);
 
 	// methods
 	void trigger();
 
 	std::set<IEnemy*> getEnemiesInRange() const;
+
+    QGraphicsRectItem* showRange(bool visibility) const;
 };
 
 #endif // ITOWER_H
