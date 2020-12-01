@@ -6,13 +6,15 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDir>
+#include <QTime>
 
 namespace logging {
 	short max_log_files = 5;
 	string fileNamePrefix = "log/Debug-";
 	string fileSuffix = ".log";
 	string timeStringYMD = "%Y-%m-%d";
-	string timeStringTMDHMS = "%Y-%m-%d_%H：%M：%S"; // colon used here is U+FF1A, not normal literal colon
+	string timeStringFileTMDHMS = "%Y-%m-%d_%H：%M：%S"; // colon used here is U+FF1A, not normal literal colon
+	string timeStringTMDHMS = "%Y-%m-%d_%H:%M:%S";
 	QTextStream *fileStream;
 }
 
@@ -39,18 +41,18 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 //		ss << localMsg.constData() << '\n';
 //	}
 	// msg only
-	ss << localMsg.constData() << '\n';
+	ss << "(" << QTime::currentTime().toString("hh:mm:ss:zzz").toStdString() << ") " << localMsg.constData();
 
 	switch (type) {
 		case QtDebugMsg:
 		case QtInfoMsg:
-			*logging::fileStream << QString::fromStdString(ss.str());
-			cout << ss.str();
+			*logging::fileStream << QString::fromStdString(ss.str()) << endl;
+			cout << ss.str() << endl;
 			break;
 		case QtWarningMsg:
 		case QtCriticalMsg:
 		case QtFatalMsg:
-			cerr << ss.str();
+			cerr << ss.str() << endl;
 	}
 	if (type == QtFatalMsg) {
 		abort();
@@ -67,7 +69,7 @@ int main(int argc, char *argv[])
 	}
 
     // generate file name
-    string fileName = logging::fileNamePrefix + getFormattedTime(logging::timeStringTMDHMS) + logging::fileSuffix;
+	string fileName = logging::fileNamePrefix + getFormattedTime(logging::timeStringFileTMDHMS) + logging::fileSuffix;
 
     // check existing number of log files
 	QStringList logfiles = dir.entryList(QDir::Files, QDir::Name);
@@ -84,13 +86,15 @@ int main(int argc, char *argv[])
 
     // generate log file
 	QFile file(fileName.c_str());
-	file.open(QIODevice::Append);
+	file.open(QIODevice::Append|QIODevice::WriteOnly);
 	logging::fileStream = new QTextStream(&file);
 
 	QFileInfo fi(file);
 	QTextStream(stdout) << "new log file path: " << fi.absoluteFilePath() << '\n';
 
 	const string timeStamp = getFormattedTime(logging::timeStringTMDHMS);
+
+	*logging::fileStream << "<log-" << timeStamp.c_str() << ">" << endl;
 
 	qInstallMessageHandler(myMessageOutput);
 	// end of logging
@@ -99,6 +103,7 @@ int main(int argc, char *argv[])
 	MainWindow w;
 	w.show();
 	auto result = a.exec();
+	*logging::fileStream << "</log-" << timeStamp.c_str() << ">" << endl;
 	file.close();
 	return result;
 }
