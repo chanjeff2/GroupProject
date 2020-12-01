@@ -4,6 +4,7 @@ TowerLayoutManager::TowerLayoutManager() {}
 
 TowerLayoutManager::~TowerLayoutManager() {
 	delete this->imgView;
+	delete this->rangeView;
 }
 
 void TowerLayoutManager::init(Coordinate coordinate) {

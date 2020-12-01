@@ -40,6 +40,10 @@ Cell *GameGrid::getCell(int x, int y) const {
 	return grid[x][y];
 }
 
+Cell *GameGrid::getCell(Coordinate coordinate) const {
+	return getCell(coordinate.first, coordinate.second);
+}
+
 const set<ITower*> &GameGrid::getAllTower() const {
 	return towerUtility.refOfTowers;
 }
@@ -139,4 +143,8 @@ bool GameGrid::removeTower(int x, int y) {
 
 void GameGrid::generateEnemy(EnemyType enemyType) {
 	this->enemyUtility.generateEnemy(enemyType);
+}
+
+QGraphicsRectItem* GameGrid::drawRange(TowerType towertype, Coordinate position) {
+	return this->towerUtility.drawRange(towertype, position);
 }

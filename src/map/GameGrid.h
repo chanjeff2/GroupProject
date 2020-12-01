@@ -37,6 +37,7 @@ public:
 
 	// getter
 	Cell *getCell(int x, int y) const;
+	Cell *getCell(Coordinate coordinate) const;
 
 	const set<ITower*> &getAllTower() const;
 
@@ -62,6 +63,8 @@ public:
 	bool removeTower(int x, int y);
 
 	void generateEnemy(EnemyType enemyType);
+
+	QGraphicsRectItem* drawRange(TowerType towertype, Coordinate position);
 };
 
 #endif // GAMEGRID_H

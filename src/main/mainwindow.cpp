@@ -217,9 +217,14 @@ void MainWindow::map_clicked(int x, int y) {
     qDebug() << x << y;
     if (!game_started || !game_grid.isValidCoordinate(x, y)) return;
     if (!sell_mode) {
-        if (game_grid.canPlaceTower(x, y))
+		if (game_grid.canPlaceTower(x, y)) {
+			// remove preview range
+			drawn_range->setVisible(false);
+			delete drawn_range;
+			drawn_range = nullptr;
+			// place tower
             game_grid.placeTower(x, y, tower_selected);
-        else {
+		} else {
             ui->Warning->setText("Invalid Placement");
             ui->Warning->setVisible(true);
             QTimer::singleShot(750, [&]{
@@ -228,19 +233,63 @@ void MainWindow::map_clicked(int x, int y) {
         }
     } else {
         game_grid.removeTower(x, y);
+		// delete aura
+		delete drawn_range;
+		drawn_range = nullptr;
     }
 };
 
 void MainWindow::map_hovered(int x, int y) {
-    if ( drawn_range != nullptr ) {
-        drawn_range->setVisible(false);
-    }
-    //delete drawn_range; drawn_range = nullptr;
-    delete previewed_tower; previewed_tower = nullptr;
-    if (!game_started || !game_grid.isValidCoordinate(x, y) || sell_mode) return;
-    if (game_grid.getCell(x, y)->hasTower()) {
-        // Draw out the range
+	Coordinate pos = make_pair(x, y);
 
+	if (!game_started) {
+		return;
+	}
+
+	if (!game_grid.isValidCoordinate(x, y)) {
+		return;
+	}
+
+	if (sell_mode) {
+		return;
+	}
+
+	// do nothing if stay on same cell
+	if (pos == this->cursorPos) {
+		return;
+	}
+
+	{
+		Cell *oldCell = game_grid.getCell(cursorPos);
+		// hide old range indicator of existing tower
+		if ( drawn_range != nullptr && oldCell->hasTower()) {
+			// hide non-aura tower range indicator
+			switch (oldCell->getTower()->auraEffect->getAuraType()) {
+				case AuraType::Null:
+				case AuraType::RageAura:
+					oldCell->getTower()->showRange(false);
+					break;
+				default:
+					break;
+			}
+			drawn_range = nullptr;
+		}
+	}
+
+	// update cursor position
+	cursorPos = pos;
+
+	// delete old range if previewing
+	if (previewed_tower != nullptr) {
+		delete drawn_range;
+		drawn_range = nullptr;
+		delete previewed_tower;
+		previewed_tower = nullptr;
+	}
+
+    if (game_grid.getCell(x, y)->hasTower()) {
+		qDebug() << "MainWindow: show range indicator for existing tower at (" << x << ", " << y << ")";
+        // Draw out the range
         drawn_range = game_grid.getCell(x, y)->getTower()->showRange(true);
     } else {
         if (tower_selected == TowerType::None) return;
@@ -253,8 +302,9 @@ void MainWindow::map_hovered(int x, int y) {
             previewed_tower->setOffset(x*40, y*40);
             previewed_tower->setOpacity(0.5);
 
+			qDebug() << "MainWindow: show range indicator for preview at (" << x << ", " << y << ")";
             // Draw out the range
-            drawn_range = TowerUtility::drawRange( make_pair(x,y) , tower_selected , scene);
+			drawn_range = this->game_grid.drawRange(tower_selected, pos);
         }
     }
 };
