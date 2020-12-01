@@ -10,6 +10,4 @@ PA::PA(EnemyUtility *enemyUtility, Path path) : IEnemy(enemyUtility, path, Enemy
     canSlow = true;
     canPierceArmor = true;
     canEnrage = false;
-
-	trigger();
 }

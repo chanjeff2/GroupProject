@@ -10,6 +10,4 @@ Desmond::Desmond(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, pa
 	canSlow = true;
 	canPierceArmor = true;
 	canEnrage = false;
-
-	trigger();
 }

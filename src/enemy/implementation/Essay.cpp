@@ -9,6 +9,4 @@ Essay::Essay(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, 
     canSlow = true;
     canPierceArmor = false;
     canEnrage = false;
-
-	trigger();
 }

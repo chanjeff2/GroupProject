@@ -10,6 +10,4 @@ ELPA::ELPA(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, En
 	canSlow = true;
 	canPierceArmor = true;
 	canEnrage = false;
-
-	trigger();
 }

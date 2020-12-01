@@ -23,6 +23,8 @@ public:
 	bool isNextCellEnd() const;
 	Cell *getCurrentCell() const;
 	const Coordinate getCurrentCoordinate() const;
+	Cell *getNextCell() const;
+	const Coordinate getNextCoordinate() const;
 	bool isEmpty() const;
 
 	void goToNextCell(IEnemy* enemy = nullptr);

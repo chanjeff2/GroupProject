@@ -8,8 +8,6 @@ using namespace std;
 #include "Path.h"
 #include "src/utility/GameValues.h"
 
-const Coordinate nullCoordinate = make_pair(-1, -1);
-
 // forward declaration
 class Cell;
 class ITower;

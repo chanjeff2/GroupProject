@@ -49,6 +49,7 @@ const int NUM_OF_COL = 25; // x
 
 const Coordinate START = make_pair(0, 0); // x, y
 const Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
+const Coordinate nullCoordinate = make_pair(-1, -1);
 
 // cell size for display
 const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);

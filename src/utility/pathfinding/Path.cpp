@@ -1,6 +1,7 @@
 #include "Path.h"
 #include "src/map/cell.h"
 #include "src/enemy/IEnemy.h"
+#include "src/utility/GameValues.h"
 
 #include <QDebug>
 
@@ -32,12 +33,26 @@ Cell *Path::getCurrentCell() const {
 	return pathStartEnd.at(0);
 }
 
-bool Path::isEmpty() const {
-	return pathStartEndDistance == 0;
-}
-
 const Coordinate Path::getCurrentCoordinate() const {
 	return make_pair(getCurrentCell()->x, getCurrentCell()->y);
+}
+
+Cell *Path::getNextCell() const {
+	if (pathStartEndDistance < 2) {
+		return nullptr;
+	}
+	return pathStartEnd.at(1);
+}
+
+const Coordinate Path::getNextCoordinate() const {
+	if (pathStartEndDistance < 2) {
+		return nullCoordinate;
+	}
+	return make_pair(getNextCell()->x, getNextCell()->y);
+}
+
+bool Path::isEmpty() const {
+	return pathStartEndDistance == 0;
 }
 
 void Path::clear() {
