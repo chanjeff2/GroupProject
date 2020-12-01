@@ -20,7 +20,6 @@ private:
 	bool finishGenerateEnemy{true}; // flag checking if generated all enemy in each week
 	atomic_int skippedWeeks; // no. of weeks skipped ** atomic for thread safe
 	WeekLayoutManager* weekLayoutManager;
-    bool isGameOver{false};
 
 	GameGrid *gameGrid;
 
@@ -55,9 +54,7 @@ public:
 	void prepareForNextWeek();
 
 	void setLayoutManager(WeekLayoutManager* weekLayoutManager);
-
-    void forceEndGenerate();
-
+	
 signals:
     void game_beaten();
 };
