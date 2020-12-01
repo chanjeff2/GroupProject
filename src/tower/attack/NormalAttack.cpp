@@ -25,6 +25,20 @@ void NormalAttack::updateFocusedEnemyInRange() {
 			(*it)->focusManager.detachTowerAttackObserver(this->tower);
 
 			it = this->focusedEnemies.erase(it);
+			{
+				// scoped debug log
+				auto qdebug = qDebug().nospace();
+				qdebug << "NormalAttack: " << *tower << " current focus { ";
+				if (!focusedEnemies.empty()) {
+					auto it = focusedEnemies.begin();
+					qdebug << **it;
+					++it;
+					for (; it != focusedEnemies.end(); ++it) {
+						qdebug << ", " << **it;
+					}
+				}
+				qdebug << " };";
+			}
 		} else {
 			++it;
 		}
@@ -52,6 +66,20 @@ void NormalAttack::updateFocusedEnemyInRange() {
 				enemy->focusManager.attachTowerAttackObserver(this->tower);
 
 				++numOfFocusedEnemies;
+				{
+					// scoped debug log
+					auto qdebug = qDebug().nospace();
+					qdebug << "NormalAttack: " << *tower << " current focus { ";
+					if (!focusedEnemies.empty()) {
+						auto it = focusedEnemies.begin();
+						qdebug << **it;
+						++it;
+						for (; it != focusedEnemies.end(); ++it) {
+							qdebug << ", " << **it;
+						}
+					}
+					qdebug << " };";
+				}
 				// break if reach max amount of target
 				if (numOfFocusedEnemies == this->maxNumOfTarget) {
 					qDebug() << "NormalAttack:" << *tower << "reach max target";
