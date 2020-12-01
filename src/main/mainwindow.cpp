@@ -217,6 +217,7 @@ void MainWindow::map_clicked(int x, int y) {
     qDebug() << x << y;
     if (!game_started || !game_grid.isValidCoordinate(x, y)) return;
     if (!sell_mode) {
+        if (tower_selected == TowerType::None) return;
 		if (game_grid.canPlaceTower(x, y)) {
 			// remove preview range
 			drawn_range->setVisible(false);
@@ -310,6 +311,7 @@ void MainWindow::map_hovered(int x, int y) {
 };
 
 void MainWindow::game_over_process() {
+    game_grid.clearBoard();
     QString message = "You were expelled from HKUST\n";
     message += "for poor academic performance.\n";
     message += "Weeks passed: ";
@@ -319,6 +321,7 @@ void MainWindow::game_over_process() {
 
 void MainWindow::game_beaten_process() {
     float final_GPA = game_grid.gpaManager.getGPA();
+    game_grid.clearBoard();
     if (final_GPA <= 0) return; // You cannot win if you lose all lives at the last week
     QString message = "You have passed the trials of the University of Stress and Tension.\n";
     // Check for what you get in this semester

@@ -78,7 +78,8 @@ void WeekManager::loadEnemy(const string& fileName) {
 }
 
 void WeekManager::wrapUp() {
-    emit game_beaten();
+    if (!isGameOver)
+        emit game_beaten();
 }
 
 void WeekManager::processWeek() {
@@ -140,7 +141,7 @@ void WeekManager::prepareForNextWeek() {
 		return;
 	}
 
-	if (week == numOfWeeks) {
+    if (week == numOfWeeks || isGameOver) {
 		wrapUp();
 		return;
 	}

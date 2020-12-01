@@ -28,6 +28,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    // Helper function on reseting the game
+
 private slots:
     // Basically all button click events
     // Buy tower

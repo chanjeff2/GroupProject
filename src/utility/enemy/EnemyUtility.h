@@ -21,6 +21,7 @@ public:
 
     void generateEnemy(EnemyType enemyType);
 	void killEnemy(IEnemy* enemy, bool isDieOfAttack);
+    void killAllEnemies();
 };
 
 #endif // ENEMYUTILITY_H
