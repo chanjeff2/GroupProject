@@ -26,9 +26,6 @@
 *.a
 *.lib
 
-# build
-build/
-
 # Executables
 *.exe
 *.out
@@ -40,4 +37,6 @@ build/
 /build/Makefile
 *.GroupProject.Debug
 *.GroupProject.Release
-*.user
+
+# build
+build/

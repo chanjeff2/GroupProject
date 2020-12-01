@@ -12,8 +12,7 @@ void TowerLayoutManager::init(Coordinate coordinate) {
 	moveTo(coordinate);
 }
 
-void TowerLayoutManager::attachImageView(QGraphicsPixmapItem *imgView, QGraphicsRectItem* rangeView, Coordinate coordinate) {
-    this->rangeView = rangeView;
+void TowerLayoutManager::attachImageView(QGraphicsPixmapItem *imgView, Coordinate coordinate) {
 	this->imgView = imgView;
 	init(coordinate);
 }
@@ -24,9 +23,4 @@ void TowerLayoutManager::moveTo(int x, int y) {
 
 void TowerLayoutManager::moveTo(Coordinate coordinate) {
 	moveTo(coordinate.first, coordinate.second);
-}
-
-QGraphicsRectItem* TowerLayoutManager::showRange(bool visibility) const {
-    this->rangeView->setVisible(visibility);
-    return this->rangeView;
 }
