@@ -11,6 +11,7 @@ void WeekLayoutManager::isWeekCoolDown(bool isWeekCD) {
 void WeekLayoutManager::weekCountDown(int time) {
     // psudo
     if (time <= 0 || weekManager->isSkippedWeek()) {
+        TimeLeft->setText("Time left: Start");
         TimeLeft->setEnabled(false);
         return;
     }
