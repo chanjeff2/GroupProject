@@ -28,9 +28,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    // Helper function for drawing tower range
-    void draw_range(int range, AuraType aura, int x, int y);
-
 private slots:
     // Basically all button click events
     // Buy tower
