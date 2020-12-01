@@ -253,22 +253,31 @@ void MainWindow::draw_range(int range, AuraType aura, int x, int y) {
 };
 
 void MainWindow::map_hovered(int x, int y) {
-    delete drawn_range; drawn_range = nullptr;
+    if ( drawn_range != nullptr ) {
+        drawn_range->setVisible(false);
+    }
+    //delete drawn_range; drawn_range = nullptr;
     delete previewed_tower; previewed_tower = nullptr;
     if (!game_started || !game_grid.isValidCoordinate(x, y) || sell_mode) return;
     if (game_grid.getCell(x, y)->hasTower()) {
         // Draw out the range
+        /*
         draw_range(game_grid.getCell(x, y)->getTower()->getRange(),
                    game_grid.getCell(x, y)->getTower()->auraEffect->getAuraType(), x, y);
+                   */
+        drawn_range = game_grid.getCell(x, y)->getTower()->showRange(true);
     } else {
         if (tower_selected == TowerType::None) return;
         else {
             // Get tower datas
             // Will modify if better methods are found
-            QString img_path;
-            int range = 0;
-            AuraType aura = AuraType::Null;
-
+            //QString img_path;
+            QString img_path = QString::fromStdString(TOWER_PATHS[int(tower_selected)]);
+            //int range = 0;
+            int range = TOWER_RANGES[int(tower_selected)];
+            //AuraType aura = AuraType::Null;
+            AuraType aura = TOWER_AURAS[int(tower_selected)];
+            /*
             switch (tower_selected) {
                 case TowerType::Regular: {
                     img_path = ":/res/res/towers_images/RegularStudent Grid";
@@ -314,14 +323,15 @@ void MainWindow::map_hovered(int x, int y) {
                     break;
                 }
                 default: break;
-            }
+            }*/
 
             previewed_tower = scene.addPixmap(QPixmap(img_path));
             previewed_tower->setOffset(x*40, y*40);
             previewed_tower->setOpacity(0.5);
 
             // Draw out the range
-            draw_range(range, aura, x, y);
+            //draw_range(range, aura, x, y);
+            drawn_range = TowerUtility::drawRange( make_pair(x,y) , tower_selected , scene);
         }
     }
 };

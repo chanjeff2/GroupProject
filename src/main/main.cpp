@@ -13,7 +13,7 @@ namespace logging {
 	string fileNamePrefix = "log/Debug-";
 	string fileSuffix = ".log";
 	string timeStringYMD = "%Y-%m-%d";
-	string timeStringFileTMDHMS = "%Y-%m-%d_%H¡G%M¡G%S"; // colon used here is U+FF1A, not normal literal colon
+	string timeStringFileTMDHMS = "%Y-%m-%d_%Hï¼š%Mï¼š%S"; // colon used here is U+FF1A, not normal literal colon
 	string timeStringTMDHMS = "%Y-%m-%d_%H:%M:%S";
 	QTextStream *fileStream;
 }
