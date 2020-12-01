@@ -100,7 +100,5 @@ set<IEnemy*> ITower::getEnemiesInRange() const {
 }
 
 QGraphicsRectItem* ITower::showRange(bool visibility) const {
-    if ( auraEffect->getAuraType() == AuraType::Null )
-        return this->towerLayoutManager.showRange(visibility);
-    return nullptr;
+	return this->towerLayoutManager.showRange(visibility);
 }

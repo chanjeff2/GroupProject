@@ -73,7 +73,7 @@ public:
 
 	std::set<IEnemy*> getEnemiesInRange() const;
 
-    QGraphicsRectItem* showRange(bool visibility) const;
+	QGraphicsRectItem* showRange(bool visibility) const;
 };
 
 #endif // ITOWER_H

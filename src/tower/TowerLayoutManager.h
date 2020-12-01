@@ -17,7 +17,7 @@ public:
     void attachImageView(QGraphicsPixmapItem *imgView, QGraphicsRectItem *rangeView, Coordinate coordinate);
 	void moveTo(int x, int y);
 	void moveTo(Coordinate coordinate);
-    QGraphicsRectItem* showRange(bool visibility) const;
+	QGraphicsRectItem* showRange(bool visibility) const;
 };
 
 #endif // TOWERLAYOUTMANAGER_H
