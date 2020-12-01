@@ -11,11 +11,11 @@ WolframAlpha::WolframAlpha(Cell* position, TowerUtility *towerUtility): ITower(p
     weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA, EnemyType::Midterm,
                                   EnemyType::MATHExam, EnemyType::FYP };
     cost = TOWER_PRICES[2];
-    range = 4;
+    range = TOWER_RANGES[2];
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-    auraEffect = new AuraEffect(this, AuraType::Null);
+    auraEffect = new AuraEffect(this, TOWER_AURAS[2]);
 
 	trigger();
 };

@@ -34,6 +34,11 @@ MainWindow::MainWindow(QWidget *parent)
     resource_layout_manager.ResourceNeededToUpg = ui->CapUpgCost;
     resource_layout_manager.NotEnoughResources = ui->Warning;
 
+    // Refresh the intial resource
+    resource_layout_manager.updateResource(STARTING_RESOURCE);
+    resource_layout_manager.updateResourceCapacity(RESOURCE_CAPACITY[0]);
+    resource_layout_manager.updateResourceNeededToUpg(game_grid.resourceManager.getResourceRequiredForUpgradeCapacity());
+
 	// link manager with layout manager
 	game_grid.gpaManager.setLayoutManager(&gpa_layout_manager);
 	game_grid.weekManager.setLayoutManager(&week_layout_manager);
@@ -49,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->graphicsView, &ClickableView::mouseClicked, this, &MainWindow::map_clicked);
     connect(ui->graphicsView, &ClickableView::mouseHovered, this, &MainWindow::map_hovered);
     connect(&game_grid.gpaManager, &GPAManager::game_over, this, &MainWindow::game_over_process);
+    connect(&game_grid.weekManager, &WeekManager::game_beaten, this, &MainWindow::game_beaten_process);
 }
 
 MainWindow::~MainWindow()
@@ -258,5 +264,22 @@ void MainWindow::game_over_process() {
     message += "for poor academic performance.\n";
     message += "Weeks passed: ";
     message += QString::number(game_grid.weekManager.getWeek() - 1);
-    QMessageBox::information(this, "Game Over!", message, QMessageBox::Ok);
+    QMessageBox::critical(this, "Game Over!", message, QMessageBox::Ok);
+}
+
+void MainWindow::game_beaten_process() {
+    float final_GPA = game_grid.gpaManager.getGPA();
+    if (final_GPA <= 0) return; // You cannot win if you lose all lives at the last week
+    QString message = "You have passed the trials of the University of Stress and Tension.\n";
+    // Check for what you get in this semester
+    if (final_GPA >= 3.9) {
+        message += "You got the Academic Achievement Award in this semester! GG!\n";
+    } else if (final_GPA >= 3.7 && final_GPA < 3.9) {
+        message += "You were on the dean's list of this semester! Good work!\n";
+    } else if (final_GPA < 1.5) {
+        message += "...But you were put onto the Academic Probation.\n";
+    }
+    message += "GPA of this semster: ";
+    message += QString::number(final_GPA);
+    QMessageBox::information(this, "You Win!", message, QMessageBox::Ok);
 }

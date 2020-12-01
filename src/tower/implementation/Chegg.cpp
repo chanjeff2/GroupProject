@@ -11,11 +11,11 @@ Chegg::Chegg(Cell* position, TowerUtility *towerUtility): ITower(position, tower
     weakTowards = set<EnemyType>{ EnemyType::Midterm, EnemyType::Desmond, EnemyType::MATHExam,
                                   EnemyType::Final, EnemyType::ELPA, EnemyType::FYP };
     cost = TOWER_PRICES[7];
-    range = 5;
+    range = TOWER_RANGES[7];
     attackStrategy = new NormalAttack(this);
     attackStrategy->setMaxNumOfTarget(1);
     attackStrategy->setTargetSelectionStrategy(TargetSelectionType::Random);
-    auraEffect = new AuraEffect(this, AuraType::Null);
+    auraEffect = new AuraEffect(this, TOWER_AURAS[7]);
 
 	trigger();
 };
