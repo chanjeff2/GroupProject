@@ -1,6 +1,7 @@
 #include "RandomSelection.h"
 #include "src/enemy/IEnemy.h"
 #include <random>
+#include <algorithm>
 using namespace std;
 
 RandomSelection::RandomSelection() {};
@@ -19,9 +20,15 @@ vector<IEnemy*> RandomSelection::selectTarget(set<IEnemy*> enemiesInRange, set<E
 	}
 
 	vector<IEnemy*> selectedTarget;
+
+	// directly return empty vector if no new enemy
+	if (enemiesInRange.empty()) {
+		return selectedTarget;
+	}
+
 	// remove focused enemy
 	if (!focusedEnemies.empty()) {
-		set_difference(enemiesInRange.begin(), enemiesInRange.end(), focusedEnemies.begin(), focusedEnemies.end(), selectedTarget.begin());
+		set_difference(enemiesInRange.begin(), enemiesInRange.end(), focusedEnemies.begin(), focusedEnemies.end(), back_inserter(selectedTarget));
 	} else {
 		copy(enemiesInRange.begin(), enemiesInRange.end(), back_inserter(selectedTarget));
 	}
