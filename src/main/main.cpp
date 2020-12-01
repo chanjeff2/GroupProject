@@ -8,10 +8,11 @@
 #include <QDir>
 
 namespace logging {
+	short max_log_files = 5;
 	string fileNamePrefix = "log/Debug-";
 	string fileSuffix = ".log";
 	string timeStringYMD = "%Y-%m-%d";
-	string timeStringTMDHMS = "%Y-%m-%d %X";
+	string timeStringTMDHMS = "%Y-%m-%d_%H：%M：%S"; // colon used here is U+FF1A, not normal literal colon
 	QTextStream *fileStream;
 }
 
@@ -59,23 +60,37 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 int main(int argc, char *argv[])
 {
 	// logging
+    // make dir if not exists
 	QDir dir("log");
 	if (!dir.exists()) {
 		dir.mkdir(".");
 	}
 
-	string fileName = logging::fileNamePrefix + getFormattedTime(logging::timeStringYMD) + logging::fileSuffix;
+    // generate file name
+    string fileName = logging::fileNamePrefix + getFormattedTime(logging::timeStringTMDHMS) + logging::fileSuffix;
 
+    // check existing number of log files
+	QStringList logfiles = dir.entryList(QDir::Files, QDir::Name);
+	QTextStream(stdout) << logfiles.size() << " existing log file(s):\n";
+	for (auto logfile: logfiles) {
+		QTextStream(stdout) << logfile << '\n';
+	}
+	// remove old log files
+	while (logfiles.size() >= logging::max_log_files) {
+		QTextStream(stdout) << "deleting oldest log file: " << logfiles.first() << "\n";
+		dir.remove(logfiles.first());
+		logfiles.pop_front();
+	}
+
+    // generate log file
 	QFile file(fileName.c_str());
 	file.open(QIODevice::Append);
 	logging::fileStream = new QTextStream(&file);
 
 	QFileInfo fi(file);
-	QTextStream(stdout) << "log file path: " << fi.absoluteFilePath() << '\n';
+	QTextStream(stdout) << "new log file path: " << fi.absoluteFilePath() << '\n';
 
 	const string timeStamp = getFormattedTime(logging::timeStringTMDHMS);
-
-	*logging::fileStream << "\n<" << timeStamp.c_str() << ">\n";
 
 	qInstallMessageHandler(myMessageOutput);
 	// end of logging
@@ -84,7 +99,6 @@ int main(int argc, char *argv[])
 	MainWindow w;
 	w.show();
 	auto result = a.exec();
-	*logging::fileStream << "</" <<timeStamp.c_str() << ">\n";
 	file.close();
 	return result;
 }
