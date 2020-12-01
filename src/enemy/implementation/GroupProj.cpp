@@ -10,6 +10,4 @@ GroupProj::GroupProj(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility
     canSlow = true;
     canPierceArmor = true;
     canEnrage = false;
-
-	trigger();
 }

@@ -10,6 +10,4 @@ EncryptedHW::EncryptedHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUti
     canSlow = false;
     canPierceArmor = true;
     canEnrage = false;
-
-	trigger();
 }

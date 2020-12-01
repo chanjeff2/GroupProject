@@ -13,6 +13,8 @@ using namespace std;
 #include "EnemyLayoutManager.h"
 #include "src/utility/pathfinding/Path.h"
 
+#include "src/main/PixMap.h"
+
 // forward declaration
 class Cell;
 enum class EnemyType;
@@ -63,7 +65,7 @@ public:
 
 	// setter
 	void setPath(Path path);
-	void attachImageView(QGraphicsPixmapItem *imgView);
+	void attachImageView(PixMap *imgView);
 
 	// methods
 	void trigger(); // trigger after init in base class

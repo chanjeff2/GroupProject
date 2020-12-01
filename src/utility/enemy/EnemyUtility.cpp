@@ -149,7 +149,9 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 
 	enemies.insert(newEnemy);
 	QGraphicsPixmapItem *img = this->gameGrid->getScene()->addPixmap(QPixmap(imgPath));
-	newEnemy->attachImageView(img);
+	PixMap *pixMapimg = new PixMap(img);
+	newEnemy->attachImageView(pixMapimg);
+	newEnemy->trigger();
 }
 
 void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {

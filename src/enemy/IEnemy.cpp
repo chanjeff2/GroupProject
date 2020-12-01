@@ -61,8 +61,8 @@ void IEnemy::setPath(Path path) {
 	this->path = path;
 }
 
-void IEnemy::attachImageView(QGraphicsPixmapItem *imgView) {
-	this->enemyLayoutManager.attachImageView(imgView, path.getCurrentCoordinate());
+void IEnemy::attachImageView(PixMap *imgView) {
+	this->enemyLayoutManager.attachImageView(imgView);
 }
 
 // methods
@@ -76,9 +76,6 @@ void IEnemy::move() {
 	// perform move (i.e. goto next cell in pathToTake) + decrement distanceFromEnd
 	path.goToNextCell(this);
 
-	// update UI
-	enemyLayoutManager.moveTo(path.getCurrentCoordinate());
-
 	// notify all tower focusing this enemy to update focus if needed
 	focusManager.requestUpdateFocus();
 	focusManager.requestAddAuraEffectIfNeed();
@@ -86,6 +83,10 @@ void IEnemy::move() {
 	// get ready for next move
 	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
 	timeTilNextMove /= GAME_SPEED;
+
+	// update UI
+//	enemyLayoutManager.moveTo(path.getCurrentCoordinate());
+	enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
 
 	if (timer->interval() != timeTilNextMove) {
 		timer->setInterval(timeTilNextMove); // update timer interval in case there is change in speed;
@@ -97,6 +98,8 @@ void IEnemy::trigger() {
 	// get ready for next move
 	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
 	timeTilNextMove /= GAME_SPEED;
+
+	enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
 
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &IEnemy::move);

@@ -3,19 +3,20 @@
 
 #include <QGraphicsPixmapItem>
 #include "src/utility/GameValues.h"
+#include "src/main/PixMap.h"
 
 class EnemyLayoutManager
 {
-	QGraphicsPixmapItem *imgView{nullptr}; // img of enemy
-	void init(Coordinate coordinate); // call after attachImageView
+	PixMap *imgView{nullptr}; // img of enemy
+	void init(); // call after attachImageView
 
 public:
 	EnemyLayoutManager();
 	~EnemyLayoutManager();
 
-	void attachImageView(QGraphicsPixmapItem *imgView, Coordinate coordinate);
-	void moveTo(int x, int y);
-	void moveTo(Coordinate coordinate);
+	void attachImageView(PixMap *imgView);
+	void moveTo(int x, int y, float interval = 0);
+	void moveTo(Coordinate coordinate, float interval = 0);
 };
 
 #endif // ENEMYLAYOUTMANAGER_H

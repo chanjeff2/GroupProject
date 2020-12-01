@@ -1,4 +1,5 @@
 #include "EnemyLayoutManager.h"
+#include <QPropertyAnimation>
 
 EnemyLayoutManager::EnemyLayoutManager() {}
 
@@ -6,21 +7,29 @@ EnemyLayoutManager::~EnemyLayoutManager() {
 	delete this->imgView;
 }
 
-void EnemyLayoutManager::init(Coordinate coordinate) {
+void EnemyLayoutManager::init() {
 	this->imgView->setVisible(true);
 	this->imgView->setZValue(static_cast<float>(Element::Enemy));
-	moveTo(coordinate);
 }
 
-void EnemyLayoutManager::attachImageView(QGraphicsPixmapItem *imgView, Coordinate coordinate) {
+void EnemyLayoutManager::attachImageView(PixMap *imgView) {
 	this->imgView = imgView;
-	init(coordinate);
+	init();
 }
 
-void EnemyLayoutManager::moveTo(int x, int y) {
-	imgView->setOffset(x * CELL_SIZE.first, y * CELL_SIZE.second);
+void EnemyLayoutManager::moveTo(int x, int y, float interval) {
+	if (interval == 0.0) {
+		imgView->setOffset(x * CELL_SIZE.first, y * CELL_SIZE.second);
+		return;
+	}
+	QPropertyAnimation *animation = new QPropertyAnimation(imgView, "offset");
+	animation->setDuration(interval);
+	animation->setEndValue(QPointF(x * CELL_SIZE.first, y * CELL_SIZE.second));
+	QObject::connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
+	animation->start();
+
 }
 
-void EnemyLayoutManager::moveTo(Coordinate coordinate) {
-	moveTo(coordinate.first, coordinate.second);
+void EnemyLayoutManager::moveTo(Coordinate coordinate, float interval) {
+	moveTo(coordinate.first, coordinate.second, interval);
 }
