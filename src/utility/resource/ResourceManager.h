@@ -33,6 +33,8 @@ public:
     bool upgradeResourceCapacity();
 
 	void setLayoutManager(ResourceLayoutManager* resourceLayoutManager);
+
+    void manager_reset();
 };
 
 #endif // RESOURCEMANAGER_H

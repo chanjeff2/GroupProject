@@ -26,6 +26,8 @@ public:
 
 	void setLayoutManager(GPALayoutManager* gpaLayoutManager);
 
+    void manager_reset();
+
 signals:
     void game_over();
 };
