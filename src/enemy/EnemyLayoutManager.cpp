@@ -22,10 +22,11 @@ void EnemyLayoutManager::moveTo(int x, int y, float interval) {
 		imgView->setOffset(x * CELL_SIZE.first, y * CELL_SIZE.second);
 		return;
 	}
-	QPropertyAnimation animation(imgView, "offset");
-	animation.setDuration(interval);
-	animation.setEndValue(QPointF(x * CELL_SIZE.first, y * CELL_SIZE.second));
-	animation.start();
+	QPropertyAnimation *animation = new QPropertyAnimation(imgView, "offset");
+	animation->setDuration(interval);
+	animation->setEndValue(QPointF(x * CELL_SIZE.first, y * CELL_SIZE.second));
+	QObject::connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
+	animation->start();
 
 }
 
