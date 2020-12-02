@@ -18,23 +18,26 @@ class Cell
 	friend class GameGrid; // cell can only be created when map init
 	friend QDebug& operator<<(QDebug &qdebug, const Cell &cell);
 
-	ITower *tower;
+	ITower *tower{nullptr};
 	set<IEnemy*> enemy;
     CellType cell_type;
-	QGraphicsRectItem* cell_squares; // cell img
+	QGraphicsRectItem* cell_squares{nullptr}; // cell img
 
 	// constructor
 	Cell(int x, int y);
 	Cell(int x, int y, ITower *tower);
-    Cell(int x, int y, CellType cell_type);
 
 public:
 	~Cell();
 	const int x;
 	const int y;
 
+	// getter
 	ITower *getTower() const;
 	set<IEnemy*> getEnemy() const;
+
+	// setter
+	void setCellType(CellType cell_type);
 
 	// methods
 	// true -> successfully placed

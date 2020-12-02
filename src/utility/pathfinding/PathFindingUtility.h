@@ -44,7 +44,7 @@ private:
 	set<PathBuffer*> pathBuffer; // buffer for each enemy
 	const GameGrid *gameGrid; // ref to game grid
 
-    Path processPath(CellDetails** cellDetails, const Coordinate end);
+	Path processPath(vector<vector<CellDetails>> cellDetails, const Coordinate end);
 
 	bool isCoordinateBlocked(Coordinate coordinate, const set<Coordinate> &blockedPosition) const;
 	bool isCoordinateBlocked(int x, int y, const set<Coordinate> &blockedPosition) const;

@@ -8,131 +8,152 @@
 #include <QDebug>
 
 GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
-	// init grid
-    numCols = NUM_OF_COL;
-    numRows = NUM_OF_ROW;
-
-    grid = new Cell**[NUM_OF_COL];
-
-    for ( int i = 0 ; i < NUM_OF_COL ; i++ ) {
-        grid[i] = new Cell*[NUM_OF_ROW];
-    }
-
-	for (int x = 0; x < NUM_OF_COL; ++x) {
-		for (int y = 0; y < NUM_OF_ROW; ++y) {
-            grid[x][y] = new Cell(x, y);
-
-            QBrush brushcolor(Qt::NoBrush);
-            if (x == 0 && y == 0)
-                brushcolor = Qt::green;
-            else if (x == NUM_OF_COL - 1 && y == NUM_OF_ROW - 1)
-                brushcolor = Qt::red;
-
-            QGraphicsRectItem* square = scene->addRect(x*40, y*40, 40, 40, QPen(Qt::gray), brushcolor);
-
-			grid[x][y]->cell_squares = square;
-
-        }
-	}
-	pathFindingUtility.init();
+	loadMap();
 }
+
 GameGrid::~GameGrid() {
 	// delete grid
-	// and also all positible pointer?
-    for (int x = 0; x < numCols; ++x) {
-        for (int y = 0; y < numRows; ++y) {
-			delete grid[x][y]; // delete cells
-		}
-        delete [] grid[x];
-	}
-    delete [] grid;
+	destructMap();
 }
 
-void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
-    // delete old grid
-    for ( int i = 0 ; i < numCols ; i++ ) {
-        for ( int j = 0 ; j < numRows ; j++ ) {
-            delete grid[i][j];
-        }
-        delete [] grid[i];
-    }
+void GameGrid::destructMap() {
+	qDebug() << "GameGrid: destruct map";
+	// clear cell
+	for (int row = 0; row < numRows; ++row) {
+		for (int col = 0; col < numCols; ++col) {
+			delete grid[row][col]; // delete cells
+			grid[row][col] = nullptr;
+		}
+		grid[row].clear();
+	}
+	grid.clear();
 
-    delete [] grid;
+	// clear ui
+	scene->clear();
+
+	// clear spawns, target, block
+	spawns.clear();
+	target = nullCoordinate;
+	blockedCells.clear();
+}
+
+void GameGrid::loadMap() {
+	// delete old grid
+	destructMap();
+	qDebug() << "GameGrid: load default map";
+	// init default grid
+	numCols = NUM_OF_COL;
+	numRows = NUM_OF_ROW;
+
+	grid.resize(numRows, vector<Cell*>(numCols));
+
+	for (int col = 0; col < NUM_OF_COL; ++col) {
+		for (int row = 0; row < NUM_OF_ROW; ++row) {
+			grid[row][col] = new Cell(col, row);
+
+			QBrush brushcolor(Qt::NoBrush);
+			// set color for start and end
+			if (make_pair(col, row) == START) {
+				brushcolor = Qt::green;
+			} else if (make_pair(col, row) == END) {
+				brushcolor = Qt::red;
+			}
+
+			grid[row][col]->cell_squares = scene->addRect(col * CELL_SIZE.first, row * CELL_SIZE.second, CELL_SIZE.first, CELL_SIZE.second, QPen(Qt::gray), brushcolor);
+		}
+	}
+	scene->setSceneRect( QRectF( 0, 0, numCols * CELL_SIZE.first, numRows * CELL_SIZE.second ) );
+	pathFindingUtility.init();
+}
+
+void GameGrid::loadMap(const string &filename) {
+    // delete old grid
+	destructMap();
+	qDebug() << "GameGrid: load map from" << filename.c_str();
 
     // load new grid
     ifstream map_file(filename);
 
-    map_file >> numCols >> numRows;
-    map_file >> ws;
-    map_file >> noskipws;
+	map_file >> noskipws; // prevent skipping space
+	// init col and row
+	numRows = 0;
+	numCols = 0;
 
-    grid = new Cell**[numCols];
+	int row = 0;
 
-    for( int i = 0 ; i < numCols ; i++ ) {
-        grid[i] = new Cell*[numRows];
-    }
-
-    for (int x = 0; x < numRows; ++x) {
-        for (int y = 0; y < numCols; ++y) {
-            // row and col flipped here
-
-            char current_character;
-            map_file >> current_character;
+	while (!map_file.eof()) {
+		int col = 0;
+		vector<Cell*> rows;
+		string input;
+		getline(map_file, input);
+		for (char &current_character: input) {
             CellType cell_type;
+			QBrush brushcolor;
+
+			Cell *newCell = new Cell(col, row);
 
             switch (current_character) {
                 case '#':
                     cell_type = CellType::BLOCKED;
-                    blockedCells.insert(make_pair(y,x));
-                    break;
-                case ' ':
-                    cell_type = CellType::EMPTY;
+					brushcolor = Qt::gray;
+					blockedCells.insert(make_pair(col, row));
                     break;
                 case 'O':
                     cell_type = CellType::SPAWN;
-                    blockedCells.insert(make_pair(y,x));
+					brushcolor = Qt::green;
+					blockedCells.insert(make_pair(col, row));
+					spawns.insert(make_pair(col, row));
                     break;
                 case 'X':
                     cell_type = CellType::END;
-                    blockedCells.insert(make_pair(y,x));
+					brushcolor = Qt::red;
+					blockedCells.insert(make_pair(col, row));
+					target = make_pair(col, row);
                     break;
+				default: // case ' '
+					cell_type = CellType::EMPTY;
+					brushcolor = Qt::NoBrush;
+					break;
             }
 
-            grid[y][x] = new Cell(y, x, cell_type);
+			newCell->setCellType(cell_type);
+			rows.push_back(newCell);
 
-            if (cell_type == CellType::SPAWN) {
-                spawns.insert( grid[y][x] );
-            }
-            if (cell_type == CellType::END) {
-                target = grid[y][x];
-            }
+			newCell->cell_squares = scene->addRect(col * CELL_SIZE.first, row * CELL_SIZE.second, CELL_SIZE.first, CELL_SIZE.second, QPen(Qt::gray), brushcolor);
 
-            QBrush brushcolor;
-
-            switch ( cell_type ) {
-                case CellType::SPAWN:
-                    brushcolor = Qt::green;
-                    break;
-                case CellType::END:
-                    brushcolor = Qt::red;
-                    break;
-                case CellType::BLOCKED:
-                    brushcolor = Qt::gray;
-                    break;
-                case CellType::EMPTY:
-                    brushcolor = Qt::NoBrush;
-                    break;
-            }
-
-            QGraphicsRectItem* square = scene->addRect(y*40, x*40, 40, 40, QPen(Qt::gray), brushcolor);
-
-			grid[x][y]->cell_squares = square;
-
-        }
-        map_file >> ws;
+			// proceed to next char
+			++col;
+		}
+		grid.push_back(rows);
+		map_file >> ws; // skip line
+		++numRows;
+		++row;
     }
-    scene->setSceneRect( QRectF( 0, 0, numCols * CELL_SIZE.first, numRows * CELL_SIZE.second ) );
-    pathFindingUtility.init( numCols, numRows, make_pair( (*spawns.begin())->x , (*spawns.begin())->y ), make_pair( target->x, target->y ) , blockedCells );
+	if (numRows == 0) {
+		qDebug() << "GameGrid: failed to load map from" << filename.c_str();
+		loadMap();
+		return;
+	}
+	grid.shrink_to_fit(); // trunc extra row
+	for (auto row: grid) {
+		row.shrink_to_fit(); // trunc extra col
+	}
+	numCols = (grid[0].empty()) ? 0 : grid[0].size();
+	qDebug() << "GameGrid: no. of col:" << numCols << "; no. of row:" << numRows;
+	// reload default map if no spawn point
+	if (spawns.empty()) {
+		qDebug() << "GameGrid: no spawn point is found in" << filename.c_str();
+		loadMap();
+		return;
+	}
+	if (target == nullCoordinate) {
+		qDebug() << "GameGrid: no exit is found in" << filename.c_str();
+		loadMap();
+		return;
+	}
+	scene->setSceneRect( QRectF( 0, 0, numCols * CELL_SIZE.first, numRows * CELL_SIZE.second) );
+	Coordinate start = *spawns.begin();
+	pathFindingUtility.init(numCols, numRows, start, target, blockedCells);
 }
 
 // getter
@@ -140,7 +161,7 @@ Cell *GameGrid::getCell(int x, int y) const {
 	if (!isValidCoordinate(x, y))
 		return nullptr;
 
-	return grid[x][y];
+	return grid[y][x];
 }
 
 Cell *GameGrid::getCell(Coordinate coordinate) const {
@@ -178,7 +199,7 @@ bool GameGrid::canPlaceTower(int x, int y) {
         return false;
     }
 
-	Cell *cell = grid[x][y];
+	Cell *cell = getCell(x, y);
 	set<IEnemy*> enemies = enemyUtility.enemies;
 
 	Coordinate newPos = make_pair(x, y);
@@ -218,7 +239,7 @@ bool GameGrid::placeTower(int x, int y, TowerType towerType) {
 	}
 
 	if (canPlaceTower(x, y)) {
-		Cell *cell = grid[x][y];
+		Cell *cell = getCell(x, y);
 		towerUtility.placeTower(towerType, cell);
 		// update path
 		pathFindingUtility.updatePath();
@@ -232,7 +253,7 @@ bool GameGrid::placeTower(int x, int y, TowerType towerType) {
 /* successfully remove tower -> true
  * failed -> false */
 bool GameGrid::removeTower(int x, int y) {
-	Cell *cell = grid[x][y];
+	Cell *cell = getCell(x, y);
 	// check if have tower
 	if (cell->tower == nullptr)
 		return false;

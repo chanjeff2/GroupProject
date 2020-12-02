@@ -27,10 +27,10 @@ Cell::Cell(int x, int y): x(x), y(y), tower(nullptr) , cell_type(CellType::EMPTY
 
 Cell::Cell(int x, int y, ITower *tower): x(x), y(y), tower(tower) , cell_type(CellType::BLOCKED) {};
 
-Cell::Cell(int x, int y, CellType cell_type): x(x), y(y), tower(nullptr), cell_type(cell_type) {};
-
 Cell::~Cell() {
-	this->cell_squares->setVisible(false);
+	if (cell_squares != nullptr) {
+		cell_squares->setVisible(false);
+	}
 	delete this->cell_squares;
 }
 
@@ -41,6 +41,10 @@ ITower *Cell::getTower() const {
 
 set<IEnemy*> Cell::getEnemy() const {
 	return this->enemy;
+}
+
+void Cell::setCellType(CellType cell_type) {
+	this->cell_type = cell_type;
 }
 
 // methods

@@ -6,6 +6,7 @@
 #include <cmath>
 #include <QDebug>
 #include <queue>
+#include <vector>
 
 // constructor
 PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {}
@@ -33,7 +34,7 @@ void PathFindingUtility::init(int numCols, int numRows, Coordinate start, Coordi
     pathStartEnd = findPath(start, end, blockedPositions);
 }
 
-Path PathFindingUtility::processPath(CellDetails** cellDetails, const Coordinate end) {
+Path PathFindingUtility::processPath(vector<vector<CellDetails>> cellDetails, const Coordinate end) {
 	Path path;
 
 	// start from end
@@ -103,11 +104,7 @@ Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, 
 	}
 
 	// array holding cell details like coordinate and f, g, h values
-    CellDetails** cellDetails = new CellDetails*[numCols];
-
-    for ( int i = 0 ; i < numCols ; i++ ) {
-        cellDetails[i] = new CellDetails[numRows];
-    }
+	vector<vector<CellDetails>> cellDetails(numCols, vector<CellDetails>(numRows)); // cellDetails[col][row]
 
 	// init start cell
 	cellDetails[start.first][start.second].f = 0;

@@ -1,7 +1,7 @@
 #ifndef GAMEGRID_H
 #define GAMEGRID_H
 
-#include <array>
+#include <vector>
 #include <set>
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -20,17 +20,18 @@ using namespace std;
 
 class GameGrid
 {
-    //array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
-    Cell*** grid;
+	vector<vector<Cell*>> grid; // grid[row][col]
     QGraphicsScene* scene;
 	TowerUtility towerUtility{this};
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
 
     int numRows, numCols, numSpawns;
-    set<Cell*> spawns;
+	set<Coordinate> spawns;
     set<Coordinate> blockedCells;
-    Cell* target;
+	Coordinate target;
+
+	void destructMap(); // delete all cell
 
 public:
 	GPAManager gpaManager;
@@ -40,7 +41,8 @@ public:
     GameGrid(QGraphicsScene* scene);
 	~GameGrid();
 
-    void loadMap(QGraphicsScene* scene, const string& filename);
+	void loadMap(); // load default map
+	void loadMap(const string& filename); // load custom map
 
 	// getter
 	Cell *getCell(int x, int y) const;
