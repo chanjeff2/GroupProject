@@ -26,8 +26,6 @@ class GameGrid
 	TowerUtility towerUtility{this};
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
-    //array<array<QGraphicsRectItem*, NUM_OF_ROW>, NUM_OF_COL> cell_squares;
-    QGraphicsRectItem*** cell_squares;
 
     int numRows, numCols, numSpawns;
     set<Cell*> spawns;

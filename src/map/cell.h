@@ -4,6 +4,7 @@
 #include <set>
 #include <QDebug>
 #include "src/utility/GameValues.h"
+#include <QGraphicsRectItem>
 using namespace std;
 
 // forward declaration
@@ -20,6 +21,7 @@ class Cell
 	ITower *tower;
 	set<IEnemy*> enemy;
     CellType cell_type;
+	QGraphicsRectItem* cell_squares; // cell img
 
 	// constructor
 	Cell(int x, int y);
@@ -27,6 +29,7 @@ class Cell
     Cell(int x, int y, CellType cell_type);
 
 public:
+	~Cell();
 	const int x;
 	const int y;
 

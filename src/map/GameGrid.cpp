@@ -13,11 +13,9 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
     numRows = NUM_OF_ROW;
 
     grid = new Cell**[NUM_OF_COL];
-    cell_squares = new QGraphicsRectItem**[NUM_OF_COL];
 
     for ( int i = 0 ; i < NUM_OF_COL ; i++ ) {
         grid[i] = new Cell*[NUM_OF_ROW];
-        cell_squares[i] = new QGraphicsRectItem*[NUM_OF_ROW];
     }
 
 	for (int x = 0; x < NUM_OF_COL; ++x) {
@@ -32,7 +30,7 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 
             QGraphicsRectItem* square = scene->addRect(x*40, y*40, 40, 40, QPen(Qt::gray), brushcolor);
 
-            cell_squares[x][y] = square;
+			grid[x][y]->cell_squares = square;
 
         }
 	}
@@ -44,13 +42,10 @@ GameGrid::~GameGrid() {
     for (int x = 0; x < numCols; ++x) {
         for (int y = 0; y < numRows; ++y) {
 			delete grid[x][y]; // delete cells
-            delete cell_squares[x][y];
 		}
         delete [] grid[x];
-        delete [] cell_squares[x];
 	}
     delete [] grid;
-    delete [] cell_squares;
 }
 
 void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
@@ -58,16 +53,11 @@ void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
     for ( int i = 0 ; i < numCols ; i++ ) {
         for ( int j = 0 ; j < numRows ; j++ ) {
             delete grid[i][j];
-            cell_squares[i][j]->setVisible(false);
-            scene->removeItem(cell_squares[i][j]);
-            delete cell_squares[i][j];
         }
         delete [] grid[i];
-        delete [] cell_squares[i];
     }
 
     delete [] grid;
-    delete [] cell_squares;
 
     // load new grid
     ifstream map_file(filename);
@@ -77,11 +67,9 @@ void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
     map_file >> noskipws;
 
     grid = new Cell**[numCols];
-    cell_squares = new QGraphicsRectItem**[numCols];
 
     for( int i = 0 ; i < numCols ; i++ ) {
         grid[i] = new Cell*[numRows];
-        cell_squares[i] = new QGraphicsRectItem*[numRows];
     }
 
     for (int x = 0; x < numRows; ++x) {
@@ -138,7 +126,7 @@ void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
 
             QGraphicsRectItem* square = scene->addRect(y*40, x*40, 40, 40, QPen(Qt::gray), brushcolor);
 
-            cell_squares[y][x] = square;
+			grid[x][y]->cell_squares = square;
 
         }
         map_file >> ws;

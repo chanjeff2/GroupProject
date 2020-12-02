@@ -29,6 +29,11 @@ Cell::Cell(int x, int y, ITower *tower): x(x), y(y), tower(tower) , cell_type(Ce
 
 Cell::Cell(int x, int y, CellType cell_type): x(x), y(y), tower(nullptr), cell_type(cell_type) {};
 
+Cell::~Cell() {
+	this->cell_squares->setVisible(false);
+	delete this->cell_squares;
+}
+
 // getter
 ITower *Cell::getTower() const {
 	return this->tower;
