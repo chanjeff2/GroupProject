@@ -53,6 +53,9 @@ private slots:
     // Bestiary pressed
     void on_Bestiary_clicked();
 
+    // Load Map Pressed
+    void on_LoadMap_clicked();
+
     // Start Game Pressed
     void on_StartGame_clicked();
 

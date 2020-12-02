@@ -3,12 +3,14 @@
 
 #include <set>
 #include <QDebug>
+#include "src/utility/GameValues.h"
 using namespace std;
 
 // forward declaration
 class ITower;
 class IEnemy;
 class GameGrid;
+enum class CellType;
 
 class Cell
 {
@@ -17,10 +19,12 @@ class Cell
 
 	ITower *tower;
 	set<IEnemy*> enemy;
+    CellType cell_type;
 
 	// constructor
 	Cell(int x, int y);
 	Cell(int x, int y, ITower *tower);
+    Cell(int x, int y, CellType cell_type);
 
 public:
 	const int x;

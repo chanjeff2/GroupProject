@@ -2,10 +2,10 @@
 #define PATH_H
 
 #include <deque>
+#include <QDebug>
 using namespace std;
 
 #include "src/utility/GameValues.h"
-#include <QDebug>
 
 // forward declaration
 class Cell;

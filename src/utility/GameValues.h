@@ -36,6 +36,10 @@ enum class AuraType {
 	SlowAura, ArmorPierceAura, RageAura, Null
 };
 
+enum class CellType {
+    EMPTY, BLOCKED, SPAWN, END
+};
+
 enum class TargetSelectionType {
 	Random, Priority, All, Null
 };
