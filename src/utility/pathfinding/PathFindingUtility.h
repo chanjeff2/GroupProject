@@ -31,9 +31,9 @@ private:
 	class CellDetails {
 	public:
 		Coordinate prevCell{nullCoordinate}; // previous cell **start from end**
-		int f{NUM_OF_COL * NUM_OF_ROW}; // f = g + h
-		int g{NUM_OF_COL * NUM_OF_ROW}; // cost from start to this cell
-		int h{NUM_OF_COL * NUM_OF_ROW}; // cost from this cell to end
+		int f{INT_MAX}; // f = g + h
+		int g{INT_MAX}; // cost from start to this cell
+		int h{INT_MAX}; // cost from this cell to end
 	};
 
     Coordinate entry;

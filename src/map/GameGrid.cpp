@@ -168,6 +168,13 @@ Cell *GameGrid::getCell(Coordinate coordinate) const {
 	return getCell(coordinate.first, coordinate.second);
 }
 
+int GameGrid::getNumRows() const {
+	return numRows;
+}
+int GameGrid::getNumCols() const {
+	return numCols;
+}
+
 const set<ITower*> &GameGrid::getAllTower() const {
 	return towerUtility.refOfTowers;
 }
@@ -215,9 +222,8 @@ bool GameGrid::canPlaceTower(int x, int y) {
 	}
 
 	// check if the cell is occupied with any enemy
-	for (auto enemy: enemies) {
-		if (enemy->getPath().getCurrentCoordinate() == newPos)
-			return false;
+	if (!getCell(x, y)->isEmpty()) {
+		return false;
 	}
 
 	set<Coordinate> newTowerPositions = towerUtility.positionOfTowers;

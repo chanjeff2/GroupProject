@@ -48,6 +48,9 @@ public:
 	Cell *getCell(int x, int y) const;
 	Cell *getCell(Coordinate coordinate) const;
 
+	int getNumRows() const;
+	int getNumCols() const;
+
 	const set<ITower*> &getAllTower() const;
 
 	const set<IEnemy*> &getAllEnemy() const;
