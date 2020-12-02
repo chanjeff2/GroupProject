@@ -9,7 +9,7 @@ using namespace std;
 typedef	pair<int /*col*/, int /*row*/> Coordinate;
 
 enum class Element: int {
-	Cell = 0, Indicator, Tower, Enemy
+    Cell = 0, Indicator, Preview, Tower, Enemy, Selling
 };
 
 enum class EnemyType: int {

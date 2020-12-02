@@ -307,7 +307,7 @@ void MainWindow::map_hovered(int x, int y) {
         // If in sell mode, show a cross instead of towers
         previewed_tower = scene.addPixmap(QPixmap(":/res/res/misc_images/SellTower"));
         previewed_tower->setZValue(static_cast<float>(Element::Selling));
-        previewed_tower->setOffset(x*40, y*40);
+        previewed_tower->setOffset(x*CELL_SIZE.first, y*CELL_SIZE.second);
     }
     if (game_grid.getCell(x, y)->hasTower()) {
 		qDebug() << "MainWindow: show range indicator for existing tower at (" << x << ", " << y << ")";
