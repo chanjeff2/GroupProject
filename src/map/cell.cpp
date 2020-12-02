@@ -27,7 +27,7 @@ Cell::Cell(int x, int y): x(x), y(y), tower(nullptr) , cell_type(CellType::EMPTY
 
 Cell::Cell(int x, int y, ITower *tower): x(x), y(y), tower(tower) , cell_type(CellType::BLOCKED) {};
 
-Cell::Cell(int x, int y, CellType cell_type): x(x), y(y), cell_type(cell_type) {};
+Cell::Cell(int x, int y, CellType cell_type): x(x), y(y), tower(nullptr), cell_type(cell_type) {};
 
 // getter
 ITower *Cell::getTower() const {
