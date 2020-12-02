@@ -31,7 +31,6 @@ void PathFindingUtility::init(int numCols, int numRows, Coordinate start, Coordi
     entry = start;
     exit = end;
     pathStartEnd = findPath(start, end, blockedPositions);
-    pathStartEnd.print();
 }
 
 Path PathFindingUtility::processPath(CellDetails** cellDetails, const Coordinate end) {
