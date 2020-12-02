@@ -37,6 +37,7 @@ private:
 
     Coordinate entry;
     Coordinate exit;
+    set<Coordinate> blockedPositions; // obstacles
 	Path pathStartEnd; // path from entry to exit
 	Path pathStartEndBuffer; // buffer to store preview
 	set<PathBuffer*> pathBuffer; // buffer for each enemy
