@@ -117,11 +117,22 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="StartGame">
-        <property name="text">
-         <string>Start</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="LoadMap">
+          <property name="text">
+           <string>Load Map</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="StartGame">
+          <property name="text">
+           <string>Start</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QPushButton" name="CancelBuy">
@@ -577,7 +588,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

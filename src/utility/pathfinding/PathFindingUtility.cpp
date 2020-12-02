@@ -6,6 +6,7 @@
 #include <cmath>
 #include <QDebug>
 #include <queue>
+#include <vector>
 
 // constructor
 PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {}
@@ -24,7 +25,16 @@ void PathFindingUtility::init() {
 	pathStartEnd = findPath(entry, exit);
 }
 
-Path PathFindingUtility::processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end) {
+void PathFindingUtility::init(int numCols, int numRows, Coordinate start, Coordinate end, set<Coordinate> blockedPositions) {
+    this->numCols = numCols;
+    this->numRows = numRows;
+    this->blockedPositions = blockedPositions;
+    entry = start;
+    exit = end;
+    pathStartEnd = findPath(start, end, blockedPositions);
+}
+
+Path PathFindingUtility::processPath(vector<vector<CellDetails>> cellDetails, const Coordinate end) {
 	Path path;
 
 	// start from end
@@ -66,7 +76,7 @@ bool PathFindingUtility::isCoordinateBlocked(int x, int y, const set<Coordinate>
 }
 
 bool PathFindingUtility::isValidCoordinate(Coordinate coordinate) const {
-	if (coordinate.first < 0 || coordinate.second < 0 || coordinate.first > NUM_OF_COL - 1 || coordinate.second > NUM_OF_ROW - 1)
+    if (coordinate.first < 0 || coordinate.second < 0 || coordinate.first > numCols - 1 || coordinate.second > numRows - 1)
 		return false;
 	else
 		return true;
@@ -84,17 +94,17 @@ Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, 
 	Path path;
 
 	// closed list storing processed (used) cells
-	bool closedList[NUM_OF_COL][NUM_OF_ROW];
+    bool closedList[numCols][numRows];
 
 	// init all cell to false, indicating no cell is processed
-	for (int col = 0; col < NUM_OF_COL; ++col) {
-		for (int row = 0; row < NUM_OF_ROW; ++row) {
+    for (int col = 0; col < numCols; ++col) {
+        for (int row = 0; row < numRows; ++row) {
 			closedList[col][row] = false;
 		}
 	}
 
 	// array holding cell details like coordinate and f, g, h values
-	CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW];
+	vector<vector<CellDetails>> cellDetails(numCols, vector<CellDetails>(numRows)); // cellDetails[col][row]
 
 	// init start cell
 	cellDetails[start.first][start.second].f = 0;
@@ -139,7 +149,7 @@ Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, 
 				// reach destination
 				if (offseted_col == end.first && offseted_row == end.second) {
 					cellDetails[offseted_col][offseted_row].prevCell = make_pair(_col, _row);
-					path = processPath(cellDetails, end);
+                    path = processPath(cellDetails, end);
 					return path;
 				}
 
@@ -186,8 +196,11 @@ Path PathFindingUtility::getPathStartEnd() const {
  * empty vector if not valid */
 bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies) {
 	qDebug() << "PathFindingUtility: validate tower placement";
-	// check from start to end
-	pathStartEndBuffer = findPath(entry, exit, positionOfTowers);
+    // check from start to end
+    set<Coordinate> invalidPositions;
+    invalidPositions.insert(blockedPositions.begin(), blockedPositions.end());
+    invalidPositions.insert(positionOfTowers.begin(), positionOfTowers.end());
+    pathStartEndBuffer = findPath(entry, exit, invalidPositions );
 	// clear and return if don't find any possible path from start to end
 	if (pathStartEndBuffer.isEmpty()) {
 		qDebug() << "PathFindingUtility: no path from start to end";
@@ -230,7 +243,7 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 
 	// check for remaining enemies
 	for (auto enemy: enemiesNotOnPath) {
-		Path _path = findPath(enemy->getPath().getCurrentCoordinate(), exit, positionOfTowers);
+        Path _path = findPath(enemy->getPath().getCurrentCoordinate(), exit, invalidPositions);
 		if (!_path.isEmpty()) {
 			PathBuffer *_pathBuffer = new PathBuffer(_path, enemy);
 			pathBuffer.insert(_pathBuffer); // add enemies not on path to buffer

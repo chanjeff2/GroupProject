@@ -45,7 +45,10 @@ MainWindow::MainWindow(QWidget *parent)
 	game_grid.resourceManager.setLayoutManager(&resource_layout_manager);
 
     // Misc stuff
-    ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
+	ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
+	QTimer::singleShot(500, [&] {
+		ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+	});
     week_layout_manager.SkipWeek->setEnabled(false);
     ui->Warning->setVisible(false);
     ui->Warning->setStyleSheet(QStringLiteral("QLabel{color: rgb(255, 0, 0);}"));
@@ -199,6 +202,16 @@ void MainWindow::on_Bestiary_clicked() {
     bestiary_window.show();
 }
 
+void MainWindow::on_LoadMap_clicked() {
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Map file"), ".", tr("Text Files (*.txt)"));
+    qDebug() << "Map Info: " << filename;  // You can use qDebug() for debug info
+    if (filename == "") return;
+    else {
+		game_grid.loadMap(filename.toStdString());
+    }
+	ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+}
+
 void MainWindow::on_StartGame_clicked() {
     QString filename = QFileDialog::getOpenFileName(this, tr("Open Waves file"), ".", tr("Text Files (*.txt)"));
     qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info
@@ -309,8 +322,10 @@ void MainWindow::map_hovered(int x, int y) {
             QString img_path = QString::fromStdString(TOWER_IMAGES[int(tower_selected)]);
 
             previewed_tower = scene.addPixmap(QPixmap(img_path));
+
             previewed_tower->setZValue(static_cast<float>(Element::Preview));
-            previewed_tower->setOffset(x*40, y*40);
+            previewed_tower->setOffset(x*CELL_SIZE.first, y*CELL_SIZE.second);
+
             previewed_tower->setOpacity(0.5);
 
 			qDebug() << "MainWindow: show range indicator for preview at (" << x << ", " << y << ")";

@@ -2,10 +2,10 @@
 #define PATH_H
 
 #include <deque>
+#include <QDebug>
 using namespace std;
 
 #include "src/utility/GameValues.h"
-#include <QDebug>
 
 // forward declaration
 class Cell;
@@ -20,7 +20,10 @@ class Path { // change to pointer if needed
 	int pathStartEndDistance{0}; // total number of cells in pathStartEnd
 public:
 	Path() = default;
-	
+
+    // for debugging, print the whole path
+    void print() const;
+
 	int getRemainingDistance() const;
 	bool isNextCellEnd() const;
 	Cell *getCurrentCell() const;
@@ -32,5 +35,7 @@ public:
 	void goToNextCell(IEnemy* enemy = nullptr);
 	void clear();
 };
+
+// for debugging, print the whole path
 
 #endif // PATH_H

@@ -150,6 +150,7 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 	enemies.insert(newEnemy);
 	QGraphicsPixmapItem *img = this->gameGrid->getScene()->addPixmap(QPixmap(imgPath));
 	PixMap *pixMapimg = new PixMap(img);
+    pixMapimg->setOffset( path.getNextCoordinate().first * CELL_SIZE.first , path.getNextCoordinate().second * CELL_SIZE.second );
 	newEnemy->attachImageView(pixMapimg);
 	newEnemy->trigger();
 }

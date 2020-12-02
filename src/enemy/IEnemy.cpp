@@ -96,14 +96,15 @@ void IEnemy::move() {
 void IEnemy::trigger() {
 	// born to move
 	// get ready for next move
-	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
-	timeTilNextMove /= GAME_SPEED;
+    float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+    timeTilNextMove /= GAME_SPEED;
 
-	enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
+    enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
 
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &IEnemy::move);
 	timer->start(timeTilNextMove);
+
 }
 
 void IEnemy::receiveDamage(int damage) {
