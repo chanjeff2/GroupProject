@@ -24,12 +24,12 @@ void PathFindingUtility::init() {
 	pathStartEnd = findPath(entry, exit);
 }
 
-void PathFindingUtility::init(int numCols, int numRows, Coordinate start, Coordinate end) {
+void PathFindingUtility::init(int numCols, int numRows, Coordinate start, Coordinate end, set<Coordinate> blockedPositions) {
     this->numCols = numCols;
     this->numRows = numRows;
     entry = start;
     exit = end;
-    pathStartEnd = findPath(start, end);
+    pathStartEnd = findPath(start, end, blockedPositions);
     pathStartEnd.print();
 }
 
