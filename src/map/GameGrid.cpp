@@ -154,4 +154,6 @@ void GameGrid::clearBoard() {
     weekManager.toggle_game_started(false);
     enemyUtility.killAllEnemies();
     towerUtility.removeAllTowers();
+    pathFindingUtility.validateTowerPlacement(towerUtility.positionOfTowers, enemyUtility.enemies);
+    pathFindingUtility.updatePath();
 }

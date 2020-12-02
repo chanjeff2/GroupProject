@@ -82,4 +82,6 @@ void ResourceManager::manager_reset() {
     resourceLayoutManager->updateResource(getResource());
     resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
     resourceLayoutManager->updateResourceNeededToUpg(getResourceRequiredForUpgradeCapacity());
+    resourceLayoutManager->isResourceCapacityUpgradeAvailable(true);
+    resourceLayoutManager->ResourceUpgrade->setText("Upgrade");
 }
