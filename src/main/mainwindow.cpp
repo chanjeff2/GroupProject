@@ -197,6 +197,18 @@ void MainWindow::on_Bestiary_clicked() {
     bestiary_window.show();
 }
 
+void MainWindow::on_LoadMap_clicked() {
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Map file"), ".", tr("Text Files (*.txt)"));
+    qDebug() << "Map Info: " << filename;  // You can use qDebug() for debug info
+    if (filename == "") return;
+    else {
+        game_grid.loadMap(&scene,filename.toStdString());
+        //qDebug() << "j";
+    }
+    //qDebug() << "m";
+    ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+}
+
 void MainWindow::on_StartGame_clicked() {
     QString filename = QFileDialog::getOpenFileName(this, tr("Open Waves file"), ".", tr("Text Files (*.txt)"));
     qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info

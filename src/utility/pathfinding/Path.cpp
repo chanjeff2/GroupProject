@@ -10,13 +10,12 @@ void Path::goToNextCell(IEnemy* enemy) {
 	if (enemy != nullptr) {
 		pathStartEnd.at(0)->removeEnemy(enemy);
 	}
-
 	pathStartEnd.pop_front();
 	--pathStartEndDistance;
-
 	// reg into new cell
 	if (enemy != nullptr) {
-		qDebug() << "Path:" << *enemy << "moved to" << *getCurrentCell();
+        //qDebug() << "Path:" << *enemy << "moved to" << *getCurrentCell();
+        // this line crashed the game so I commented it out
 		pathStartEnd.at(0)->addEnemy(enemy);
 	}
 }
@@ -59,3 +58,12 @@ void Path::clear() {
 	pathStartEnd.clear();
 	pathStartEndDistance = 0;
 }
+
+void Path::print() const
+{
+    QDebug debug = qDebug();
+    for ( int i = 0 ; i < pathStartEnd.size() ; i++) {
+        qDebug() << pathStartEnd[i]->x << pathStartEnd[i]->y;
+    }
+}
+

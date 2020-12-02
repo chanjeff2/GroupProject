@@ -3,9 +3,23 @@
 #include "src/tower/ITower.h"
 #include "src/enemy/IEnemy.h"
 #include "src/map/cell.h"
+#include <fstream>
+
+#include <QDebug>
 
 GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 	// init grid
+    numCols = NUM_OF_COL;
+    numRows = NUM_OF_ROW;
+
+    grid = new Cell**[NUM_OF_COL];
+    cell_squares = new QGraphicsRectItem**[NUM_OF_COL];
+
+    for ( int i = 0 ; i < NUM_OF_COL ; i++ ) {
+        grid[i] = new Cell*[NUM_OF_ROW];
+        cell_squares[i] = new QGraphicsRectItem*[NUM_OF_ROW];
+    }
+
 	for (int x = 0; x < NUM_OF_COL; ++x) {
 		for (int y = 0; y < NUM_OF_ROW; ++y) {
             grid[x][y] = new Cell(x, y);
@@ -17,7 +31,9 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
                 brushcolor = Qt::red;
 
             QGraphicsRectItem* square = scene->addRect(x*40, y*40, 40, 40, QPen(Qt::gray), brushcolor);
+
             cell_squares[x][y] = square;
+
         }
 	}
 	pathFindingUtility.init();
@@ -30,6 +46,93 @@ GameGrid::~GameGrid() {
 			delete grid[x][y]; // delete cells
 		}
 	}
+}
+
+void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
+    // delete old grid
+    for ( int i = 0 ; i < numCols ; i++ ) {
+        for ( int j = 0 ; j < numRows ; j++ ) {
+            delete grid[i][j];
+            cell_squares[i][j]->setVisible(false);
+            scene->removeItem(cell_squares[i][j]);
+            delete cell_squares[i][j];
+        }
+        delete [] grid[i];
+        delete [] cell_squares[i];
+    }
+
+    delete [] grid;
+    delete [] cell_squares;
+
+    // load new grid
+    ifstream map_file(filename);
+
+    map_file >> numCols >> numRows;
+    map_file >> ws;
+    map_file >> noskipws;
+
+    grid = new Cell**[numCols];
+    cell_squares = new QGraphicsRectItem**[numCols];
+
+    for( int i = 0 ; i < numCols ; i++ ) {
+        grid[i] = new Cell*[numRows];
+        cell_squares[i] = new QGraphicsRectItem*[numRows];
+    }
+
+    for (int x = 0; x < numRows; ++x) {
+        for (int y = 0; y < numCols; ++y) {
+            // row and col flipped here
+
+            char current_character;
+            map_file >> current_character;
+            CellType cell_type;
+
+            switch (current_character) {
+                case '#':
+                    cell_type = CellType::BLOCKED;
+                    break;
+                case ' ':
+                    cell_type = CellType::EMPTY;
+                    break;
+                case 'O':
+                    cell_type = CellType::SPAWN;
+                    break;
+                case 'X':
+                    cell_type = CellType::END;
+                    break;
+            }
+
+            grid[y][x] = new Cell(y, x, cell_type);
+
+            if (cell_type == CellType::SPAWN) {
+                spawns.insert( grid[y][x] );
+            }
+            if (cell_type == CellType::END) {
+                target = grid[y][x];
+            }
+
+            QBrush brushcolor(Qt::NoBrush);
+            /*
+            if (x == 0 && y == 0)
+                brushcolor = Qt::green;
+            else if (x == NUM_OF_COL - 1 && y == NUM_OF_ROW - 1)
+                brushcolor = Qt::red;*/
+            if ( cell_type == CellType::SPAWN )
+                brushcolor = Qt::green;
+            else if ( cell_type == CellType::END )
+                brushcolor = Qt::red;
+            else if ( cell_type == CellType::BLOCKED )
+                brushcolor = Qt::gray;
+
+            QGraphicsRectItem* square = scene->addRect(y*40, x*40, 40, 40, QPen(Qt::gray), brushcolor);
+
+            cell_squares[y][x] = square;
+
+        }
+        map_file >> ws;
+    }
+    scene->setSceneRect( QRectF( 0, 0, numCols * CELL_SIZE.first, numRows * CELL_SIZE.second ) );
+    pathFindingUtility.init( numCols, numRows, make_pair( (*spawns.begin())->x , (*spawns.begin())->y ), make_pair( target->x, target->y ) );
 }
 
 // getter

@@ -17,6 +17,9 @@ class GameGrid;
 class PathFindingUtility
 {
 private:
+    int numRows = NUM_OF_ROW;
+    int numCols = NUM_OF_COL;
+
 	class PathBuffer {
 	public:
 		Path path; // calculated path for
@@ -39,7 +42,7 @@ private:
 	set<PathBuffer*> pathBuffer; // buffer for each enemy
 	const GameGrid *gameGrid; // ref to game grid
 
-	Path processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end);
+    Path processPath(CellDetails** cellDetails, const Coordinate end);
 
 	bool isCoordinateBlocked(Coordinate coordinate, const set<Coordinate> &blockedPosition) const;
 	bool isCoordinateBlocked(int x, int y, const set<Coordinate> &blockedPosition) const;
@@ -62,6 +65,8 @@ public:
 	PathFindingUtility(GameGrid *gameGrid);
 
 	void init();
+
+    void init(int numCols, int numRows, Coordinate start, Coordinate end);
 
 	Path getPathStartEnd() const;
 

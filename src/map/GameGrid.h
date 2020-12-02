@@ -20,12 +20,18 @@ using namespace std;
 
 class GameGrid
 {
-	array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
+    //array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
+    Cell*** grid;
     QGraphicsScene* scene;
 	TowerUtility towerUtility{this};
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
-    array<array<QGraphicsRectItem*, NUM_OF_ROW>, NUM_OF_COL> cell_squares;
+    //array<array<QGraphicsRectItem*, NUM_OF_ROW>, NUM_OF_COL> cell_squares;
+    QGraphicsRectItem*** cell_squares;
+
+    int numRows, numCols, numSpawns;
+    set<Cell*> spawns;
+    Cell* target;
 
 public:
 	GPAManager gpaManager;
@@ -34,6 +40,8 @@ public:
 
     GameGrid(QGraphicsScene* scene);
 	~GameGrid();
+
+    void loadMap(QGraphicsScene* scene, const string& filename);
 
 	// getter
 	Cell *getCell(int x, int y) const;
