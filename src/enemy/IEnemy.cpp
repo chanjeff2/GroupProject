@@ -116,4 +116,3 @@ void IEnemy::receiveDamage(int damage) {
 		enemyUtility->killEnemy(this, true);
 	}
 }
-

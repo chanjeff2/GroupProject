@@ -268,6 +268,10 @@ QGraphicsRectItem* GameGrid::drawRange(TowerType towertype, Coordinate position)
 }
 
 void GameGrid::clearBoard() {
-    towerUtility.removeAllTowers();
+    gpaManager.toggle_game_started(false);
+    weekManager.toggle_game_started(false);
     enemyUtility.killAllEnemies();
+    towerUtility.removeAllTowers();
+    pathFindingUtility.validateTowerPlacement(towerUtility.positionOfTowers, enemyUtility.enemies);
+    pathFindingUtility.updatePath();
 }

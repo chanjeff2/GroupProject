@@ -52,7 +52,7 @@ void ResourceManager::gainResource(int amount) {
 		 * can still check to place safe */
 bool ResourceManager::upgradeResourceCapacity() {
 	// max level
-    if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY) {
+    if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY - 1) {
 		qDebug() << "ResourceManager: failed upgrade capacity, max level";
 		return false;
 	}
@@ -62,7 +62,7 @@ bool ResourceManager::upgradeResourceCapacity() {
 		qDebug() << "ResourceManager: upgrade capacity to :" << getResourceCapacity();
 	}
 
-    if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY) {
+    if (resourceCapacityLevel == NUM_OF_RESOURCE_CAPACITY - 1) {
         resourceLayoutManager->isResourceCapacityUpgradeAvailable(false);
         resourceLayoutManager->ResourceUpgrade->setText("Maxed!");
     }
@@ -80,6 +80,8 @@ void ResourceManager::manager_reset() {
     resource = STARTING_RESOURCE;
     resourceCapacityLevel = 0;
     resourceLayoutManager->updateResource(getResource());
-    resourceLayoutManager->updateResource(getResourceCapacity());
+    resourceLayoutManager->updateResourceCapacity(getResourceCapacity());
     resourceLayoutManager->updateResourceNeededToUpg(getResourceRequiredForUpgradeCapacity());
+    resourceLayoutManager->isResourceCapacityUpgradeAvailable(true);
+    resourceLayoutManager->ResourceUpgrade->setText("Upgrade");
 }

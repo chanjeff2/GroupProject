@@ -17,6 +17,7 @@ float GPAManager::getGPA() const {
 		 * usage: if (reduceGPA(amount)) [GG] */
 
 bool GPAManager::reduceGPA(float amount) {
+    if (!is_game_started) return false;
 	qDebug() << "GPAManager: reduce GPA, amount:" << amount;
 	gpa -= amount;
 	// Rounding off to 1 d.p.
@@ -47,5 +48,10 @@ void GPAManager::setLayoutManager(GPALayoutManager* gpaLayoutManager) {
 void GPAManager::manager_reset() {
     gpa = MAX_GPA;
     is_game_over = false;
+    is_game_started = false;
     gpaLayoutManager->UpdateGPA(gpa);
+}
+
+void GPAManager::toggle_game_started(bool game_started) {
+    is_game_started = game_started;
 }
