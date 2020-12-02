@@ -26,7 +26,7 @@ class GameGrid
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
 
-    int numRows, numCols, numSpawns;
+    int numRows{0}, numCols{0}, numSpawns;
 	set<Coordinate> spawns;
     set<Coordinate> blockedCells;
 	Coordinate target;
