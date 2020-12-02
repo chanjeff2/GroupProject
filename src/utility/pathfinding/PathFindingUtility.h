@@ -22,6 +22,7 @@ private:
 		Path path; // calculated path for
 		IEnemy *enemy{nullptr}; // corresponding enemy
 		PathBuffer(Path path, IEnemy *enemy);
+		void flush(); // apply path buffer to enemy
 	};
 	
 	class CellDetails {
