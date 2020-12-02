@@ -253,10 +253,9 @@ void MainWindow::map_clicked(int x, int y) {
             });
         }
     } else {
+        // delete aura
+        drawn_range = nullptr;
         game_grid.removeTower(x, y);
-		// delete aura
-		delete drawn_range;
-		drawn_range = nullptr;
     }
 };
 
@@ -270,10 +269,6 @@ void MainWindow::map_hovered(int x, int y) {
 	if (!game_grid.isValidCoordinate(x, y)) {
 		return;
 	}
-
-    if (sell_mode) {
-        return;
-    }
 
 	// do nothing if stay on same cell
 	if (pos == this->cursorPos) {
@@ -308,11 +303,18 @@ void MainWindow::map_hovered(int x, int y) {
 		previewed_tower = nullptr;
 	}
 
+    if (sell_mode) {
+        // If in sell mode, show a cross instead of towers
+        previewed_tower = scene.addPixmap(QPixmap(":/res/res/misc_images/SellTower"));
+        previewed_tower->setZValue(static_cast<float>(Element::Selling));
+        previewed_tower->setOffset(x*40, y*40);
+    }
     if (game_grid.getCell(x, y)->hasTower()) {
 		qDebug() << "MainWindow: show range indicator for existing tower at (" << x << ", " << y << ")";
         // Draw out the range
         drawn_range = game_grid.getCell(x, y)->getTower()->showRange(true);
     } else {
+        // No need extra constraint for sell mode (sell mode is forced to select as None)
         if (tower_selected == TowerType::None) return;
         else {
             // Get tower datas
@@ -320,7 +322,10 @@ void MainWindow::map_hovered(int x, int y) {
             QString img_path = QString::fromStdString(TOWER_IMAGES[int(tower_selected)]);
 
             previewed_tower = scene.addPixmap(QPixmap(img_path));
-			previewed_tower->setOffset(x*CELL_SIZE.first, y*CELL_SIZE.second);
+
+            previewed_tower->setZValue(static_cast<float>(Element::Preview));
+            previewed_tower->setOffset(x*CELL_SIZE.first, y*CELL_SIZE.second);
+
             previewed_tower->setOpacity(0.5);
 
 			qDebug() << "MainWindow: show range indicator for preview at (" << x << ", " << y << ")";
@@ -328,6 +333,8 @@ void MainWindow::map_hovered(int x, int y) {
 			drawn_range = this->game_grid.drawRange(tower_selected, pos);
         }
     }
+
+    return;
 };
 
 void MainWindow::game_over_process() {
