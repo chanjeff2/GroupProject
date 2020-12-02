@@ -41,11 +41,16 @@ GameGrid::GameGrid(QGraphicsScene* scene) : scene(scene) {
 GameGrid::~GameGrid() {
 	// delete grid
 	// and also all positible pointer?
-	for (int x = 0; x < NUM_OF_COL; ++x) {
-		for (int y = 0; y < NUM_OF_ROW; ++y) {
+    for (int x = 0; x < numCols; ++x) {
+        for (int y = 0; y < numRows; ++y) {
 			delete grid[x][y]; // delete cells
+            delete cell_squares[x][y];
 		}
+        delete [] grid[x];
+        delete [] cell_squares[x];
 	}
+    delete [] grid;
+    delete [] cell_squares;
 }
 
 void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
@@ -111,18 +116,22 @@ void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
                 target = grid[y][x];
             }
 
-            QBrush brushcolor(Qt::NoBrush);
-            /*
-            if (x == 0 && y == 0)
-                brushcolor = Qt::green;
-            else if (x == NUM_OF_COL - 1 && y == NUM_OF_ROW - 1)
-                brushcolor = Qt::red;*/
-            if ( cell_type == CellType::SPAWN )
-                brushcolor = Qt::green;
-            else if ( cell_type == CellType::END )
-                brushcolor = Qt::red;
-            else if ( cell_type == CellType::BLOCKED )
-                brushcolor = Qt::gray;
+            QBrush brushcolor;
+
+            switch ( cell_type ) {
+                case CellType::SPAWN:
+                    brushcolor = Qt::green;
+                    break;
+                case CellType::END:
+                    brushcolor = Qt::red;
+                    break;
+                case CellType::BLOCKED:
+                    brushcolor = Qt::gray;
+                    break;
+                case CellType::EMPTY:
+                    brushcolor = Qt::NoBrush;
+                    break;
+            }
 
             QGraphicsRectItem* square = scene->addRect(y*40, x*40, 40, 40, QPen(Qt::gray), brushcolor);
 
