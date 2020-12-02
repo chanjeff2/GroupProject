@@ -27,6 +27,8 @@ void PathFindingUtility::init() {
 void PathFindingUtility::init(int numCols, int numRows, Coordinate start, Coordinate end) {
     this->numCols = numCols;
     this->numRows = numRows;
+    entry = start;
+    exit = end;
     pathStartEnd = findPath(start, end);
     pathStartEnd.print();
 }

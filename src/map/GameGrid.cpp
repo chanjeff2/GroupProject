@@ -174,7 +174,7 @@ Path GameGrid::getPathStartEnd() const {
 
 // methods
 bool GameGrid::isValidCoordinate(int x, int y) const {
-	if (x < 0 || y < 0 || x > NUM_OF_COL - 1 || y > NUM_OF_ROW - 1)
+    if (x < 0 || y < 0 || x > numCols - 1 || y > numRows - 1)
 		return false;
 
 	return true;
@@ -208,10 +208,9 @@ bool GameGrid::canPlaceTower(int x, int y) {
 	newTowerPositions.insert(newPos);
 
 	// validate path
-	if (!pathFindingUtility.validateTowerPlacement(newTowerPositions, enemies)) {
+    if (!pathFindingUtility.validateTowerPlacement(newTowerPositions, enemies)) {
 		return false;
 	}
-
 	return true;
 }
 
