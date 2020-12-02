@@ -10,15 +10,15 @@ Project type: Tower Defence game
 ```
 .
 ├── build/                  # Compiled files (where our .a .o .exe located)
-├── docs/                   # Documentation files (we will do it on Hackmd tho)
+├── docs/                   # Documentations (Technical stuff are on Hackmd)
 ├── src/                    # Source files
-│   ├── main/               # Source codes (.cpp .hpp .h etc)
+│   ├── main/               # UI-related implementations
 │   ├── enemy/              # enemy interface and implementations
 │   ├── tower/              # tower interface and implementations
 │   ├── map/                # game map and cell
-│   ├── utility/            # utilities and game values
-├── res/                    # Resource file (graphics, etc)
-├── test/                   # Automated tests (may not have due to time limit)
+│   └── utility/            # utilities and game values
+├── res/                    # Resource file (graphics, demo map/wave data file)
+├── group_project.pro       # The .pro file
 ├── LICENSE
 └── README.md
 ```
