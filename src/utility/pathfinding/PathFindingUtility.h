@@ -35,8 +35,8 @@ private:
 		int h{NUM_OF_COL * NUM_OF_ROW}; // cost from this cell to end
 	};
 
-	const Coordinate entry;
-	const Coordinate exit;
+    Coordinate entry;
+    Coordinate exit;
 	Path pathStartEnd; // path from entry to exit
 	Path pathStartEndBuffer; // buffer to store preview
 	set<PathBuffer*> pathBuffer; // buffer for each enemy
