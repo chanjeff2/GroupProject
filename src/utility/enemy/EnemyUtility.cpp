@@ -184,10 +184,17 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 
 void EnemyUtility::killAllEnemies() {
     gameGrid->weekManager.stopGeneration();
-    // This part is commented to prevent crashes for now
-    /* auto emptyList = enemies;
-    for (IEnemy* guy : emptyList) {
-        killEnemy(guy, true);
+    /* Originally planned to kill all enemies
+     * However it crashes everytime
+     * Changed to another plan:
+     * 1. Allow all enemy to move to exit
+     * 2. Lock the GPA at the same time
+     *
+     * The original code is shown below
+     */
+    /* auto tempEmptyList = enemies;
+    for (IEnemy* guy : tempEmptyList) {
+        killEnemy(guy, false);
     } */
 }
 

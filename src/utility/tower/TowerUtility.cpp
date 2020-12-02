@@ -126,7 +126,7 @@ void TowerUtility::removeTower(Cell *position) {
 
 void TowerUtility::removeAllTowers() {
     auto emptyList = positionOfTowers;
-    for (Coordinate i : positionOfTowers) {
+    for (Coordinate i : emptyList) {
         int x = i.first;
         int y = i.second;
         removeTower(getCell(x, y));

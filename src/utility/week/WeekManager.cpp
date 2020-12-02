@@ -136,8 +136,11 @@ void WeekManager::skipToNextWeek() {
 
 // system automatically proceed to next week after last enemy die
 void WeekManager::prepareForNextWeek() {
+
+    if (!isGameStarted) return;
+
 	qDebug() << "WeekManager: prepare For Next Week";
-	if (!finishGenerateEnemy) {
+    if (!finishGenerateEnemy) {
 		// prevent start new week before generated all enemy
 		return;
 	}
@@ -170,13 +173,19 @@ void WeekManager::stopGeneration() {
     isGameOver = true;
 }
 
+void WeekManager::toggle_game_started(bool game_started) {
+    isGameStarted = game_started;
+}
+
 void WeekManager::manager_reset() {
     week = 0;
-    isWeekCooldown = false;
+    isWeekCooldown = true;
     isGameOver = false;
+    isGameStarted = false;
     skippedWeeks = 0;
     finishGenerateEnemy = true;
-    weekLayoutManager->isWeekCoolDown(isWeekCooldown);
-    weekLayoutManager->updateWeek(0);
-    weekLayoutManager->initNumOfWeeks(numOfWeeks);
+    weeksOfEnemies.clear();
+    weekLayoutManager->isWeekCoolDown(false);
+    weekLayoutManager->updateWeek(week);
+    weekLayoutManager->initNumOfWeeks(14); // 14 is the default value, shouldn't affect appearance
 }
