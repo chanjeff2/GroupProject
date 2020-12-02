@@ -61,5 +61,6 @@
         <file>res/towers_images/RegularStudent Purchase.png</file>
         <file>res/towers_images/Wolfram Grid.png</file>
         <file>res/towers_images/Wolfram Purchase.png</file>
+        <file>res/misc_images/SellTower.png</file>
     </qresource>
 </RCC>
