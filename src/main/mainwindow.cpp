@@ -202,9 +202,14 @@ void MainWindow::on_StartGame_clicked() {
     qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info
     if (filename == "") return;
     else {
+        // Notify the game has started
+        game_grid.gpaManager.toggle_game_started(true);
+        game_grid.weekManager.toggle_game_started(true);
+        game_started = true;
+
+        // Initialize stuff
         game_grid.weekManager.loadEnemy(filename.toStdString());
         week_layout_manager.SkipWeek->setEnabled(true);
-        game_started = true;
     }
 }
 
@@ -312,10 +317,12 @@ void MainWindow::map_hovered(int x, int y) {
 
 void MainWindow::game_over_process() {
     game_grid.clearBoard();
-    QString message = "You were expelled from HKUST\n";
-    message += "for poor academic performance.\n";
+    QString message = "You were expelled from HKUST for poor academic performance.\n";
+    message += "Now you can only watch all the assignments reaching deadline.\n";
     message += "Weeks passed: ";
     message += QString::number(game_grid.weekManager.getWeek() - 1);
+    message += "\n(Please wait for all the assignments move to the deadline before restart!)";
+
     QMessageBox::critical(this, "Game Over!", message, QMessageBox::Ok);
     game_reset();
 }

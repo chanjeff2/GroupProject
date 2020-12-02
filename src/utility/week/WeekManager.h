@@ -21,6 +21,7 @@ private:
 	atomic_int skippedWeeks; // no. of weeks skipped ** atomic for thread safe
 	WeekLayoutManager* weekLayoutManager;
     bool isGameOver{false};
+    bool isGameStarted{false};
 
 	GameGrid *gameGrid;
 
@@ -58,6 +59,8 @@ public:
 
     // Force stopping enemy from generating
     void stopGeneration();
+
+    void toggle_game_started(bool game_started);
 
     void manager_reset();
 	

@@ -11,7 +11,8 @@ class GPAManager : public QObject
 private:
 	float gpa; // score
     GPALayoutManager* gpaLayoutManager;
-    bool is_game_over;
+    bool is_game_over {false};
+    bool is_game_started {false};
 
 public:
 	GPAManager();
@@ -26,6 +27,7 @@ public:
 
 	void setLayoutManager(GPALayoutManager* gpaLayoutManager);
 
+    void toggle_game_started(bool game_started);
     void manager_reset();
 
 signals:
