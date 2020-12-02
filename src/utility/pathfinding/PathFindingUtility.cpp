@@ -22,6 +22,10 @@ void PathFindingUtility::PathBuffer::flush() {
 
 
 void PathFindingUtility::init() {
+	this->numCols = NUM_OF_COL;
+	this->numRows = NUM_OF_ROW;
+	entry = START;
+	exit = END;
 	pathStartEnd = findPath(entry, exit);
 }
 
