@@ -27,6 +27,7 @@ void PathFindingUtility::init() {
 void PathFindingUtility::init(int numCols, int numRows, Coordinate start, Coordinate end, set<Coordinate> blockedPositions) {
     this->numCols = numCols;
     this->numRows = numRows;
+    this->blockedPositions = blockedPositions;
     entry = start;
     exit = end;
     pathStartEnd = findPath(start, end, blockedPositions);
@@ -199,8 +200,11 @@ Path PathFindingUtility::getPathStartEnd() const {
  * empty vector if not valid */
 bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies) {
 	qDebug() << "PathFindingUtility: validate tower placement";
-	// check from start to end
-	pathStartEndBuffer = findPath(entry, exit, positionOfTowers);
+    // check from start to end
+    set<Coordinate> invalidPositions;
+    invalidPositions.insert(blockedPositions.begin(), blockedPositions.end());
+    invalidPositions.insert(positionOfTowers.begin(), positionOfTowers.end());
+    pathStartEndBuffer = findPath(entry, exit, invalidPositions );
 	// clear and return if don't find any possible path from start to end
 	if (pathStartEndBuffer.isEmpty()) {
 		qDebug() << "PathFindingUtility: no path from start to end";
@@ -243,7 +247,7 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 
 	// check for remaining enemies
 	for (auto enemy: enemiesNotOnPath) {
-		Path _path = findPath(enemy->getPath().getCurrentCoordinate(), exit, positionOfTowers);
+        Path _path = findPath(enemy->getPath().getCurrentCoordinate(), exit, invalidPositions);
 		if (!_path.isEmpty()) {
 			PathBuffer *_pathBuffer = new PathBuffer(_path, enemy);
 			pathBuffer.insert(_pathBuffer); // add enemies not on path to buffer
