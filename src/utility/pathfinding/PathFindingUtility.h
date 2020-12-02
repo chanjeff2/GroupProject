@@ -66,7 +66,7 @@ public:
 
 	void init();
 
-    void init(int numCols, int numRows, Coordinate start, Coordinate end);
+    void init(int numCols, int numRows, Coordinate start, Coordinate end, set<Coordinate> blockedPositions);
 
 	Path getPathStartEnd() const;
 

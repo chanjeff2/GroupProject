@@ -84,6 +84,8 @@ void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
         cell_squares[i] = new QGraphicsRectItem*[numRows];
     }
 
+    set<Coordinate> blockedPositions;
+
     for (int x = 0; x < numRows; ++x) {
         for (int y = 0; y < numCols; ++y) {
             // row and col flipped here
@@ -95,15 +97,18 @@ void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
             switch (current_character) {
                 case '#':
                     cell_type = CellType::BLOCKED;
+                    blockedPositions.insert(make_pair(y,x));
                     break;
                 case ' ':
                     cell_type = CellType::EMPTY;
                     break;
                 case 'O':
                     cell_type = CellType::SPAWN;
+                    blockedPositions.insert(make_pair(y,x));
                     break;
                 case 'X':
                     cell_type = CellType::END;
+                    blockedPositions.insert(make_pair(y,x));
                     break;
             }
 
@@ -141,7 +146,7 @@ void GameGrid::loadMap(QGraphicsScene *scene, const string &filename) {
         map_file >> ws;
     }
     scene->setSceneRect( QRectF( 0, 0, numCols * CELL_SIZE.first, numRows * CELL_SIZE.second ) );
-    pathFindingUtility.init( numCols, numRows, make_pair( (*spawns.begin())->x , (*spawns.begin())->y ), make_pair( target->x, target->y ) );
+    pathFindingUtility.init( numCols, numRows, make_pair( (*spawns.begin())->x , (*spawns.begin())->y ), make_pair( target->x, target->y ) , blockedPositions );
 }
 
 // getter
