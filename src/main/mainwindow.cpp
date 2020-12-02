@@ -172,6 +172,7 @@ void MainWindow::on_CancelBuy_clicked() {
 }
 
 void MainWindow::on_TowerMode_clicked() {
+    if (!game_started) return;
     if (sell_mode) {
         sell_mode = false;
         ui->TowerMode->setText("Buy Tower Mode");
@@ -186,6 +187,7 @@ void MainWindow::on_TowerMode_clicked() {
 }
 
 void MainWindow::on_ResourceUpg_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= game_grid.resourceManager.getResourceRequiredForUpgradeCapacity()) {
         game_grid.resourceManager.upgradeResourceCapacity();
     } else {
@@ -256,9 +258,9 @@ void MainWindow::map_hovered(int x, int y) {
 		return;
 	}
 
-	if (sell_mode) {
-		return;
-	}
+    if (sell_mode) {
+        return;
+    }
 
 	// do nothing if stay on same cell
 	if (pos == this->cursorPos) {
@@ -350,6 +352,8 @@ void MainWindow::game_reset() {
     // Resets everything in the window
     game_started = false;
     tower_selected = TowerType::None;
+    sell_mode = false;
+    ui->TowerMode->setText("Buy Tower Mode");
     delete drawn_range; drawn_range = nullptr;
     delete previewed_tower; previewed_tower = nullptr;
 
