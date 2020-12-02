@@ -3,7 +3,14 @@
 #include "src/enemy/IEnemy.h"
 #include "src/utility/GameValues.h"
 
-#include <QDebug>
+QDebug &operator<<(QDebug &qdebug, const Path &path) {
+	qdebug.nospace() << "path { ";
+	for (auto cell: path.pathStartEnd) {
+		qdebug << "(" << cell->x << ", " << cell->y << ") ";
+	}
+	qdebug << "};";
+	return qdebug.space();
+}
 
 void Path::goToNextCell(IEnemy* enemy) {
 	// un reg from current cell

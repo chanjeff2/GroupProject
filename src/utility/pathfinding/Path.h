@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "src/utility/GameValues.h"
+#include <QDebug>
 
 // forward declaration
 class Cell;
@@ -12,6 +13,7 @@ class IEnemy;
 
 class Path { // change to pointer if needed
 	friend class PathFindingUtility; // for generating path
+	friend QDebug &operator<<(QDebug &qdebug, const Path &path);
 
 	// member data
 	deque<Cell*> pathStartEnd; // deque storing cells in subsequent order where pathStartEnd[0] is start

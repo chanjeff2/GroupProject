@@ -5,6 +5,7 @@
 
 #include <cmath>
 #include <QDebug>
+#include <queue>
 
 // constructor
 PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), entry(START), exit(END) {}
@@ -12,6 +13,13 @@ PathFindingUtility::PathFindingUtility(GameGrid *gameGrid): gameGrid(gameGrid), 
 PathFindingUtility::PathBuffer::PathBuffer(Path path, IEnemy *enemy): path(path), enemy(enemy) {};
 
 // methods
+void PathFindingUtility::PathBuffer::flush() {
+	qDebug() << "PathFindingUtility::PathBuffer: apply path buffer for" << *enemy;
+	enemy->setPath(path);
+	path.clear();
+}
+
+
 void PathFindingUtility::init() {
 	pathStartEnd = findPath(entry, exit);
 }
@@ -94,18 +102,16 @@ Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, 
 	cellDetails[start.first][start.second].h = 0;
 
 	// open list for actual processing
-	map<const Coordinate, int /*f*/> openList;
-	openList[start] = 0; // insert start && set start.f = 0;
+	queue<Coordinate> openList;
+	openList.push(start);
 
 	// process loop
 	while (!openList.empty()) {
-		// randomly pick first element
-		auto cell = *(openList.begin());
+		// pick first element
+		int _col = openList.front().first; // coordinate.col
+		int _row = openList.front().second; // coordinate.row
 
-		openList.erase(openList.begin());
-
-		int _col = cell.first.first; // coordinate.col
-		int _row = cell.first.second; // coordinate.row
+		openList.pop();
 
 		closedList[_col][_row] = true;
 
@@ -153,7 +159,7 @@ Path PathFindingUtility::findPath(const Coordinate start, const Coordinate end, 
 
 				// update openlist if not exist or get a better path
 				if (cellDetails[offseted_col][offseted_row].f > fNew) {
-					openList[make_pair(offseted_col, offseted_row)] = fNew;
+					openList.push(make_pair(offseted_col, offseted_row));
 					cellDetails[offseted_col][offseted_row].g = gNew;
 					cellDetails[offseted_col][offseted_row].h = hNew;
 					cellDetails[offseted_col][offseted_row].f = fNew;
@@ -200,18 +206,26 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 	for (auto it = enemies.begin(); it != enemies.end(); ++it) {
 		bool isOnPath = isEnemyOnPath(*it, pathStartEndBuffer);
 		if (isOnPath) {
-			if (isOnPath) {
-				Path _path = pathStartEndBuffer;
-				while (_path.getCurrentCell() != (*it)->getPath().getCurrentCell()) {
-					_path.goToNextCell();
-				}
-				PathBuffer *_pathBuffer = new PathBuffer(_path, *it);
-				pathBuffer.insert(_pathBuffer); // add enemies on path to buffer
-			} else {
-				// reg it as not on Path
-				enemiesNotOnPath.insert(*it);
+			Path _path = pathStartEndBuffer;
+			while (_path.getCurrentCell() != (*it)->getPath().getCurrentCell()) {
+				_path.goToNextCell();
 			}
+			PathBuffer *_pathBuffer = new PathBuffer(_path, *it);
+			pathBuffer.insert(_pathBuffer); // add enemies on path to buffer
+		} else {
+			// reg it as not on Path
+			enemiesNotOnPath.insert(*it);
 		}
+	}
+
+	{
+		// logging
+		auto qdb = qDebug().nospace();
+		qdb << "PathFindingUtility: enemies Not On Path { ";
+		for (auto enemy: enemiesNotOnPath) {
+			qdb << *enemy << " ";
+		}
+		qdb << "}";
 	}
 
 	// check for remaining enemies
@@ -221,7 +235,7 @@ bool PathFindingUtility::validateTowerPlacement(const set<Coordinate> &positionO
 			PathBuffer *_pathBuffer = new PathBuffer(_path, enemy);
 			pathBuffer.insert(_pathBuffer); // add enemies not on path to buffer
 		} else {
-			qDebug() << "PathFindingUtility: no path from start to end for one enemy";
+			qDebug() << "PathFindingUtility: no path from start to end for" << *enemy;
 			for (auto element: pathBuffer) {
 				// dellocate memory
 				delete element;
@@ -247,7 +261,7 @@ bool PathFindingUtility::updatePath() {
 
 	// all valid, replace enemies' pathToTake by path in buffer & clear buffer
 	for (auto element: pathBuffer) {
-		element->enemy->setPath(element->path);
+		element->flush();
 		// dellocate memory
 		delete element;
 	}
