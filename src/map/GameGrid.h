@@ -31,6 +31,7 @@ class GameGrid
 
     int numRows, numCols, numSpawns;
     set<Cell*> spawns;
+    set<Coordinate> blockedCells;
     Cell* target;
 
 public:
