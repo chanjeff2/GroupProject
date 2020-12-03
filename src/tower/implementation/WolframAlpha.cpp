@@ -5,8 +5,8 @@
 
 WolframAlpha::WolframAlpha(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::WolframAlpha)
 {
-    damagePerHit = 23;
-    hitPerSec = 1.0;
+    damagePerHit = 32;
+    hitPerSec = 1.1;
     effectiveTowards = set<EnemyType>{ EnemyType::MathHW };
     weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA, EnemyType::Midterm,
                                   EnemyType::MATHExam, EnemyType::FYP };

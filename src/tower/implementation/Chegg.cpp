@@ -5,8 +5,8 @@
 
 Chegg::Chegg(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Chegg)
 {
-    damagePerHit = 288;
-    hitPerSec = 0.1;
+    damagePerHit = 256;
+    hitPerSec = 0.16;
     effectiveTowards = set<EnemyType>{};
     weakTowards = set<EnemyType>{ EnemyType::Midterm, EnemyType::Desmond, EnemyType::MATHExam,
                                   EnemyType::Final, EnemyType::ELPA, EnemyType::FYP };
