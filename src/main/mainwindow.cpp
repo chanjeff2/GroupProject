@@ -193,6 +193,23 @@ void MainWindow::on_ResourceUpg_clicked() {
     if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= game_grid.resourceManager.getResourceRequiredForUpgradeCapacity()) {
         game_grid.resourceManager.upgradeResourceCapacity();
+        if (tower_selected != TowerType::None) {
+            // If not enough resources, auto cancel buy tower
+            if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+                ui->Warning->setText("Not enough resources. Buy cancelled");
+                ui->Warning->setVisible(true);
+                QTimer::singleShot(750, [&]{
+                    ui->Warning->setVisible(false);
+                });
+
+                delete drawn_range;
+                drawn_range = nullptr;
+                delete previewed_tower;
+                previewed_tower = nullptr;
+                tower_selected = TowerType::None;
+                ui->CancelBuy->setEnabled(false);
+            }
+        }
     } else {
         resource_layout_manager.indicateNotEnoughResource();
     }
