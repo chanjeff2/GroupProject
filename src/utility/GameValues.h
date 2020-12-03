@@ -58,8 +58,8 @@ const Coordinate nullCoordinate = make_pair(-1, -1);
 // cell size for display
 const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
 // enemy hp bar
-const pair<int /*width*/, int /*height*/> HP_BAR_BG_SIZE = make_pair(CELL_SIZE.first * 3 / 4, 10);
-const pair<int /*width*/, int /*height*/> HP_BAR_SIZE = make_pair(CELL_SIZE.first * 5 / 8, 8);
+const pair<int /*width*/, int /*height*/> HP_BAR_BG_SIZE = make_pair(CELL_SIZE.first * 3 / 4, 8);
+const pair<int /*width*/, int /*height*/> HP_BAR_SIZE = make_pair(CELL_SIZE.first * 5 / 8, 6);
 const string HP_BAR_BG_GREY = "#9f9f9f";
 const string HP_BAR_RED = "#de4f4f";
 const string HP_BAR_YELLOW = "#f0c861";
@@ -69,6 +69,7 @@ const string HP_BAR_GREEN = "#8de98d";
 const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
 const int TOWER_RANGES[8] = {3, 3, 3, 3, 4, 2, 9, 5};
 
+// Tower
 const AuraType TOWER_AURAS[8] = { AuraType::Null, AuraType::Null, AuraType::Null, AuraType::SlowAura, AuraType::ArmorPierceAura, AuraType::Null, AuraType::RageAura, AuraType::Null };
 const string TOWER_IMAGES[8] = {
     ":/res/res/towers_images/RegularStudent Grid",
@@ -80,6 +81,8 @@ const string TOWER_IMAGES[8] = {
     ":/res/res/towers_images/Ghostwriter Grid",
     ":/res/res/towers_images/Chegg Grid"
 };
+
+// Enemy
 
 // GPA (score)
 const float MAX_GPA = 4.3;
