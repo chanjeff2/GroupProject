@@ -326,6 +326,7 @@ void MainWindow::map_clicked(int x, int y) {
 		QTimer::singleShot(750, [&]{
 			ui->Warning->setVisible(false);
 		});
+        return;
 	}
 
 	// If not enough resources, auto cancel buy next tower
