@@ -61,8 +61,9 @@ void IEnemy::setPath(Path path) {
 	this->path = path;
 }
 
-void IEnemy::attachImageView(PixMap *imgView) {
-	this->enemyLayoutManager.attachImageView(imgView);
+void IEnemy::attachImageView(GraphicsItemGroup *imgViewGroup) {
+	imgViewGroup->setMaxHP(this->HP);
+	this->enemyLayoutManager.attachImageView(imgViewGroup);
 }
 
 // methods
@@ -114,5 +115,7 @@ void IEnemy::receiveDamage(int damage) {
 	// check if die
 	if (this->HP <= 0) {
 		enemyUtility->killEnemy(this, true);
+	} else {
+		enemyLayoutManager.setHP(HP);
 	}
 }

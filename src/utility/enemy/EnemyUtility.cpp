@@ -148,10 +148,35 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 	qDebug() << "EnemyUtility: generate enemy" << *newEnemy;
 
 	enemies.insert(newEnemy);
-	QGraphicsPixmapItem *img = this->gameGrid->getScene()->addPixmap(QPixmap(imgPath));
-	PixMap *pixMapimg = new PixMap(img);
-	pixMapimg->setOffset( path.getCurrentCoordinate().first * CELL_SIZE.first , path.getCurrentCoordinate().second * CELL_SIZE.second );
-	newEnemy->attachImageView(pixMapimg);
+    // group for enemy img and hp bar
+	GraphicsItemGroup *group = new GraphicsItemGroup();
+    // enemy img
+	QGraphicsPixmapItem *img = new QGraphicsPixmapItem(QPixmap(imgPath));
+	img->setVisible(true);
+	img->setZValue(static_cast<float>(Element::Enemy));
+	group->addToGroup(img);
+    // bg for hp bar
+    QRectF hp_bg_rect(0, 0, HP_BAR_BG_SIZE.first, HP_BAR_BG_SIZE.second);
+    hp_bg_rect.moveCenter(QPointF(CELL_SIZE.first / 2, HP_BAR_BG_SIZE.second / 2));
+	QGraphicsRectItem *hp_bg = new QGraphicsRectItem(hp_bg_rect);
+    hp_bg->setBrush(QColor(HP_BAR_BG_GREY.c_str()));
+	hp_bg->setPen(Qt::NoPen);
+	hp_bg->setZValue(static_cast<int>(Element::HP_bg));
+	group->addToGroup(hp_bg);
+    // hp bar
+    QRectF hp_rect(0, 0, HP_BAR_SIZE.first, HP_BAR_SIZE.second);
+    hp_rect.moveCenter(QPointF(CELL_SIZE.first / 2, HP_BAR_BG_SIZE.second / 2));
+	QGraphicsRectItem *hp = new QGraphicsRectItem(hp_rect);
+    hp->setBrush(QColor(HP_BAR_GREEN.c_str()));
+	hp->setPen(Qt::NoPen);
+	hp->setZValue(static_cast<int>(Element::HP));
+	group->addToGroup(hp);
+
+	group->setHPBar(hp);
+
+	gameGrid->getScene()->addItem(group);
+
+	newEnemy->attachImageView(group);
 	newEnemy->trigger();
 }
 
