@@ -55,7 +55,7 @@ void BestiaryWindow::on_Hacker_clicked() {
     icon->setPixmap(QPixmap(":/res/res/towers_images/Hackerman Purchase.png").scaled(120,120));
     ui->textBrowser->setHtml("<center><b><h2>Hackerman</b></center>"
                              "<b>Type:</b> Slow<br><br>"
-                             "<b>Description:</b> Hacks and modifies the content of the assignment. This leaves the assignment no choice but to extend its deadline. But encrypted ones are too hard for them to hack.<br><br>"
+                             "<b>Description:</b> Hacks and modifies the content of the assignment. This leaves the assignment no choice but to extend its deadline. But encrypted ones are too hard for them to hack, for some reason.<br><br>"
                              "<b>Effective against:</b> Quick assignments<br><br>"
                              "<b>Weak against:</b> Encrypted assignments");
 }
@@ -63,7 +63,7 @@ void BestiaryWindow::on_Calculator_clicked() {
     icon->setPixmap(QPixmap(":/res/res/towers_images/Calculator Purchase.png").scaled(120,120));
     ui->textBrowser->setHtml("<center><b><h2>Calculator</b></center>"
                              "<b>Type:</b> Armor Piercing<br><br>"
-                             "<b>Description:</b> The game changer brought to us by CASIO technologies. Good at solving most questions, as long as it is allowed to use. Also, you may not want to use it in writing essays.<br><br>"
+                             "<b>Description:</b> The game changer brought to us by CASIO technologies. Good at solving most questions, as long as it is allowed to use. Also, you may not want to use it in writing literatures.<br><br>"
                              "<b>Special:</b> Has an aura that weakens 50% of enemies' AP in range, does not work on enemies that are weak against.<br><br>"
                              "<b>Weak against:</b> Maths exam, Essays, ELPA");
 }
@@ -123,7 +123,7 @@ void BestiaryWindow::on_Webwork_clicked() {
     ui->textBrowser->setHtml("<center><b><h2>Mathematics Homeworks</b></center>"
                              "<center><b><h3>WeBWorK</b></center>"
                              "<b>Creep type:</b> Armored (Reduced damage)<br><br>"
-                             "<b>Description:</b> Mental Abuse To Humans as we said. Very difficult for students, but not for online tools and calculators.<br>"
+                             "<b>Description:</b> MATH. Mental Abuse To Humans as we said. Very difficult for students, but not for online tools and calculators.<br>"
                              "Developed by the University of Rochester. Not sure why the B and K are capitalized here.<br><br>"
                              "<b>Weakness:</b> WolframAlpha, Calculators");
 }
@@ -132,7 +132,7 @@ void BestiaryWindow::on_Classviva_clicked() {
     ui->textBrowser->setHtml("<center><b><h2>Mathematics Homeworks</b></center>"
                              "<center><b><h3>Classviva</b></center>"
                              "<b>Creep type:</b> Armored (Reduced damage)<br><br>"
-                             "<b>Description:</b> Mental Abuse To Humans as we said. Very difficult for students, but not for online tools and calculators.<br>"
+                             "<b>Description:</b> MATH. Mental Abuse To Humans as we said. Very difficult for students, but not for online tools and calculators.<br>"
                              "Rumors said that its server is composed of a total of 6942 potatoes. No wonder why it always crashes and disliked by many UST students.<br><br>"
                              "<b>Weakness:</b> WolframAlpha, Calculators");
 }
@@ -142,7 +142,7 @@ void BestiaryWindow::on_MathPaperwork_clicked() {
     ui->textBrowser->setHtml("<center><b><h2>Mathematics Homeworks</b></center>"
                              "<center><b><h3>Maths Paper Work</b></center>"
                              "<b>Creep type:</b> Armored (Reduced damage)<br><br>"
-                             "<b>Description:</b> Mental Abuse To Humans as we said. Very difficult for students, but not for online tools and calculators.<br>"
+                             "<b>Description:</b> MATH. Mental Abuse To Humans as we said. Very difficult for students, but not for online tools and calculators.<br>"
                              "Just a regular Maths Homework sent as pdf format. Answering anything will make your professor ask 'WHAT A COINCIDENCE?!'.<br><br>"
                              "<b>Weakness:</b> WolframAlpha, Calculators");
 }
@@ -172,8 +172,9 @@ void BestiaryWindow::on_Desmond_clicked() {
     icon->setPixmap(QPixmap(":/res/res/enemies_images/Desmond Bestiary.png").scaled(120,120));
     ui->textBrowser->setHtml("<center><b><h2>Desmond</b></center>"
                              "<b>Creep type:</b> Boss<br><br>"
-                             "<b>Description:</b> Our dearest professor. A good guy na!<br><br>"
-                             "<b>Weakness:</b> Too perfect to have one ;)");
+                             "<b>Description:</b> Our dearest professor. A good guy na! Ghostwriters? No na! bad guy na! Trouble! Trouble!<br><br>"
+                             "<b>Weakness:</b> Too perfect to have one ;)<br><br>"
+                             "<b>Special:</b> doubles speed and armor when inside Ghostwriters' range");
 }
 void BestiaryWindow::on_PaperPopQuiz_clicked() {
     icon->setPixmap(QPixmap(":/res/res/enemies_images/PopQuiz1 Bestiary.png").scaled(120,120));
@@ -206,7 +207,7 @@ void BestiaryWindow::on_MathExam_clicked() {
     icon->setPixmap(QPixmap(":/res/res/enemies_images/MathsExam Bestiary.png").scaled(120,120));
     ui->textBrowser->setHtml("<center><b><h2>Mathematics Examinations</b></center>"
                              "<b>Creep type:</b> Boss<br><br>"
-                             "<b>Description:</b> Calculators are banned?! W H Y ? This is a MATH exam after all!<br><br>"
+                             "<b>Description:</b> Calculators are banned?! <b>W H Y ?</b> This is a MATH exam after all!<br><br>"
                              "<b>Weakness:</b> Ghostwriters<br><br>"
                              "<b>Immune to Calculators</b>");
 }
@@ -215,7 +216,7 @@ void BestiaryWindow::on_FINAL_clicked() {
     ui->textBrowser->setHtml("<center><b><h2>Final Examinations</b></center>"
                              "<b>Creep type:</b> Boss<br><br>"
                              "<b>Description:</b> A perfect examination. Even ghostwriters can't help you now. Make sure no ghostwriters is nearby, or it will <b>rage</b>.<br><br>"
-                             "<b>Special:</b> double HP and speed when inside Ghostwriters' range");
+                             "<b>Special:</b> doubles speed and armor when inside Ghostwriters' range");
 }
 void BestiaryWindow::on_ELPA_clicked() {
     icon->setPixmap(QPixmap(":/res/res/enemies_images/ELPA Bestiary.png").scaled(120,120));
