@@ -329,7 +329,7 @@ void MainWindow::map_clicked(int x, int y) {
 	}
 
 	// If not enough resources, auto cancel buy next tower
-	if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+    if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
 		delete previewed_tower;
 		previewed_tower = nullptr;
 		tower_selected = TowerType::None;
@@ -337,8 +337,7 @@ void MainWindow::map_clicked(int x, int y) {
 	}
 
 	// remove preview range
-	drawn_range->setVisible(false);
-	delete drawn_range;
+    drawn_range->setVisible(false);
 	drawn_range = nullptr;
 };
 
