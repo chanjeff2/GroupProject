@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Misc stuff
 	ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
 	QTimer::singleShot(500, [&] {
-		ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+        ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
 	});
     week_layout_manager.SkipWeek->setEnabled(false);
     ui->Warning->setVisible(false);
@@ -450,7 +450,9 @@ void MainWindow::game_reset() {
     tower_selected = TowerType::None;
     sell_mode = false;
     ui->TowerMode->setText("Buy Tower Mode");
-    delete drawn_range; drawn_range = nullptr;
+    if (drawn_range != nullptr)
+        drawn_range->setVisible(false);
+    drawn_range = nullptr;
     delete previewed_tower; previewed_tower = nullptr;
 
     // Enable buttons
