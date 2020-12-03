@@ -145,7 +145,8 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		}
 	}
 
-	newEnemy->id = ENEMY_NAME[static_cast<int>(enemyType) - static_cast<int>(EnemyType::NormalHW)] + '_' + to_string(enemyID_index);
+	string enemyNameTag = ENEMY_NAME[static_cast<int>(enemyType) - static_cast<int>(EnemyType::NormalHW)];
+	newEnemy->id = enemyNameTag + '_' + to_string(enemyID_index);
 	++enemyID_index;
 
 	qDebug() << "EnemyUtility: generate enemy" << *newEnemy;
@@ -153,6 +154,12 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 	enemies.insert(newEnemy);
     // group for enemy img and hp bar
 	GraphicsItemGroup *group = new GraphicsItemGroup();
+	QGraphicsSimpleTextItem *enemyTag = new QGraphicsSimpleTextItem(QString::fromStdString(enemyNameTag));
+	enemyTag->setFont(QFont("Arial", 8));
+	enemyTag->setZValue(static_cast<float>(Element::ID_Tag));
+	enemyTag->setY(- HP_BAR_BG_SIZE.second * 2); // move up
+	enemyTag->setX(CELL_SIZE.first / 2 - enemyTag->boundingRect().width() / 2); // move to center
+	group->addToGroup(enemyTag);
     // enemy img
 	QGraphicsPixmapItem *img = new QGraphicsPixmapItem(QPixmap(imgPath));
 	img->setVisible(true);
