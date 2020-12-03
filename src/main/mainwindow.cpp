@@ -219,6 +219,17 @@ void MainWindow::on_LoadMap_clicked() {
 	ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
 }
 
+void MainWindow::on_ResetMap_clicked() {
+    game_grid.loadMap();
+    ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+
+    ui->Warning->setText("Map resetted!");
+    ui->Warning->setVisible(true);
+    QTimer::singleShot(2000 / GAME_SPEED, [&]{
+        ui->Warning->setVisible(false);
+    });
+};
+
 void MainWindow::on_StartGame_clicked() {
     QString filename = QFileDialog::getOpenFileName(this, tr("Open Waves file"), ".", tr("Text Files (*.txt)"));
     qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info
@@ -239,6 +250,11 @@ void MainWindow::on_StartGame_clicked() {
         // Initialize stuff
         game_grid.weekManager.loadEnemy(filename.toStdString());
         week_layout_manager.SkipWeek->setEnabled(true);
+
+        // Disable buttons
+        ui->StartGame->setEnabled(false);
+        ui->LoadMap->setEnabled(false);
+        ui->ResetMap->setEnabled(false);
     }
 }
 
@@ -390,6 +406,11 @@ void MainWindow::game_reset() {
     ui->TowerMode->setText("Buy Tower Mode");
     delete drawn_range; drawn_range = nullptr;
     delete previewed_tower; previewed_tower = nullptr;
+
+    // Enable buttons
+    ui->StartGame->setEnabled(true);
+    ui->LoadMap->setEnabled(true);
+    ui->ResetMap->setEnabled(true);
 
     // Resets the managers
     game_grid.gpaManager.manager_reset();

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>711</height>
+    <height>713</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -122,6 +122,17 @@
          <widget class="QPushButton" name="LoadMap">
           <property name="text">
            <string>Load Map</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ResetMap">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../assets.qrc">
+            <normaloff>:/res/res/misc_images/ResetMap.png</normaloff>:/res/res/misc_images/ResetMap.png</iconset>
           </property>
          </widget>
         </item>
@@ -588,7 +599,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
