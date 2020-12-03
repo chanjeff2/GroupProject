@@ -19,7 +19,8 @@
 IAttackStrategy::IAttackStrategy(ITower *tower): tower(tower) {}
 
 IAttackStrategy::~IAttackStrategy() {
-	clearAllFocus();
+    clearAllFocus();
+    delete attackLine;
 	delete targetSelectionStrategy;
 }
 
