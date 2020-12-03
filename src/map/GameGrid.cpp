@@ -110,10 +110,14 @@ void GameGrid::loadMap(const string &filename) {
 					blockedCells.insert(make_pair(col, row));
 					target = make_pair(col, row);
                     break;
-				default: // case ' '
+				case ' ':
 					cell_type = CellType::EMPTY;
 					brushcolor = Qt::NoBrush;
 					break;
+				default:
+					qDebug() << "GameGrid: invalid character loaded from" << filename.c_str();
+					loadMap();
+					return;
             }
 
 			newCell->setCellType(cell_type);
