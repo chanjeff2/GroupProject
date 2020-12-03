@@ -70,6 +70,7 @@ public:
 	// methods
 	void trigger(); // trigger after init in base class
 	void receiveDamage(int damage);
+    void speedUp(); // Speed up enemies after game over
 };
 
 #endif // IENEMY_H

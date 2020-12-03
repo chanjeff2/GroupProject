@@ -207,6 +207,13 @@ void MainWindow::on_LoadMap_clicked() {
     qDebug() << "Map Info: " << filename;  // You can use qDebug() for debug info
     if (filename == "") return;
     else {
+        // Notify users the map has loaded
+        ui->Warning->setText("Map loaded!");
+        ui->Warning->setVisible(true);
+        QTimer::singleShot(2000 / GAME_SPEED, [&]{
+            ui->Warning->setVisible(false);
+        });
+
 		game_grid.loadMap(filename.toStdString());
     }
 	ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
@@ -217,7 +224,14 @@ void MainWindow::on_StartGame_clicked() {
     qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info
     if (filename == "") return;
     else {
-        // Notify the game has started
+        // Notify users the game has started
+        ui->Warning->setText("Game Started!");
+        ui->Warning->setVisible(true);
+        QTimer::singleShot(2000 / GAME_SPEED, [&]{
+            ui->Warning->setVisible(false);
+        });
+
+        // Notify managers the game has started
         game_grid.gpaManager.toggle_game_started(true);
         game_grid.weekManager.toggle_game_started(true);
         game_started = true;
@@ -353,7 +367,7 @@ void MainWindow::game_beaten_process() {
     float final_GPA = game_grid.gpaManager.getGPA();
     game_grid.clearBoard();
     if (final_GPA <= 0) return; // You cannot win if you lose all lives at the last week
-    QString message = "You have passed the trials of the University of Stress and Tension.\n";
+    QString message = "You have passed the trials of the University of Stress and Tension!\n";
     // Check for what you get in this semester
     if (final_GPA >= 3.9) {
         message += "You got the Academic Achievement Award in this semester! GG!\n";
