@@ -288,6 +288,11 @@ void MainWindow::map_clicked(int x, int y) {
 
             // If not enough resources, auto cancel buy tower
             if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+                ui->Warning->setText("Not enough resources. Buy cancelled");
+                ui->Warning->setVisible(true);
+                QTimer::singleShot(750, [&]{
+                    ui->Warning->setVisible(false);
+                });
                 delete previewed_tower;
                 previewed_tower = nullptr;
                 tower_selected = TowerType::None;
