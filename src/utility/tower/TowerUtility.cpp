@@ -199,13 +199,22 @@ QGraphicsRectItem* TowerUtility::drawRange(int range, AuraType aura_type, Coordi
 			break;
 	}
 
-	QGraphicsRectItem *rangeRect = gameGrid->getScene()->addRect(QRect( starting_pos_x , starting_pos_y , length_x , length_y ) , Qt::NoPen, range_color);
+	QGraphicsRectItem *rangeRect = gameGrid->getScene()->addRect(QRect( starting_pos_x , starting_pos_y , length_x , length_y ) , QPen(Qt::black) , range_color);
 	rangeRect->setZValue(static_cast<int>(Element::Indicator));
-	rangeRect->setVisible(true);
 
 	if (isPreview) {
-		rangeRect->setPen(QPen(Qt::black)); // always display range (i.e. border) for preview mode
+		rangeRect->setVisible(true);
 		return rangeRect;
+	}
+
+	switch (aura_type) {
+		case AuraType::SlowAura:
+		case AuraType::ArmorPierceAura:
+			rangeRect->setVisible(true);
+			break;
+		default:
+			rangeRect->setVisible(false);
+			break;
 	}
 	return rangeRect;
 }

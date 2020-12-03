@@ -1,5 +1,4 @@
 #include "TowerLayoutManager.h"
-#include <QPen>
 
 TowerLayoutManager::TowerLayoutManager() {}
 
@@ -29,11 +28,6 @@ void TowerLayoutManager::moveTo(Coordinate coordinate) {
 }
 
 QGraphicsRectItem* TowerLayoutManager::showRange(bool visibility) const {
-//    this->rangeView->setVisible(visibility);
-	if (visibility == true) {
-		this->rangeView->setPen(QPen(Qt::black));
-	} else {
-		this->rangeView->setPen(Qt::NoPen);
-	}
+    this->rangeView->setVisible(visibility);
     return this->rangeView;
 }

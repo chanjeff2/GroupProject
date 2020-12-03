@@ -332,8 +332,15 @@ void MainWindow::map_hovered(int x, int y) {
 		Cell *oldCell = game_grid.getCell(cursorPos);
 		// hide old range indicator of existing tower
 		if ( drawn_range != nullptr && oldCell->hasTower()) {
-			// hide border for range
-			oldCell->getTower()->showRange(false);
+			// hide non-aura tower range indicator
+			switch (oldCell->getTower()->auraEffect->getAuraType()) {
+				case AuraType::Null:
+				case AuraType::RageAura:
+					oldCell->getTower()->showRange(false);
+					break;
+				default:
+					break;
+			}
 			drawn_range = nullptr;
 		}
 	}
