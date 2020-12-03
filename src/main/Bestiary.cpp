@@ -1,6 +1,7 @@
 #include "Bestiary.h"
 #include "ui_Bestiary.h"
 
+#include <QMessageBox>
 
 BestiaryWindow::BestiaryWindow(QWidget *parent)
     : QWidget(parent) , ui(new Ui::BestiaryWindow)
@@ -233,6 +234,10 @@ void BestiaryWindow::on_FYP_clicked() {
                              "<b>Immune to ghostwriters and online tools</b>");
 }
 
-void BestiaryWindow::on_ExitBestiary_clicked() {
-    this->close();
+void BestiaryWindow::on_Credits_clicked() {
+    QString message = "The people who made this project are:\n";
+            message += "CHAN, Chak Sang\n";
+            message += "CHAN, Wing Chun\n";
+            message += "PANG, Lok Chi";
+    QMessageBox::information(this, "Credits", message, QMessageBox::Ok);
 }
