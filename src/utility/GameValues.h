@@ -15,7 +15,7 @@ enum class Element: int {
 enum class EnemyType: int {
     NormalHW = 100, Essay, EncryptedHW,
     GroupProj, MathHW, COMPLab, PA, Desmond,
-    PopQuiz, Midterm, MATHExam, Final, ELPA, FYP
+    PopQuiz, Midterm, MATHExam, Final, ELPA, FYP, _END_POINTER/*keep this as the last element*/
 };
 
 const string ENEMY_NAME[14] = {

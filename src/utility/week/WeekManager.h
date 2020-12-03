@@ -47,7 +47,8 @@ public:
 	bool isSkippedWeek() const;
 
 	// methods
-	void loadEnemy(const string& fileName);
+    // return true if successful load enemy data from file
+    bool loadEnemy(const string& fileName);
 
 	// user manually skip to next week
 	void skipToNextWeek();
