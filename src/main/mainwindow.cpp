@@ -6,6 +6,9 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QMessageBox>
+#include <cmath>
+
+float GAME_SPEED = 1.0;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -227,7 +230,7 @@ void MainWindow::on_LoadMap_clicked() {
         // Notify users the map has loaded
         ui->Warning->setText("Map loaded!");
         ui->Warning->setVisible(true);
-        QTimer::singleShot(2000 / GAME_SPEED, [&]{
+		QTimer::singleShot(2000 / GAME_SPEED, [&]{
             ui->Warning->setVisible(false);
         });
 
@@ -242,7 +245,7 @@ void MainWindow::on_ResetMap_clicked() {
 
     ui->Warning->setText("Map resetted!");
     ui->Warning->setVisible(true);
-    QTimer::singleShot(2000 / GAME_SPEED, [&]{
+	QTimer::singleShot(2000 / GAME_SPEED, [&]{
         ui->Warning->setVisible(false);
     });
 };
@@ -265,7 +268,7 @@ void MainWindow::on_StartGame_clicked() {
         // Notify users the game has started
         ui->Warning->setText("Game Started!");
         ui->Warning->setVisible(true);
-        QTimer::singleShot(2000 / GAME_SPEED, [&]{
+		QTimer::singleShot(2000 / GAME_SPEED, [&]{
             ui->Warning->setVisible(false);
         });
 
@@ -464,4 +467,32 @@ void MainWindow::game_reset() {
     game_grid.gpaManager.manager_reset();
     game_grid.resourceManager.manager_reset();
     game_grid.weekManager.manager_reset();
+
+	on_gameSpeed_clicked(true);
+}
+
+void MainWindow::on_gameSpeed_clicked(bool reset) {
+	if (reset) {
+		qDebug() << "MainWindow: set game speed to 1.0";
+		GAME_SPEED = 1.0;
+		ui->gameSpeed->setText("normal speed");
+		return;
+	}
+
+	switch(static_cast<int>(GAME_SPEED)) {
+		case 1:
+			qDebug() << "MainWindow: set game speed to 5.0";
+			GAME_SPEED = 5.0;
+			ui->gameSpeed->setText(">");
+			break;
+		case 5:
+			qDebug() << "MainWindow: set game speed to 10.0";
+			GAME_SPEED = 10.0;
+			ui->gameSpeed->setText(">>");
+			break;
+		default:
+			qDebug() << "MainWindow: set game speed to 1.0";
+			GAME_SPEED = 1.0;
+			ui->gameSpeed->setText("normal speed");
+	}
 }
