@@ -61,7 +61,6 @@ bool WeekManager::loadEnemy(const string& fileName) {
 		int enemyID;
 		vector<EnemyType> listOfEnemy;
 		while (line_input_stream >> enemyID) {
-			qDebug() << enemyID;
 			if (static_cast<int>(EnemyType::NormalHW) > enemyID || enemyID >= static_cast<int>(EnemyType::_END_POINTER)) {
                 // invalid input
                 qDebug() << "WeekManager: Error: invalid enemy ID from" << QString::fromStdString(fileName);
