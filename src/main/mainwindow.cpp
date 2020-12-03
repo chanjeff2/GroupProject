@@ -275,6 +275,14 @@ void MainWindow::map_clicked(int x, int y) {
 			drawn_range = nullptr;
 			// place tower
             game_grid.placeTower(x, y, tower_selected);
+
+            // If not enough resources, auto cancel buy tower
+            if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+                delete previewed_tower;
+                previewed_tower = nullptr;
+                tower_selected = TowerType::None;
+                ui->CancelBuy->setEnabled(false);
+            }
 		} else {
             ui->Warning->setText("Invalid Placement");
             ui->Warning->setVisible(true);
