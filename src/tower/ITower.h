@@ -61,12 +61,15 @@ public:
 
     int getRange() const;
 
+    const Cell* getCell() const;
+
 	set<EnemyType> getEffectiveTowards() const;
 
 	set<EnemyType> getWeakTowards() const;
 
 	// setter
     void attachImageView(QGraphicsPixmapItem *imgView, QGraphicsRectItem* rangeView);
+    void attachAttackLine(QGraphicsLineItem* attack_line);
 
 	// methods
 	void trigger();

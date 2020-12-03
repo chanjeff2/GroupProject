@@ -8,6 +8,7 @@
 
 #include <QDebug>
 
+#include "src/map/cell.h"
 #include "src/tower/targetSelect/RandomSelection.h"
 #include "src/tower/targetSelect/PrioritySelection.h"
 #include "src/tower/targetSelect/AllSelection.h"
@@ -44,9 +45,16 @@ void IAttackStrategy::setTargetSelectionStrategy(TargetSelectionType targetSelec
 	}
 }
 
+void IAttackStrategy::setAttackLine(QGraphicsLineItem *attackLine) {
+    this->attackLine = attackLine;
+}
+
 // methods
 void IAttackStrategy::attack() {
+    attackLine->setVisible(false);
+
 	// check if focused max amount of target(s) if possible
+
 	updateFocusedEnemyInRange();
 
 	// return if no focus
@@ -63,20 +71,26 @@ void IAttackStrategy::attack() {
 			qDebug() << "IAttackStrategy:" << *tower << "attack" << *focusedEnemy
 					 << "with" << tower->getDamagePerHit() << "damage";
 			focusedEnemy->receiveDamage(tower->getDamagePerHit());
-			continue;
+            attackLine->setLine(QLineF( CELL_SIZE.first * ( tower->getCell()->x + 0.5 ), CELL_SIZE.second * ( tower->getCell()->y + 0.5 ), CELL_SIZE.first * ( focusedEnemy->getPath().getCurrentCell()->x + 0.5 ) , CELL_SIZE.second * ( focusedEnemy->getPath().getCurrentCell()->y + 0.5 ) ));
+            attackLine->setVisible(true);
+            continue;
 		}
 		// check effective
 		if (tower->getEffectiveTowards().find(focusedEnemy->getEnemyType()) != tower->getEffectiveTowards().end()) {
 			int damage = round(tower->getDamagePerHit() * EFFECTIVE_ATTACK_RATIO);
 			qDebug() << "IAttackStrategy:" << *tower << "attack" << *focusedEnemy
 					 << "with effectively" << damage << "damage";
-			focusedEnemy->receiveDamage(damage);
+            attackLine->setLine(QLineF( CELL_SIZE.first * ( tower->getCell()->x + 0.5 ), CELL_SIZE.second * ( tower->getCell()->y + 0.5 ), CELL_SIZE.first * ( focusedEnemy->getPath().getCurrentCell()->x + 0.5 ) , CELL_SIZE.second * ( focusedEnemy->getPath().getCurrentCell()->y + 0.5 ) ));
+            attackLine->setVisible(true);
+            focusedEnemy->receiveDamage(damage);
 		} else {
 			qDebug() << "IAttackStrategy:" << *tower << "attack" << *focusedEnemy
 					 << "with" << tower->getDamagePerHit() << "damage";
-			focusedEnemy->receiveDamage(tower->getDamagePerHit());
+            attackLine->setLine(QLineF( CELL_SIZE.first * ( tower->getCell()->x + 0.5 ), CELL_SIZE.second * ( tower->getCell()->y + 0.5 ), CELL_SIZE.first * ( focusedEnemy->getPath().getCurrentCell()->x + 0.5 ) , CELL_SIZE.second * ( focusedEnemy->getPath().getCurrentCell()->y + 0.5 ) ));
+            attackLine->setVisible(true);
+            focusedEnemy->receiveDamage(tower->getDamagePerHit());
 		}
-	}
+    }
 
 }
 

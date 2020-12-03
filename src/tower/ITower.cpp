@@ -56,6 +56,10 @@ int ITower::getRange() const {
     return range;
 }
 
+const Cell* ITower::getCell() const {
+    return position;
+}
+
 set<EnemyType> ITower::getEffectiveTowards() const {
 	return effectiveTowards;
 }
@@ -67,6 +71,10 @@ set<EnemyType> ITower::getWeakTowards() const {
 // setter
 void ITower::attachImageView(QGraphicsPixmapItem *imgView, QGraphicsRectItem* rangeView) {
     towerLayoutManager.attachImageView(imgView, rangeView, make_pair(position->x, position->y));
+}
+
+void ITower::attachAttackLine(QGraphicsLineItem *attack_line) {
+    this->attackStrategy->setAttackLine(attack_line);
 }
 
 // methods

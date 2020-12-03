@@ -2,6 +2,7 @@
 #define IATTACKSTRATEGY_H
 
 #include <set>
+#include <QGraphicsLineItem>
 using namespace std;
 
 // forward declaration
@@ -19,6 +20,8 @@ protected:
 	set<IEnemy*> focusedEnemies;
 	ITargetSelectionStrategy *targetSelectionStrategy = nullptr; // ways to select target
 
+    QGraphicsLineItem* attackLine = nullptr;
+
 	// constructor
 	IAttackStrategy(ITower *tower);
 public:
@@ -26,6 +29,7 @@ public:
 
 	// setter
 	void setMaxNumOfTarget(int maxNumOfTarget);
+    void setAttackLine(QGraphicsLineItem* attackLine);
 
 	void setTargetSelectionStrategy(TargetSelectionType targetSelectionType);
 

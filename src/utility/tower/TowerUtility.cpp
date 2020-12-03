@@ -102,7 +102,13 @@ void TowerUtility::placeTower(TowerType towerType, Cell *position) {
 
 	QGraphicsRectItem* rangeRect = drawRange(newTower, position);
 
+    QGraphicsLineItem* attack_line = this->gameGrid->getScene()->addLine(QLineF());
+    attack_line->setPen(QPen(QBrush(Qt::red),3));
+
     newTower->attachImageView(img, rangeRect);
+
+    newTower->attachAttackLine(attack_line);
+
 }
 
 void TowerUtility::removeTower(Cell *position) {
