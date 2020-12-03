@@ -35,6 +35,9 @@ private:
 	void processWeek();
 	void generateEnemy(vector<EnemyType> &enemyList, int index, int size);
 
+	// count down function for proceed to next week
+	void weekCountDown(int time);
+
 	// end the game
 	void wrapUp();
 public:

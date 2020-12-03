@@ -179,14 +179,20 @@ void WeekManager::prepareForNextWeek() {
 
 	// start count down timer to proceed to next week
 	// cooldown week skip
-	QTimer::singleShot(WEEK_COUNTDOWN * 1000 / GAME_SPEED, [&]{
+	weekCountDown(WEEK_COUNTDOWN);
+}
+
+void WeekManager::weekCountDown(int time) {
+	if (time == 0) {
 		if (!isSkippedWeek()) {
 			goToNextWeek();
 		} else {
 			qDebug() << "WeekManager: skippedWeeks--";
 			skippedWeeks--;
 		}
-	});
+	} else {
+		QTimer::singleShot(1000 / GAME_SPEED, [&, time] { weekCountDown(time - 1); });
+	}
 }
 
 void WeekManager::setLayoutManager(WeekLayoutManager* weekLayoutManager) {

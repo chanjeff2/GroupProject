@@ -45,7 +45,7 @@ enum class TargetSelectionType {
 };
 
 // Global setting
-const float GAME_SPEED = 1.0; // higher -> game process faster
+extern float GAME_SPEED/* = 1.0*/; // higher -> game process faster (defined in mainwindow.cpp)
 
 // map
 const int NUM_OF_ROW = 20; // y

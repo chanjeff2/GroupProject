@@ -71,6 +71,8 @@ private slots:
     void game_over_process();
     void game_beaten_process();
 
+	void on_gameSpeed_clicked(bool reset = false);
+
 private:
     Ui::MainWindow *ui;
 
