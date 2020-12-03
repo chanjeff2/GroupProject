@@ -116,3 +116,7 @@ void IEnemy::receiveDamage(int damage) {
 		enemyUtility->killEnemy(this, true);
 	}
 }
+
+void IEnemy::speedUp() {
+    this->speed = 50.0;
+}
