@@ -38,6 +38,7 @@ EnemyUtility::~EnemyUtility() {
 void EnemyUtility::generateEnemy(EnemyType enemyType) {
 	IEnemy *newEnemy;
 	QString imgPath;
+	QString imgPath_rage = "";
 	Path path = gameGrid->getPathStartEnd();
 
     // Each homework type are separate classes (to be added)
@@ -96,6 +97,7 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		case EnemyType::Desmond: {
 			newEnemy = new Desmond(this, path);
 			imgPath = ":/res/res/enemies_images/Desmond Grid";
+			imgPath_rage = ":/res/res/enemies_images/DesmondEnraged Grid";
 			break;
 		}
 		case EnemyType::PopQuiz: {
@@ -123,6 +125,7 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		case EnemyType::Final: {
 			newEnemy = new Final(this, path);
 			imgPath = ":/res/res/enemies_images/FinalExam Grid";
+			imgPath_rage = ":/res/res/enemies_images/FinalExam Enraged Grid";
 			break;
 		}
 		case EnemyType::ELPA: {
@@ -172,11 +175,10 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 	hp->setZValue(static_cast<int>(Element::HP));
 	group->addToGroup(hp);
 
-	group->setHPBar(hp);
-
 	gameGrid->getScene()->addItem(group);
 
-	newEnemy->attachImageView(group);
+	newEnemy->attachImageViews(group, hp, img);
+	newEnemy->setImgPath(imgPath, imgPath_rage);
 	newEnemy->trigger();
 }
 

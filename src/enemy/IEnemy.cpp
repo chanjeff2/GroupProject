@@ -61,9 +61,13 @@ void IEnemy::setPath(Path path) {
 	this->path = path;
 }
 
-void IEnemy::attachImageView(GraphicsItemGroup *imgViewGroup) {
-	imgViewGroup->setMaxHP(this->HP);
-	this->enemyLayoutManager.attachImageView(imgViewGroup);
+void IEnemy::attachImageViews(GraphicsItemGroup *imgViewGroup, QGraphicsRectItem *hpBar, QGraphicsPixmapItem *imgView) {
+	this->enemyLayoutManager.attachImageViews(imgViewGroup, hpBar, imgView);
+	enemyLayoutManager.setMaxHP(this->HP);
+}
+
+void IEnemy::setImgPath(QString imgPath, QString imgPath_rage) {
+	enemyLayoutManager.setImgPath(imgPath, imgPath_rage);
 }
 
 // methods
@@ -86,7 +90,6 @@ void IEnemy::move() {
 	timeTilNextMove /= GAME_SPEED;
 
 	// update UI
-//	enemyLayoutManager.moveTo(path.getCurrentCoordinate());
 	enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
 
 	if (timer->interval() != timeTilNextMove) {
@@ -100,13 +103,17 @@ void IEnemy::trigger() {
     float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
     timeTilNextMove /= GAME_SPEED;
 
+	// update UI
     enemyLayoutManager.moveTo(path.getCurrentCoordinate());
     enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
 
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &IEnemy::move);
 	timer->start(timeTilNextMove);
+}
 
+void IEnemy::toggleRage(bool isRage) {
+	enemyLayoutManager.toggleRage(isRage);
 }
 
 void IEnemy::receiveDamage(int damage) {

@@ -65,10 +65,12 @@ public:
 
 	// setter
 	void setPath(Path path);
-	void attachImageView(GraphicsItemGroup *imgView);
+	void attachImageViews(GraphicsItemGroup *imgViewGroup, QGraphicsRectItem *hpBar, QGraphicsPixmapItem *imgView);
+	void setImgPath(QString imgPath, QString imgPath_rage);
 
 	// methods
 	void trigger(); // trigger after init in base class
+	void toggleRage(bool isRage); // set rage status
 	void receiveDamage(int damage);
     void speedUp(); // Speed up enemies after game over
 };

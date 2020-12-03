@@ -32,8 +32,9 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 		switch (modType) {
 			case AuraType::SlowAura: {
 				// apply effect if not yet
-				if (slowTowerInRange == 0)
+				if (slowTowerInRange == 0) {
 					this->enemy->modManager.addModifier(modType);
+				}
 
 				// increment slow tower in range
 				slowTowerInRange++;
@@ -41,8 +42,9 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 			}
 			case AuraType::ArmorPierceAura: {
 				// apply effect if not yet
-				if (armorPiercingTowerInRange == 0)
+				if (armorPiercingTowerInRange == 0) {
 					this->enemy->modManager.addModifier(modType);
+				}
 
 				// increment armor piercing tower in range
 				armorPiercingTowerInRange++;
@@ -50,8 +52,9 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 			}
 			case AuraType::RageAura: {
 				// apply effect if not yet
-				if (rageTowerInRange == 0)
+				if (rageTowerInRange == 0) {
 					this->enemy->modManager.addModifier(modType);
+				}
 
 				// increment rage tower in range
 				rageTowerInRange++;
@@ -68,8 +71,9 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 				// decrement slow tower in range
 				slowTowerInRange--;
 				// remove effect if need
-				if (slowTowerInRange == 0)
+				if (slowTowerInRange == 0) {
 					this->enemy->modManager.removeModifier(modType);
+				}
 
 				break;
 			}
@@ -77,8 +81,9 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 				// decrement armor piercing tower in range
 				armorPiercingTowerInRange--;
 				// remove effect if need
-				if (armorPiercingTowerInRange == 0)
+				if (armorPiercingTowerInRange == 0) {
 					this->enemy->modManager.removeModifier(modType);
+				}
 
 				break;
 			}
@@ -86,8 +91,9 @@ void FocusManager::updateAuraTowerInRange(bool isApply, AuraType modType) {
 				// decrement rage tower in range
 				rageTowerInRange--;
 				// remove effect if need
-				if (rageTowerInRange == 0)
+				if (rageTowerInRange == 0) {
 					this->enemy->modManager.removeModifier(modType);
+				}
 
 				break;
 			}

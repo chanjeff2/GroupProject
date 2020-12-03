@@ -13,7 +13,7 @@ public:
 	// constructor
 	ModManager(IEnemy *enemy);
 	// destructor
-	~ModManager() {}
+	~ModManager();
 
 	enum class Attribute {
 		Speed, Armor
