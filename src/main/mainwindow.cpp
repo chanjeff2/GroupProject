@@ -235,6 +235,16 @@ void MainWindow::on_StartGame_clicked() {
     qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info
     if (filename == "") return;
     else {
+        if (!game_grid.weekManager.loadEnemy(filename.toStdString())) {
+            // failed to load valid data from enemy file
+			ui->Warning->setText("Invalid Enemy Data!");
+			ui->Warning->setVisible(true);
+			QTimer::singleShot(2000 / GAME_SPEED, [&]{
+				ui->Warning->setVisible(false);
+			});
+            return;
+        }
+
         // Notify users the game has started
         ui->Warning->setText("Game Started!");
         ui->Warning->setVisible(true);
@@ -248,7 +258,7 @@ void MainWindow::on_StartGame_clicked() {
         game_started = true;
 
         // Initialize stuff
-        game_grid.weekManager.loadEnemy(filename.toStdString());
+        game_grid.weekManager.prepareForNextWeek(); // start week
         week_layout_manager.SkipWeek->setEnabled(true);
 
         // Disable buttons

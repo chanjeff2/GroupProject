@@ -44,13 +44,13 @@ bool WeekManager::isSkippedWeek() const {
 
 // methods
 
-void WeekManager::loadEnemy(const string& fileName) {
+bool WeekManager::loadEnemy(const string& fileName) {
 	numOfWeeks = 0;
 	ifstream enemyFile(fileName);
 
 	if (!enemyFile) {
 		qDebug() << "WeekManager: Error: cannot open " << QString::fromStdString(fileName);
-		return;
+        return false;
 	}
 
 	while (!enemyFile.eof()) {
@@ -61,6 +61,17 @@ void WeekManager::loadEnemy(const string& fileName) {
 		int enemyID;
 		vector<EnemyType> listOfEnemy;
 		while (line_input_stream >> enemyID) {
+			qDebug() << enemyID;
+			if (static_cast<int>(EnemyType::NormalHW) > enemyID || enemyID >= static_cast<int>(EnemyType::_END_POINTER)) {
+                // invalid input
+                qDebug() << "WeekManager: Error: invalid enemy ID from" << QString::fromStdString(fileName);
+                // close file
+                enemyFile.close();
+                // reset values
+                weeksOfEnemies.clear();
+                numOfWeeks = 0;
+                return false;
+            }
 			listOfEnemy.push_back(static_cast<EnemyType>(enemyID));
 		}
 		// skip empty line if any
@@ -70,11 +81,20 @@ void WeekManager::loadEnemy(const string& fileName) {
 		}
 	}
 
+	if (numOfWeeks == 0) {
+		qDebug() << "WeekManager: Error: no enemy ID can be loaded from" << QString::fromStdString(fileName);
+		// close file
+		enemyFile.close();
+		// reset values
+		weeksOfEnemies.clear();
+		numOfWeeks = 0;
+		return false;
+	}
+
     weekLayoutManager->initNumOfWeeks(numOfWeeks);
 	enemyFile.close();
 
-	// start the game
-	prepareForNextWeek();
+    return true;
 }
 
 void WeekManager::wrapUp() {
