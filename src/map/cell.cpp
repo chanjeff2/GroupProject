@@ -59,7 +59,7 @@ bool Cell::placeTower(ITower *tower) {
 }
 
 void Cell::removeTower() {
-	delete this->tower;
+	this->tower->remove();
 	this->tower = nullptr;
 }
 

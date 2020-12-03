@@ -71,6 +71,10 @@ public:
 	// methods
 	void trigger();
 
+	void attack();
+
+	void remove(); // act as destructor
+
 	std::set<IEnemy*> getEnemiesInRange() const;
 
 	QGraphicsRectItem* showRange(bool visibility) const;

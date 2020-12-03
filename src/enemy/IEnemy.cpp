@@ -16,11 +16,6 @@ IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path
 
 // destructor
 IEnemy::~IEnemy() {
-	// stop moving
-	timer->stop();
-
-	// notify all tower focusing this enemy to clear focus
-	focusManager.requestUpdateFocus();
 }
 
 // getter
@@ -72,9 +67,14 @@ void IEnemy::setImgPath(QString imgPath, QString imgPath_rage) {
 
 // methods
 void IEnemy::move() {
+	// do nothing if path is empty
+	if (path.isEmpty()) {
+		return;
+	}
+
 	// check if reaching exit
 	if (path.isNextCellEnd()) {
-		enemyUtility->killEnemy(this, false);
+		enemyUtility->killEnemy(this, EnemyUtility::KillStatus::DieOfDeadline);
 		return;
 	}
 
@@ -95,6 +95,16 @@ void IEnemy::move() {
 	if (timer->interval() != timeTilNextMove) {
 		timer->setInterval(timeTilNextMove); // update timer interval in case there is change in speed;
 	}
+}
+
+void IEnemy::die() {
+	this->timer->stop();
+	// notify all tower focusing this enemy to clear focus
+	focusManager.requestUpdateFocus();
+	// clear path to place safe
+	this->path.clear();
+	// delete
+	this->deleteLater();
 }
 
 void IEnemy::trigger() {
@@ -122,7 +132,7 @@ void IEnemy::receiveDamage(int damage) {
 
 	// check if die
 	if (this->HP <= 0) {
-		enemyUtility->killEnemy(this, true);
+		enemyUtility->killEnemy(this, EnemyUtility::KillStatus::DieOfAttack);
 	} else {
 		enemyLayoutManager.setHP(HP);
 	}
