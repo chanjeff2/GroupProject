@@ -17,6 +17,9 @@ WeekManager::WeekManager(GameGrid *gameGrid): gameGrid(gameGrid) {
 }
 
 void WeekManager::goToNextWeek() {
+
+    if (!isGameStarted) return;
+
 	// do nothing if week haven't cooldown
 	if (!isWeekCooldown) {
 		return;
@@ -125,7 +128,8 @@ void WeekManager::generateEnemy(vector<EnemyType> &enemyList, int index, int siz
 		QTimer::singleShot(WEEK_COOLDOWN * 1000 / GAME_SPEED, [&]{
 			qDebug() << "WeekManager: cooldown for next week";
 			isWeekCooldown = true;
-			weekLayoutManager->isWeekCoolDown(true);
+            if (week < numOfWeeks)
+                weekLayoutManager->isWeekCoolDown(true);
 		});
 
 		return;
@@ -165,6 +169,7 @@ void WeekManager::prepareForNextWeek() {
 	}
 
     if (week == numOfWeeks) {
+        isGameStarted = false;
 		wrapUp();
 		return;
 	}
