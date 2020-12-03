@@ -46,6 +46,11 @@ void IAttackStrategy::setTargetSelectionStrategy(TargetSelectionType targetSelec
 
 // methods
 void IAttackStrategy::attack() {
+	if (tower->getDamagePerHit() == 0) {
+		// do nothing if zero damage
+		return;
+	}
+
 	// check if focused max amount of target(s) if possible
 	updateFocusedEnemyInRange();
 
@@ -77,7 +82,6 @@ void IAttackStrategy::attack() {
 			focusedEnemy->receiveDamage(tower->getDamagePerHit());
 		}
 	}
-
 }
 
 void IAttackStrategy::clearAllFocus() {

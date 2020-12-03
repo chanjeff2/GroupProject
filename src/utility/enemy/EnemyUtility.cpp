@@ -189,17 +189,24 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 	newEnemy->trigger();
 }
 
-void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
+void EnemyUtility::killEnemy(IEnemy *enemy, KillStatus killStatus) {
 	// get resource if die of attack
-	if (isDieOfAttack) {
-		qDebug().nospace() << "EnemyUtility: kill enemy " << *enemy << " by attack"
-				 << " at " << *enemy->getPath().getCurrentCell();
-		// retrieve resource
-		gameGrid->resourceManager.gainResource(enemy->getWorth());
-	} else {
-		qDebug() << "EnemyUtility: kill enemy" << *enemy << "by deadline";
-		// reduce gpa
-		gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO);
+	switch (killStatus) {
+		case KillStatus::DieOfAttack:
+			qDebug().nospace() << "EnemyUtility: kill enemy " << *enemy << " by attack"
+					 << " at " << *enemy->getPath().getCurrentCell();
+			// retrieve resource
+			gameGrid->resourceManager.gainResource(enemy->getWorth());
+			break;
+		case KillStatus::DieOfDeadline:
+			qDebug() << "EnemyUtility: kill enemy" << *enemy << "by deadline";
+			// reduce gpa
+			gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO);
+			break;
+		case KillStatus::Reset:
+			qDebug() << "EnemyUtility: kill enemy" << *enemy << "by reset";
+			// do nothing
+			break;
 	}
 
 	// remove enemy from cell
@@ -208,7 +215,7 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 	// find &enemy in ememies and remove
 	enemies.erase(enemy);
 
-	delete enemy;
+	enemy->die();
 
 	// check if any remaining enemy
 	if (enemies.empty()) {
@@ -218,23 +225,13 @@ void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
 }
 
 void EnemyUtility::killAllEnemies() {
+	qDebug() << "EnemyUtility: kill all enemy";
     gameGrid->weekManager.stopGeneration();
-    auto tempEmptyList = enemies;
-    for (IEnemy* guy : tempEmptyList) {
-        guy->speedUp();
-    }
-    /* Originally planned to kill all enemies
-     * However it crashes everytime
-     * Changed to another plan:
-     * 1. Boost all enemy to move to exit
-     * 2. Lock the GPA at the same time
-     *
-     * The original code is shown below
-     * auto tempEmptyList = enemies;
-     * for (IEnemy* guy : tempEmptyList) {
-     *      killEnemy(guy, true);
-     * }
-     */
+
+	auto tempEmptyList = enemies;
+	for (IEnemy* guy : tempEmptyList) {
+		killEnemy(guy, KillStatus::Reset);
+	}
 }
 
 

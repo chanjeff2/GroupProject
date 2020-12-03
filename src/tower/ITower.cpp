@@ -18,9 +18,7 @@ ITower::ITower(Cell* position, TowerUtility *towerUtility, TowerType towerType):
 
 // destructor
 ITower::~ITower() {
-	timer->stop();
-	delete attackStrategy;
-	delete auraEffect;
+
 }
 
 void ITower::trigger() {
@@ -29,10 +27,35 @@ void ITower::trigger() {
 	attackInterval /= GAME_SPEED;
 
 	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, [&] {
-		attackStrategy->attack();
-	});
+	connect(timer, &QTimer::timeout, this, &ITower::attack);
 	timer->start(attackInterval);
+}
+
+void ITower::attack() {
+	// do nothing if not implemented any attack Strategy
+	if (attackStrategy == nullptr) {
+		return;
+	}
+
+	// attack
+	attackStrategy->attack();
+
+	// get ready for next move
+	float timeTilNextMove = 1000 / getHitPerSec();
+	timeTilNextMove /= GAME_SPEED;
+
+	if (timer->interval() != timeTilNextMove) {
+		timer->setInterval(timeTilNextMove); // update timer interval in case there is change in speed;
+	}
+}
+
+void ITower::remove() {
+	timer->stop();
+	delete attackStrategy;
+	attackStrategy = nullptr;
+	delete auraEffect;
+	auraEffect = nullptr;
+	this->deleteLater();
 }
 
 // getter
