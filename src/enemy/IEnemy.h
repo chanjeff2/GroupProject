@@ -13,7 +13,7 @@ using namespace std;
 #include "EnemyLayoutManager.h"
 #include "src/utility/pathfinding/Path.h"
 
-#include "src/main/PixMap.h"
+#include "src/main/GraphicsItemGroup.h"
 
 // forward declaration
 class Cell;
@@ -65,7 +65,7 @@ public:
 
 	// setter
 	void setPath(Path path);
-	void attachImageView(PixMap *imgView);
+	void attachImageView(GraphicsItemGroup *imgView);
 
 	// methods
 	void trigger(); // trigger after init in base class

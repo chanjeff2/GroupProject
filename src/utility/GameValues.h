@@ -9,7 +9,7 @@ using namespace std;
 typedef	pair<int /*col*/, int /*row*/> Coordinate;
 
 enum class Element: int {
-    Cell = 0, Indicator, Preview, Tower, Enemy, Selling
+	Cell = 0, Indicator, Preview, Tower, Enemy, HP_bg, HP, Selling
 };
 
 enum class EnemyType: int {
@@ -57,6 +57,13 @@ const Coordinate nullCoordinate = make_pair(-1, -1);
 
 // cell size for display
 const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
+// enemy hp bar
+const pair<int /*width*/, int /*height*/> HP_BAR_BG_SIZE = make_pair(CELL_SIZE.first * 3 / 4, 10);
+const pair<int /*width*/, int /*height*/> HP_BAR_SIZE = make_pair(CELL_SIZE.first * 5 / 8, 8);
+const string HP_BAR_BG_GREY = "#9f9f9f";
+const string HP_BAR_RED = "#de4f4f";
+const string HP_BAR_YELLOW = "#f0c861";
+const string HP_BAR_GREEN = "#8de98d";
 
 // Tower Prices
 const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
