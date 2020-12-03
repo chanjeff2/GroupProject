@@ -15,9 +15,14 @@ PathFindingUtility::PathBuffer::PathBuffer(Path path, IEnemy *enemy): path(path)
 
 // methods
 void PathFindingUtility::PathBuffer::flush() {
-	qDebug() << "PathFindingUtility::PathBuffer: apply path buffer for" << *enemy;
-	enemy->setPath(path);
-	path.clear();
+	try {
+		qDebug() << "PathFindingUtility::PathBuffer: apply path buffer for" << *enemy;
+		enemy->setPath(path);
+		path.clear();
+	}  catch (exception e) {
+		qDebug() << "PathFindingUtility::PathBuffer: enemy probably deleted";
+		qDebug() << "PathFindingUtility::PathBuffer:" << e.what();
+	}
 }
 
 

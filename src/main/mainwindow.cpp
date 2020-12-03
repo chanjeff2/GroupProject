@@ -292,41 +292,54 @@ void MainWindow::on_SkipWeek_clicked() {
 
 void MainWindow::map_clicked(int x, int y) {
     qDebug() << x << y;
-    if (!game_started || !game_grid.isValidCoordinate(x, y)) return;
-    if (!sell_mode) {
-        if (tower_selected == TowerType::None) return;
-		if (game_grid.canPlaceTower(x, y)) {
-			// remove preview range
-			drawn_range->setVisible(false);
-			delete drawn_range;
-			drawn_range = nullptr;
-			// place tower
-            game_grid.placeTower(x, y, tower_selected);
+	if (!game_started || !game_grid.isValidCoordinate(x, y))
+		return;
 
-            // If not enough resources, auto cancel buy tower
-            if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
-                ui->Warning->setText("Not enough resources. Buy cancelled");
-                ui->Warning->setVisible(true);
-                QTimer::singleShot(750, [&]{
-                    ui->Warning->setVisible(false);
-                });
-                delete previewed_tower;
-                previewed_tower = nullptr;
-                tower_selected = TowerType::None;
-                ui->CancelBuy->setEnabled(false);
-            }
-		} else {
-            ui->Warning->setText("Invalid Placement");
-            ui->Warning->setVisible(true);
-            QTimer::singleShot(750, [&]{
-                ui->Warning->setVisible(false);
-            });
-        }
-    } else {
-        // delete aura
-        drawn_range = nullptr;
-        game_grid.removeTower(x, y);
-    }
+	if (sell_mode) {
+		// delete aura
+		drawn_range = nullptr;
+		game_grid.removeTower(x, y);
+		return;
+	}
+
+	if (tower_selected == TowerType::None)
+		return;
+
+	// If not enough resources, auto cancel buy tower
+	if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+		ui->Warning->setText("Not enough resources. Buy cancelled");
+		ui->Warning->setVisible(true);
+		QTimer::singleShot(750, [&]{
+			ui->Warning->setVisible(false);
+		});
+		delete previewed_tower;
+		previewed_tower = nullptr;
+		tower_selected = TowerType::None;
+		ui->CancelBuy->setEnabled(false);
+		return;
+	}
+
+	// perform place tower, prompt Invalid Placement if failed
+	if (!game_grid.placeTower(x, y, tower_selected)) {
+		ui->Warning->setText("Invalid Placement");
+		ui->Warning->setVisible(true);
+		QTimer::singleShot(750, [&]{
+			ui->Warning->setVisible(false);
+		});
+	}
+
+	// If not enough resources, auto cancel buy next tower
+	if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+		delete previewed_tower;
+		previewed_tower = nullptr;
+		tower_selected = TowerType::None;
+		ui->CancelBuy->setEnabled(false);
+	}
+
+	// remove preview range
+	drawn_range->setVisible(false);
+	delete drawn_range;
+	drawn_range = nullptr;
 };
 
 void MainWindow::map_hovered(int x, int y) {
