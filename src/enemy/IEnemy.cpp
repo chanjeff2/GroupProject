@@ -67,6 +67,11 @@ void IEnemy::setImgPath(QString imgPath, QString imgPath_rage) {
 
 // methods
 void IEnemy::move() {
+	// do nothing if path is empty
+	if (path.isEmpty()) {
+		return;
+	}
+
 	// check if reaching exit
 	if (path.isNextCellEnd()) {
 		enemyUtility->killEnemy(this, EnemyUtility::KillStatus::DieOfDeadline);
@@ -96,6 +101,8 @@ void IEnemy::die() {
 	this->timer->stop();
 	// notify all tower focusing this enemy to clear focus
 	focusManager.requestUpdateFocus();
+	// clear path to place safe
+	this->path.clear();
 	// delete
 	this->deleteLater();
 }
