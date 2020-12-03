@@ -100,6 +100,7 @@ void IEnemy::trigger() {
     float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
     timeTilNextMove /= GAME_SPEED;
 
+    enemyLayoutManager.moveTo(path.getCurrentCoordinate());
     enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
 
 	timer = new QTimer(this);
