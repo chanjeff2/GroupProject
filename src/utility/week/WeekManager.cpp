@@ -168,9 +168,9 @@ void WeekManager::prepareForNextWeek() {
 		return;
 	}
 
-    if (week == numOfWeeks) {
+    if (week == numOfWeeks && gameGrid->getAllEnemy().empty()) {
         isGameStarted = false;
-		wrapUp();
+        wrapUp();
 		return;
 	}
 

@@ -72,7 +72,7 @@ public:
 	void trigger(); // trigger after init in base class
 	void toggleRage(bool isRage); // set rage status
 	void receiveDamage(int damage);
-	void die(); // act as destructor
+    virtual void die(); // act as destructor
     void speedUp(); // Speed up enemies after game over
 };
 

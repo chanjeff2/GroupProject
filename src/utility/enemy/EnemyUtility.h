@@ -2,6 +2,7 @@
 #define ENEMYUTILITY_H
 
 #include <set>
+#include "src/utility/pathfinding/Path.h"
 using namespace std;
 
 // forward declaration
@@ -24,6 +25,7 @@ public:
     ~EnemyUtility();
 
     void generateEnemy(EnemyType enemyType);
+    void generateEnemyAt(EnemyType enemyType, Path path);
 	void killEnemy(IEnemy* enemy, KillStatus killStatus);
     void killAllEnemies();
 };

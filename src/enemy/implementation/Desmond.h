@@ -5,6 +5,7 @@
 
 class Desmond : public IEnemy
 {
+    void die();
 public:
     Desmond(EnemyUtility *enemyUtility, Path path);
 };
