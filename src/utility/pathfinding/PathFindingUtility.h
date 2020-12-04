@@ -31,7 +31,7 @@ private:
 	class CellDetails {
 	public:
 		Coordinate prevCell{nullCoordinate}; // previous cell **start from end**
-		int f{INT_MAX}; // f = g + h
+        int f{INT_MAX}; // total cost
 		int g{INT_MAX}; // cost from start to this cell
 		int h{INT_MAX}; // cost from this cell to end
 	};
@@ -74,7 +74,7 @@ public:
 
 	/* return buffer storing validated path for each enemy
 	 * empty vector if not valid */
-	bool validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies);
+    bool validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies); // checks if tower placement blocks all paths from start to end
 
 	/* successfully updated path -> true
 	 * failed, path is blocked -> false */

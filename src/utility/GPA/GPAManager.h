@@ -24,8 +24,8 @@ public:
 	// methods
 	float getGPA() const;
 
-	/* GameOver -> GameStatus::GameOver
-	 * GameContinue -> GameStatus::GameContinue
+	/* GameOver (GPA reaches 0) -> GameStatus::GameOver
+	 * GameContinue (GPA not reaches 0) -> GameStatus::GameContinue
 	 * GameNotStarted -> GameStatus::GameNotStarted
 	 * usage: if (reduceGPA(amount) == GameStatus::GameOver) [GG] */
 	GameStatus reduceGPA(float amount);
