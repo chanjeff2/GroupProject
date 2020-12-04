@@ -3,9 +3,9 @@
 
 ELPA::ELPA(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::ELPA)
 {
-    HP = 580;
+    HP = 1250;
     speed = 1.4;
-    worth = 10;
+    worth = 12;
 	armor = 4;
 	canSlow = true;
 	canPierceArmor = true;

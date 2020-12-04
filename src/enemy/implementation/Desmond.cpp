@@ -5,7 +5,7 @@ Desmond::Desmond(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, pa
 {
     HP = 1000;
     speed = 2.4;
-    worth = 9;
+    worth = 11;
 	armor = 6;
 	canSlow = true;
 	canPierceArmor = true;

@@ -3,7 +3,7 @@
 
 Final::Final(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::Final)
 {
-    HP = 1350;
+    HP = 1450;
     speed = 1.1;
     worth = 20;
     armor = 4;

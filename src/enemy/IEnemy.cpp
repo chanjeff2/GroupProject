@@ -127,7 +127,10 @@ void IEnemy::toggleRage(bool isRage) {
 }
 
 void IEnemy::receiveDamage(int damage) {
-	int actualDamage = damage/* equation */;
+    int actualDamage = damage - modManager.getActualValue(ModManager::Attribute::Armor);/* equation */
+    if (actualDamage < 0) {
+        actualDamage = 0;
+    }
 	this->HP -= actualDamage;
 
 	// check if die

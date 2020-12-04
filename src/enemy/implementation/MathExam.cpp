@@ -3,10 +3,10 @@
 
 MATHExam::MATHExam(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::MATHExam)
 {
-    HP = 825;
+    HP = 900;
     speed = 1.2;
-    worth = 10;
-    armor = 2;
+    worth = 12;
+    armor = 4;
     canSlow = true;
     canPierceArmor = true;
     canEnrage = false;

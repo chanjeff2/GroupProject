@@ -4,7 +4,7 @@
 PopQuiz::PopQuiz(EnemyUtility *enemyUtility, Path path) : IEnemy(enemyUtility, path, EnemyType::PopQuiz)
 {
     HP = 31;
-    speed = 3.2;
+    speed = 4;
     worth = 1;
     armor = 0;
     canSlow = true;

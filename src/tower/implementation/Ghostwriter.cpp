@@ -5,7 +5,7 @@
 
 Ghostwriter::Ghostwriter(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Ghostwriter)
 {
-    damagePerHit = 64;
+    damagePerHit = 78;
     hitPerSec = 0.33;
     effectiveTowards = set<EnemyType>{ EnemyType::Essay, EnemyType::Midterm, EnemyType::MATHExam };
     weakTowards = set<EnemyType>{ EnemyType::Final, EnemyType::FYP };
