@@ -21,9 +21,7 @@ public:
 
 	// methods
 	virtual void addModifier(AuraType mod);
-
 	virtual void removeModifier(AuraType mod);
-
 	virtual float getActualValue(Attribute attribute);
 private:
 	class Modifier {
@@ -35,7 +33,7 @@ private:
 		float getArmorMod() const;
 	};
 
-	IEnemy *enemy;
+    IEnemy *enemy; // keep track to enemy
 	map<AuraType, Modifier*> modifiers; // key: Mods, value: {speed mod, armor mod}
 };
 

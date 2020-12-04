@@ -12,8 +12,8 @@ enum class AuraType;
 class FocusManager
 {
 	IEnemy *enemy;
-	set<ITower*> towersAttacking;
-	set<ITower*> towersApplyingAura;
+    set<ITower*> towersAttacking; // set of towers attacking this enemy
+    set<ITower*> towersApplyingAura; // set of towers applying aura to this enemy
 	int slowTowerInRange{0};
 	int armorPiercingTowerInRange{0};
 	int rageTowerInRange{0};
@@ -23,21 +23,17 @@ public:
 	FocusManager(IEnemy *enemy);
 
 	// attack focus
-	void attachTowerAttackObserver(ITower *tower);
-
-	void detachTowerAttackObserver(ITower *tower);
+    void attachTowerAttackObserver(ITower *tower); // add tower to set of towers attacking
+    void detachTowerAttackObserver(ITower *tower); // remove tower from set of towers attacking
 
 	// aura effect focus
-	void attachTowerAuraEffectObserver(ITower *tower);
-
-	void detachTowerAuraEffectObserver(ITower *tower);
-
-	void updateAuraTowerInRange(bool isApply, AuraType modType); // do ++ or --
-
-	void requestAddAuraEffectIfNeed(); // loop through all auro tower and check if need
+    void attachTowerAuraEffectObserver(ITower *tower); // add tower to set of towers applying aura
+    void detachTowerAuraEffectObserver(ITower *tower); // remove tower from set of towers applying aura
+    void updateAuraTowerInRange(bool isApply, AuraType modType); // update number of towers applying aura
+    void requestAddAuraEffectIfNeed(); // loop through all towers applying aura and check if need to apply aura effect
 
 	// for both attack and aura effect
-	void requestUpdateFocus();
+    void requestUpdateFocus(); // update towers attacking/applying aura if move out of range
 };
 
 #endif // FOCUSMANAGER_H

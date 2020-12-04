@@ -23,7 +23,7 @@ public:
 	/* GameOver -> true
 	 * GameContinue -> false
 	 * usage: if (reduceGPA(amount)) [GG] */
-	bool reduceGPA(float amount);
+    bool reduceGPA(float amount); // returns true if GPA reaches 0
 
 	void setLayoutManager(GPALayoutManager* gpaLayoutManager);
 
