@@ -13,18 +13,36 @@ QDebug &operator<<(QDebug &qdebug, const Path &path) {
 }
 
 void Path::goToNextCell(IEnemy* enemy) {
-	// un reg from current cell
-	if (enemy != nullptr) {
-		pathStartEnd.at(0)->removeEnemy(enemy);
+	try {
+		if (isEmpty()) {
+			qDebug() << "Path: empty path for" << *enemy;
+			return;
+		}
+
+		if (pathStartEndDistance <= 1) {
+			qDebug() << "Path: path missing next cell for" << *enemy;
+			return;
+		}
+
+		// un reg from current cell
+		if (enemy != nullptr) {
+			pathStartEnd.at(0)->removeEnemy(enemy);
+		}
+		pathStartEnd.pop_front();
+		--pathStartEndDistance;
+
+		// reg into new cell
+		if (enemy != nullptr) {
+			qDebug() << "Path:" << *enemy << "moved to" << *getCurrentCell();
+			// this line crashed the game so I commented it out
+			pathStartEnd.at(0)->addEnemy(enemy);
+		}
+	}  catch (exception e) {
+		qDebug() << "Path: error when go to next cell:" << e.what();
+	} catch (...) {
+		qDebug() << "Path: error when go to next cell, not sure reason";
 	}
-	pathStartEnd.pop_front();
-	--pathStartEndDistance;
-	// reg into new cell
-	if (enemy != nullptr) {
-        //qDebug() << "Path:" << *enemy << "moved to" << *getCurrentCell();
-        // this line crashed the game so I commented it out
-		pathStartEnd.at(0)->addEnemy(enemy);
-	}
+
 }
 
 int Path::getRemainingDistance() const {
@@ -36,6 +54,9 @@ bool Path::isNextCellEnd() const {
 }
 
 Cell *Path::getCurrentCell() const {
+	if (isEmpty()) {
+		return nullptr;
+	}
 	return pathStartEnd.at(0);
 }
 
@@ -44,7 +65,7 @@ const Coordinate Path::getCurrentCoordinate() const {
 }
 
 Cell *Path::getNextCell() const {
-	if (pathStartEndDistance < 2) {
+	if (pathStartEndDistance <= 1) {
 		return nullptr;
 	}
 	return pathStartEnd.at(1);
@@ -58,19 +79,10 @@ const Coordinate Path::getNextCoordinate() const {
 }
 
 bool Path::isEmpty() const {
-	return pathStartEndDistance == 0;
+	return pathStartEnd.empty();
 }
 
 void Path::clear() {
 	pathStartEnd.clear();
 	pathStartEndDistance = 0;
 }
-
-void Path::print() const
-{
-    QDebug debug = qDebug();
-    for ( int i = 0 ; i < pathStartEnd.size() ; i++) {
-        qDebug() << pathStartEnd[i]->x << pathStartEnd[i]->y;
-    }
-}
-

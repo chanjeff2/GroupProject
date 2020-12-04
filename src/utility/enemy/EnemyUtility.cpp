@@ -201,7 +201,14 @@ void EnemyUtility::killEnemy(IEnemy *enemy, KillStatus killStatus) {
 		case KillStatus::DieOfDeadline:
 			qDebug() << "EnemyUtility: kill enemy" << *enemy << "by deadline";
 			// reduce gpa
-			gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO);
+			switch (gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO)) {
+				case GPAManager::GameStatus::GameContinue:
+					break;
+				case GPAManager::GameStatus::GameOver:
+				case GPAManager::GameStatus::GameNotStarted:
+					// hand over to game reset for remaining actions
+					return;
+			}
 			break;
 		case KillStatus::Reset:
 			qDebug() << "EnemyUtility: kill enemy" << *enemy << "by reset";
@@ -209,11 +216,11 @@ void EnemyUtility::killEnemy(IEnemy *enemy, KillStatus killStatus) {
 			break;
 	}
 
-	// remove enemy from cell
-	enemy->getPath().getCurrentCell()->removeEnemy(enemy);
-
 	// find &enemy in ememies and remove
 	enemies.erase(enemy);
+
+	// remove enemy from cell
+	enemy->getPath().getCurrentCell()->removeEnemy(enemy);
 
 	enemy->die();
 
