@@ -51,14 +51,14 @@ extern float GAME_SPEED/* = 1.0*/; // higher -> game process faster (defined in 
 const int NUM_OF_ROW = 20; // y
 const int NUM_OF_COL = 25; // x
 
-const Coordinate START = make_pair(0, 0); // x, y
-const Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
-const Coordinate nullCoordinate = make_pair(-1, -1);
+constexpr Coordinate START = make_pair(0, 0); // x, y
+constexpr Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
+constexpr Coordinate nullCoordinate = make_pair(-1, -1);
 
 // cell size for display
-const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
+constexpr pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
 // enemy hp bar
-const pair<int /*width*/, int /*height*/> HP_BAR_BG_SIZE = make_pair(CELL_SIZE.first * 3 / 4, 8);
+constexpr pair<int /*width*/, int /*height*/> HP_BAR_BG_SIZE = make_pair(CELL_SIZE.first * 3 / 4, 8);
 const pair<int /*width*/, int /*height*/> HP_BAR_SIZE = make_pair(CELL_SIZE.first * 5 / 8, 6);
 const string HP_BAR_BG_GREY = "#9f9f9f";
 const string HP_BAR_RED = "#de4f4f";
