@@ -33,8 +33,7 @@ void Path::goToNextCell(IEnemy* enemy) {
 
 		// reg into new cell
 		if (enemy != nullptr) {
-			qDebug() << "Path:" << *enemy << "moved to" << *getCurrentCell();
-			// this line crashed the game so I commented it out
+//			qDebug() << "Path:" << *enemy << "moved to" << *getCurrentCell(); // comment out to avoid spam
 			pathStartEnd.at(0)->addEnemy(enemy);
 		}
 	}  catch (exception e) {
