@@ -51,14 +51,14 @@ extern float GAME_SPEED/* = 1.0*/; // higher -> game process faster (defined in 
 const int NUM_OF_ROW = 20; // y
 const int NUM_OF_COL = 25; // x
 
-const Coordinate START = make_pair(0, 0); // x, y
-const Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
-const Coordinate nullCoordinate = make_pair(-1, -1);
+constexpr Coordinate START = make_pair(0, 0); // x, y
+constexpr Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
+constexpr Coordinate nullCoordinate = make_pair(-1, -1);
 
 // cell size for display
-const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
+constexpr pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
 // enemy hp bar
-const pair<int /*width*/, int /*height*/> HP_BAR_BG_SIZE = make_pair(CELL_SIZE.first * 3 / 4, 8);
+constexpr pair<int /*width*/, int /*height*/> HP_BAR_BG_SIZE = make_pair(CELL_SIZE.first * 3 / 4, 8);
 const pair<int /*width*/, int /*height*/> HP_BAR_SIZE = make_pair(CELL_SIZE.first * 5 / 8, 6);
 const string HP_BAR_BG_GREY = "#9f9f9f";
 const string HP_BAR_RED = "#de4f4f";
@@ -70,7 +70,17 @@ const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
 const int TOWER_RANGES[8] = {3, 3, 4, 3, 4, 2, 9, 5};
 
 // Tower
-const AuraType TOWER_AURAS[8] = { AuraType::Null, AuraType::Null, AuraType::Null, AuraType::SlowAura, AuraType::ArmorPierceAura, AuraType::Null, AuraType::RageAura, AuraType::Null };
+const AuraType TOWER_AURAS[8] = {
+	AuraType::Null, // Regular
+	AuraType::Null, // Arts
+	AuraType::Null, // WolframAlpha
+	AuraType::SlowAura, // Hacker
+	AuraType::ArmorPierceAura, // Calc
+	AuraType::Null, // Nerd
+	AuraType::RageAura, // Ghostwriter
+	AuraType::Null // Chegg
+};
+
 const string TOWER_IMAGES[8] = {
     ":/res/res/towers_images/RegularStudent Grid",
     ":/res/res/towers_images/ArtsStudent Grid",
