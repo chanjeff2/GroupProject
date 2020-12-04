@@ -21,6 +21,8 @@ public:
 
     ResourceLayoutManager(ResourceManager *resourceManager);
 
+    //methods
+
     void updateResource(const int resource);
 
     void updateResourceCapacity(const int resourceCapacity);
