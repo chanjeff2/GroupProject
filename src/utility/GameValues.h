@@ -70,7 +70,17 @@ const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
 const int TOWER_RANGES[8] = {3, 3, 3, 3, 4, 2, 9, 5};
 
 // Tower
-const AuraType TOWER_AURAS[8] = { AuraType::Null, AuraType::Null, AuraType::Null, AuraType::SlowAura, AuraType::ArmorPierceAura, AuraType::Null, AuraType::RageAura, AuraType::Null };
+const AuraType TOWER_AURAS[8] = {
+	AuraType::Null, // Regular
+	AuraType::Null, // Arts
+	AuraType::Null, // WolframAlpha
+	AuraType::SlowAura, // Hacker
+	AuraType::ArmorPierceAura, // Calc
+	AuraType::Null, // Nerd
+	AuraType::RageAura, // Ghostwriter
+	AuraType::Null // Chegg
+};
+
 const string TOWER_IMAGES[8] = {
     ":/res/res/towers_images/RegularStudent Grid",
     ":/res/res/towers_images/ArtsStudent Grid",
