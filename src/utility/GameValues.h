@@ -67,7 +67,7 @@ const string HP_BAR_GREEN = "#8de98d";
 
 // Tower Prices
 const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
-const int TOWER_RANGES[8] = {3, 3, 3, 3, 4, 2, 9, 5};
+const int TOWER_RANGES[8] = {3, 3, 4, 3, 4, 2, 9, 5};
 
 // Tower
 const AuraType TOWER_AURAS[8] = { AuraType::Null, AuraType::Null, AuraType::Null, AuraType::SlowAura, AuraType::ArmorPierceAura, AuraType::Null, AuraType::RageAura, AuraType::Null };
