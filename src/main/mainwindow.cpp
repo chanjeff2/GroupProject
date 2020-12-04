@@ -389,7 +389,7 @@ void MainWindow::map_hovered(int x, int y) {
         previewed_tower->setOffset(x*CELL_SIZE.first, y*CELL_SIZE.second);
     }
     if (game_grid.getCell(x, y)->hasTower()) {
-		qDebug() << "MainWindow: show range indicator for existing tower at (" << x << ", " << y << ")";
+//		qDebug() << "MainWindow: show range indicator for existing tower at (" << x << ", " << y << ")"; // comment out to avoid spam
         // Draw out the range
         drawn_range = game_grid.getCell(x, y)->getTower()->showRange(true);
     } else {
@@ -407,7 +407,7 @@ void MainWindow::map_hovered(int x, int y) {
 
             previewed_tower->setOpacity(0.5);
 
-			qDebug() << "MainWindow: show range indicator for preview at (" << x << ", " << y << ")";
+//			qDebug() << "MainWindow: show range indicator for preview at (" << x << ", " << y << ")"; // comment out to avoid spam
             // Draw out the range
 			drawn_range = this->game_grid.drawRange(tower_selected, pos);
         }

@@ -22,6 +22,8 @@ void PathFindingUtility::PathBuffer::flush() {
 	}  catch (exception e) {
 		qDebug() << "PathFindingUtility::PathBuffer: enemy probably deleted";
 		qDebug() << "PathFindingUtility::PathBuffer:" << e.what();
+	} catch (...) {
+		qDebug() << "PathFindingUtility::PathBuffer: something bugged in flush";
 	}
 }
 

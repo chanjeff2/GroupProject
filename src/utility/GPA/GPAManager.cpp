@@ -12,12 +12,14 @@ float GPAManager::getGPA() const {
 	return gpa;
 }
 
-/* GameOver -> true
-		 * GameContinue -> false
-		 * usage: if (reduceGPA(amount)) [GG] */
+/* GameOver -> GameStatus::GameOver
+ * GameContinue -> GameStatus::GameContinue
+ * GameNotStarted -> GameStatus::GameNotStarted
+ * usage: if (reduceGPA(amount) == GameStatus::GameOver) [GG] */
+GPAManager::GameStatus GPAManager::reduceGPA(float amount) {
+	if (!is_game_started)
+		return GameStatus::GameNotStarted;
 
-bool GPAManager::reduceGPA(float amount) {
-    if (!is_game_started) return false;
 	qDebug() << "GPAManager: reduce GPA, amount:" << amount;
 	gpa -= amount;
 	// Rounding off to 1 d.p.
@@ -33,11 +35,11 @@ bool GPAManager::reduceGPA(float amount) {
             qDebug() << "Game Over!";
             emit game_over();
         }
-		return true; // game over
+		return GameStatus::GameOver; // game over
 	} else {
 		gpaLayoutManager->UpdateGPA(gpa);
 		qDebug() << "GPAManager: new GPA:" << gpa;
-		return false;
+		return GameStatus::GameContinue;
 	}
 }
 

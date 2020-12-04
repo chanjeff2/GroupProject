@@ -17,13 +17,18 @@ private:
 public:
 	GPAManager();
 
+	enum class GameStatus {
+		GameOver, GameContinue, GameNotStarted
+	};
+
 	// methods
 	float getGPA() const;
 
-	/* GameOver -> true
-	 * GameContinue -> false
-	 * usage: if (reduceGPA(amount)) [GG] */
-    bool reduceGPA(float amount); // returns true if GPA reaches 0
+	/* GameOver (GPA reaches 0) -> GameStatus::GameOver
+	 * GameContinue (GPA not reaches 0) -> GameStatus::GameContinue
+	 * GameNotStarted -> GameStatus::GameNotStarted
+	 * usage: if (reduceGPA(amount) == GameStatus::GameOver) [GG] */
+	GameStatus reduceGPA(float amount);
 
 	void setLayoutManager(GPALayoutManager* gpaLayoutManager);
 
