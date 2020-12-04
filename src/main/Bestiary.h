@@ -55,8 +55,8 @@ private slots:
     void on_ELPA_clicked();
     void on_FYP_clicked();
 
-    // Exit Bestiary
-    void on_ExitBestiary_clicked();
+    // Credits of this project
+    void on_Credits_clicked();
 
 };
 

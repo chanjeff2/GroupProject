@@ -13,6 +13,8 @@ using namespace std;
 #include "EnemyLayoutManager.h"
 #include "src/utility/pathfinding/Path.h"
 
+#include "src/main/GraphicsItemGroup.h"
+
 // forward declaration
 class Cell;
 enum class EnemyType;
@@ -63,11 +65,15 @@ public:
 
 	// setter
 	void setPath(Path path);
-	void attachImageView(QGraphicsPixmapItem *imgView);
+	void attachImageViews(GraphicsItemGroup *imgViewGroup, QGraphicsRectItem *hpBar, QGraphicsPixmapItem *imgView);
+	void setImgPath(QString imgPath, QString imgPath_rage);
 
 	// methods
 	void trigger(); // trigger after init in base class
+	void toggleRage(bool isRage); // set rage status
 	void receiveDamage(int damage);
+	void die(); // act as destructor
+    void speedUp(); // Speed up enemies after game over
 };
 
 #endif // IENEMY_H

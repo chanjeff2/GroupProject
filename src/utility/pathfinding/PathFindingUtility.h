@@ -8,8 +8,6 @@ using namespace std;
 #include "Path.h"
 #include "src/utility/GameValues.h"
 
-const Coordinate nullCoordinate = make_pair(-1, -1);
-
 // forward declaration
 class Cell;
 class ITower;
@@ -19,29 +17,34 @@ class GameGrid;
 class PathFindingUtility
 {
 private:
+    int numRows = NUM_OF_ROW;
+    int numCols = NUM_OF_COL;
+
 	class PathBuffer {
 	public:
 		Path path; // calculated path for
 		IEnemy *enemy{nullptr}; // corresponding enemy
 		PathBuffer(Path path, IEnemy *enemy);
+		void flush(); // apply path buffer to enemy
 	};
 	
 	class CellDetails {
 	public:
 		Coordinate prevCell{nullCoordinate}; // previous cell **start from end**
-		int f{NUM_OF_COL * NUM_OF_ROW}; // f = g + h
-		int g{NUM_OF_COL * NUM_OF_ROW}; // cost from start to this cell
-		int h{NUM_OF_COL * NUM_OF_ROW}; // cost from this cell to end
+        int f{INT_MAX}; // total cost
+		int g{INT_MAX}; // cost from start to this cell
+		int h{INT_MAX}; // cost from this cell to end
 	};
 
-	const Coordinate entry;
-	const Coordinate exit;
+    Coordinate entry;
+    Coordinate exit;
+    set<Coordinate> blockedPositions; // obstacles
 	Path pathStartEnd; // path from entry to exit
 	Path pathStartEndBuffer; // buffer to store preview
 	set<PathBuffer*> pathBuffer; // buffer for each enemy
 	const GameGrid *gameGrid; // ref to game grid
 
-	Path processPath(CellDetails cellDetails[NUM_OF_COL][NUM_OF_ROW], const Coordinate end);
+	Path processPath(vector<vector<CellDetails>> cellDetails, const Coordinate end);
 
 	bool isCoordinateBlocked(Coordinate coordinate, const set<Coordinate> &blockedPosition) const;
 	bool isCoordinateBlocked(int x, int y, const set<Coordinate> &blockedPosition) const;
@@ -65,11 +68,13 @@ public:
 
 	void init();
 
+    void init(int numCols, int numRows, Coordinate start, Coordinate end, set<Coordinate> blockedPositions);
+
 	Path getPathStartEnd() const;
 
 	/* return buffer storing validated path for each enemy
 	 * empty vector if not valid */
-	bool validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies);
+    bool validateTowerPlacement(const set<Coordinate> &positionOfTowers, const set<IEnemy*> &enemies); // checks if tower placement blocks all paths from start to end
 
 	/* successfully updated path -> true
 	 * failed, path is blocked -> false */

@@ -3,13 +3,11 @@
 
 Desmond::Desmond(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::Desmond)
 {
-	HP = 750;
-	speed = 2.0;
-	worth = 10;
+    HP = 1000;
+    speed = 2.4;
+    worth = 11;
 	armor = 6;
 	canSlow = true;
 	canPierceArmor = true;
-	canEnrage = false;
-
-	trigger();
+	canEnrage = true;
 }

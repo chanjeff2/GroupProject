@@ -1,7 +1,7 @@
 #ifndef GAMEGRID_H
 #define GAMEGRID_H
 
-#include <array>
+#include <vector>
 #include <set>
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -20,12 +20,18 @@ using namespace std;
 
 class GameGrid
 {
-	array<array<Cell*, NUM_OF_ROW>, NUM_OF_COL> grid; // get element: grid[x][y]
+	vector<vector<Cell*>> grid; // grid[row][col]
     QGraphicsScene* scene;
 	TowerUtility towerUtility{this};
 	EnemyUtility enemyUtility{this};
 	PathFindingUtility pathFindingUtility{this};
-    array<array<QGraphicsRectItem*, NUM_OF_ROW>, NUM_OF_COL> cell_squares;
+
+    int numRows{0}, numCols{0}, numSpawns;
+	set<Coordinate> spawns;
+    set<Coordinate> blockedCells;
+	Coordinate target;
+
+	void destructMap(); // delete all cell
 
 public:
 	GPAManager gpaManager;
@@ -35,9 +41,15 @@ public:
     GameGrid(QGraphicsScene* scene);
 	~GameGrid();
 
+	void loadMap(); // load default map
+	void loadMap(const string& filename); // load custom map
+
 	// getter
 	Cell *getCell(int x, int y) const;
 	Cell *getCell(Coordinate coordinate) const;
+
+	int getNumRows() const;
+	int getNumCols() const;
 
 	const set<ITower*> &getAllTower() const;
 
@@ -65,6 +77,8 @@ public:
 	void generateEnemy(EnemyType enemyType);
 
 	QGraphicsRectItem* drawRange(TowerType towertype, Coordinate position);
+
+    void clearBoard();
 };
 
 #endif // GAMEGRID_H

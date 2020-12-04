@@ -23,9 +23,16 @@ QDebug& operator<<(QDebug &qdebug, const Cell &cell) {
 	return qdebug.space();
 }
 
-Cell::Cell(int x, int y): x(x), y(y), tower(nullptr) {};
+Cell::Cell(int x, int y): x(x), y(y), tower(nullptr) , cell_type(CellType::EMPTY) {};
 
-Cell::Cell(int x, int y, ITower *tower): x(x), y(y), tower(tower) {};
+Cell::Cell(int x, int y, ITower *tower): x(x), y(y), tower(tower) , cell_type(CellType::BLOCKED) {};
+
+Cell::~Cell() {
+	if (cell_squares != nullptr) {
+		cell_squares->setVisible(false);
+	}
+	delete this->cell_squares;
+}
 
 // getter
 ITower *Cell::getTower() const {
@@ -34,6 +41,10 @@ ITower *Cell::getTower() const {
 
 set<IEnemy*> Cell::getEnemy() const {
 	return this->enemy;
+}
+
+void Cell::setCellType(CellType cell_type) {
+	this->cell_type = cell_type;
 }
 
 // methods
@@ -48,7 +59,7 @@ bool Cell::placeTower(ITower *tower) {
 }
 
 void Cell::removeTower() {
-	delete this->tower;
+	this->tower->remove();
 	this->tower = nullptr;
 }
 

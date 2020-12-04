@@ -3,13 +3,11 @@
 
 MathHW::MathHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::MathHW)
 {
-    HP = 60;
+    HP = 79;
     speed = 1.5;
-    worth = 1;
+    worth = 2;
     armor = 3;
     canSlow = true;
     canPierceArmor = true;
     canEnrage = false;
-
-	trigger();
 }

@@ -6,6 +6,9 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QMessageBox>
+#include <cmath>
+
+float GAME_SPEED = 1.0;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -45,7 +48,10 @@ MainWindow::MainWindow(QWidget *parent)
 	game_grid.resourceManager.setLayoutManager(&resource_layout_manager);
 
     // Misc stuff
-    ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
+	ui->graphicsView->fitInView(QRect(0, 0, NUM_OF_COL*2, NUM_OF_ROW*2), Qt::KeepAspectRatio);
+	QTimer::singleShot(500, [&] {
+        ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+	});
     week_layout_manager.SkipWeek->setEnabled(false);
     ui->Warning->setVisible(false);
     ui->Warning->setStyleSheet(QStringLiteral("QLabel{color: rgb(255, 0, 0);}"));
@@ -172,6 +178,7 @@ void MainWindow::on_CancelBuy_clicked() {
 }
 
 void MainWindow::on_TowerMode_clicked() {
+    if (!game_started) return;
     if (sell_mode) {
         sell_mode = false;
         ui->TowerMode->setText("Buy Tower Mode");
@@ -186,8 +193,26 @@ void MainWindow::on_TowerMode_clicked() {
 }
 
 void MainWindow::on_ResourceUpg_clicked() {
+    if (!game_started) return;
     if (game_grid.resourceManager.getResource() >= game_grid.resourceManager.getResourceRequiredForUpgradeCapacity()) {
         game_grid.resourceManager.upgradeResourceCapacity();
+        if (tower_selected != TowerType::None) {
+            // If not enough resources, auto cancel buy tower
+            if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+                ui->Warning->setText("Not enough resources. Buy cancelled");
+                ui->Warning->setVisible(true);
+                QTimer::singleShot(750, [&]{
+                    ui->Warning->setVisible(false);
+                });
+
+                delete drawn_range;
+                drawn_range = nullptr;
+                delete previewed_tower;
+                previewed_tower = nullptr;
+                tower_selected = TowerType::None;
+                ui->CancelBuy->setEnabled(false);
+            }
+        }
     } else {
         resource_layout_manager.indicateNotEnoughResource();
     }
@@ -197,14 +222,69 @@ void MainWindow::on_Bestiary_clicked() {
     bestiary_window.show();
 }
 
+void MainWindow::on_LoadMap_clicked() {
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Map file"), ".", tr("Text Files (*.txt)"));
+    qDebug() << "Map Info: " << filename;  // You can use qDebug() for debug info
+    if (filename == "") return;
+    else {
+        // Notify users the map has loaded
+        ui->Warning->setText("Map loaded!");
+        ui->Warning->setVisible(true);
+		QTimer::singleShot(2000 / GAME_SPEED, [&]{
+            ui->Warning->setVisible(false);
+        });
+
+		game_grid.loadMap(filename.toStdString());
+    }
+	ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+}
+
+void MainWindow::on_ResetMap_clicked() {
+    game_grid.loadMap();
+    ui->graphicsView->fitInView(scene.sceneRect(), Qt::KeepAspectRatio);
+
+    ui->Warning->setText("Map resetted!");
+    ui->Warning->setVisible(true);
+	QTimer::singleShot(2000 / GAME_SPEED, [&]{
+        ui->Warning->setVisible(false);
+    });
+};
+
 void MainWindow::on_StartGame_clicked() {
     QString filename = QFileDialog::getOpenFileName(this, tr("Open Waves file"), ".", tr("Text Files (*.txt)"));
     qDebug() << "Wave Info: " << filename;  // You can use qDebug() for debug info
     if (filename == "") return;
     else {
-        game_grid.weekManager.loadEnemy(filename.toStdString());
-        week_layout_manager.SkipWeek->setEnabled(true);
+        if (!game_grid.weekManager.loadEnemy(filename.toStdString())) {
+            // failed to load valid data from enemy file
+			ui->Warning->setText("Invalid Enemy Data!");
+			ui->Warning->setVisible(true);
+			QTimer::singleShot(2000 / GAME_SPEED, [&]{
+				ui->Warning->setVisible(false);
+			});
+            return;
+        }
+
+        // Notify users the game has started
+        ui->Warning->setText("Game Started!");
+        ui->Warning->setVisible(true);
+		QTimer::singleShot(2000 / GAME_SPEED, [&]{
+            ui->Warning->setVisible(false);
+        });
+
+        // Notify managers the game has started
+        game_grid.gpaManager.toggle_game_started(true);
+        game_grid.weekManager.toggle_game_started(true);
         game_started = true;
+
+        // Initialize stuff
+        game_grid.weekManager.prepareForNextWeek(); // start week
+        week_layout_manager.SkipWeek->setEnabled(true);
+
+        // Disable buttons
+        ui->StartGame->setEnabled(false);
+        ui->LoadMap->setEnabled(false);
+        ui->ResetMap->setEnabled(false);
     }
 }
 
@@ -215,28 +295,54 @@ void MainWindow::on_SkipWeek_clicked() {
 
 void MainWindow::map_clicked(int x, int y) {
     qDebug() << x << y;
-    if (!game_started || !game_grid.isValidCoordinate(x, y)) return;
-    if (!sell_mode) {
-		if (game_grid.canPlaceTower(x, y)) {
-			// remove preview range
-			drawn_range->setVisible(false);
-			delete drawn_range;
-			drawn_range = nullptr;
-			// place tower
-            game_grid.placeTower(x, y, tower_selected);
-		} else {
-            ui->Warning->setText("Invalid Placement");
-            ui->Warning->setVisible(true);
-            QTimer::singleShot(750, [&]{
-                ui->Warning->setVisible(false);
-            });
-        }
-    } else {
-        game_grid.removeTower(x, y);
+	if (!game_started || !game_grid.isValidCoordinate(x, y))
+		return;
+
+	if (sell_mode) {
 		// delete aura
-		delete drawn_range;
 		drawn_range = nullptr;
-    }
+		game_grid.removeTower(x, y);
+		return;
+	}
+
+	if (tower_selected == TowerType::None)
+		return;
+
+	// If not enough resources, auto cancel buy tower
+	if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+		ui->Warning->setText("Not enough resources. Buy cancelled");
+		ui->Warning->setVisible(true);
+		QTimer::singleShot(750, [&]{
+			ui->Warning->setVisible(false);
+		});
+		delete previewed_tower;
+		previewed_tower = nullptr;
+		tower_selected = TowerType::None;
+		ui->CancelBuy->setEnabled(false);
+		return;
+	}
+
+	// perform place tower, prompt Invalid Placement if failed
+	if (!game_grid.placeTower(x, y, tower_selected)) {
+		ui->Warning->setText("Invalid Placement");
+		ui->Warning->setVisible(true);
+		QTimer::singleShot(750, [&]{
+			ui->Warning->setVisible(false);
+		});
+        return;
+	}
+
+	// If not enough resources, auto cancel buy next tower
+    if (game_grid.resourceManager.getResource() < TOWER_PRICES[static_cast<int>(tower_selected)]) {
+		delete previewed_tower;
+		previewed_tower = nullptr;
+		tower_selected = TowerType::None;
+		ui->CancelBuy->setEnabled(false);
+	}
+
+	// remove preview range
+    drawn_range->setVisible(false);
+	drawn_range = nullptr;
 };
 
 void MainWindow::map_hovered(int x, int y) {
@@ -250,10 +356,6 @@ void MainWindow::map_hovered(int x, int y) {
 		return;
 	}
 
-	if (sell_mode) {
-		return;
-	}
-
 	// do nothing if stay on same cell
 	if (pos == this->cursorPos) {
 		return;
@@ -263,15 +365,8 @@ void MainWindow::map_hovered(int x, int y) {
 		Cell *oldCell = game_grid.getCell(cursorPos);
 		// hide old range indicator of existing tower
 		if ( drawn_range != nullptr && oldCell->hasTower()) {
-			// hide non-aura tower range indicator
-			switch (oldCell->getTower()->auraEffect->getAuraType()) {
-				case AuraType::Null:
-				case AuraType::RageAura:
-					oldCell->getTower()->showRange(false);
-					break;
-				default:
-					break;
-			}
+			// hide border for range
+			oldCell->getTower()->showRange(false);
 			drawn_range = nullptr;
 		}
 	}
@@ -287,11 +382,18 @@ void MainWindow::map_hovered(int x, int y) {
 		previewed_tower = nullptr;
 	}
 
+    if (sell_mode) {
+        // If in sell mode, show a cross instead of towers
+        previewed_tower = scene.addPixmap(QPixmap(":/res/res/misc_images/SellTower"));
+        previewed_tower->setZValue(static_cast<float>(Element::Selling));
+        previewed_tower->setOffset(x*CELL_SIZE.first, y*CELL_SIZE.second);
+    }
     if (game_grid.getCell(x, y)->hasTower()) {
-		qDebug() << "MainWindow: show range indicator for existing tower at (" << x << ", " << y << ")";
+//		qDebug() << "MainWindow: show range indicator for existing tower at (" << x << ", " << y << ")"; // comment out to avoid spam
         // Draw out the range
         drawn_range = game_grid.getCell(x, y)->getTower()->showRange(true);
     } else {
+        // No need extra constraint for sell mode (sell mode is forced to select as None)
         if (tower_selected == TowerType::None) return;
         else {
             // Get tower datas
@@ -299,28 +401,38 @@ void MainWindow::map_hovered(int x, int y) {
             QString img_path = QString::fromStdString(TOWER_IMAGES[int(tower_selected)]);
 
             previewed_tower = scene.addPixmap(QPixmap(img_path));
-            previewed_tower->setOffset(x*40, y*40);
+
+            previewed_tower->setZValue(static_cast<float>(Element::Preview));
+            previewed_tower->setOffset(x*CELL_SIZE.first, y*CELL_SIZE.second);
+
             previewed_tower->setOpacity(0.5);
 
-			qDebug() << "MainWindow: show range indicator for preview at (" << x << ", " << y << ")";
+//			qDebug() << "MainWindow: show range indicator for preview at (" << x << ", " << y << ")"; // comment out to avoid spam
             // Draw out the range
 			drawn_range = this->game_grid.drawRange(tower_selected, pos);
         }
     }
+
+    return;
 };
 
 void MainWindow::game_over_process() {
-    QString message = "You were expelled from HKUST\n";
-    message += "for poor academic performance.\n";
+    game_grid.clearBoard();
+    QString message = "You were expelled from HKUST for poor academic performance.\n";
+    message += "Now you can only watch all the assignments reaching deadline.\n";
     message += "Weeks passed: ";
     message += QString::number(game_grid.weekManager.getWeek() - 1);
+    message += "\n(Please wait for all the assignments move to the deadline before restart!)";
+
     QMessageBox::critical(this, "Game Over!", message, QMessageBox::Ok);
+    game_reset();
 }
 
 void MainWindow::game_beaten_process() {
     float final_GPA = game_grid.gpaManager.getGPA();
+    game_grid.clearBoard();
     if (final_GPA <= 0) return; // You cannot win if you lose all lives at the last week
-    QString message = "You have passed the trials of the University of Stress and Tension.\n";
+    QString message = "You have passed the trials of the University of Stress and Tension!\n";
     // Check for what you get in this semester
     if (final_GPA >= 3.9) {
         message += "You got the Academic Achievement Award in this semester! GG!\n";
@@ -332,4 +444,55 @@ void MainWindow::game_beaten_process() {
     message += "GPA of this semster: ";
     message += QString::number(final_GPA);
     QMessageBox::information(this, "You Win!", message, QMessageBox::Ok);
+    game_reset();
+}
+
+void MainWindow::game_reset() {
+    // Resets everything in the window
+    game_started = false;
+    tower_selected = TowerType::None;
+    sell_mode = false;
+    ui->TowerMode->setText("Buy Tower Mode");
+    if (drawn_range != nullptr)
+        drawn_range->setVisible(false);
+    drawn_range = nullptr;
+    delete previewed_tower; previewed_tower = nullptr;
+
+    // Enable buttons
+    ui->StartGame->setEnabled(true);
+    ui->LoadMap->setEnabled(true);
+    ui->ResetMap->setEnabled(true);
+
+    // Resets the managers
+    game_grid.gpaManager.manager_reset();
+    game_grid.resourceManager.manager_reset();
+    game_grid.weekManager.manager_reset();
+
+	on_gameSpeed_clicked(true);
+}
+
+void MainWindow::on_gameSpeed_clicked(bool reset) {
+	if (reset) {
+		qDebug() << "MainWindow: set game speed to 1.0";
+		GAME_SPEED = 1.0;
+		ui->gameSpeed->setText("normal speed");
+		return;
+	}
+
+	switch(static_cast<int>(GAME_SPEED)) {
+		case 1:
+			qDebug() << "MainWindow: set game speed to 5.0";
+			GAME_SPEED = 5.0;
+			ui->gameSpeed->setText(">");
+			break;
+		case 5:
+			qDebug() << "MainWindow: set game speed to 10.0";
+			GAME_SPEED = 10.0;
+			ui->gameSpeed->setText(">>");
+			break;
+		default:
+			qDebug() << "MainWindow: set game speed to 1.0";
+			GAME_SPEED = 1.0;
+			ui->gameSpeed->setText("normal speed");
+	}
 }

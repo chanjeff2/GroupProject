@@ -5,10 +5,10 @@
 
 Nerd::Nerd(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Nerd)
 {
-    damagePerHit = 5;
-    hitPerSec = 3.2;
+    damagePerHit = 8;
+    hitPerSec = 2.2;
     effectiveTowards = set<EnemyType>{ EnemyType::GroupProj };
-    weakTowards = set<EnemyType>{ EnemyType::MathHW, EnemyType::PA, EnemyType::Essay };
+    weakTowards = set<EnemyType>{};
     cost = TOWER_PRICES[5];
     range = TOWER_RANGES[5];
     attackStrategy = new NormalAttack(this);

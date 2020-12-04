@@ -17,9 +17,9 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="ExitBestiary">
+      <widget class="QPushButton" name="Credits">
        <property name="text">
-        <string>Close Bestiary</string>
+        <string>WhO iS mAkInG tHiS mEsS?????</string>
        </property>
       </widget>
      </item>

@@ -9,13 +9,13 @@ using namespace std;
 typedef	pair<int /*col*/, int /*row*/> Coordinate;
 
 enum class Element: int {
-	Cell = 0, Indicator, Tower, Enemy
+	Cell = 0, Indicator, Preview, Tower, Enemy, HP_bg, HP, ID_Tag, Selling
 };
 
 enum class EnemyType: int {
     NormalHW = 100, Essay, EncryptedHW,
     GroupProj, MathHW, COMPLab, PA, Desmond,
-    PopQuiz, Midterm, MATHExam, Final, ELPA, FYP
+    PopQuiz, Midterm, MATHExam, Final, ELPA, FYP, _END_POINTER/*keep this as the last element*/
 };
 
 const string ENEMY_NAME[14] = {
@@ -36,28 +36,51 @@ enum class AuraType {
 	SlowAura, ArmorPierceAura, RageAura, Null
 };
 
+enum class CellType {
+    EMPTY, BLOCKED, SPAWN, END
+};
+
 enum class TargetSelectionType {
 	Random, Priority, All, Null
 };
 
 // Global setting
-const float GAME_SPEED = 1.0; // higher -> game process faster
+extern float GAME_SPEED/* = 1.0*/; // higher -> game process faster (defined in mainwindow.cpp)
 
 // map
 const int NUM_OF_ROW = 20; // y
 const int NUM_OF_COL = 25; // x
 
-const Coordinate START = make_pair(0, 0); // x, y
-const Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
+constexpr Coordinate START = make_pair(0, 0); // x, y
+constexpr Coordinate END = make_pair(NUM_OF_COL - 1, NUM_OF_ROW - 1); // x, y
+constexpr Coordinate nullCoordinate = make_pair(-1, -1);
 
 // cell size for display
-const pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
+constexpr pair<int /*width*/, int /*height*/> CELL_SIZE = make_pair(40, 40);
+// enemy hp bar
+constexpr pair<int /*width*/, int /*height*/> HP_BAR_BG_SIZE = make_pair(CELL_SIZE.first * 3 / 4, 8);
+const pair<int /*width*/, int /*height*/> HP_BAR_SIZE = make_pair(CELL_SIZE.first * 5 / 8, 6);
+const string HP_BAR_BG_GREY = "#9f9f9f";
+const string HP_BAR_RED = "#de4f4f";
+const string HP_BAR_YELLOW = "#f0c861";
+const string HP_BAR_GREEN = "#8de98d";
 
 // Tower Prices
 const int TOWER_PRICES[8] = {10, 15, 30, 35, 40, 50, 75, 250};
-const int TOWER_RANGES[8] = {3, 3, 3, 3, 4, 2, 9, 5};
+const int TOWER_RANGES[8] = {3, 3, 4, 3, 4, 2, 9, 5};
 
-const AuraType TOWER_AURAS[8] = { AuraType::Null, AuraType::Null, AuraType::Null, AuraType::SlowAura, AuraType::ArmorPierceAura, AuraType::Null, AuraType::RageAura, AuraType::Null };
+// Tower
+const AuraType TOWER_AURAS[8] = {
+	AuraType::Null, // Regular
+	AuraType::Null, // Arts
+	AuraType::Null, // WolframAlpha
+	AuraType::SlowAura, // Hacker
+	AuraType::ArmorPierceAura, // Calc
+	AuraType::Null, // Nerd
+	AuraType::RageAura, // Ghostwriter
+	AuraType::Null // Chegg
+};
+
 const string TOWER_IMAGES[8] = {
     ":/res/res/towers_images/RegularStudent Grid",
     ":/res/res/towers_images/ArtsStudent Grid",
@@ -68,6 +91,8 @@ const string TOWER_IMAGES[8] = {
     ":/res/res/towers_images/Ghostwriter Grid",
     ":/res/res/towers_images/Chegg Grid"
 };
+
+// Enemy
 
 // GPA (score)
 const float MAX_GPA = 4.3;

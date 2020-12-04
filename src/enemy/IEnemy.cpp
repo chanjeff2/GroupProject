@@ -16,11 +16,6 @@ IEnemy::IEnemy(EnemyUtility *enemyUtility, Path path, EnemyType enemyType): path
 
 // destructor
 IEnemy::~IEnemy() {
-	// stop moving
-	timer->stop();
-
-	// notify all tower focusing this enemy to clear focus
-	focusManager.requestUpdateFocus();
 }
 
 // getter
@@ -61,23 +56,30 @@ void IEnemy::setPath(Path path) {
 	this->path = path;
 }
 
-void IEnemy::attachImageView(QGraphicsPixmapItem *imgView) {
-	this->enemyLayoutManager.attachImageView(imgView, path.getCurrentCoordinate());
+void IEnemy::attachImageViews(GraphicsItemGroup *imgViewGroup, QGraphicsRectItem *hpBar, QGraphicsPixmapItem *imgView) {
+	this->enemyLayoutManager.attachImageViews(imgViewGroup, hpBar, imgView);
+	enemyLayoutManager.setMaxHP(this->HP);
+}
+
+void IEnemy::setImgPath(QString imgPath, QString imgPath_rage) {
+	enemyLayoutManager.setImgPath(imgPath, imgPath_rage);
 }
 
 // methods
 void IEnemy::move() {
+	// do nothing if path is empty
+	if (path.isEmpty()) {
+		return;
+	}
+
 	// check if reaching exit
 	if (path.isNextCellEnd()) {
-		enemyUtility->killEnemy(this, false);
+		enemyUtility->killEnemy(this, EnemyUtility::KillStatus::DieOfDeadline);
 		return;
 	}
 
 	// perform move (i.e. goto next cell in pathToTake) + decrement distanceFromEnd
 	path.goToNextCell(this);
-
-	// update UI
-	enemyLayoutManager.moveTo(path.getCurrentCoordinate());
 
 	// notify all tower focusing this enemy to update focus if needed
 	focusManager.requestUpdateFocus();
@@ -87,29 +89,58 @@ void IEnemy::move() {
 	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
 	timeTilNextMove /= GAME_SPEED;
 
+	// update UI
+	enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
+
 	if (timer->interval() != timeTilNextMove) {
 		timer->setInterval(timeTilNextMove); // update timer interval in case there is change in speed;
 	}
 }
 
+void IEnemy::die() {
+	this->timer->stop();
+	// notify all tower focusing this enemy to clear focus
+	focusManager.requestUpdateFocus();
+	// clear path to place safe
+	this->path.clear();
+	// delete
+	this->deleteLater();
+}
+
 void IEnemy::trigger() {
 	// born to move
 	// get ready for next move
-	float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
-	timeTilNextMove /= GAME_SPEED;
+    float timeTilNextMove = 1000/this->modManager.getActualValue(ModManager::Attribute::Speed);
+    timeTilNextMove /= GAME_SPEED;
+
+	// update UI
+    enemyLayoutManager.moveTo(path.getCurrentCoordinate());
+    enemyLayoutManager.moveTo(path.getNextCoordinate(), timeTilNextMove);
 
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &IEnemy::move);
 	timer->start(timeTilNextMove);
 }
 
+void IEnemy::toggleRage(bool isRage) {
+	enemyLayoutManager.toggleRage(isRage);
+}
+
 void IEnemy::receiveDamage(int damage) {
-	int actualDamage = damage/* equation */;
+    int actualDamage = damage - modManager.getActualValue(ModManager::Attribute::Armor);/* equation */
+    if (actualDamage < 0) {
+        actualDamage = 0;
+    }
 	this->HP -= actualDamage;
 
 	// check if die
 	if (this->HP <= 0) {
-		enemyUtility->killEnemy(this, true);
+		enemyUtility->killEnemy(this, EnemyUtility::KillStatus::DieOfAttack);
+	} else {
+		enemyLayoutManager.setHP(HP);
 	}
 }
 
+void IEnemy::speedUp() {
+    this->speed = 50.0;
+}

@@ -124,6 +124,15 @@ void TowerUtility::removeTower(Cell *position) {
 	position->removeTower();
 }
 
+void TowerUtility::removeAllTowers() {
+    auto emptyList = positionOfTowers;
+    for (Coordinate i : emptyList) {
+        int x = i.first;
+        int y = i.second;
+        removeTower(getCell(x, y));
+    }
+}
+
 Cell *TowerUtility::getCell(int x, int y) const {
 	return gameGrid->getCell(x, y);
 }
@@ -163,8 +172,8 @@ QGraphicsRectItem* TowerUtility::drawRange(TowerType towertype, Coordinate posit
 QGraphicsRectItem* TowerUtility::drawRange(int range, AuraType aura_type, Coordinate position, bool isPreview) {
 	int starting_pos_x = fmax( 0 , CELL_SIZE.first * ( position.first - range ) );
 	int starting_pos_y = fmax( 0 , CELL_SIZE.second * ( position.second - range ) );
-	int ending_pos_x = fmin(CELL_SIZE.first * NUM_OF_COL , CELL_SIZE.first * ( position.first + range + 1 ) );
-	int ending_pos_y = fmin( CELL_SIZE.second * NUM_OF_ROW , CELL_SIZE.second * ( position.second + range + 1) );
+	int ending_pos_x = fmin(CELL_SIZE.first * gameGrid->getNumCols() , CELL_SIZE.first * ( position.first + range + 1 ) );
+	int ending_pos_y = fmin( CELL_SIZE.second * gameGrid->getNumRows() , CELL_SIZE.second * ( position.second + range + 1) );
 	int length_x = ending_pos_x - starting_pos_x;
 	int length_y = ending_pos_y - starting_pos_y;
 
@@ -190,22 +199,13 @@ QGraphicsRectItem* TowerUtility::drawRange(int range, AuraType aura_type, Coordi
 			break;
 	}
 
-	QGraphicsRectItem *rangeRect = gameGrid->getScene()->addRect(QRect( starting_pos_x , starting_pos_y , length_x , length_y ) , QPen(Qt::black) , range_color);
+	QGraphicsRectItem *rangeRect = gameGrid->getScene()->addRect(QRect( starting_pos_x , starting_pos_y , length_x , length_y ) , Qt::NoPen, range_color);
 	rangeRect->setZValue(static_cast<int>(Element::Indicator));
+	rangeRect->setVisible(true);
 
 	if (isPreview) {
-		rangeRect->setVisible(true);
+		rangeRect->setPen(QPen(Qt::black)); // always display range (i.e. border) for preview mode
 		return rangeRect;
-	}
-
-	switch (aura_type) {
-		case AuraType::SlowAura:
-		case AuraType::ArmorPierceAura:
-			rangeRect->setVisible(true);
-			break;
-		default:
-			rangeRect->setVisible(false);
-			break;
 	}
 	return rangeRect;
 }

@@ -11,20 +11,29 @@ class GPAManager : public QObject
 private:
 	float gpa; // score
     GPALayoutManager* gpaLayoutManager;
-    bool is_game_over;
+    bool is_game_over {false};
+    bool is_game_started {false};
 
 public:
 	GPAManager();
 
+	enum class GameStatus {
+		GameOver, GameContinue, GameNotStarted
+	};
+
 	// methods
 	float getGPA() const;
 
-	/* GameOver -> true
-	 * GameContinue -> false
-	 * usage: if (reduceGPA(amount)) [GG] */
-	bool reduceGPA(float amount);
+	/* GameOver (GPA reaches 0) -> GameStatus::GameOver
+	 * GameContinue (GPA not reaches 0) -> GameStatus::GameContinue
+	 * GameNotStarted -> GameStatus::GameNotStarted
+	 * usage: if (reduceGPA(amount) == GameStatus::GameOver) [GG] */
+	GameStatus reduceGPA(float amount);
 
 	void setLayoutManager(GPALayoutManager* gpaLayoutManager);
+
+    void toggle_game_started(bool game_started);
+    void manager_reset();
 
 signals:
     void game_over();

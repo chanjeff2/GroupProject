@@ -5,8 +5,8 @@
 
 Hacker::Hacker(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Hacker)
 {
-    damagePerHit = 9;
-    hitPerSec = 1.0;
+    damagePerHit = 19;
+    hitPerSec = 1.2;
     effectiveTowards = set<EnemyType>{ EnemyType::COMPLab , EnemyType::PA, EnemyType::PopQuiz };
     weakTowards = set<EnemyType>{ EnemyType::Essay , EnemyType::ELPA, EnemyType::EncryptedHW };
     cost = TOWER_PRICES[3];

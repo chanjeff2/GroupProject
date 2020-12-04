@@ -38,6 +38,7 @@ EnemyUtility::~EnemyUtility() {
 void EnemyUtility::generateEnemy(EnemyType enemyType) {
 	IEnemy *newEnemy;
 	QString imgPath;
+	QString imgPath_rage = "";
 	Path path = gameGrid->getPathStartEnd();
 
     // Each homework type are separate classes (to be added)
@@ -96,6 +97,7 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		case EnemyType::Desmond: {
 			newEnemy = new Desmond(this, path);
 			imgPath = ":/res/res/enemies_images/Desmond Grid";
+			imgPath_rage = ":/res/res/enemies_images/DesmondEnraged Grid";
 			break;
 		}
 		case EnemyType::PopQuiz: {
@@ -123,6 +125,7 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		case EnemyType::Final: {
 			newEnemy = new Final(this, path);
 			imgPath = ":/res/res/enemies_images/FinalExam Grid";
+			imgPath_rage = ":/res/res/enemies_images/FinalExam Enraged Grid";
 			break;
 		}
 		case EnemyType::ELPA: {
@@ -142,42 +145,100 @@ void EnemyUtility::generateEnemy(EnemyType enemyType) {
 		}
 	}
 
-	newEnemy->id = ENEMY_NAME[static_cast<int>(enemyType) - static_cast<int>(EnemyType::NormalHW)] + '_' + to_string(enemyID_index);
+	string enemyNameTag = ENEMY_NAME[static_cast<int>(enemyType) - static_cast<int>(EnemyType::NormalHW)];
+	newEnemy->id = enemyNameTag + '_' + to_string(enemyID_index);
 	++enemyID_index;
 
 	qDebug() << "EnemyUtility: generate enemy" << *newEnemy;
 
 	enemies.insert(newEnemy);
-	QGraphicsPixmapItem *img = this->gameGrid->getScene()->addPixmap(QPixmap(imgPath));
-	newEnemy->attachImageView(img);
+    // group for enemy img and hp bar
+	GraphicsItemGroup *group = new GraphicsItemGroup();
+	QGraphicsSimpleTextItem *enemyTag = new QGraphicsSimpleTextItem(QString::fromStdString(enemyNameTag));
+	enemyTag->setFont(QFont("Arial", 8));
+	enemyTag->setZValue(static_cast<float>(Element::ID_Tag));
+	enemyTag->setY(- HP_BAR_BG_SIZE.second * 2); // move up
+	enemyTag->setX(CELL_SIZE.first / 2 - enemyTag->boundingRect().width() / 2); // move to center
+	group->addToGroup(enemyTag);
+    // enemy img
+	QGraphicsPixmapItem *img = new QGraphicsPixmapItem(QPixmap(imgPath));
+	img->setVisible(true);
+	img->setZValue(static_cast<float>(Element::Enemy));
+	group->addToGroup(img);
+    // bg for hp bar
+	QRectF hp_bg_rect(0, 0, HP_BAR_BG_SIZE.first, HP_BAR_BG_SIZE.second);
+	hp_bg_rect.moveCenter(QPointF(CELL_SIZE.first / 2, 0));
+	QGraphicsRectItem *hp_bg = new QGraphicsRectItem(hp_bg_rect);
+    hp_bg->setBrush(QColor(HP_BAR_BG_GREY.c_str()));
+	hp_bg->setPen(Qt::NoPen);
+	hp_bg->setZValue(static_cast<int>(Element::HP_bg));
+	group->addToGroup(hp_bg);
+    // hp bar
+	QRectF hp_rect(0, 0, HP_BAR_SIZE.first, HP_BAR_SIZE.second);
+	hp_rect.moveCenter(QPointF(CELL_SIZE.first / 2, 0));
+	QGraphicsRectItem *hp = new QGraphicsRectItem(hp_rect);
+    hp->setBrush(QColor(HP_BAR_GREEN.c_str()));
+	hp->setPen(Qt::NoPen);
+	hp->setZValue(static_cast<int>(Element::HP));
+	group->addToGroup(hp);
+
+	gameGrid->getScene()->addItem(group);
+
+	newEnemy->attachImageViews(group, hp, img);
+	newEnemy->setImgPath(imgPath, imgPath_rage);
+	newEnemy->trigger();
 }
 
-void EnemyUtility::killEnemy(IEnemy *enemy, bool isDieOfAttack) {
+void EnemyUtility::killEnemy(IEnemy *enemy, KillStatus killStatus) {
 	// get resource if die of attack
-	if (isDieOfAttack) {
-		qDebug().nospace() << "EnemyUtility: kill enemy " << *enemy << " by attack"
-				 << " at " << *enemy->getPath().getCurrentCell();
-		// retrieve resource
-		gameGrid->resourceManager.gainResource(enemy->getWorth());
-	} else {
-		qDebug() << "EnemyUtility: kill enemy" << *enemy << "by deadline";
-		// reduce gpa
-		gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO);
+	switch (killStatus) {
+		case KillStatus::DieOfAttack:
+			qDebug().nospace() << "EnemyUtility: kill enemy " << *enemy << " by attack"
+					 << " at " << *enemy->getPath().getCurrentCell();
+			// retrieve resource
+			gameGrid->resourceManager.gainResource(enemy->getWorth());
+			break;
+		case KillStatus::DieOfDeadline:
+			qDebug() << "EnemyUtility: kill enemy" << *enemy << "by deadline";
+			// reduce gpa
+			switch (gameGrid->gpaManager.reduceGPA(enemy->getWorth() * DAMAGE_RATIO)) {
+				case GPAManager::GameStatus::GameContinue:
+					break;
+				case GPAManager::GameStatus::GameOver:
+				case GPAManager::GameStatus::GameNotStarted:
+					// hand over to game reset for remaining actions
+					return;
+			}
+			break;
+		case KillStatus::Reset:
+			qDebug() << "EnemyUtility: kill enemy" << *enemy << "by reset";
+			// do nothing
+			break;
 	}
-
-	// remove enemy from cell
-	enemy->getPath().getCurrentCell()->removeEnemy(enemy);
 
 	// find &enemy in ememies and remove
 	enemies.erase(enemy);
 
-	delete enemy;
+	// remove enemy from cell
+	enemy->getPath().getCurrentCell()->removeEnemy(enemy);
+
+	enemy->die();
 
 	// check if any remaining enemy
 	if (enemies.empty()) {
 		// proceed to next week
 		gameGrid->weekManager.prepareForNextWeek(); // will check if all enemy generated
     }
+}
+
+void EnemyUtility::killAllEnemies() {
+	qDebug() << "EnemyUtility: kill all enemy";
+    gameGrid->weekManager.stopGeneration();
+
+	auto tempEmptyList = enemies;
+	for (IEnemy* guy : tempEmptyList) {
+		killEnemy(guy, KillStatus::Reset);
+	}
 }
 
 

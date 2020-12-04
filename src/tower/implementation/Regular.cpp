@@ -5,7 +5,7 @@
 
 Regular::Regular(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Regular)
 {
-    damagePerHit = 16;
+    damagePerHit = 20;
 	hitPerSec = 1.0;
 	effectiveTowards = set<EnemyType>{};
 	weakTowards = set<EnemyType>{};

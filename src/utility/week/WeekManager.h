@@ -20,6 +20,8 @@ private:
 	bool finishGenerateEnemy{true}; // flag checking if generated all enemy in each week
 	atomic_int skippedWeeks; // no. of weeks skipped ** atomic for thread safe
 	WeekLayoutManager* weekLayoutManager;
+    bool isGameOver{false};
+    bool isGameStarted{false};
 
 	GameGrid *gameGrid;
 
@@ -33,6 +35,9 @@ private:
 	void processWeek();
 	void generateEnemy(vector<EnemyType> &enemyList, int index, int size);
 
+	// count down function for proceed to next week
+	void weekCountDown(int time);
+
 	// end the game
 	void wrapUp();
 public:
@@ -45,7 +50,8 @@ public:
 	bool isSkippedWeek() const;
 
 	// methods
-	void loadEnemy(const string& fileName);
+    // return true if successful load enemy data from file
+    bool loadEnemy(const string& fileName);
 
 	// user manually skip to next week
 	void skipToNextWeek();
@@ -55,6 +61,13 @@ public:
 
 	void setLayoutManager(WeekLayoutManager* weekLayoutManager);
 
+    // Force stopping enemy from generating
+    void stopGeneration();
+
+    void toggle_game_started(bool game_started);
+
+    void manager_reset();
+	
 signals:
     void game_beaten();
 };

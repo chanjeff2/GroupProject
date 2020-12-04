@@ -28,6 +28,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    // Helper function on reseting the game
+    void game_reset();
+
 private slots:
     // Basically all button click events
     // Buy tower
@@ -50,6 +53,10 @@ private slots:
     // Bestiary pressed
     void on_Bestiary_clicked();
 
+    // Load/Reset Map Pressed
+    void on_LoadMap_clicked();
+    void on_ResetMap_clicked();
+
     // Start Game Pressed
     void on_StartGame_clicked();
 
@@ -63,6 +70,8 @@ private slots:
     // Game States
     void game_over_process();
     void game_beaten_process();
+
+	void on_gameSpeed_clicked(bool reset = false);
 
 private:
     Ui::MainWindow *ui;

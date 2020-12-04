@@ -12,27 +12,17 @@ class ResourceManager
 public:
 	ResourceManager();
 
+    // getters
 	int getResource() const;
-
 	int getResourceCapacity() const;
-
 	int getResourceRequiredForUpgradeCapacity() const;
 
-	/* enough resource to spend -> spend & true
-	 * else -> do nothing & false
-	 * usage: if (spendResource(amount)) [doYourStuff] */
-	bool spendResource(int amount);
-
-	/* add resource, but can't go over max resource */
-	void gainResource(int amount);
-
-	/* upgrade resource capacity
-	 * if already max level, do nothing
-	 * (but we should have disabled the upgrade button)
-	 * can still check to place safe */
-    bool upgradeResourceCapacity();
-
+    //methods
+    bool spendResource(int amount); // deduct resource if can afford and returns true, otherwise returns false
+    void gainResource(int amount); // add resource, but can't go over max resource
+    bool upgradeResourceCapacity(); // upgrade resource capacity if valid
 	void setLayoutManager(ResourceLayoutManager* resourceLayoutManager);
+    void manager_reset();
 };
 
 #endif // RESOURCEMANAGER_H
