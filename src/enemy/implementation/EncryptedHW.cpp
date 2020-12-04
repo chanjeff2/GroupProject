@@ -3,7 +3,7 @@
 
 EncryptedHW::EncryptedHW(EnemyUtility *enemyUtility, Path path): IEnemy(enemyUtility, path, EnemyType::EncryptedHW)
 {
-    HP = 70;
+    HP = 72;
     speed = 1.5;
     worth = 1;
     armor = 0;

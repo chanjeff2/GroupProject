@@ -5,7 +5,7 @@
 
 Nerd::Nerd(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Nerd)
 {
-    damagePerHit = 6;
+    damagePerHit = 8;
     hitPerSec = 2.2;
     effectiveTowards = set<EnemyType>{ EnemyType::GroupProj };
     weakTowards = set<EnemyType>{};

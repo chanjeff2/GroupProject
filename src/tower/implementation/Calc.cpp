@@ -5,7 +5,7 @@
 
 Calc::Calc(Cell* position, TowerUtility *towerUtility): ITower(position, towerUtility, TowerType::Calc)
 {
-    damagePerHit = 18;
+    damagePerHit = 26;
     hitPerSec = 1.3;
     effectiveTowards = set<EnemyType>{ EnemyType::MathHW };
     weakTowards = set<EnemyType>{ EnemyType::MATHExam, EnemyType::Essay, EnemyType::ELPA };
