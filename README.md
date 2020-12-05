@@ -22,7 +22,16 @@ Project type: Tower Defence game
 ├── LICENSE
 └── README.md
 ```
-to be confirmed
+
+# Docs
+## Tower
+https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/H1efIRP_v
+## Enemy
+https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/BJLXVCDdD
+## Utilities
+https://hackmd.io/Ahq-mbZ3RMaDbeNV0mI-Cw?both
+## Game Flow, UI, Game Map
+https://hackmd.io/LrDBd2QIRdOysRP0uKnItg?both
 
 # Start working
 1. **clone** this repo to your local machine (i.e. your PC)
@@ -34,4 +43,3 @@ to be confirmed
 
 PS: whenever there is new update in this remote repo, you can do **pull** to your local copy in order to sync your project
 
-to be continued...
