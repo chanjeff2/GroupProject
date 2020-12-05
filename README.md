@@ -41,6 +41,13 @@ https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/r1GMGfu_D
 * re-design UI
 * save & load feature
 * make enemy animation sync with movement, or re-design movement logic
+* endless mode
+* increase enemy attributes (HP, armor, speed, etc) as week proceed
+* upgradable towers
+* implement game music/audio
+* implement additional target selection strategy (all, priority, null)
+* implement additional attack strategy (all, null)
+* re-design aura to increase expandability
 * ...
 
 # Start working
