@@ -33,6 +33,16 @@ https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/H1RxZBY_w
 ### Game Flow, UI, Game Map
 https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/r1GMGfu_D
 
+# Possible Future Updates
+* implement map editor and enemy wave editor
+* multiple spawn points
+* generate enemy by enemy (on die or periodically)
+* implement MVC to increase expandability of tower and enemy (tower purchase button, Bestiary)
+* re-design UI
+* save & load feature
+* make enemy animation sync with movement, or re-design movement logic
+* ...
+
 # Start working
 1. **clone** this repo to your local machine (i.e. your PC)
 2.  create a new **branch** with **semantic** name (never use branch1, branchA, etc) in your local project
