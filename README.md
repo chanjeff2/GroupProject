@@ -24,13 +24,13 @@ Project type: Tower Defence game
 ```
 
 # Docs
-## Tower
+### Tower
 https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/H1efIRP_v
-## Enemy
+### Enemy
 https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/BJLXVCDdD
-## Utilities
+### Utilities
 https://hackmd.io/Ahq-mbZ3RMaDbeNV0mI-Cw?both
-## Game Flow, UI, Game Map
+### Game Flow, UI, Game Map
 https://hackmd.io/LrDBd2QIRdOysRP0uKnItg?both
 
 # Start working
