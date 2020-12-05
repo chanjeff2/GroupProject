@@ -22,7 +22,39 @@ Project type: Tower Defence game
 ├── LICENSE
 └── README.md
 ```
-to be confirmed
+
+# Docs
+### Tower
+https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/H1efIRP_v
+### Enemy
+https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/BJLXVCDdD
+### Utilities
+https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/H1RxZBY_w
+### Game Flow, UI, Game Map
+https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/r1GMGfu_D
+
+# Possible Future Updates
+* implement map editor and enemy wave editor
+* multiple spawn points
+* generate enemy by enemy (on die or periodically)
+* implement MVC to increase expandability of tower and enemy (tower purchase button, Bestiary)
+* re-design UI
+* save & load feature
+* make enemy animation sync with movement, or re-design movement logic
+* endless mode
+* increase enemy attributes (HP, armor, speed, etc) as week proceed
+* upgradable towers
+* implement game music/audio
+* implement additional target selection strategy (all, priority, null)
+* implement additional attack strategy (all, null)
+* re-design aura to increase expandability
+* more enemy type, tower type, aura type
+* special effect on enemy (e.g. increase speed every move, increase armor every time receives damage)
+* ...
+
+# Library used
+* Qt library
+* C++ std library
 
 # Start working
 1. **clone** this repo to your local machine (i.e. your PC)
@@ -34,4 +66,3 @@ to be confirmed
 
 PS: whenever there is new update in this remote repo, you can do **pull** to your local copy in order to sync your project
 
-to be continued...
