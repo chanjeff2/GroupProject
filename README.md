@@ -48,6 +48,8 @@ https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/r1GMGfu_D
 * implement additional target selection strategy (all, priority, null)
 * implement additional attack strategy (all, null)
 * re-design aura to increase expandability
+* more creed type, tower type, aura type
+* special effect on enemy (e.g. increase speed every move, increase armor every time receives damage)
 * ...
 
 # Start working
