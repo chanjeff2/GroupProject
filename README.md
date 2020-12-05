@@ -52,6 +52,10 @@ https://hackmd.io/@G3xU2N67SF2fVm9Hqtva7g/r1GMGfu_D
 * special effect on enemy (e.g. increase speed every move, increase armor every time receives damage)
 * ...
 
+# Library used
+* Qt library
+* C++ std library
+
 # Start working
 1. **clone** this repo to your local machine (i.e. your PC)
 2.  create a new **branch** with **semantic** name (never use branch1, branchA, etc) in your local project
