@@ -481,13 +481,13 @@ void MainWindow::on_gameSpeed_clicked(bool reset) {
 
 	switch(static_cast<int>(GAME_SPEED)) {
 		case 1:
-			qDebug() << "MainWindow: set game speed to 5.0";
-			GAME_SPEED = 5.0;
+            qDebug() << "MainWindow: set game speed to 2.0";
+            GAME_SPEED = 2.0;
 			ui->gameSpeed->setText(">");
 			break;
-		case 5:
-			qDebug() << "MainWindow: set game speed to 10.0";
-			GAME_SPEED = 10.0;
+        case 2:
+            qDebug() << "MainWindow: set game speed to 4.0";
+            GAME_SPEED = 4.0;
 			ui->gameSpeed->setText(">>");
 			break;
 		default:
